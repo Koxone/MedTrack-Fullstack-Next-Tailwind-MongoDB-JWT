@@ -11,6 +11,8 @@ import {
   Users,
   BarChart3,
   Heart,
+  NotebookTabs,
+  FileDigit,
 } from 'lucide-react';
 
 export default function Sidebar({ role = 'patient' }) {
@@ -32,8 +34,8 @@ export default function Sidebar({ role = 'patient' }) {
     { icon: Calendar, label: 'Calendario', path: '/doctor/calendar' },
     { icon: Apple, label: 'Dietas', path: '/doctor/diets' },
     { icon: BarChart3, label: 'Stats', path: '/doctor/analytics' },
-    { icon: User, label: 'Contabilidad', path: '/doctor/accounting' },
-    { icon: User, label: 'Inventario', path: '/doctor/inventory' },
+    { icon: NotebookTabs, label: 'Contabilidad', path: '/doctor/accounting' },
+    { icon: FileDigit, label: 'Inventario', path: '/doctor/inventory' },
     { icon: User, label: 'Perfil', path: '/doctor/profile' },
   ];
 
