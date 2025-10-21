@@ -1,35 +1,51 @@
 "use client";
 
 import { useState } from "react";
-import { Package, Pill, FileText, Syringe, Plus, Search, AlertTriangle, Edit2, Trash2, Download } from "lucide-react";
-
-// Datos de ejemplo
-const medicamentos = [
-  { id: 1, nombre: "Metformina 850mg", categoria: "Antidiabético", stock: 45, minimo: 20, precio: 150, caducidad: "2025-06-15", ubicacion: "A-1" },
-  { id: 2, nombre: "Atorvastatina 20mg", categoria: "Estatina", stock: 12, minimo: 15, precio: 200, caducidad: "2024-12-20", ubicacion: "A-2" },
-  { id: 3, nombre: "Losartán 50mg", categoria: "Antihipertensivo", stock: 67, minimo: 30, precio: 120, caducidad: "2025-08-10", ubicacion: "A-3" },
-  { id: 4, nombre: "Omeprazol 20mg", categoria: "Antiácido", stock: 8, minimo: 25, precio: 80, caducidad: "2024-11-05", ubicacion: "B-1" },
-  { id: 5, nombre: "Paracetamol 500mg", categoria: "Analgésico", stock: 120, minimo: 50, precio: 50, caducidad: "2026-03-22", ubicacion: "B-2" },
-];
-
-const recetas = [
-  { id: 1, tipo: "Receta Controlada", stock: 45, minimo: 20 },
-  { id: 2, tipo: "Receta Simple", stock: 180, minimo: 50 },
-  { id: 3, tipo: "Receta Especial", stock: 12, minimo: 15 },
-];
-
-const suministros = [
-  { id: 1, nombre: "Jeringas 5ml", stock: 200, minimo: 100, precio: 5 },
-  { id: 2, nombre: "Guantes de látex (caja)", stock: 15, minimo: 10, precio: 180 },
-  { id: 3, nombre: "Gasas estériles (paquete)", stock: 45, minimo: 20, precio: 85 },
-  { id: 4, nombre: "Alcohol 70% (litro)", stock: 8, minimo: 15, precio: 120 },
-  { id: 5, nombre: "Termómetros digitales", stock: 25, minimo: 10, precio: 250 },
-];
+import { Package, Pill, FileText, Syringe, Plus, Search, AlertTriangle, Edit2, Trash2, Download, X, AlertCircle } from "lucide-react";
 
 export default function DoctorInventory() {
-  const [activeTab, setActiveTab] = useState("medicamentos"); // medicamentos, recetas, suministros
+  const [activeTab, setActiveTab] = useState("medicamentos");
   const [searchTerm, setSearchTerm] = useState("");
-  const [showAddModal, setShowAddModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+
+  // Estados
+  const [medicamentos, setMedicamentos] = useState([
+    { id: 1, nombre: "Metformina 850mg", categoria: "Antidiabético", stock: 45, minimo: 20, precio: 150, caducidad: "2025-06-15", ubicacion: "A-1" },
+    { id: 2, nombre: "Atorvastatina 20mg", categoria: "Estatina", stock: 12, minimo: 15, precio: 200, caducidad: "2024-12-20", ubicacion: "A-2" },
+    { id: 3, nombre: "Losartán 50mg", categoria: "Antihipertensivo", stock: 67, minimo: 30, precio: 120, caducidad: "2025-08-10", ubicacion: "A-3" },
+    { id: 4, nombre: "Omeprazol 20mg", categoria: "Antiácido", stock: 8, minimo: 25, precio: 80, caducidad: "2024-11-05", ubicacion: "B-1" },
+    { id: 5, nombre: "Paracetamol 500mg", categoria: "Analgésico", stock: 120, minimo: 50, precio: 50, caducidad: "2026-03-22", ubicacion: "B-2" },
+  ]);
+
+  const [recetas, setRecetas] = useState([
+    { id: 1, tipo: "Receta Controlada", stock: 45, minimo: 20 },
+    { id: 2, tipo: "Receta Simple", stock: 180, minimo: 50 },
+    { id: 3, tipo: "Receta Especial", stock: 12, minimo: 15 },
+  ]);
+
+  const [suministros, setSuministros] = useState([
+    { id: 1, nombre: "Jeringas 5ml", stock: 200, minimo: 100, precio: 5 },
+    { id: 2, nombre: "Guantes de látex (caja)", stock: 15, minimo: 10, precio: 180 },
+    { id: 3, nombre: "Gasas estériles (paquete)", stock: 45, minimo: 20, precio: 85 },
+    { id: 4, nombre: "Alcohol 70% (litro)", stock: 8, minimo: 15, precio: 120 },
+    { id: 5, nombre: "Termómetros digitales", stock: 25, minimo: 10, precio: 250 },
+  ]);
+
+  // Formularios
+  const [medicamentoForm, setMedicamentoForm] = useState({
+    nombre: "", categoria: "", stock: "", minimo: "", precio: "", caducidad: "", ubicacion: ""
+  });
+
+  const [recetaForm, setRecetaForm] = useState({
+    tipo: "", stock: "", minimo: ""
+  });
+
+  const [suministroForm, setSuministroForm] = useState({
+    nombre: "", stock: "", minimo: "", precio: ""
+  });
 
   // Calcular alertas
   const medicamentosAlerta = medicamentos.filter(m => m.stock < m.minimo);
@@ -37,10 +53,9 @@ export default function DoctorInventory() {
   const suministrosAlerta = suministros.filter(s => s.stock < s.minimo);
   const totalAlertas = medicamentosAlerta.length + recetasAlerta.length + suministrosAlerta.length;
 
-  // Calcular valor total del inventario
+  // Calcular valores
   const valorTotalMedicamentos = medicamentos.reduce((sum, m) => sum + (m.stock * m.precio), 0);
   const valorTotalSuministros = suministros.reduce((sum, s) => sum + (s.stock * s.precio), 0);
-  const valorTotal = valorTotalMedicamentos + valorTotalSuministros;
 
   const getStockStatus = (stock, minimo) => {
     if (stock < minimo) return { color: "text-red-600", bg: "bg-red-50", label: "Bajo" };
@@ -57,6 +72,135 @@ export default function DoctorInventory() {
     if (diasRestantes < 90) return { color: "text-yellow-600", bg: "bg-yellow-50" };
     return { color: "text-gray-600", bg: "bg-gray-50" };
   };
+
+  // Abrir modal agregar
+  const openAddModal = () => {
+    setEditingItem(null);
+    if (activeTab === "medicamentos") {
+      setMedicamentoForm({ nombre: "", categoria: "", stock: "", minimo: "", precio: "", caducidad: "", ubicacion: "" });
+    } else if (activeTab === "recetas") {
+      setRecetaForm({ tipo: "", stock: "", minimo: "" });
+    } else {
+      setSuministroForm({ nombre: "", stock: "", minimo: "", precio: "" });
+    }
+    setShowModal(true);
+  };
+
+  // Abrir modal editar
+  const openEditModal = (item) => {
+    setEditingItem(item);
+    if (activeTab === "medicamentos") {
+      setMedicamentoForm({
+        nombre: item.nombre,
+        categoria: item.categoria,
+        stock: item.stock.toString(),
+        minimo: item.minimo.toString(),
+        precio: item.precio.toString(),
+        caducidad: item.caducidad,
+        ubicacion: item.ubicacion
+      });
+    } else if (activeTab === "recetas") {
+      setRecetaForm({
+        tipo: item.tipo,
+        stock: item.stock.toString(),
+        minimo: item.minimo.toString()
+      });
+    } else {
+      setSuministroForm({
+        nombre: item.nombre,
+        stock: item.stock.toString(),
+        minimo: item.minimo.toString(),
+        precio: item.precio.toString()
+      });
+    }
+    setShowModal(true);
+  };
+
+  // Guardar medicamento
+  const handleSaveMedicamento = (e) => {
+    e.preventDefault();
+    const newItem = {
+      id: editingItem ? editingItem.id : Date.now(),
+      nombre: medicamentoForm.nombre,
+      categoria: medicamentoForm.categoria,
+      stock: parseInt(medicamentoForm.stock),
+      minimo: parseInt(medicamentoForm.minimo),
+      precio: parseFloat(medicamentoForm.precio),
+      caducidad: medicamentoForm.caducidad,
+      ubicacion: medicamentoForm.ubicacion
+    };
+
+    if (editingItem) {
+      setMedicamentos(medicamentos.map(m => m.id === editingItem.id ? newItem : m));
+    } else {
+      setMedicamentos([...medicamentos, newItem]);
+    }
+    setShowModal(false);
+  };
+
+  // Guardar receta
+  const handleSaveReceta = (e) => {
+    e.preventDefault();
+    const newItem = {
+      id: editingItem ? editingItem.id : Date.now(),
+      tipo: recetaForm.tipo,
+      stock: parseInt(recetaForm.stock),
+      minimo: parseInt(recetaForm.minimo)
+    };
+
+    if (editingItem) {
+      setRecetas(recetas.map(r => r.id === editingItem.id ? newItem : r));
+    } else {
+      setRecetas([...recetas, newItem]);
+    }
+    setShowModal(false);
+  };
+
+  // Guardar suministro
+  const handleSaveSuministro = (e) => {
+    e.preventDefault();
+    const newItem = {
+      id: editingItem ? editingItem.id : Date.now(),
+      nombre: suministroForm.nombre,
+      stock: parseInt(suministroForm.stock),
+      minimo: parseInt(suministroForm.minimo),
+      precio: parseFloat(suministroForm.precio)
+    };
+
+    if (editingItem) {
+      setSuministros(suministros.map(s => s.id === editingItem.id ? newItem : s));
+    } else {
+      setSuministros([...suministros, newItem]);
+    }
+    setShowModal(false);
+  };
+
+  // Eliminar
+  const handleDelete = () => {
+    if (activeTab === "medicamentos") {
+      setMedicamentos(medicamentos.filter(m => m.id !== itemToDelete.id));
+    } else if (activeTab === "recetas") {
+      setRecetas(recetas.filter(r => r.id !== itemToDelete.id));
+    } else {
+      setSuministros(suministros.filter(s => s.id !== itemToDelete.id));
+    }
+    setShowDeleteModal(false);
+    setItemToDelete(null);
+  };
+
+  // Filtrar por búsqueda
+  const filteredMedicamentos = medicamentos.filter(m => 
+    m.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    m.categoria.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredRecetas = recetas.filter(r => 
+    r.tipo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredSuministros = suministros.filter(s => 
+    s.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="space-y-4 md:space-y-6">
@@ -150,7 +294,7 @@ export default function DoctorInventory() {
           />
         </div>
         <button
-          onClick={() => setShowAddModal(true)}
+          onClick={openAddModal}
           className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition active:scale-95"
         >
           <Plus className="w-5 h-5" />
@@ -212,7 +356,7 @@ export default function DoctorInventory() {
                   </tr>
                 </thead>
                 <tbody>
-                  {medicamentos.map((med) => {
+                  {filteredMedicamentos.map((med) => {
                     const stockStatus = getStockStatus(med.stock, med.minimo);
                     const caducidadStatus = getCaducidadStatus(med.caducidad);
                     
@@ -238,10 +382,19 @@ export default function DoctorInventory() {
                         </td>
                         <td className="py-3 px-2">
                           <div className="flex items-center justify-center gap-1">
-                            <button className="p-1.5 hover:bg-blue-50 rounded transition active:scale-95">
+                            <button
+                              onClick={() => openEditModal(med)}
+                              className="p-1.5 hover:bg-blue-50 rounded transition active:scale-95"
+                            >
                               <Edit2 className="w-4 h-4 text-blue-600" />
                             </button>
-                            <button className="p-1.5 hover:bg-red-50 rounded transition active:scale-95">
+                            <button
+                              onClick={() => {
+                                setItemToDelete(med);
+                                setShowDeleteModal(true);
+                              }}
+                              className="p-1.5 hover:bg-red-50 rounded transition active:scale-95"
+                            >
                               <Trash2 className="w-4 h-4 text-red-600" />
                             </button>
                           </div>
@@ -259,7 +412,7 @@ export default function DoctorInventory() {
         {activeTab === "recetas" && (
           <div className="p-4 md:p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {recetas.map((receta) => {
+              {filteredRecetas.map((receta) => {
                 const stockStatus = getStockStatus(receta.stock, receta.minimo);
                 
                 return (
@@ -269,10 +422,19 @@ export default function DoctorInventory() {
                         <FileText className="w-6 h-6 text-green-600" />
                       </div>
                       <div className="flex gap-1">
-                        <button className="p-1.5 hover:bg-blue-50 rounded transition active:scale-95">
+                        <button
+                          onClick={() => openEditModal(receta)}
+                          className="p-1.5 hover:bg-blue-50 rounded transition active:scale-95"
+                        >
                           <Edit2 className="w-4 h-4 text-blue-600" />
                         </button>
-                        <button className="p-1.5 hover:bg-red-50 rounded transition active:scale-95">
+                        <button
+                          onClick={() => {
+                            setItemToDelete(receta);
+                            setShowDeleteModal(true);
+                          }}
+                          className="p-1.5 hover:bg-red-50 rounded transition active:scale-95"
+                        >
                           <Trash2 className="w-4 h-4 text-red-600" />
                         </button>
                       </div>
@@ -306,7 +468,7 @@ export default function DoctorInventory() {
                   </tr>
                 </thead>
                 <tbody>
-                  {suministros.map((sum) => {
+                  {filteredSuministros.map((sum) => {
                     const stockStatus = getStockStatus(sum.stock, sum.minimo);
                     
                     return (
@@ -323,10 +485,19 @@ export default function DoctorInventory() {
                         </td>
                         <td className="py-3 px-2">
                           <div className="flex items-center justify-center gap-1">
-                            <button className="p-1.5 hover:bg-blue-50 rounded transition active:scale-95">
+                            <button
+                              onClick={() => openEditModal(sum)}
+                              className="p-1.5 hover:bg-blue-50 rounded transition active:scale-95"
+                            >
                               <Edit2 className="w-4 h-4 text-blue-600" />
                             </button>
-                            <button className="p-1.5 hover:bg-red-50 rounded transition active:scale-95">
+                            <button
+                              onClick={() => {
+                                setItemToDelete(sum);
+                                setShowDeleteModal(true);
+                              }}
+                              className="p-1.5 hover:bg-red-50 rounded transition active:scale-95"
+                            >
                               <Trash2 className="w-4 h-4 text-red-600" />
                             </button>
                           </div>
@@ -340,6 +511,309 @@ export default function DoctorInventory() {
           </div>
         )}
       </div>
+
+      {/* Modal Agregar/Editar */}
+      {showModal && (
+        <>
+          <div 
+            className="fixed inset-0 bg-black/50 z-50 animate-fadeIn"
+            onClick={() => setShowModal(false)}
+          />
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div 
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto pointer-events-auto animate-slideUp"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="sticky top-0 bg-white px-6 py-4 border-b border-gray-200 flex items-center justify-between rounded-t-2xl">
+                <h2 className="text-xl font-bold text-gray-900">
+                  {editingItem ? "Editar" : "Agregar"} {
+                    activeTab === "medicamentos" ? "Medicamento" :
+                    activeTab === "recetas" ? "Receta" : "Suministro"
+                  }
+                </h2>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition active:scale-95"
+                >
+                  <X className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+
+              {activeTab === "medicamentos" && (
+                <form onSubmit={handleSaveMedicamento} className="p-6 space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
+                    <input
+                      type="text"
+                      required
+                      value={medicamentoForm.nombre}
+                      onChange={(e) => setMedicamentoForm({ ...medicamentoForm, nombre: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      placeholder="Metformina 850mg"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Categoría</label>
+                    <input
+                      type="text"
+                      required
+                      value={medicamentoForm.categoria}
+                      onChange={(e) => setMedicamentoForm({ ...medicamentoForm, categoria: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      placeholder="Antidiabético"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Stock</label>
+                      <input
+                        type="number"
+                        required
+                        min="0"
+                        value={medicamentoForm.stock}
+                        onChange={(e) => setMedicamentoForm({ ...medicamentoForm, stock: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Mínimo</label>
+                      <input
+                        type="number"
+                        required
+                        min="0"
+                        value={medicamentoForm.minimo}
+                        onChange={(e) => setMedicamentoForm({ ...medicamentoForm, minimo: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Precio</label>
+                    <input
+                      type="number"
+                      required
+                      min="0"
+                      step="0.01"
+                      value={medicamentoForm.precio}
+                      onChange={(e) => setMedicamentoForm({ ...medicamentoForm, precio: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Fecha de Caducidad</label>
+                    <input
+                      type="date"
+                      required
+                      value={medicamentoForm.caducidad}
+                      onChange={(e) => setMedicamentoForm({ ...medicamentoForm, caducidad: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Ubicación</label>
+                    <input
+                      type="text"
+                      required
+                      value={medicamentoForm.ubicacion}
+                      onChange={(e) => setMedicamentoForm({ ...medicamentoForm, ubicacion: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      placeholder="A-1"
+                    />
+                  </div>
+                  <div className="flex gap-3 pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                      className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition active:scale-95"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition active:scale-95"
+                    >
+                      {editingItem ? "Actualizar" : "Guardar"}
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {activeTab === "recetas" && (
+                <form onSubmit={handleSaveReceta} className="p-6 space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Receta</label>
+                    <input
+                      type="text"
+                      required
+                      value={recetaForm.tipo}
+                      onChange={(e) => setRecetaForm({ ...recetaForm, tipo: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                      placeholder="Receta Controlada"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Stock</label>
+                      <input
+                        type="number"
+                        required
+                        min="0"
+                        value={recetaForm.stock}
+                        onChange={(e) => setRecetaForm({ ...recetaForm, stock: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Mínimo</label>
+                      <input
+                        type="number"
+                        required
+                        min="0"
+                        value={recetaForm.minimo}
+                        onChange={(e) => setRecetaForm({ ...recetaForm, minimo: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-3 pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                      className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition active:scale-95"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition active:scale-95"
+                    >
+                      {editingItem ? "Actualizar" : "Guardar"}
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {activeTab === "suministros" && (
+                <form onSubmit={handleSaveSuministro} className="p-6 space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
+                    <input
+                      type="text"
+                      required
+                      value={suministroForm.nombre}
+                      onChange={(e) => setSuministroForm({ ...suministroForm, nombre: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                      placeholder="Jeringas 5ml"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Stock</label>
+                      <input
+                        type="number"
+                        required
+                        min="0"
+                        value={suministroForm.stock}
+                        onChange={(e) => setSuministroForm({ ...suministroForm, stock: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Mínimo</label>
+                      <input
+                        type="number"
+                        required
+                        min="0"
+                        value={suministroForm.minimo}
+                        onChange={(e) => setSuministroForm({ ...suministroForm, minimo: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Precio</label>
+                    <input
+                      type="number"
+                      required
+                      min="0"
+                      step="0.01"
+                      value={suministroForm.precio}
+                      onChange={(e) => setSuministroForm({ ...suministroForm, precio: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    />
+                  </div>
+                  <div className="flex gap-3 pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                      className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition active:scale-95"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition active:scale-95"
+                    >
+                      {editingItem ? "Actualizar" : "Guardar"}
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Modal Eliminar */}
+      {showDeleteModal && itemToDelete && (
+        <>
+          <div 
+            className="fixed inset-0 bg-black/50 z-50 animate-fadeIn"
+            onClick={() => setShowDeleteModal(false)}
+          />
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div 
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-md pointer-events-auto animate-slideUp"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="px-6 py-4 border-b border-gray-200">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-red-100 rounded-lg">
+                    <AlertCircle className="w-6 h-6 text-red-600" />
+                  </div>
+                  <h2 className="text-xl font-bold text-gray-900">Confirmar Eliminación</h2>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-gray-700 mb-4">
+                  ¿Estás seguro de que deseas eliminar este elemento?
+                </p>
+                <div className="bg-gray-50 rounded-lg p-3 mb-6">
+                  <p className="text-sm text-gray-900 font-medium">
+                    {activeTab === "medicamentos" && itemToDelete.nombre}
+                    {activeTab === "recetas" && itemToDelete.tipo}
+                    {activeTab === "suministros" && itemToDelete.nombre}
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setShowDeleteModal(false)}
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition active:scale-95"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={handleDelete}
+                    className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition active:scale-95"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
