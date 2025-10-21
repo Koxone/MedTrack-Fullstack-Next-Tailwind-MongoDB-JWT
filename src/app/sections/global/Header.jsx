@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuthStore } from '@/Zustand/useAuthStore';
 import { Bell, User, LogOut, Menu } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -7,6 +8,9 @@ import { useState } from 'react';
 export default function Header({ userName = 'Usuario', role = 'patient' }) {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
+
+  // Zustand
+  const { currentUser, logout } = useAuthStore();
 
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white">
@@ -61,7 +65,14 @@ export default function Header({ userName = 'Usuario', role = 'patient' }) {
               </p>
               <p className="text-xs text-gray-500">{role === 'patient' ? 'Paciente' : 'Médico'}</p>
             </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500">
+            <div
+              onClick={() => {
+                if (role === 'medic') router.push('/doctor/profile');
+                else if (role === 'patient') router.push('/patient/profile');
+                else if (role === 'employee') router.push('/employee/profile');
+              }}
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-500 transition hover:bg-blue-600 active:scale-95"
+            >
               <User className="h-5 w-5 text-white" />
             </div>
           </div>
@@ -110,6 +121,7 @@ export default function Header({ userName = 'Usuario', role = 'patient' }) {
               <div className="my-2 border-t border-gray-200" />
               <button
                 onClick={() => {
+                  logout();
                   setShowMenu(false);
                   router.push('/');
                 }}
