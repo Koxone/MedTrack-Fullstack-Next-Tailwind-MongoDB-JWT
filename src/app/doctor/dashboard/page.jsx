@@ -79,7 +79,7 @@ export default function DoctorDashboard() {
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
-          <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Pacientes por Mes</h2>
+          <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Pacientes por Semana</h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={progressData}>
               <CartesianGrid strokeDasharray="3 3" />
