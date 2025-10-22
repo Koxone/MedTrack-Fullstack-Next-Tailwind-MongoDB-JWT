@@ -1,15 +1,15 @@
 'use client';
 
-/* imports */
-import { useState } from 'react'; // state
-import { useRouter } from 'next/navigation'; // navigation
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-/* components */
 import HeaderWelcome from './Components/HeaderWelcome';
 import MetricCards from './Components/MetricCards';
 import EvolutionChart from './Components/EvolutionChart';
 import QuickActions from './Components/QuickActions';
 import MotivationalBanner from './Components/MotivationalBanner';
+import { useQuery } from '@tanstack/react-query';
+import { useAuthStore } from '@/Zustand/useAuthStore';
 
 /* demo data */
 const evolutionData = {
@@ -77,21 +77,49 @@ const metrics = [
 ];
 
 export default function PatientDashboard() {
-  /* router */
+  // Zustand
+  const { currentUser } = useAuthStore();
+  const currentUserId = currentUser?.id;
+
+  // Native
   const router = useRouter();
 
-  /* ui state */
+  // States
   const [selectedMetric, setSelectedMetric] = useState('peso');
 
   /* derived */
   const currentMetric = metrics.find((m) => m.id === selectedMetric);
   const chartData = evolutionData[selectedMetric];
 
-  /* handlers */
+  // Handlers
   const goHistory = () => router.push('/patient/history');
   const goNewAppointment = () => router.push('/patient/appointments/new');
   const goAppointments = () => router.push('/patient/appointments');
   const goDiets = () => router.push('/patient/diets');
+
+  // TanStack Query
+  const {
+    data: clinicalRecords = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['clinical-records', currentUserId],
+    queryFn: async () => {
+      const res = await fetch('/api/clinical-records/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ patientId: currentUserId }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || data.message || 'Error fetching records');
+      return data.records;
+    },
+    enabled: !!currentUserId,
+  });
+
+  console.log(clinicalRecords);
 
   return (
     <div className="space-y-4 md:space-y-6">
