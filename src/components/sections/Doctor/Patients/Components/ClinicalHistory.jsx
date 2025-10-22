@@ -17,7 +17,7 @@ export default function ClinicalHistory({ records, onAdd, onEdit, icons }) {
         </div>
         <button
           onClick={onAdd}
-          className="group flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 px-5 py-3 font-semibold text-white shadow-lg transition hover:scale-105 hover:shadow-xl active:scale-95"
+          className="group flex items-center gap-2 rounded-xl bg-linear-to-r from-blue-500 to-blue-600 px-5 py-3 font-semibold text-white shadow-lg transition hover:scale-105 hover:shadow-xl active:scale-95"
         >
           <Plus className="h-5 w-5 transition-transform group-hover:rotate-90" />
           Agregar

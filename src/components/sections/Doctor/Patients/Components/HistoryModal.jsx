@@ -14,7 +14,7 @@ export default function HistoryModal({ editingHistory, form, setForm, onClose, o
           className="animate-slideUp pointer-events-auto max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-2xl bg-white shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="relative overflow-hidden bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-6">
+          <div className="relative overflow-hidden bg-linear-to-r from-blue-500 to-cyan-500 px-6 py-6">
             <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
             <div className="relative flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -198,7 +198,7 @@ export default function HistoryModal({ editingHistory, form, setForm, onClose, o
               </button>
               <button
                 type="submit"
-                className="flex-1 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-105 hover:shadow-xl active:scale-95"
+                className="flex-1 rounded-xl bg-linear-to-r from-blue-500 to-blue-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-105 hover:shadow-xl active:scale-95"
               >
                 {editingHistory ? 'Actualizar Registro' : 'Guardar Registro'}
               </button>

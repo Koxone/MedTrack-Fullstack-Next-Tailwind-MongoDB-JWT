@@ -9,7 +9,7 @@ export default function AppointmentsCard({ selectedDate, appointments, icons }) 
 
   return (
     <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg transition hover:shadow-xl">
-      <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-5">
+      <div className="relative overflow-hidden bg-linear-to-r from-indigo-600 to-purple-600 px-6 py-5">
         <div className="absolute top-0 right-0 -mt-12 -mr-12 h-24 w-24 rounded-full bg-white/10" />
         <div className="relative z-10 flex items-center gap-3">
           <div className="rounded-xl bg-white/20 p-2 backdrop-blur-sm">
@@ -69,7 +69,7 @@ export default function AppointmentsCard({ selectedDate, appointments, icons }) 
                     </div>
                   </div>
                   {/* reason */}
-                  <div className="rounded-lg border border-purple-200 bg-gradient-to-r from-purple-50 to-pink-50 p-3">
+                  <div className="rounded-lg border border-purple-200 bg-linear-to-r from-purple-50 to-pink-50 p-3">
                     <div className="flex items-start gap-2">
                       <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-purple-600" />
                       <div>
@@ -81,7 +81,7 @@ export default function AppointmentsCard({ selectedDate, appointments, icons }) 
                     </div>
                   </div>
                 </div>
-                <div className="absolute right-0 bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 opacity-0 transition group-hover:opacity-100" />
+                <div className="absolute right-0 bottom-0 left-0 h-1 bg-linear-to-r from-blue-500 to-purple-600 opacity-0 transition group-hover:opacity-100" />
               </div>
             ))}
           </div>
