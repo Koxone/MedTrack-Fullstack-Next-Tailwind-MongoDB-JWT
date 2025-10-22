@@ -218,17 +218,6 @@ export default function UserProfile() {
               <Briefcase className="h-4 w-4 text-purple-600" />
               <p className="font-medium text-purple-700">{empleado.puesto}</p>
             </div>
-
-            <div className="flex gap-4">
-              <div className="rounded-lg bg-green-50 px-4 py-2 text-center">
-                <p className="text-xs text-green-600">Estado</p>
-                <p className="font-bold text-green-700">Activo</p>
-              </div>
-              <div className="rounded-lg bg-blue-50 px-4 py-2 text-center">
-                <p className="text-xs text-blue-600">Tiempo</p>
-                <p className="font-bold text-blue-700">2+ años</p>
-              </div>
-            </div>
           </div>
 
           <div className="space-y-3">
