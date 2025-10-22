@@ -9,7 +9,6 @@ export default function Header({ userName = 'Usuario', role = 'patient' }) {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-
   // Zustand
   const { currentUser, logout } = useAuthStore();
 
@@ -43,6 +42,7 @@ export default function Header({ userName = 'Usuario', role = 'patient' }) {
   };
 
   const roleInfo = getRoleInfo();
+  console.log(currentUser);
 
   const mockNotifications = [
     { id: 1, title: 'Nueva cita programada', time: 'Hace 5 min', unread: true },
@@ -174,8 +174,8 @@ export default function Header({ userName = 'Usuario', role = 'patient' }) {
           {/* User Profile */}
           <div className="flex items-center gap-3 border-l-2 border-gray-200 pl-4">
             <div className="text-right">
-              <p className="text-sm font-bold text-gray-900">{roleInfo.title}</p>
-              <div className="flex items-center justify-end gap-1.5">
+              <p className="text-sm font-bold text-gray-900">{currentUser?.fullName}</p>
+              <div className="flex items-center justify-start gap-1.5">
                 <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
                 <p className="text-xs font-medium text-gray-500">{roleInfo.subtitle}</p>
               </div>
