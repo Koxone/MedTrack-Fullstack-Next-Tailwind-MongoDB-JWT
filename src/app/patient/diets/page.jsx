@@ -1,13 +1,30 @@
+'use client';
 
-"use client";
-
-import { useRouter } from "next/navigation";
-import { Apple, Clock, User } from "lucide-react";
+import { useRouter } from 'next/navigation';
+import { Apple, Clock, User } from 'lucide-react';
 
 const diets = [
-  { id: 1, nombre: "Plan Mediterráneo", descripcion: "Dieta balanceada rica en vegetales y pescado", duracion: "30 días", medico: "Dra. Martínez" },
-  { id: 2, nombre: "Plan Bajo en Carbohidratos", descripcion: "Reducción gradual de carbohidratos", duracion: "45 días", medico: "Dr. García" },
-  { id: 3, nombre: "Plan Vegetariano", descripcion: "Alimentación basada en plantas", duracion: "60 días", medico: "Dra. Martínez" },
+  {
+    id: 1,
+    nombre: 'Plan Mediterráneo',
+    descripcion: 'Dieta balanceada rica en vegetales y pescado',
+    duracion: '30 días',
+    medico: 'Dra. Martínez',
+  },
+  {
+    id: 2,
+    nombre: 'Plan Bajo en Carbohidratos',
+    descripcion: 'Reducción gradual de carbohidratos',
+    duracion: '45 días',
+    medico: 'Dr. García',
+  },
+  {
+    id: 3,
+    nombre: 'Plan Vegetariano',
+    descripcion: 'Alimentación basada en plantas',
+    duracion: '60 días',
+    medico: 'Dra. Martínez',
+  },
 ];
 
 export default function PatientDiets() {
@@ -16,29 +33,44 @@ export default function PatientDiets() {
   return (
     <div className="space-y-4 md:space-y-6">
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Mis Dietas</h1>
+        <h1 className="mb-2 text-2xl font-bold text-gray-900 md:text-3xl">Mis Dietas</h1>
         <p className="text-gray-600">Planes nutricionales personalizados</p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {diets.map((diet) => (
           <div
             key={diet.id}
             onClick={() => router.push(`/patient/diets/${diet.id}`)}
-            className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6 hover:shadow-md transition cursor-pointer"
+            className="group cursor-pointer rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-lg active:scale-95 md:p-6"
           >
-            <div className="w-full h-40 bg-gradient-to-br from-green-100 to-blue-100 rounded-lg mb-4 flex items-center justify-center">
-              <Apple className="w-16 h-16 text-green-600" />
+            {/* Imagen / Ícono */}
+            <div className="relative mb-4 flex h-40 w-full items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-green-100 to-blue-100">
+              <Apple className="h-16 w-16 text-green-600 transition-transform duration-300 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">{diet.nombre}</h3>
-            <p className="text-sm text-gray-600 mb-4">{diet.descripcion}</p>
-            <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-              <Clock className="w-4 h-4" />
-              <span>{diet.duracion}</span>
+
+            {/* Nombre y descripción */}
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-blue-600">
+              {diet.nombre}
+            </h3>
+            <p className="mb-4 line-clamp-2 text-sm text-gray-600">{diet.descripcion}</p>
+
+            {/* Duración */}
+            <div className="mb-2 flex items-center gap-2 text-sm text-gray-600">
+              <Clock className="h-4 w-4 text-blue-500" />
+              <span className="font-medium">{diet.duracion}</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <User className="w-4 h-4" />
-              <span>{diet.medico}</span>
+
+            {/* Médico */}
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <User className="h-4 w-4 text-green-600" />
+              <span className="font-medium">{diet.medico}</span>
+            </div>
+
+            {/* Footer visual */}
+            <div className="mt-4 text-sm font-medium text-blue-600 opacity-90 transition-opacity group-hover:opacity-100">
+              Ver detalles →
             </div>
           </div>
         ))}
