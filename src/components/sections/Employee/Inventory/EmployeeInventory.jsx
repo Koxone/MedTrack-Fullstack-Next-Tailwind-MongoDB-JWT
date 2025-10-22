@@ -319,12 +319,6 @@ export default function EmployeeInventory() {
         counts={{ meds: medicamentos.length, recs: recetas.length, sums: suministros.length }}
       />
 
-      {/* alerts */}
-      <InventoryAlerts
-        items={inventarioAlertas}
-        icons={{ AlertTriangle, Package, Pill, FileText, Syringe }}
-      />
-
       {/* content */}
       <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
         {activeTab === 'medicamentos' && (
@@ -358,6 +352,12 @@ export default function EmployeeInventory() {
           />
         )}
       </div>
+
+      {/* alerts */}
+      <InventoryAlerts
+        items={inventarioAlertas}
+        icons={{ AlertTriangle, Package, Pill, FileText, Syringe }}
+      />
 
       {/* modals */}
       {showModal && (
