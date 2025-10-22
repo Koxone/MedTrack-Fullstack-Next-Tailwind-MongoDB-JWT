@@ -15,9 +15,9 @@ import SummaryCard from './Components/SummaryCard';
 
 /* demo data */
 const doctors = [
-  { id: 1, nombre: 'Dra. María García', especialidad: 'Endocrinología', avatar: 'MG' },
-  { id: 2, nombre: 'Dr. Carlos Ruiz', especialidad: 'Medicina Estética', avatar: 'CR' },
-  { id: 3, nombre: 'Dra. Ana Martínez', especialidad: 'Nutrición', avatar: 'AM' },
+  { id: 1, nombre: 'Dra. Johana Lemus', especialidad: 'Endocrinología', avatar: 'MG' },
+  { id: 2, nombre: 'Dr. Arturo Lemus', especialidad: 'Medicina Estética', avatar: 'CR' },
+  { id: 3, nombre: 'Dra. Maureen Acosta', especialidad: 'Nutrición', avatar: 'AM' },
 ];
 
 /* demo data */
