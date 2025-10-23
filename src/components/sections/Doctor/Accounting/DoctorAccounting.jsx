@@ -193,7 +193,7 @@ export default function DoctorAccounting() {
   };
 
   return (
-    <div className="space-y-4 md:space-y-6">
+    <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
       {/* header */}
       <HeaderBar selectedDate={selectedDate} onChangeDate={setSelectedDate} />
 
