@@ -1,0 +1,37 @@
+export const pacientes = [
+  {
+    id: 1,
+    nombre: 'Juan Pérez',
+    telefono: '555-0101',
+    email: 'juan@email.com',
+    ultimaVisita: '2024-10-21',
+  },
+  {
+    id: 2,
+    nombre: 'María López',
+    telefono: '555-0102',
+    email: 'maria@email.com',
+    ultimaVisita: '2024-10-20',
+  },
+  {
+    id: 3,
+    nombre: 'Carlos Ruiz',
+    telefono: '555-0103',
+    email: 'carlos@email.com',
+    ultimaVisita: '2024-10-19',
+  },
+  {
+    id: 4,
+    nombre: 'Ana Martínez',
+    telefono: '555-0104',
+    email: 'ana@email.com',
+    ultimaVisita: '2024-10-18',
+  },
+  {
+    id: 5,
+    nombre: 'Pedro García',
+    telefono: '555-0105',
+    email: 'pedro@email.com',
+    ultimaVisita: '2024-10-17',
+  },
+];
