@@ -40,7 +40,6 @@ export default function DoctorPatients() {
     );
   }, [searchTerm, patients]);
 
-
   const getProgresoColor = (progreso) => {
     switch (progreso) {
       case 'Excelente':

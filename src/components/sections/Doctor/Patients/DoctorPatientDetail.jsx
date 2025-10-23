@@ -233,7 +233,7 @@ export default function DoctorPatientDetail() {
   console.log(records);
 
   return (
-    <div className="space-y-6">
+    <div className="h-full space-y-6 overflow-y-auto">
       {/* Top */}
       <div className="grid grid-rows-[auto_1fr]">
         <BackButton onClick={() => router.back()} icon={{ ArrowLeft }} />
