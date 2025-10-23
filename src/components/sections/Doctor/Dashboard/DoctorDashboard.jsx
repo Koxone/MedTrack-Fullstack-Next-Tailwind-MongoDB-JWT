@@ -212,12 +212,12 @@ export default function DoctorDashboard() {
       </div>
 
       {/* quick actions */}
-      <QuickActions
+      {/* <QuickActions
         onPacientes={() => router.push('/doctor/patients')}
         onCalendario={() => router.push('/doctor/calendar')}
         onContabilidad={() => router.push('/doctor/accounting')}
         onInventario={() => router.push('/doctor/inventory')}
-      />
+      /> */}
 
       {/* cancel modal */}
       {showCancelModal && citaToCancel && (

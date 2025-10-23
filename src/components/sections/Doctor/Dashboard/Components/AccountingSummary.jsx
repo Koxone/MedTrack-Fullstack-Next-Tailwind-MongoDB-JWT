@@ -171,7 +171,7 @@ export default function AccountingSummary({ data, onVerMas }) {
       </div>
 
       {/* Footer con acciones rápidas */}
-      <div className="border-t-2 border-gray-200 bg-linear-to-r from-gray-50 to-blue-50 px-6 py-4">
+      {/* <div className="border-t-2 border-gray-200 bg-linear-to-r from-gray-50 to-blue-50 px-6 py-4">
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center gap-2 text-gray-600">
             <Clock className="h-4 w-4" />
@@ -182,7 +182,7 @@ export default function AccountingSummary({ data, onVerMas }) {
             <span>Registrar venta</span>
           </button>
         </div>
-      </div>
+      </div> */}
 
       <style jsx global>{`
         @keyframes fadeInUp {

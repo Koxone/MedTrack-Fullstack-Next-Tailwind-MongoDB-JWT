@@ -249,14 +249,14 @@ export default function InventoryAlerts({ items, onVerMas }) {
       </div>
 
       {/* Footer con acción rápida */}
-      {items.length > 0 && (
+      {/* {items.length > 0 && (
         <div className="border-t-2 border-gray-200 bg-linear-to-r from-gray-50 to-rose-50 px-6 py-4">
           <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-blue-600 to-indigo-600 px-4 py-3 font-semibold text-white shadow-lg transition-all duration-200 hover:from-blue-700 hover:to-indigo-700 hover:shadow-xl active:scale-95">
             <ShoppingCart className="h-5 w-5" />
             <span>Generar Orden de Compra</span>
           </button>
         </div>
-      )}
+      )} */}
 
       <style jsx global>{`
         @keyframes fadeInUp {
