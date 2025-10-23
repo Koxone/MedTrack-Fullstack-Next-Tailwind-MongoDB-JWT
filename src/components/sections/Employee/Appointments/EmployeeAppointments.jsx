@@ -195,12 +195,12 @@ export default function EmployeeAppointments() {
   };
 
   return (
-    <div className="min-h-screen pb-8">
+    <div className="h-full overflow-x-hidden overflow-y-auto pb-8">
       {/* header */}
       <HeaderBar />
 
       {/* stats */}
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto mb-4 max-w-7xl">
         <StatsGrid stats={stats} icons={{ Calendar, CheckCircle, Clock, X }} />
       </div>
 
@@ -217,7 +217,7 @@ export default function EmployeeAppointments() {
 
         {/* list */}
         {filteredCitas.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-4 px-4">
             {filteredCitas.map((cita, index) => (
               <AppointmentCard
                 key={cita.id}
