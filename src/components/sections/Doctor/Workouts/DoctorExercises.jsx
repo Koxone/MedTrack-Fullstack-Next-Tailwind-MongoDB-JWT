@@ -90,7 +90,7 @@ export default function DoctorExercises() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Gestión de Ejercicios</h1>
         <p className="text-gray-600">Crear y administrar ejercicios</p>
