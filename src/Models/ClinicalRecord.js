@@ -8,6 +8,7 @@ const ClinicalRecordSchema = new mongoose.Schema(
     edad: { type: Number, required: true },
     genero: { type: String, enum: ['masculino', 'femenino'], required: true },
     altura: { type: Number, required: true },
+    talla: { type: Number },
     pesoActual: { type: Number, required: true },
 
     pesoObjetivo: { type: Number, required: true },

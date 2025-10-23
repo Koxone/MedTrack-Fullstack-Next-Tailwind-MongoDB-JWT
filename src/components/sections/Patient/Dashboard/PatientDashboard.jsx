@@ -47,6 +47,7 @@ export default function PatientDashboard() {
 
   // Current record (latest)
   const record = clinicalRecords[0];
+  console.log(record);
   if (!record) return <p className="p-6 text-center text-gray-500">Sin registros clínicos.</p>;
 
   // Gr
@@ -94,20 +95,26 @@ export default function PatientDashboard() {
       id: 'imc',
       icon: 'Activity',
       title: 'IMC Actual',
-      value: record.indiceMasaCorporal.toFixed(1),
-      subtitle:
-        record.indiceMasaCorporal < 18.5
-          ? 'Bajo peso'
-          : record.indiceMasaCorporal < 25
-            ? 'Normal'
-            : record.indiceMasaCorporal < 30
-              ? 'Sobrepeso'
-              : 'Obesidad',
+      value: (() => {
+        const imc =
+          record.indiceMasaCorporal ?? record.pesoActual / Math.pow(record.altura / 100, 2);
+        return imc ? imc.toFixed(1) : '—';
+      })(),
+      subtitle: (() => {
+        const imc =
+          record.indiceMasaCorporal ?? record.pesoActual / Math.pow(record.altura / 100, 2);
+        if (!imc) return 'Sin datos';
+        if (imc < 18.5) return 'Bajo peso';
+        if (imc < 25) return 'Normal';
+        if (imc < 30) return 'Sobrepeso';
+        return 'Obesidad';
+      })(),
       color: 'green',
       chartColor: '#10b981',
       chartTitle: 'Evolución de IMC',
       unit: '',
     },
+
     {
       id: 'cambio',
       icon: 'TrendingDown',

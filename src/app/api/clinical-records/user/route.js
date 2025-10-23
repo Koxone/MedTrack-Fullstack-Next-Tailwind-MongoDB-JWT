@@ -16,7 +16,7 @@ export async function POST(req) {
     }
 
     // Buscar todos los registros clínicos asociados al paciente
-    const records = await ClinicalRecord.find({ patientId }).sort({ fechaRegistro: -1 });
+    const records = await ClinicalRecord.find({ patientId }).sort({ createdAt: -1 });
 
     if (!records || records.length === 0) {
       return NextResponse.json(

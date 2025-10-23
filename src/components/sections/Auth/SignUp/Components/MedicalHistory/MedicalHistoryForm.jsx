@@ -15,6 +15,7 @@ export default function MedicalHistoryForm() {
     pesoActual: '',
 
     // Control de Peso
+    talla: '',
     pesoObjetivo: '',
     actividadFisica: '',
     horasSueno: '',
@@ -203,6 +204,20 @@ export default function MedicalHistoryForm() {
                     onChange={(e) => updateField('pesoActual', e.target.value)}
                     className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 md:py-3"
                     placeholder="75"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    Talla (En Centimetros)
+                  </label>
+                  <input
+                    type="number"
+                    required
+                    value={formData.talla}
+                    onChange={(e) => updateField('talla', e.target.value)}
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 md:py-3"
+                    placeholder="120"
                   />
                 </div>
               </div>

@@ -1,4 +1,5 @@
 'use client';
+import { Scale, Activity, Stethoscope, Pill, Ruler, HeartPulse, Droplet } from 'lucide-react';
 
 /* history list */
 export default function ClinicalHistory({ records, onAdd, onEdit, icons }) {
@@ -26,6 +27,7 @@ export default function ClinicalHistory({ records, onAdd, onEdit, icons }) {
 
       {records.length > 0 ? (
         <div className="space-y-3">
+          {/* Card */}
           {records.map((r, index) => (
             <div
               key={r._id}
@@ -37,17 +39,20 @@ export default function ClinicalHistory({ records, onAdd, onEdit, icons }) {
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex flex-1 items-start gap-4">
-                  <div className="flex h-14 w-14 flex-shrink-0 flex-col items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  {/* Left Date */}
+                  <div className="flex h-14 w-14 shrink-0 flex-col items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                     <span className="text-xs font-medium">
-                      {new Date(r.fechaRegistro)
+                      {new Date(r.createdAt)
                         .toLocaleDateString('es-MX', { month: 'short' })
                         .toUpperCase()}
                     </span>
-                    <span className="text-xl font-bold">{new Date(r.fechaRegistro).getDate()}</span>
+                    <span className="text-xl font-bold">
+                      {new Date(r.createdAt).toLocaleDateString('es-MX', { day: '2-digit' })}
+                    </span>
                   </div>
 
                   <div className="flex-1">
-                    <div className="mb-3 flex items-center gap-2">
+                    {/* <div className="mb-3 flex items-center gap-2">
                       <span className="text-sm font-semibold text-gray-900">
                         {new Date(r.fechaRegistro).toLocaleDateString('es-MX', {
                           year: 'numeric',
@@ -58,9 +63,10 @@ export default function ClinicalHistory({ records, onAdd, onEdit, icons }) {
                       <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-800">
                         Consulta
                       </span>
-                    </div>
+                    </div> */}
 
-                    <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                    <div className="grid grid-cols-2 grid-rows-2 gap-3 md:grid-cols-3">
+                      {/* Peso */}
                       <div className="flex items-center gap-2 rounded-lg bg-blue-50 p-2">
                         <Scale className="h-4 w-4 text-blue-600" />
                         <div>
@@ -69,26 +75,62 @@ export default function ClinicalHistory({ records, onAdd, onEdit, icons }) {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 rounded-lg bg-purple-50 p-2">
-                        <Heart className="h-4 w-4 text-purple-600" />
+                      {/* IMC */}
+                      <div className="flex items-center gap-2 rounded-lg bg-green-50 p-2">
+                        <Activity className="h-4 w-4 text-green-600" />
                         <div>
-                          <p className="text-xs text-purple-600">IMC</p>
-                          <p className="text-sm font-bold text-purple-900">
+                          <p className="text-xs text-green-600">IMC</p>
+                          <p className="text-sm font-bold text-green-900">
                             {r.indiceMasaCorporal?.toFixed(1)}
                           </p>
                         </div>
                       </div>
 
+                      {/* Enfermedades */}
+                      <div className="flex flex-col items-start gap-2 rounded-lg bg-red-50 p-2">
+                        <div className="flex items-center gap-2">
+                          <Stethoscope className="h-4 w-4 text-red-600" />
+                          <p className="text-xs text-red-600">Enfermedades</p>
+                        </div>
+                        <p className="text-sm font-bold text-red-900">
+                          {r.enfermedadesCronicas || '—'}
+                        </p>
+                      </div>
+
+                      {/* Medicamentos */}
+                      <div className="flex flex-col items-start gap-2 rounded-lg bg-purple-50 p-2">
+                        <div className="flex items-center gap-2">
+                          <Pill className="h-4 w-4 text-purple-600" />
+                          <p className="text-xs text-purple-600">Medicamentos</p>
+                        </div>
+                        <p className="text-sm font-bold text-purple-900">
+                          {r.medicamentosActuales || '—'}
+                        </p>
+                      </div>
+
+                      {/* Talla */}
+                      <div className="flex flex-col items-start gap-2 rounded-lg bg-cyan-50 p-2">
+                        <div className="flex items-center gap-2">
+                          <Ruler className="h-4 w-4 text-cyan-600" />
+                          <p className="text-xs text-cyan-600">Talla</p>
+                        </div>
+                        <p className="text-sm font-bold text-cyan-900">
+                          {r.talla ? `${r.talla} cm` : '—'}
+                        </p>
+                      </div>
+
+                      {/* Presión */}
                       {r.presionArterial && (
-                        <div className="flex items-center gap-2 rounded-lg bg-red-50 p-2">
-                          <Activity className="h-4 w-4 text-red-600" />
+                        <div className="flex items-center gap-2 rounded-lg bg-rose-50 p-2">
+                          <HeartPulse className="h-4 w-4 text-rose-600" />
                           <div>
-                            <p className="text-xs text-red-600">Presión</p>
-                            <p className="text-sm font-bold text-red-900">{r.presionArterial}</p>
+                            <p className="text-xs text-rose-600">Presión</p>
+                            <p className="text-sm font-bold text-rose-900">{r.presionArterial}</p>
                           </div>
                         </div>
                       )}
 
+                      {/* Glucosa */}
                       {r.glucosa && (
                         <div className="flex items-center gap-2 rounded-lg bg-orange-50 p-2">
                           <Droplet className="h-4 w-4 text-orange-600" />

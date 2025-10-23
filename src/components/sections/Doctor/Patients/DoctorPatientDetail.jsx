@@ -143,37 +143,56 @@ export default function DoctorPatientDetail() {
     setEditingHistory(null);
   };
 
-  /* submit */
+  /* Submit */
   const handleHistorySubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await fetch('/api/clinical-records', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...historyForm,
+          // Required fields
           edad: 0,
-          genero: 'N/A',
+          genero: 'masculino',
           altura: 0,
-          pesoActual: historyForm.peso,
-          pesoObjetivo: 0,
+          pesoActual: parseFloat(historyForm.peso),
+          pesoObjetivo: parseFloat(historyForm.peso),
           habitosAlimenticios: 'N/A',
-          motivoConsulta: historyForm.diagnostico,
+          motivoConsulta: historyForm.diagnostico || 'Consulta general',
           tipoConsulta: 'general',
           fechaRegistro: historyForm.fecha,
           patientId,
+
+          // Optional fields
+          actividadFisica: 'sedentario',
+          horasSueno: 0,
+          consumoAgua: 0,
+          enfermedadesCronicas: '',
+          medicamentosActuales: '',
+          alergias: '',
+          cirugiasPrevias: '',
+          indiceMasaCorporal: parseFloat(historyForm.imc) || null,
+          presionArterial: historyForm.presionArterial || '',
+          glucosa: historyForm.glucosa || '',
+          colesterol: historyForm.colesterol || '',
+          notas: historyForm.notas || '',
+          tratamiento: historyForm.tratamiento || '',
         }),
       });
+
       const data = await res.json();
+
       if (res.ok) {
         alert('Historial guardado correctamente');
         closeHistoryModal();
-        window.location.reload();
+
+        setRecords((prev) => [data.record, ...prev]);
       } else {
-        alert(data.error || 'Error al guardar historial');
+        alert(data.error || 'Error al guardar historial clínico');
       }
     } catch (err) {
-      console.error(err);
+      console.error('Error al guardar historial clínico:', err);
     }
   };
 
@@ -192,7 +211,7 @@ export default function DoctorPatientDetail() {
   const totalConsultas = records.length;
   const ultimoPeso = records.length > 0 ? records[0].pesoActual : 'N/A';
   const ultimoIMC = records.length > 0 ? records[0].indiceMasaCorporal?.toFixed(1) : 'N/A';
-
+  console.log(records);
   return (
     <div className="space-y-6">
       {/* top */}
@@ -211,9 +230,6 @@ export default function DoctorPatientDetail() {
         icons={{ FileText, Scale, Heart, Activity, TrendingUp }}
       />
 
-      {/* weight chart */}
-      <WeightChart data={weightData} icons={{ TrendingUp }} />
-
       {/* clinical history */}
       <ClinicalHistory
         records={records}
@@ -221,6 +237,9 @@ export default function DoctorPatientDetail() {
         onEdit={(r) => openHistoryModal(r)}
         icons={{ ClipboardList, Plus, Edit2, Scale, Heart, Activity, Droplet }}
       />
+
+      {/* weight chart */}
+      <WeightChart data={weightData} icons={{ TrendingUp }} />
 
       {/* modal */}
       {showHistoryModal && (
@@ -233,43 +252,6 @@ export default function DoctorPatientDetail() {
           icons={{ X, FileText, CalendarIcon, Scale, Heart, Activity, Stethoscope }}
         />
       )}
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
-        }
-        .animate-slideUp {
-          animation: slideUp 0.3s ease-out;
-        }
-      `}</style>
     </div>
   );
 }
