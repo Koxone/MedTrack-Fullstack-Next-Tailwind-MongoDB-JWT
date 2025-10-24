@@ -15,9 +15,12 @@ function HistoryCard({ r, onEdit }) {
     <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:gap-4">
       {/* Date */}
       <div className="flex h-12 w-12 flex-col items-center justify-center rounded-lg bg-(--med-blue-light) text-(--med-blue) sm:h-14 sm:w-14">
+        {/* Month */}
         <span className="text-xs font-medium uppercase">
-          {new Date(r.createdAt).toLocaleDateString('es-MX', { month: 'short' })}
+          {new Date(r.fechaRegistro).toLocaleDateString('es-MX', { month: 'short' })}
         </span>
+
+        {/* Day */}
         <span className="text-base font-bold sm:text-lg">
           {new Date(r.fechaRegistro).toLocaleDateString('es-MX', { day: '2-digit' })}
         </span>
