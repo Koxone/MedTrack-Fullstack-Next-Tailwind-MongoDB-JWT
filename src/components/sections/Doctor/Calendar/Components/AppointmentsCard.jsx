@@ -6,7 +6,7 @@ export default function AppointmentsCard({ selectedDate, appointments, icons }) 
   const title = selectedDate
     ? selectedDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })
     : 'Selecciona un día';
-
+  console.log(appointments);
   return (
     <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg transition hover:shadow-xl">
       <div className="relative overflow-hidden bg-linear-to-r from-indigo-600 to-purple-600 px-6 py-5">
@@ -43,9 +43,6 @@ export default function AppointmentsCard({ selectedDate, appointments, icons }) 
                     <div className="flex items-center gap-2 rounded-lg bg-blue-50 px-3 py-1.5">
                       <Clock className="h-4 w-4 text-blue-600" />
                       <span className="font-bold text-gray-900">{apt.hora}</span>
-                    </div>
-                    <div className="rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 p-2 text-xs font-bold text-white">
-                      #{apt.id}
                     </div>
                   </div>
                   {/* patient */}
