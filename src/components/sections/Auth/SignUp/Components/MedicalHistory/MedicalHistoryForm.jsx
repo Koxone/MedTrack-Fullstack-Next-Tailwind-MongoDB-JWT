@@ -103,7 +103,7 @@ export default function MedicalHistoryForm() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-green-50 p-4 py-6 md:py-10">
+    <div className="h-full overflow-y-auto bg-linear-to-br from-blue-50 via-white to-green-50 p-4 py-6 md:py-10">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="mb-6 text-center">

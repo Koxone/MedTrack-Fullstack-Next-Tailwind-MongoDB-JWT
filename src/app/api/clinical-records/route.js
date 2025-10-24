@@ -54,7 +54,6 @@ export async function POST(req) {
       motivoConsulta: motivoConsulta || lastRecord?.motivoConsulta || 'Consulta general',
       fechaRegistro: fechaRegistro || new Date(),
       talla: talla || lastRecord?.talla || 0,
-      indiceMasaCorporal: indiceMasaCorporal || lastRecord?.indiceMasaCorporal || null,
     });
 
     return NextResponse.json(

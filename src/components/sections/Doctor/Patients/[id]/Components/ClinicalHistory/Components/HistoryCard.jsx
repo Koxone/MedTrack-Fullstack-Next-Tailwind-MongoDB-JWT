@@ -10,7 +10,7 @@ import {
   Edit2,
 } from 'lucide-react';
 
-function HistoryCard({ r }) {
+function HistoryCard({ r, onEdit }) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:gap-4">
       {/* Date */}

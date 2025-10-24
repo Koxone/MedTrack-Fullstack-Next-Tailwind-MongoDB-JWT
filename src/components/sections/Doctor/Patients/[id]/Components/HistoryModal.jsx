@@ -84,7 +84,6 @@ export default function HistoryModal({ editingHistory, form, setForm, onClose, o
                       <input
                         type="number"
                         step="0.1"
-                        required
                         value={form.imc}
                         onChange={(e) => setForm({ ...form, imc: e.target.value })}
                         className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 py-3 pr-4 pl-11 transition focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"

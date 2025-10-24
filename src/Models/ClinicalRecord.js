@@ -32,5 +32,14 @@ const ClinicalRecordSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+/* Calculate IMC */
+ClinicalRecordSchema.pre('save', function (next) {
+  if (this.pesoActual && this.altura) {
+    const alturaMetros = this.altura > 10 ? this.altura / 100 : this.altura;
+    this.indiceMasaCorporal = parseFloat((this.pesoActual / alturaMetros ** 2).toFixed(2));
+  }
+  next();
+});
+
 export default mongoose.models.ClinicalRecord ||
   mongoose.model('ClinicalRecord', ClinicalRecordSchema);

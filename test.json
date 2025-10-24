@@ -1,0 +1,28 @@
+{
+  "json": [
+    {
+      "_id": "68fac514cf94507120f131b0",
+      "patientId": "68fac514cf94507120f131ac",
+      "edad": 40,
+      "genero": "femenino",
+      "altura": 180,
+      "talla": 100,
+      "pesoActual": 100,
+      "pesoObjetivo": 70,
+      "actividadFisica": "sedentario",
+      "horasSueno": 8,
+      "consumoAgua": 2,
+      "enfermedadesCronicas": "Testing",
+      "medicamentosActuales": "Testing",
+      "alergias": "Testing",
+      "habitosAlimenticios": "Testing",
+      "cirugiasPrevias": "Testing",
+      "motivoConsulta": "Testing",
+      "fechaRegistro": "2025-10-24T00:15:15.453Z",
+      "createdAt": "2025-10-24T00:15:16.630Z",
+      "updatedAt": "2025-10-24T00:15:16.630Z",
+      "indiceMasaCorporal": 30.86,
+      "__v": 0
+    }
+  ]
+}
