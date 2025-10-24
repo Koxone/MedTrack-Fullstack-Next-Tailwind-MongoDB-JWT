@@ -47,36 +47,88 @@ export default function PatientDashboard() {
 
   // Current record (latest)
   const record = clinicalRecords[0];
-  console.log(record);
+  console.log(clinicalRecords);
   if (!record) return <p className="p-6 text-center text-gray-500">Sin registros clínicos.</p>;
 
-  // Gr
-  const evolutionData = {
-    peso: [
-      { mes: 'Ene', valor: 85 },
-      { mes: 'Feb', valor: 83 },
-      { mes: 'Mar', valor: 81 },
-      { mes: 'Abr', valor: 100 },
-      { mes: 'May', valor: 77 },
-      { mes: 'Jun', valor: 75 },
-    ],
-    imc: [
-      { mes: 'Ene', valor: 27.8 },
-      { mes: 'Feb', valor: 27.1 },
-      { mes: 'Mar', valor: 26.4 },
-      { mes: 'Abr', valor: 25.8 },
-      { mes: 'May', valor: 25.1 },
-      { mes: 'Jun', valor: 24.5 },
-    ],
-    cambio: [
-      { mes: 'Ene', valor: 0 },
-      { mes: 'Feb', valor: -2 },
-      { mes: 'Mar', valor: -12 },
-      { mes: 'Abr', valor: -2 },
-      { mes: 'May', valor: -2 },
-      { mes: 'Jun', valor: -2 },
-    ],
-  };
+  // Chart Data
+  function getWeekNumber(date) {
+    const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+  }
+
+  function getWeekRange(date) {
+    const curr = new Date(date);
+    const first = new Date(curr);
+    first.setDate(curr.getDate() - curr.getDay() + 1);
+    const last = new Date(first);
+    last.setDate(first.getDate() + 6);
+
+    const fmt = (d) =>
+      d.toLocaleDateString('es-MX', {
+        day: '2-digit',
+        month: 'short',
+      });
+
+    return `${fmt(first)}–${fmt(last)}`;
+  }
+
+  function generarEvolutionDataSemanal(clinicalRecords) {
+    const agrupado = {};
+
+    clinicalRecords.forEach((record) => {
+      const fecha = new Date(record.fechaRegistro);
+      const week = getWeekNumber(fecha);
+      const year = fecha.getFullYear();
+      const key = `${year}-W${week}`;
+
+      if (!agrupado[key]) agrupado[key] = [];
+      agrupado[key].push(record);
+    });
+
+    const peso = [];
+    const imc = [];
+    const cambio = [];
+
+    const semanasOrdenadas = Object.keys(agrupado).sort();
+
+    semanasOrdenadas.forEach((semana, i) => {
+      const registros = agrupado[semana];
+      const fechaReferencia = new Date(registros[0].fechaRegistro);
+      const rango = getWeekRange(fechaReferencia);
+
+      const promedioPeso = registros.reduce((sum, r) => sum + r.pesoActual, 0) / registros.length;
+      const promedioIMC =
+        registros.reduce((sum, r) => sum + r.indiceMasaCorporal, 0) / registros.length;
+
+      peso.push({
+        mes: rango,
+        valor: parseFloat(promedioPeso.toFixed(1)),
+      });
+
+      imc.push({
+        mes: rango,
+        valor: parseFloat(promedioIMC.toFixed(2)),
+      });
+
+      if (i === 0) {
+        cambio.push({ mes: rango, valor: 0 });
+      } else {
+        const diff = promedioPeso - peso[i - 1].valor;
+        cambio.push({
+          mes: rango,
+          valor: parseFloat(diff.toFixed(1)),
+        });
+      }
+    });
+
+    return { peso, imc, cambio };
+  }
+
+  const evolutionData = generarEvolutionDataSemanal(clinicalRecords);
+  console.log(clinicalRecords);
 
   // Metrics based on real data
   const metrics = [
@@ -114,18 +166,26 @@ export default function PatientDashboard() {
       chartTitle: 'Evolución de IMC',
       unit: '',
     },
-
     {
       id: 'cambio',
       icon: 'TrendingDown',
       title: 'Progreso',
-      value: `${(record.pesoActual - record.pesoObjetivo).toFixed(1)} kg`,
-      subtitle:
-        record.pesoActual > record.pesoObjetivo
-          ? 'Por bajar'
-          : record.pesoActual < record.pesoObjetivo
-            ? 'Meta superada'
-            : 'En objetivo',
+      value: (() => {
+        if (clinicalRecords.length < 2) return '—';
+        const pesoActual = clinicalRecords[0].pesoActual;
+        const pesoAnterior = clinicalRecords[1].pesoActual;
+        const diff = pesoActual - pesoAnterior;
+        const signo = diff > 0 ? '+' : '';
+        return `${signo}${diff.toFixed(1)} kg`;
+      })(),
+      subtitle: (() => {
+        if (clinicalRecords.length < 2) return 'Sin datos previos';
+        const pesoActual = clinicalRecords[0].pesoActual;
+        const pesoAnterior = clinicalRecords[1].pesoActual;
+        if (pesoActual < pesoAnterior) return 'Has bajado de peso';
+        if (pesoActual > pesoAnterior) return 'Has subido de peso';
+        return 'Sin cambios';
+      })(),
       color: 'purple',
       chartColor: '#8b5cf6',
       chartTitle: 'Cambio hacia el objetivo',
