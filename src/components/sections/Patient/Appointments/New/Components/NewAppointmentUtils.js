@@ -31,3 +31,35 @@ export const availableSlots = {
   '2024-10-30': ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
   '2024-10-31': ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
 };
+
+/* utils */
+export const getDaysInMonth = (date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const daysInMonth = lastDay.getDate();
+  const startingDayOfWeek = firstDay.getDay();
+  const days = [];
+  for (let i = 0; i < startingDayOfWeek; i++) days.push(null);
+  for (let day = 1; day <= daysInMonth; day++) days.push(new Date(year, month, day));
+  return days;
+};
+
+/* utils */
+export const formatDate = (date) => {
+  if (!date) return '';
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+};
+
+/* utils */
+export const isPastDate = (date) => {
+  if (!date) return false;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return date < today;
+};
+
