@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main className="grid grid-cols-[auto_1fr]">
           <Sidebar />
-          <div className="mx-auto h-[calc(100vh-64px)] w-full max-w-7xl overflow-y-auto p-4 pb-24">
+          <div className="mx-auto h-[calc(100vh-64px)] w-full max-w-7xl overflow-y-auto p-6 pb-24">
             {children}
           </div>
         </main>
