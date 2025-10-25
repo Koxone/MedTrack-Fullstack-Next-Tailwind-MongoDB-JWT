@@ -1,10 +1,8 @@
 'use client';
 
-/* react query */
 import { useQuery } from '@tanstack/react-query';
 import { useState, useMemo } from 'react';
 
-/* icons */
 import {
   ChevronLeft,
   ChevronRight,
@@ -24,7 +22,7 @@ import StatsGrid from './Components/StatsGrid';
 import CalendarCard from './Components/CalendarCard';
 import AppointmentsCard from './Components/AppointmentsCard';
 
-/* utils */
+/* Utils */
 const formatDate = (date) => {
   if (!date) return '';
   const y = date.getFullYear();
@@ -33,7 +31,7 @@ const formatDate = (date) => {
   return `${y}-${m}-${d}`;
 };
 
-/* utils */
+/* Utils */
 const getDaysInMonth = (date) => {
   const year = date.getFullYear();
   const month = date.getMonth();
@@ -109,7 +107,7 @@ export default function DoctorCalendar() {
 
   const hasAppointments = (date) => getAppointmentsForDate(date).length > 0;
 
-  /* nav */
+  /* Nav */
   const handlePrevMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
     setSelectedDate(null);
@@ -119,7 +117,7 @@ export default function DoctorCalendar() {
     setSelectedDate(null);
   };
 
-  /* computed */
+  /* Computed */
   const days = useMemo(() => getDaysInMonth(currentMonth), [currentMonth]);
   const monthName = useMemo(
     () => currentMonth.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' }),
@@ -130,31 +128,21 @@ export default function DoctorCalendar() {
     [selectedDate, appointmentsData]
   );
 
-  /* stats */
-  const totalAppointmentsThisMonth = useMemo(
-    () =>
-      Object.keys(appointmentsData)
-        .filter((dateStr) => {
-          const d = new Date(dateStr);
-          return (
-            d.getMonth() === currentMonth.getMonth() &&
-            d.getFullYear() === currentMonth.getFullYear()
-          );
-        })
-        .reduce((total, dateStr) => total + appointmentsData[dateStr].length, 0),
-    [appointmentsData, currentMonth]
-  );
+  const totalAppointmentsThisMonth = useMemo(() => {
+    return Object.entries(appointmentsData)
+      .filter(([dateStr]) => {
+        const [year, month] = dateStr.split('-').map(Number);
+        return year === currentMonth.getFullYear() && month === currentMonth.getMonth() + 1;
+      })
+      .reduce((total, [, appointments]) => total + appointments.length, 0);
+  }, [appointmentsData, currentMonth]);
 
-  const daysWithAppointments = useMemo(
-    () =>
-      Object.keys(appointmentsData).filter((dateStr) => {
-        const d = new Date(dateStr);
-        return (
-          d.getMonth() === currentMonth.getMonth() && d.getFullYear() === currentMonth.getFullYear()
-        );
-      }).length,
-    [appointmentsData, currentMonth]
-  );
+  const daysWithAppointments = useMemo(() => {
+    return Object.keys(appointmentsData).filter((dateStr) => {
+      const [year, month] = dateStr.split('-').map(Number);
+      return year === currentMonth.getFullYear() && month === currentMonth.getMonth() + 1;
+    }).length;
+  }, [appointmentsData, currentMonth]);
 
   const todayAppointments = getAppointmentsForDate(new Date()).length;
   const averagePerDay =
@@ -162,11 +150,10 @@ export default function DoctorCalendar() {
       ? Math.round(totalAppointmentsThisMonth / daysWithAppointments)
       : 0;
 
-  /* loading */
+  /* Loading */
   if (isLoading)
     return (
       <div className="flex h-full items-center justify-center py-20">
-        {/* spinner */}
         <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-400 border-t-transparent" />
         <span className="ml-3 text-lg font-medium text-gray-600">Cargando citas...</span>
       </div>
@@ -174,7 +161,7 @@ export default function DoctorCalendar() {
 
   return (
     <div className="h-full space-y-4 overflow-x-hidden overflow-y-auto md:space-y-6">
-      {/* header */}
+      {/* Header */}
       <HeaderBar icons={{ CalendarIcon }} />
 
       {/* stats */}
@@ -188,7 +175,7 @@ export default function DoctorCalendar() {
         icons={{ CalendarIcon, CheckCircle, Clock, TrendingUp }}
       />
 
-      {/* layout */}
+      {/* Layout */}
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3">
           <CalendarCard
