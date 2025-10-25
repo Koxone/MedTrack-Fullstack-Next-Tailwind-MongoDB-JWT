@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { AlertCircle } from 'lucide-react';
 
 /* modal */

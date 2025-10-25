@@ -6,7 +6,6 @@ import { useState, useMemo } from 'react';
 /* icons */
 import { Pill, FileText, Syringe, AlertTriangle, Download, Plus, Search } from 'lucide-react';
 
-/* components */
 import Header from './Components/Header';
 import Metrics from './Components/Metrics';
 import Tabs from './Components/Tabs';

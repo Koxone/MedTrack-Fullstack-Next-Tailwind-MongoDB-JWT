@@ -1,9 +1,8 @@
 'use client';
 
-/* state */
+import { useQuery } from '@tanstack/react-query';
 import { useState, useMemo } from 'react';
 
-/* icons */
 import {
   ChevronLeft,
   ChevronRight,
@@ -18,115 +17,12 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-/* components */
 import HeaderBar from './Components/HeaderBar';
 import StatsGrid from './Components/StatsGrid';
 import CalendarCard from './Components/CalendarCard';
 import AppointmentsCard from './Components/AppointmentsCard';
 
-/* data */
-const appointmentsData = {
-  '2024-10-21': [
-    {
-      id: 1,
-      hora: '09:00',
-      paciente: 'Juan Pérez',
-      telefono: '+52 55 1234 5678',
-      email: 'juan@email.com',
-      motivo: 'Control de peso',
-      avatar: 'JP',
-    },
-    {
-      id: 2,
-      hora: '10:00',
-      paciente: 'María López',
-      telefono: '+52 55 8765 4321',
-      email: 'maria@email.com',
-      motivo: 'Seguimiento',
-      avatar: 'ML',
-    },
-    {
-      id: 3,
-      hora: '15:00',
-      paciente: 'Carlos Ruiz',
-      telefono: '+52 55 5555 5555',
-      email: 'carlos@email.com',
-      motivo: 'Primera consulta',
-      avatar: 'CR',
-    },
-  ],
-  '2024-10-22': [
-    {
-      id: 4,
-      hora: '09:00',
-      paciente: 'Ana Martínez',
-      telefono: '+52 55 1111 2222',
-      email: 'ana@email.com',
-      motivo: 'Revisión',
-      avatar: 'AM',
-    },
-    {
-      id: 5,
-      hora: '14:00',
-      paciente: 'Pedro García',
-      telefono: '+52 55 3333 4444',
-      email: 'pedro@email.com',
-      motivo: 'Control mensual',
-      avatar: 'PG',
-    },
-  ],
-  '2024-10-23': [
-    {
-      id: 6,
-      hora: '11:00',
-      paciente: 'Laura Sánchez',
-      telefono: '+52 55 6666 7777',
-      email: 'laura@email.com',
-      motivo: 'Tratamiento estético',
-      avatar: 'LS',
-    },
-    {
-      id: 7,
-      hora: '15:00',
-      paciente: 'Roberto Díaz',
-      telefono: '+52 55 8888 9999',
-      email: 'roberto@email.com',
-      motivo: 'Consulta nutricional',
-      avatar: 'RD',
-    },
-  ],
-  '2024-10-24': [
-    {
-      id: 8,
-      hora: '10:00',
-      paciente: 'Sofia Torres',
-      telefono: '+52 55 2222 3333',
-      email: 'sofia@email.com',
-      motivo: 'Control de peso',
-      avatar: 'ST',
-    },
-    {
-      id: 9,
-      hora: '14:00',
-      paciente: 'Miguel Ángel',
-      telefono: '+52 55 4444 5555',
-      email: 'miguel@email.com',
-      motivo: 'Seguimiento',
-      avatar: 'MA',
-    },
-    {
-      id: 10,
-      hora: '16:00',
-      paciente: 'Isabel Ramírez',
-      telefono: '+52 55 7777 8888',
-      email: 'isabel@email.com',
-      motivo: 'Primera consulta',
-      avatar: 'IR',
-    },
-  ],
-};
-
-/* utils */
+/* Utils */
 const formatDate = (date) => {
   if (!date) return '';
   const y = date.getFullYear();
@@ -135,7 +31,7 @@ const formatDate = (date) => {
   return `${y}-${m}-${d}`;
 };
 
-/* utils */
+/* Utils */
 const getDaysInMonth = (date) => {
   const year = date.getFullYear();
   const month = date.getMonth();
@@ -149,21 +45,69 @@ const getDaysInMonth = (date) => {
   return days;
 };
 
-/* container */
+/* Tanstack */
+async function fetchAppointments() {
+  const res = await fetch('/api/appointments');
+  if (!res.ok) throw new Error('Error al obtener citas');
+  const data = await res.json();
+
+  const formatted = {};
+  data.forEach((event) => {
+    const date = event.start?.dateTime?.slice(0, 10);
+    if (!date) return;
+
+    if (!formatted[date]) formatted[date] = [];
+    formatted[date].push({
+      id: event.id,
+      hora: new Date(event.start.dateTime).toLocaleTimeString('es-MX', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }),
+      paciente: event.summary || 'Sin título',
+      telefono: event.description?.match(/Tel[eé]fono:\s*([+\d\s-]+)/i)?.[1]?.trim() || 'N/A',
+      email: event.description?.match(/Email:\s*([^\n\r]+)/i)?.[1]?.trim() || 'N/A',
+
+      motivo:
+        event.description?.match(/Motivo:\s*([^\n\r]+)/i)?.[1]?.trim() ||
+        event.description ||
+        'Sin descripción',
+      avatar: event.summary
+        ? event.summary
+            .split(' ')
+            .map((n) => n[0])
+            .join('')
+        : '?',
+    });
+  });
+
+  console.log('Data:', data);
+  console.log('Formatted:', formatted);
+  return formatted;
+}
+
 export default function DoctorCalendar() {
-  /* ui state */
-  const [currentMonth, setCurrentMonth] = useState(new Date(2024, 9)); /* October 2024 */
+  /* Local States */
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
 
-  /* helpers */
+  /* Query */
+  const { data: appointmentsData = {}, isLoading } = useQuery({
+    queryKey: ['appointments'],
+    queryFn: fetchAppointments,
+    refetchInterval: 60 * 1000,
+  });
+
+  /* Helpers */
   const getAppointmentsForDate = (date) => {
     if (!date) return [];
     const dateStr = formatDate(date);
     return appointmentsData[dateStr] || [];
   };
+
   const hasAppointments = (date) => getAppointmentsForDate(date).length > 0;
 
-  /* nav */
+  /* Nav */
   const handlePrevMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
     setSelectedDate(null);
@@ -173,7 +117,7 @@ export default function DoctorCalendar() {
     setSelectedDate(null);
   };
 
-  /* computed */
+  /* Computed */
   const days = useMemo(() => getDaysInMonth(currentMonth), [currentMonth]);
   const monthName = useMemo(
     () => currentMonth.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' }),
@@ -181,42 +125,43 @@ export default function DoctorCalendar() {
   );
   const selectedAppointments = useMemo(
     () => (selectedDate ? getAppointmentsForDate(selectedDate) : []),
-    [selectedDate]
+    [selectedDate, appointmentsData]
   );
 
-  /* stats */
-  const totalAppointmentsThisMonth = useMemo(
-    () =>
-      Object.keys(appointmentsData)
-        .filter((dateStr) => {
-          const d = new Date(dateStr);
-          return (
-            d.getMonth() === currentMonth.getMonth() &&
-            d.getFullYear() === currentMonth.getFullYear()
-          );
-        })
-        .reduce((total, dateStr) => total + appointmentsData[dateStr].length, 0),
-    [currentMonth]
-  );
-  const daysWithAppointments = useMemo(
-    () =>
-      Object.keys(appointmentsData).filter((dateStr) => {
-        const d = new Date(dateStr);
-        return (
-          d.getMonth() === currentMonth.getMonth() && d.getFullYear() === currentMonth.getFullYear()
-        );
-      }).length,
-    [currentMonth]
-  );
+  const totalAppointmentsThisMonth = useMemo(() => {
+    return Object.entries(appointmentsData)
+      .filter(([dateStr]) => {
+        const [year, month] = dateStr.split('-').map(Number);
+        return year === currentMonth.getFullYear() && month === currentMonth.getMonth() + 1;
+      })
+      .reduce((total, [, appointments]) => total + appointments.length, 0);
+  }, [appointmentsData, currentMonth]);
+
+  const daysWithAppointments = useMemo(() => {
+    return Object.keys(appointmentsData).filter((dateStr) => {
+      const [year, month] = dateStr.split('-').map(Number);
+      return year === currentMonth.getFullYear() && month === currentMonth.getMonth() + 1;
+    }).length;
+  }, [appointmentsData, currentMonth]);
+
   const todayAppointments = getAppointmentsForDate(new Date()).length;
   const averagePerDay =
     totalAppointmentsThisMonth > 0 && daysWithAppointments > 0
       ? Math.round(totalAppointmentsThisMonth / daysWithAppointments)
       : 0;
 
+  /* Loading */
+  if (isLoading)
+    return (
+      <div className="flex h-full items-center justify-center py-20">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-400 border-t-transparent" />
+        <span className="ml-3 text-lg font-medium text-gray-600">Cargando citas...</span>
+      </div>
+    );
+
   return (
     <div className="h-full space-y-4 overflow-x-hidden overflow-y-auto md:space-y-6">
-      {/* header */}
+      {/* Header */}
       <HeaderBar icons={{ CalendarIcon }} />
 
       {/* stats */}
@@ -230,7 +175,7 @@ export default function DoctorCalendar() {
         icons={{ CalendarIcon, CheckCircle, Clock, TrendingUp }}
       />
 
-      {/* layout */}
+      {/* Layout */}
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3">
           <CalendarCard
@@ -252,38 +197,6 @@ export default function DoctorCalendar() {
           />
         </div>
       </div>
-
-      {/* animations */
-      /* global keyframes */}
-      <style jsx global>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fadeInUp {
-          animation: fadeInUp 0.4s ease-out forwards;
-        }
-        .scrollbar-thin::-webkit-scrollbar {
-          width: 6px;
-        }
-        .scrollbar-thin::-webkit-scrollbar-track {
-          background: #f1f1f1;
-          border-radius: 10px;
-        }
-        .scrollbar-thin::-webkit-scrollbar-thumb {
-          background: #cbd5e1;
-          border-radius: 10px;
-        }
-        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-          background: #94a3b8;
-        }
-      `}</style>
     </div>
   );
 }

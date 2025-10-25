@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { useState, useMemo } from 'react'; /* state */
 import {
   DollarSign,
@@ -20,7 +19,6 @@ import {
   Award,
 } from 'lucide-react'; /* icons */
 
-/* components */
 import HeaderBar from './Components/HeaderBar';
 import MetricsGrid from './Components/MetricsGrid';
 import SearchAddBar from './Components/SearchAddBar';
@@ -181,7 +179,7 @@ export default function EmployeeConsultations() {
   };
 
   return (
-    <div className="h-full overflow-y-auto overflow-x-hidden pb-8">
+    <div className="h-full overflow-x-hidden overflow-y-auto pb-8">
       {/* header */}
       <HeaderBar icons={{ DollarSign }} />
 

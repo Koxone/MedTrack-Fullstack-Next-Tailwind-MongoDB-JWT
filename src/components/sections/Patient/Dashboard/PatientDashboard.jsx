@@ -1,6 +1,5 @@
 'use client';
 
-/* Imports */
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import HeaderWelcome from './Components/HeaderWelcome';

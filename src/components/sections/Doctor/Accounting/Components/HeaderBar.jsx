@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { Download } from 'lucide-react';
 
 /* header */

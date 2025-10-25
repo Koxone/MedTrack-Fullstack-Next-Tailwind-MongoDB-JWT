@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { TrendingUp } from 'lucide-react';
 import {
   ResponsiveContainer,

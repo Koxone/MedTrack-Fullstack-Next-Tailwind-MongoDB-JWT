@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { useState } from 'react'; /* state */
 import {
   Calendar,
@@ -18,7 +17,6 @@ import {
   Filter,
 } from 'lucide-react'; /* icons */
 
-/* components */
 import HeaderBar from './Components/HeaderBar';
 import StatsGrid from './Components/StatsGrid';
 import ControlsBar from './Components/ControlsBar';

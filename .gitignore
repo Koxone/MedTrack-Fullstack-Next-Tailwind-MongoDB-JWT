@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# Google Service Account credentials
+config/service-account.json
+
 # next.js
 /.next/
 /out/

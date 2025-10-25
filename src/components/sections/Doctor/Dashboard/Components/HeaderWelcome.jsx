@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 export default function HeaderWelcome({ fullName }) {
   /* date */
   const today = new Date().toLocaleDateString('es-ES', {

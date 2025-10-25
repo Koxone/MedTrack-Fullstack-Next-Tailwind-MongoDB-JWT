@@ -25,17 +25,10 @@ export default function StatsGrid({ stats, icons }) {
       gradient: 'from-amber-500 to-orange-600',
       bg: 'from-amber-50 to-orange-50',
     },
-    {
-      label: 'Promedio/día',
-      value: stats.averagePerDay,
-      Icon: TrendingUp,
-      gradient: 'from-purple-500 to-pink-600',
-      bg: 'from-purple-50 to-pink-50',
-    },
   ];
   return (
     <div className="mx-auto mb-6 max-w-7xl">
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
         {items.map(({ label, value, Icon, gradient, bg }, i) => (
           <div
             key={label}

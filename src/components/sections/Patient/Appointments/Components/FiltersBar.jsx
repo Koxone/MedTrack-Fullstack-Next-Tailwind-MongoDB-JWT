@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { Filter } from 'lucide-react'; // icon
 
 /* filters */

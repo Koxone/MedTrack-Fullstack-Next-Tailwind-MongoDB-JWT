@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { Plus, Edit2, Trash2 } from 'lucide-react';
 
 /* table */

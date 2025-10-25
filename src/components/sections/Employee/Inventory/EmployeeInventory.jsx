@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { useState, useMemo } from 'react'; /* state */
 import {
   Package,
@@ -16,7 +15,6 @@ import {
   X,
 } from 'lucide-react'; /* icons */
 
-/* components */
 import HeaderBar from './Components/HeaderBar';
 import TabsBar from './Components/TabsBar';
 import SearchAddBar from './Components/SearchAddBar';

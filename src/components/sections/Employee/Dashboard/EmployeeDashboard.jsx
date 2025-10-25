@@ -11,7 +11,6 @@ import AppointmentsToday from './Components/AppointmentsToday';
 import QuickActions from './Components/QuickActions';
 
 export default function EmployeeDashboard() {
-  // state
   const router = useRouter();
   const [citasHoy, setCitasHoy] = useState(citasHoyData);
   const alertasInventario = alertasInventarioPreset;

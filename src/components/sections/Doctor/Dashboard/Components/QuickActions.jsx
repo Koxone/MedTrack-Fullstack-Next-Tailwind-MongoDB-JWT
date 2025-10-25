@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { Users, Calendar, DollarSign, Package } from 'lucide-react';
 
 /* grid */

@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { FileText, Calendar, Apple } from 'lucide-react';
 
 /* grid */

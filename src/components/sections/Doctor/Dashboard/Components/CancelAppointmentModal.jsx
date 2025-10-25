@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { AlertCircle, Clock, FileText, User } from 'lucide-react';
 
 /* modal */

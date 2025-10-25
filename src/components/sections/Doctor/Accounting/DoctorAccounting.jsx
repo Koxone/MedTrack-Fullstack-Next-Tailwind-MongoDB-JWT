@@ -1,8 +1,7 @@
 'use client';
 
-/* imports */
-import { useState } from 'react'; // state
-import { DollarSign, Users, Pill, TrendingUp } from 'lucide-react'; // icons
+import { useState } from 'react';
+import { DollarSign, Users, Pill, TrendingUp } from 'lucide-react';
 import HeaderBar from './Components/HeaderBar';
 import MetricsGrid from './Components/MetricsGrid';
 import WeeklyIncomeChart from './Components/WeeklyIncomeChart';

@@ -1,10 +1,8 @@
 'use client';
 
-/* imports */
-import { useState } from 'react'; // state
-import { useRouter } from 'next/navigation'; // navigation
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-/* components */
 import HeaderBar from './Components/HeaderBar';
 import ProgressSteps from './Components/ProgressSteps';
 import DoctorsGrid from './Components/DoctorsGrid';
@@ -12,53 +10,12 @@ import CalendarPicker from './Components/CalendarPicker';
 import TimeSlots from './Components/TimeSlots';
 import ReasonField from './Components/ReasonField';
 import SummaryCard from './Components/SummaryCard';
-
-/* demo data */
-const doctors = [
-  { id: 1, nombre: 'Dra. Johana Lemus', especialidad: 'Endocrinología', avatar: 'MG' },
-  { id: 2, nombre: 'Dr. Arturo Lemus', especialidad: 'Medicina Estética', avatar: 'CR' },
-  { id: 3, nombre: 'Dra. Maureen Acosta', especialidad: 'Nutrición', avatar: 'AM' },
-];
-
-/* demo data */
-const availableSlots = {
-  '2024-10-21': ['09:00', '10:00', '11:00', '15:00', '16:00'],
-  '2024-10-22': ['09:00', '10:00', '14:00', '15:00', '16:00', '17:00'],
-  '2024-10-23': ['09:00', '11:00', '15:00', '16:00'],
-  '2024-10-24': ['10:00', '11:00', '14:00', '15:00', '16:00'],
-  '2024-10-25': ['09:00', '10:00', '11:00', '15:00'],
-};
-
-/* utils */
-const getDaysInMonth = (date) => {
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const firstDay = new Date(year, month, 1);
-  const lastDay = new Date(year, month + 1, 0);
-  const daysInMonth = lastDay.getDate();
-  const startingDayOfWeek = firstDay.getDay();
-  const days = [];
-  for (let i = 0; i < startingDayOfWeek; i++) days.push(null);
-  for (let day = 1; day <= daysInMonth; day++) days.push(new Date(year, month, day));
-  return days;
-};
-
-/* utils */
-const formatDate = (date) => {
-  if (!date) return '';
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, '0');
-  const d = String(date.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
-};
-
-/* utils */
-const isPastDate = (date) => {
-  if (!date) return false;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return date < today;
-};
+import {
+  availableSlots,
+  formatDate,
+  isPastDate,
+  getDaysInMonth,
+} from './Components/NewAppointmentUtils';
 
 export default function NewAppointment() {
   /* router */
@@ -83,21 +40,21 @@ export default function NewAppointment() {
     return availableSlots[dateStr] && availableSlots[dateStr].length > 0;
   };
 
-  /* handlers */
+  /* Handlers */
   const handlePrevMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
     setSelectedDate(null);
     setSelectedTime(null);
   };
 
-  /* handlers */
+  /* Handlers */
   const handleNextMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
     setSelectedDate(null);
     setSelectedTime(null);
   };
 
-  /* handlers */
+  /* Handlers */
   const handleDateSelect = (date) => {
     if (!isPastDate(date) && isDateAvailable(date)) {
       setSelectedDate(date);
@@ -105,7 +62,7 @@ export default function NewAppointment() {
     }
   };
 
-  /* handlers */
+  /* Handlers */
   const getStepStatus = (step) => {
     if (step === 1) return selectedDoctor ? 'complete' : 'current';
     if (step === 2) return selectedDate ? 'complete' : selectedDoctor ? 'current' : 'pending';
@@ -113,7 +70,7 @@ export default function NewAppointment() {
     return 'pending';
   };
 
-  /* handlers */
+  /* Handlers */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!selectedDoctor || !selectedDate || !selectedTime) {
@@ -133,11 +90,11 @@ export default function NewAppointment() {
 
   return (
     <div className="h-full overflow-x-hidden overflow-y-auto pb-8">
-      {/* header */}
+      {/* Header */}
       <HeaderBar onBack={() => router.back()} />
 
       <div className="mx-auto max-w-4xl">
-        {/* steps */}
+        {/* Steps */}
         <ProgressSteps
           getStepStatus={getStepStatus}
           selectedDoctor={selectedDoctor}
@@ -145,11 +102,10 @@ export default function NewAppointment() {
           selectedTime={!!selectedTime}
         />
 
-        {/* form */}
+        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* doctors */}
+          {/* Doctors */}
           <DoctorsGrid
-            doctors={doctors}
             selectedDoctor={selectedDoctor}
             onSelect={(id) => {
               setSelectedDoctor(id);
@@ -158,7 +114,7 @@ export default function NewAppointment() {
             }}
           />
 
-          {/* calendar */}
+          {/* Calendar */}
           {selectedDoctor && (
             <CalendarPicker
               monthName={monthName}
@@ -172,7 +128,7 @@ export default function NewAppointment() {
             />
           )}
 
-          {/* time slots */}
+          {/* Time slots */}
           {selectedDate && (
             <TimeSlots
               dateLabel={selectedDate.toLocaleDateString('es-ES', {
@@ -185,10 +141,10 @@ export default function NewAppointment() {
             />
           )}
 
-          {/* reason */}
+          {/* Reason */}
           {selectedTime && <ReasonField value={reason} onChange={setReason} />}
 
-          {/* summary */}
+          {/* Summary */}
           {selectedDoctor && selectedDate && selectedTime && (
             <SummaryCard
               doctor={doctors.find((d) => d.id === selectedDoctor)}
@@ -197,7 +153,7 @@ export default function NewAppointment() {
             />
           )}
 
-          {/* actions */}
+          {/*Actions */}
           <div className="flex flex-col gap-4 pt-4 sm:flex-row">
             <button
               type="button"

@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { Users, DollarSign, AlertTriangle, Activity } from 'lucide-react';
 
 /* layout */

@@ -1,7 +1,6 @@
 'use client';
 
-/* imports */
-import { User, Calendar as CalendarIcon, Clock, Check } from 'lucide-react'; // icons
+import { User, Calendar as CalendarIcon, Clock, Check } from 'lucide-react';
 
 /* steps */
 export default function ProgressSteps({ getStepStatus }) {

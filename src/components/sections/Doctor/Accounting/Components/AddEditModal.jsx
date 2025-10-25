@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { X } from 'lucide-react';
 
 /* modal */

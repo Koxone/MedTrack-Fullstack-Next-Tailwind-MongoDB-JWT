@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { Plus } from 'lucide-react'; // icon
 
 /* header */

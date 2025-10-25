@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-/* components */
 import Header from './Components/Header';
 import SearchBar from './Components/SearchBar';
 import PatientsTable from './Components/PatientsTable';

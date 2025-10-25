@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 export default function MetricsGrid({
   totalDia,
   totalConsultas,

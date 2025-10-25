@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { Users } from 'lucide-react';
 import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar } from 'recharts';
 

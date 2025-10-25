@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import {
   ResponsiveContainer,
   LineChart,

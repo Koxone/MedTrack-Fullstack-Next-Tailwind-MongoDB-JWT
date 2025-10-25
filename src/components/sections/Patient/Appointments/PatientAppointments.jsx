@@ -1,8 +1,7 @@
 'use client';
 
-/* imports */
-import { useState } from 'react'; // state
-import { useRouter } from 'next/navigation'; // navigation
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import HeaderBar from './Components/HeaderBar'; // header
 import FiltersBar from './Components/FiltersBar'; // filters
 import AppointmentCard from './Components/AppointmentCard'; // item
@@ -11,28 +10,167 @@ import CancelModal from './Components/CancelModal'; // modal
 
 /* data */
 export const appointmentsData = [
-  { id: 1, fecha: '2024-11-25', hora: '10:00', medico: 'Dr. García', especialidad: 'Endocrinología', estado: 'Confirmada' },
-  { id: 2, fecha: '2024-11-22', hora: '15:30', medico: 'Dra. Martínez', especialidad: 'Nutrición', estado: 'Pendiente' },
-  { id: 3, fecha: '2024-11-19', hora: '09:00', medico: 'Dr. López', especialidad: 'Cardiología', estado: 'Completada' },
-  { id: 4, fecha: '2024-11-15', hora: '11:45', medico: 'Dra. Hernández', especialidad: 'Dermatología', estado: 'Confirmada' },
-  { id: 5, fecha: '2024-11-12', hora: '13:00', medico: 'Dr. Pérez', especialidad: 'Medicina General', estado: 'Pendiente' },
-  { id: 6, fecha: '2024-11-09', hora: '08:30', medico: 'Dra. Ramírez', especialidad: 'Ginecología', estado: 'Completada' },
-  { id: 7, fecha: '2024-11-06', hora: '16:00', medico: 'Dr. Torres', especialidad: 'Endocrinología', estado: 'Confirmada' },
-  { id: 8, fecha: '2024-11-03', hora: '10:30', medico: 'Dra. Jiménez', especialidad: 'Nutrición', estado: 'Pendiente' },
-  { id: 9, fecha: '2024-10-30', hora: '12:00', medico: 'Dr. Rivera', especialidad: 'Cardiología', estado: 'Completada' },
-  { id: 10, fecha: '2024-10-27', hora: '09:15', medico: 'Dra. Castro', especialidad: 'Dermatología', estado: 'Confirmada' },
-  { id: 11, fecha: '2024-10-24', hora: '14:00', medico: 'Dr. Flores', especialidad: 'Medicina General', estado: 'Pendiente' },
-  { id: 12, fecha: '2024-10-21', hora: '11:30', medico: 'Dra. Mendoza', especialidad: 'Ginecología', estado: 'Completada' },
-  { id: 13, fecha: '2024-10-18', hora: '08:00', medico: 'Dr. Rojas', especialidad: 'Endocrinología', estado: 'Confirmada' },
-  { id: 14, fecha: '2024-10-15', hora: '17:00', medico: 'Dra. Navarro', especialidad: 'Nutrición', estado: 'Pendiente' },
-  { id: 15, fecha: '2024-10-12', hora: '13:45', medico: 'Dr. Ortega', especialidad: 'Cardiología', estado: 'Completada' },
-  { id: 16, fecha: '2024-10-09', hora: '09:30', medico: 'Dra. Salas', especialidad: 'Dermatología', estado: 'Confirmada' },
-  { id: 17, fecha: '2024-10-06', hora: '15:15', medico: 'Dr. Morales', especialidad: 'Medicina General', estado: 'Pendiente' },
-  { id: 18, fecha: '2024-10-03', hora: '10:00', medico: 'Dra. Delgado', especialidad: 'Ginecología', estado: 'Completada' },
-  { id: 19, fecha: '2024-09-30', hora: '11:00', medico: 'Dr. Sánchez', especialidad: 'Endocrinología', estado: 'Confirmada' },
-  { id: 20, fecha: '2024-09-27', hora: '12:30', medico: 'Dra. Morales', especialidad: 'Nutrición', estado: 'Pendiente' },
+  {
+    id: 1,
+    fecha: '2024-11-25',
+    hora: '10:00',
+    medico: 'Dr. García',
+    especialidad: 'Endocrinología',
+    estado: 'Confirmada',
+  },
+  {
+    id: 2,
+    fecha: '2024-11-22',
+    hora: '15:30',
+    medico: 'Dra. Martínez',
+    especialidad: 'Nutrición',
+    estado: 'Pendiente',
+  },
+  {
+    id: 3,
+    fecha: '2024-11-19',
+    hora: '09:00',
+    medico: 'Dr. López',
+    especialidad: 'Cardiología',
+    estado: 'Completada',
+  },
+  {
+    id: 4,
+    fecha: '2024-11-15',
+    hora: '11:45',
+    medico: 'Dra. Hernández',
+    especialidad: 'Dermatología',
+    estado: 'Confirmada',
+  },
+  {
+    id: 5,
+    fecha: '2024-11-12',
+    hora: '13:00',
+    medico: 'Dr. Pérez',
+    especialidad: 'Medicina General',
+    estado: 'Pendiente',
+  },
+  {
+    id: 6,
+    fecha: '2024-11-09',
+    hora: '08:30',
+    medico: 'Dra. Ramírez',
+    especialidad: 'Ginecología',
+    estado: 'Completada',
+  },
+  {
+    id: 7,
+    fecha: '2024-11-06',
+    hora: '16:00',
+    medico: 'Dr. Torres',
+    especialidad: 'Endocrinología',
+    estado: 'Confirmada',
+  },
+  {
+    id: 8,
+    fecha: '2024-11-03',
+    hora: '10:30',
+    medico: 'Dra. Jiménez',
+    especialidad: 'Nutrición',
+    estado: 'Pendiente',
+  },
+  {
+    id: 9,
+    fecha: '2024-10-30',
+    hora: '12:00',
+    medico: 'Dr. Rivera',
+    especialidad: 'Cardiología',
+    estado: 'Completada',
+  },
+  {
+    id: 10,
+    fecha: '2024-10-27',
+    hora: '09:15',
+    medico: 'Dra. Castro',
+    especialidad: 'Dermatología',
+    estado: 'Confirmada',
+  },
+  {
+    id: 11,
+    fecha: '2024-10-24',
+    hora: '14:00',
+    medico: 'Dr. Flores',
+    especialidad: 'Medicina General',
+    estado: 'Pendiente',
+  },
+  {
+    id: 12,
+    fecha: '2024-10-21',
+    hora: '11:30',
+    medico: 'Dra. Mendoza',
+    especialidad: 'Ginecología',
+    estado: 'Completada',
+  },
+  {
+    id: 13,
+    fecha: '2024-10-18',
+    hora: '08:00',
+    medico: 'Dr. Rojas',
+    especialidad: 'Endocrinología',
+    estado: 'Confirmada',
+  },
+  {
+    id: 14,
+    fecha: '2024-10-15',
+    hora: '17:00',
+    medico: 'Dra. Navarro',
+    especialidad: 'Nutrición',
+    estado: 'Pendiente',
+  },
+  {
+    id: 15,
+    fecha: '2024-10-12',
+    hora: '13:45',
+    medico: 'Dr. Ortega',
+    especialidad: 'Cardiología',
+    estado: 'Completada',
+  },
+  {
+    id: 16,
+    fecha: '2024-10-09',
+    hora: '09:30',
+    medico: 'Dra. Salas',
+    especialidad: 'Dermatología',
+    estado: 'Confirmada',
+  },
+  {
+    id: 17,
+    fecha: '2024-10-06',
+    hora: '15:15',
+    medico: 'Dr. Morales',
+    especialidad: 'Medicina General',
+    estado: 'Pendiente',
+  },
+  {
+    id: 18,
+    fecha: '2024-10-03',
+    hora: '10:00',
+    medico: 'Dra. Delgado',
+    especialidad: 'Ginecología',
+    estado: 'Completada',
+  },
+  {
+    id: 19,
+    fecha: '2024-09-30',
+    hora: '11:00',
+    medico: 'Dr. Sánchez',
+    especialidad: 'Endocrinología',
+    estado: 'Confirmada',
+  },
+  {
+    id: 20,
+    fecha: '2024-09-27',
+    hora: '12:30',
+    medico: 'Dra. Morales',
+    especialidad: 'Nutrición',
+    estado: 'Pendiente',
+  },
 ];
-
 
 /* helpers */
 export const getStatusColor = (estado) => {

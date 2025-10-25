@@ -1,6 +1,5 @@
 'use client';
 
-/* imports */
 import { Weight, Activity, TrendingDown, Calendar } from 'lucide-react';
 
 /* helpers */
