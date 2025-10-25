@@ -1,4 +1,6 @@
+import Sidebar from '@/components/general/nav/SideBar';
 import './globals.css';
+import Header from '@/components/general/nav/Header';
 
 export const metadata = {
   title: 'Create Next App',
@@ -8,7 +10,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body className="grid grid-rows-[auto_1fr] overflow-hidden">
+        <Header />
+        <main className="grid grid-cols-[auto_1fr]">
+          <Sidebar />
+          <div className="h-[calc(100vh-64px)] w-full overflow-y-auto p-4 pb-24">{children}</div>
+        </main>
+      </body>
     </html>
   );
 }
