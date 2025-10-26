@@ -14,6 +14,7 @@ import CancelAppointmentModal from './components/doctor/CancelAppointmentModal';
 import { usePathname } from 'next/navigation';
 import PatientEvolutionChart from './components/patient/EvolutionChart';
 import EmployeeWeekChart from './components/employee/WeekChart';
+import EmployeeInventoryAlerts from './components/employee/EmployeeInventoryAlerts';
 
 export default function GeneralDashboard() {
   const pathname = usePathname();
@@ -48,7 +49,8 @@ export default function GeneralDashboard() {
       {dashboardType === 'employee' && (
         <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
           <EmployeeWeekChart />
-          <InventoryAlerts />
+          {/* <InventoryAlerts /> */}
+          <EmployeeInventoryAlerts />
         </div>
       )}
 

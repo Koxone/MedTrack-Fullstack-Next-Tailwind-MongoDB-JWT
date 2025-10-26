@@ -1,8 +1,9 @@
 'use client';
 
 import { AlertTriangle, ChevronRight } from 'lucide-react';
+import { alertasInventarioPreset } from './inventoryAlerts/data';
 
-export default function InventoryAlerts({ items, onViewMore }) {
+export default function EmployeeInventoryAlerts({ onViewMore }) {
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
       <div className="mb-4 flex items-center justify-between">
@@ -16,7 +17,7 @@ export default function InventoryAlerts({ items, onViewMore }) {
         </button>
       </div>
       <div className="space-y-2">
-        {items.map((item, index) => (
+        {alertasInventarioPreset.map((item, index) => (
           <div
             key={index}
             className="flex items-center justify-between rounded-lg border border-red-200 bg-red-50 p-3"
