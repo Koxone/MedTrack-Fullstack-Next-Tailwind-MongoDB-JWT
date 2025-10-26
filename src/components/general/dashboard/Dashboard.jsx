@@ -14,15 +14,15 @@ import {
   Calendar,
 } from 'lucide-react';
 
-import HeaderWelcome from './components/HeaderWelcome';
+import HeaderWelcome from './components/doctor/HeaderWelcome';
 import StatsGrid from './components/statsGrid/StatsGrid';
-import IncomeChart from './components/IncomeChart';
-import PatientsChart from './components/PatientsChart';
-import AppointmentsList from './components/AppointmentsList';
-import AccountingSummary from './components/AccountingSummary';
-import InventoryAlerts from './components/InventoryAlerts';
-import QuickActions from './components/QuickActions';
-import CancelAppointmentModal from './components/CancelAppointmentModal';
+import IncomeChart from './components/doctor/IncomeChart';
+import PatientsChart from './components/doctor/PatientsChart';
+import AppointmentsList from './components/doctor/AppointmentsList';
+import AccountingSummary from './components/doctor/AccountingSummary';
+import InventoryAlerts from './components/doctor/InventoryAlerts';
+import QuickActions from './components/doctor/QuickActions';
+import CancelAppointmentModal from './components/doctor/CancelAppointmentModal';
 import { usePathname } from 'next/navigation';
 
 export default function GeneralDashboard() {
