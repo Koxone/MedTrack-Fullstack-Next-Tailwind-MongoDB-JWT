@@ -1,7 +1,7 @@
 import GeneralPatients from '@/components/general/patients/GeneralPatients';
 import React from 'react';
 
-function DoctorPatientsPage() {
+function EmployeePatientsPage() {
   return (
     <div className="max-h-screen overflow-hidden">
       <GeneralPatients />
@@ -9,4 +9,4 @@ function DoctorPatientsPage() {
   );
 }
 
-export default DoctorPatientsPage;
+export default EmployeePatientsPage;

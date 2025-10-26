@@ -1,8 +1,8 @@
 'use client';
 
-import PatientsSearchBar from '@/components/general/patients/PatientsSearchBar';
-import PatientsHeader from '@/components/general/patients/PatientsHeader';
-import PatientsList from '@/components/general/patients/PatientsList';
+import PatientsSearchBar from '@/components/general/patients/components/PatientsSearchBar';
+import PatientsHeader from '@/components/general/patients/components/PatientsHeader';
+import PatientsList from '@/components/general/patients/components/PatientsList';
 
 const mockPatients = [
   { id: 1, fullName: 'Laura Hernández', email: 'laura.hernandez@example.com', age: 32 },
@@ -10,10 +10,8 @@ const mockPatients = [
   { id: 3, fullName: 'Ana López', email: 'ana.lopez@example.com', age: 27 },
 ];
 
-export default function DoctorPatients() {
+export default function GeneralPatients() {
   const searchTerm = '';
-
-  const filtered = mockPatients;
 
   return (
     <div className="h-full space-y-6 overflow-y-auto">

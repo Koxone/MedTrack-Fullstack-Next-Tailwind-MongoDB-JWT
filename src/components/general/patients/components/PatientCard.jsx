@@ -1,6 +1,7 @@
 'use client';
 
 import { Phone, Mail, Calendar, Eye } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 const getInitials = (name = '') =>
   name
@@ -10,6 +11,7 @@ const getInitials = (name = '') =>
     .join('');
 
 export default function PatientCard({ paciente }) {
+  const pathname = usePathname();
   return (
     <div className="rounded-xl border-2 border-gray-200 bg-white p-4 transition hover:border-blue-300">
       <div className="flex items-center gap-4">
@@ -40,13 +42,15 @@ export default function PatientCard({ paciente }) {
                 <span>Última: {paciente.ultimaVisita}</span>
               </div>
 
-              <button
-                // onClick={() => onView(patient._id)}
-                className="flex items-center gap-2 font-medium text-blue-600 hover:text-blue-700"
-              >
-                <Eye className="h-4 w-4" />
-                Ver Detalles
-              </button>
+              {pathname.startsWith('/doctor') ? (
+                <button
+                  // onClick={() => onView(patient._id)}
+                  className="flex items-center gap-2 font-medium text-blue-600 hover:text-blue-700"
+                >
+                  <Eye className="h-4 w-4" />
+                  Ver Detalles
+                </button>
+              ) : null}
             </div>
           </div>
         </div>
