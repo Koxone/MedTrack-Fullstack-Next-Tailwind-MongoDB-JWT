@@ -30,7 +30,7 @@ import PatientHeader from './components/PatientHeader';
 import QuickStats from './components/QuickStats';
 import WeightChart from './components/WeightChart';
 import ClinicalHistory from './components/clinicalHistory/ClinicalHistory';
-import HistoryModal from './components/HistoryModal';
+import HistoryModal from './components/historyModal/HistoryModal';
 import BackButton from './components/BackButton';
 
 /* Mock patient */
@@ -211,7 +211,7 @@ export default function DoctorPatientDetail() {
             alert(editingHistory ? 'Historial actualizado (mock)' : 'Historial creado (mock)');
             closeHistoryModal();
           }}
-          icons={{ X, FileText, CalendarIcon, Scale, Heart, Activity, Stethoscope }}
+          icons={{ X, FileText, CalendarIcon, Scale, Heart, Activity, Stethoscope, ClipboardList }}
           isReadOnly={isReadOnly}
         />
       )}
