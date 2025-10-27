@@ -103,7 +103,7 @@ function HistoryCard({ r, onEdit }) {
         {/* View Patient History */}
         <button
           onClick={() => onEdit(r, true)} // ← true indica modo lectura
-          className="self-start rounded-lg bg-(--med-blue-light) p-2 transition hover:bg-(--med-blue) hover:text-white active:scale-95 sm:self-auto sm:p-2.5"
+          className="self-start rounded-lg bg-(--med-blue-light) p-2 hover:bg-(--med-blue) hover:text-white active:scale-95 sm:self-auto sm:p-2.5"
         >
           <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
@@ -111,7 +111,7 @@ function HistoryCard({ r, onEdit }) {
         {/* Edit */}
         <button
           onClick={() => onEdit(r, false)} // ← false indica modo edición
-          className="self-start rounded-lg bg-(--med-blue-light) p-2 transition hover:bg-(--med-blue) hover:text-white active:scale-95 sm:self-auto sm:p-2.5"
+          className="self-start rounded-lg bg-(--med-blue-light) p-2 hover:bg-(--med-blue) hover:text-white active:scale-95 sm:self-auto sm:p-2.5"
         >
           <Edit2 className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
