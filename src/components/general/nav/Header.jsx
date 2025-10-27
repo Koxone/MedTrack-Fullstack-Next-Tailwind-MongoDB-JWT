@@ -1,10 +1,6 @@
-'use client';
-
-// Static imports
 import { Bell, User, LogOut, Menu, X } from 'lucide-react';
 
 export default function Header() {
-  // Render
   return (
     <header className="sticky top-0 z-40 border-b-2 border-gray-200 bg-white/95 shadow-lg backdrop-blur-lg">
       {/* Mobile header */}
@@ -103,36 +99,6 @@ export default function Header() {
           </button>
         </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.2s ease-out;
-        }
-
-        .animate-slideDown {
-          animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-      `}</style>
     </header>
   );
 }

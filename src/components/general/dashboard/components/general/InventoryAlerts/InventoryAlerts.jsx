@@ -1,6 +1,3 @@
-'use client';
-
-// Static imports
 import {
   Pill,
   FileText,

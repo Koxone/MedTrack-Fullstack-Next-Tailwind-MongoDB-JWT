@@ -1,5 +1,4 @@
 import { AlertTriangle, Pill } from 'lucide-react';
-import React from 'react';
 
 function AlertCard() {
   return (

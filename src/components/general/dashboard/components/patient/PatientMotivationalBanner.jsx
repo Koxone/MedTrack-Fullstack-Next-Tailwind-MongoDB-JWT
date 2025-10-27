@@ -1,6 +1,3 @@
-'use client';
-
-/* banner */
 export default function PatientMotivationalBanner({ message, ctaLabel, onCta }) {
   return (
     <div className="rounded-xl bg-linear-to-r from-blue-500 to-blue-600 p-4 text-white shadow-sm md:p-6">
