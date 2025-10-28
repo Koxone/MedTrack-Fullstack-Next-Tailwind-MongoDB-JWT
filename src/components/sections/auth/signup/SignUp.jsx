@@ -2,19 +2,44 @@
 
 import { Heart, Mail, Lock, User, Phone, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
-export default function Signup() {
+export default function SignupForm() {
   const router = useRouter();
+  const [formData, setFormData] = useState({
+    nombre: '',
+    email: '',
+    telefono: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Basic Validation
+    if (formData.password !== formData.confirmPassword) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      alert('La contraseña debe tener al menos 6 caracteres');
+      return;
+    }
+
+    // Guardar datos en localStorage para el siguiente paso
+    localStorage.setItem('signupData', JSON.stringify(formData));
+
+    // Ir al paso 2: historial clínico
+    router.push('/signup/medical-history');
+  };
   return (
-    <div className="flex items-center justify-center bg-linear-to-br from-blue-50 via-white to-green-50 p-4">
+    <div className="flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="mb-6 text-center md:mb-8">
-          <div className="mb-4 flex items-center justify-center gap-2">
-            <Heart className="h-8 w-8 text-blue-500 md:h-10 md:w-10" />
-            <span className="text-2xl font-bold text-gray-900 md:text-3xl">MedTrack</span>
-          </div>
-          <h1 className="mb-2 text-2xl font-bold text-gray-900 md:text-3xl">Crear Cuenta</h1>
+          <h1 className="mb-2 text-2xl font-bold text-gray-900 md:text-2xl">Crear Cuenta</h1>
           <p className="text-sm text-gray-600 md:text-base">Paso 1 de 2: Información de acceso</p>
         </div>
 

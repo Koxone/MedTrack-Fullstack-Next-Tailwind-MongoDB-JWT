@@ -1,6 +1,5 @@
 'use client';
 
-/* Imports */
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Heart, Mail, Lock } from 'lucide-react';
@@ -24,7 +23,7 @@ export default function LoginForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
-        credentials: 'include', 
+        credentials: 'include',
       });
 
       const data = await res.json();
@@ -52,16 +51,9 @@ export default function LoginForm() {
     }
   };
 
-  /* UI */
   return (
-    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-blue-50 via-white to-green-50 p-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
-        {/* Header */}
-        <div className="mb-8 flex items-center justify-center gap-2">
-          <Heart className="h-10 w-10 text-blue-500" />
-          <span className="text-2xl font-bold text-gray-900 md:text-3xl">MedTrack</span>
-        </div>
-
+    <div className="flex h-full items-center justify-center overflow-hidden p-4">
+      <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-xl">
         {/* Title */}
         <h2 className="mb-2 text-center text-2xl font-bold text-gray-900">Iniciar Sesión</h2>
         <p className="mb-8 text-center text-gray-600">Accede a tu cuenta médica</p>
@@ -129,7 +121,7 @@ export default function LoginForm() {
         <p className="mt-6 text-center text-gray-600">
           ¿No tienes cuenta?{' '}
           <button
-            onClick={() => router.push('/signup')}
+            onClick={() => router.push('/auth/signup')}
             className="font-medium text-blue-600 hover:text-blue-700"
           >
             Regístrate aquí

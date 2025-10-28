@@ -16,14 +16,10 @@ export default function MedicalHistoryForm() {
 
   // Render
   return (
-    <div className="h-full overflow-y-auto bg-linear-to-br from-blue-50 via-white to-green-50 p-4 py-6 md:py-10">
+    <div className="h-full overflow-y-auto p-4 py-6 md:py-10">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="mb-6 text-center">
-          <div className="mb-4 flex items-center justify-center gap-2">
-            <Heart className="h-8 w-8 text-blue-500 md:h-10 md:w-10" />
-            <span className="text-2xl font-bold text-gray-900 md:text-3xl">MedTrack</span>
-          </div>
           <h1 className="mb-2 text-2xl font-bold text-gray-900 md:text-3xl">Historial Clínico</h1>
           <p className="text-sm text-gray-600 md:text-base">
             Paso 2 de 2: Completa tu información médica

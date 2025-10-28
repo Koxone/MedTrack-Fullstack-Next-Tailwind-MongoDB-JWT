@@ -3,14 +3,14 @@ import Header from '@/components/general/nav/Header';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 
-export const runtime = 'nodejs'; // ✅ Force Node.js runtime
+export const runtime = 'nodejs';
 
 export const metadata = {
   title: 'MedTrack',
   description: 'Medical management platform',
 };
 
-export default async function RootLayout({ children }) {
+export default async function MainRootLayout({ children }) {
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get('refreshToken')?.value;
 
@@ -20,7 +20,6 @@ export default async function RootLayout({ children }) {
     try {
       const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
       type = decoded.role || 'guest';
-      // console.log('Decoded token:', decoded);
     } catch (error) {
       console.error('JWT verify error:', error);
       type = 'guest';
@@ -32,7 +31,7 @@ export default async function RootLayout({ children }) {
         <Header type={type} />
         <main className="grid grid-cols-[auto_1fr]">
           <Sidebar />
-          <div className="mx-auto h-[calc(100vh-64px)] w-full max-w-7xl overflow-y-auto p-6 pb-10">
+          <div className="mx-auto min-h-screen w-full max-w-7xl overflow-y-auto p-6 pb-10">
             {children}
           </div>
         </main>

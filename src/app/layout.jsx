@@ -5,7 +5,7 @@ export const metadata = {
   description: 'Aplicación médica moderna',
 };
 
-export default function RootLayout({ children }) {
+export default function AuthRootLayout({ children }) {
   return (
     <html lang="es">
       <body className="min-h-screen overflow-hidden">{children}</body>
