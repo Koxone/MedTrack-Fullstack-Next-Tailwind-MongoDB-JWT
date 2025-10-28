@@ -92,7 +92,7 @@ export default function ModalAddEdit({ setShowModal, editingEjercicio, handleSav
               </select>
             </div>
 
-            <label className="mt-3 block flex items-center gap-2 text-sm font-medium text-gray-700">
+            <label className="mt-3 flex items-center gap-2 text-sm font-medium text-gray-700">
               <ImageIcon className="h-4 w-4" /> URLs de imágenes (una por línea)
             </label>
             <textarea
@@ -102,7 +102,7 @@ export default function ModalAddEdit({ setShowModal, editingEjercicio, handleSav
               rows="3"
             />
 
-            <label className="mt-3 block flex items-center gap-2 text-sm font-medium text-gray-700">
+            <label className="mt-3 flex items-center gap-2 text-sm font-medium text-gray-700">
               <Play className="h-4 w-4 text-red-600" /> URL de video (embed)
             </label>
             <input
