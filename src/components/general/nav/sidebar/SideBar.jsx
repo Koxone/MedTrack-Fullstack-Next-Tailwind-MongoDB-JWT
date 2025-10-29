@@ -45,7 +45,7 @@ export default function Sidebar() {
                 key={item.path}
                 onClick={() => router.push(`${item.path}`)}
                 style={{ animationDelay: `${index * 50}ms` }}
-                className={`group animate-fadeInLeft relative flex w-full items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-3.5 transition-all duration-200 ${
+                className={`group animate-fadeInLeft relative flex w-full items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-3.5 ${
                   isActive
                     ? 'scale-105 border-2 border-blue-200 bg-linear-to-r from-blue-50 to-indigo-50 font-semibold text-blue-600 shadow-md'
                     : 'border-2 border-transparent text-gray-700 hover:scale-105 hover:bg-white hover:shadow-md active:scale-95'
