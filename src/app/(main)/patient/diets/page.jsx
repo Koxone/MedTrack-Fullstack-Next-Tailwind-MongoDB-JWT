@@ -1,11 +1,12 @@
-import React from 'react';
-import DoctorDiets from '@/components/sections/doctor/diets/DoctorDiets';
 import GeneralDiets from '@/components/general/diets/GeneralDiets';
+import React from 'react';
 
-export default async function DoctorDietsPage() {
+function PatientDietsPage() {
   return (
     <div className="h-screen overflow-hidden pb-40">
       <GeneralDiets />
     </div>
   );
 }
+
+export default PatientDietsPage;
