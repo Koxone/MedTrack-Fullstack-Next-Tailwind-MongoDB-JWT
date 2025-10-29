@@ -2,7 +2,7 @@ import { Apple, Clock } from 'lucide-react';
 import DietCardActions from './components/DietCardActions';
 import Link from 'next/link';
 
-export default function DietCard({ diet, role }) {
+export default function GeneralDietCard({ diet, role }) {
   return (
     <div className="group rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-lg md:p-6">
       {/* Image/Icon */}

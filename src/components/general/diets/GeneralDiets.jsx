@@ -1,5 +1,5 @@
 import { Plus } from 'lucide-react';
-import DietCard from './components/dietCard/DietCard';
+import GeneralDietCard from './components/dietCard/GeneralDietCard';
 import Link from 'next/link';
 import { getCurrentUser } from '@/lib/auth/getCurrentUser';
 export const runtime = 'nodejs';
@@ -39,7 +39,7 @@ export default async function GeneralDiets() {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {diets.map((diet) => (
-          <DietCard role={role} diet={diet} key={diet.id} />
+          <GeneralDietCard role={role} diet={diet} key={diet.id} />
         ))}
       </div>
     </div>

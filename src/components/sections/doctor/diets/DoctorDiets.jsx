@@ -1,6 +1,7 @@
 import { Apple, Plus, Edit, Eye } from 'lucide-react';
 import DietCard from './components/dietCard/DietCard';
 import Link from 'next/link';
+import GeneralDietCard from '@/components/general/diets/components/dietCard/GeneralDietCard';
 
 const diets = [
   { id: 1, nombre: 'Plan Mediterráneo', pacientes: 12, duracion: '30 días' },
@@ -27,7 +28,7 @@ export default function DoctorDiets({ type }) {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {diets.map((diet) => (
-          <DietCard diet={diet} key={diet.id} />
+          <GeneralDietCard diet={diet} key={diet.id} />
         ))}
       </div>
     </div>
