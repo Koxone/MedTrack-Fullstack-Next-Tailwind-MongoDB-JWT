@@ -1,21 +1,30 @@
-import { ClipboardPlus, Sparkles } from 'lucide-react';
+// File: components/TabsHeader.jsx
+import { ClipboardPlus, Sparkles, SparklesIcon } from 'lucide-react';
 
+/* Helpers */
+function activeBg(id) {
+  // Return fixed Tailwind class to avoid dynamic strings
+  if (id === 'peso') return 'bg-blue-500 text-white';
+  if (id === 'odontologia') return 'bg-emerald-500 text-white';
+  return 'bg-purple-500 text-white';
+}
+
+/* Component */
 export default function TabsHeader({ activeTab, setActiveTab }) {
   const tabs = [
-    { id: 'peso', label: 'Informacion del Paciente', color: 'blue', icon: ClipboardPlus },
-    { id: 'estetico', label: 'Tratamiento Estético', color: 'purple', icon: Sparkles },
+    { id: 'peso', label: 'Control de Peso', icon: SparklesIcon },
+    { id: 'odontologia', label: 'Odontología', icon: SparklesIcon },
+    { id: 'estetico', label: 'Tratamiento Estético', icon: SparklesIcon },
   ];
 
   return (
-    <div className="grid grid-cols-1 border-b border-gray-200">
-      {tabs.map(({ id, label, color, icon: Icon }) => (
+    <div className="grid grid-cols-1 border-b border-gray-200 md:grid-cols-3">
+      {tabs.map(({ id, label, icon: Icon }) => (
         <button
           key={id}
           onClick={() => setActiveTab(id)}
           className={`flex items-center justify-center gap-2 px-4 py-4 font-medium transition ${
-            activeTab === id
-              ? `bg-${color}-500 text-white`
-              : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
+            activeTab === id ? activeBg(id) : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
           }`}
         >
           <Icon className="h-5 w-5" />
