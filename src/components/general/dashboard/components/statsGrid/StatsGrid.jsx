@@ -1,8 +1,8 @@
 import StatsCard from './components/StatsCard';
 import { doctorStats, employeeStats, patientStats } from './components/StatsData';
 
-export default function StatsGrid({ type }) {
-  const stats = type === 'doctor' ? doctorStats : type === 'patient' ? patientStats : employeeStats;
+export default function StatsGrid({ role }) {
+  const stats = role === 'doctor' ? doctorStats : role === 'patient' ? patientStats : employeeStats;
   return (
     <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
       {stats.map((item, index) => (
