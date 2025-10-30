@@ -1,6 +1,6 @@
 'use client';
 
-import MockVentaMedicamentos from './Components/MockVentaMedicamentos';
+import MockVentaMedicamentos from './components/MockVentaMedicamentos';
 
 /* modal */
 export default function AddEditModal({ editingItem, form, setForm, onClose, onSubmit, icons }) {
