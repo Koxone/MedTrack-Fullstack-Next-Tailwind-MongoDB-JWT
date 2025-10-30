@@ -31,6 +31,8 @@ export default function Sidebar({ role, currentUser }) {
         ? patientSidebarItems
         : employeeSidebarItems;
 
+  if (pathname === '/auth/login') return null;
+
   return (
     <>
       {/* Desktop sidebar */}
