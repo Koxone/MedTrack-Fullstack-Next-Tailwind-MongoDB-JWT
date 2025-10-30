@@ -34,7 +34,10 @@ export default function WorkoutModal({
 
   return (
     <>
-      <div className="animate-fadeIn fixed inset-0 z-50 h-screen bg-black/50" onClick={onClose} />
+      <div
+        className="animate-in fade-in fixed inset-0 z-50 h-screen bg-black/70 backdrop-blur-md transition-all duration-300"
+        onClick={onClose}
+      />
       <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4">
         <div
           className="animate-slideUp pointer-events-auto max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl bg-white shadow-2xl"

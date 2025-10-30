@@ -2,6 +2,7 @@ import Sidebar from '@/components/general/nav/sidebar/SideBar';
 import Header from '@/components/general/nav/Header';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
+import { getCurrentUser } from '@/lib/auth/getCurrentUser';
 
 export const runtime = 'nodejs';
 
@@ -11,6 +12,10 @@ export const metadata = {
 };
 
 export default async function MainRootLayout({ children }) {
+  // Get current User info
+  const currentUser = await getCurrentUser();
+  const role = currentUser?.role;
+  console.log(role);
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get('refreshToken')?.value;
 
