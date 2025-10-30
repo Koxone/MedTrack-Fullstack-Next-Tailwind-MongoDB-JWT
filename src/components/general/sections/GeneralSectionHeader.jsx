@@ -10,6 +10,7 @@ import {
   Weight,
   DollarSign,
   Activity,
+  Dumbbell,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -20,7 +21,7 @@ function GeneralSectionHeader({ role, Icon, title = '', subtitle = '' }) {
     calendar: Calendar,
     pacientes: UserPlus,
     diets: Apple,
-    workouts: Weight,
+    workouts: Dumbbell,
     accounting: DollarSign,
     history: Activity,
   };
