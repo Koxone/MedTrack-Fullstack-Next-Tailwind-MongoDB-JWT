@@ -1,18 +1,6 @@
 'use client';
 
-import {
-  LayoutDashboard,
-  FileText,
-  Calendar,
-  Apple,
-  User,
-  HelpCircle,
-  Users,
-  DollarSign,
-  Package,
-  Dumbbell,
-  ChevronRight,
-} from 'lucide-react';
+import { LayoutDashboard, Calendar, ChevronRight } from 'lucide-react';
 import {
   patientSidebarItems,
   doctorSidebarItems,
@@ -41,7 +29,7 @@ export default function Sidebar({ role, currentUser }) {
           {/* Buttons */}
           {sidebarOptions.map((item, index) => {
             const Icon = item.icon;
-            const isActive = pathname === item.path;
+            const isActive = pathname.startsWith(item.path);
 
             return (
               <button

@@ -10,7 +10,7 @@ import PatientEvolutionChart from './components/patient/PatientEvolutionChart';
 import PatientMotivationalBanner from './components/patient/PatientMotivationalBanner';
 
 export default function GeneralDashboard({ role, currentUser }) {
-  console.log('Usuario:', currentUser);
+  console.log('Usuario:', currentUser?.fullName);
   console.log(role);
   return (
     <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
@@ -34,8 +34,8 @@ export default function GeneralDashboard({ role, currentUser }) {
       {/* Doctor Summaries */}
       {role === 'doctor' && (
         <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
-          <DoctorAccountingSummary />
-          <InventoryAlerts />
+          <DoctorAccountingSummary role={role} />
+          <InventoryAlerts role={role} />
         </div>
       )}
 
@@ -54,7 +54,7 @@ export default function GeneralDashboard({ role, currentUser }) {
       {role === 'employee' && (
         <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
           <AppointmentsToday />
-          <InventoryAlerts />
+          <InventoryAlerts role={role} />
         </div>
       )}
 

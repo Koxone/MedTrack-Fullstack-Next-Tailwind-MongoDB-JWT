@@ -1,6 +1,7 @@
 import { Users, Pill, AlertCircle, ChevronRight, TrendingUp, DollarSign } from 'lucide-react';
+import ViewMoreButton from '../general/accountingSummary/components/ViewMoreButton';
 
-export default function DoctorAccountingSummary() {
+export default function DoctorAccountingSummary({ role }) {
   return (
     <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
       {/* Header */}
@@ -19,10 +20,8 @@ export default function DoctorAccountingSummary() {
             </div>
           </div>
 
-          <button className="group flex items-center gap-2 rounded-xl border border-white/30 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 active:scale-95">
-            <span>Ver más</span>
-            <ChevronRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </button>
+          {/* View More Button */}
+          <ViewMoreButton role={role} route="accounting" />
         </div>
       </div>
 
