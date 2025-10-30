@@ -3,6 +3,8 @@ Doctor:
 // TODO: Revisar cada componente para hacer lo mas posible Server Side
 // TODO: VOY EN LA PARTE DE /PATIENT/WORKOUTS/:ID
 
+https://dhtmlx.com/docs/demo/doctor-appointment-react/
+
 const x = Number
 const y = Number
 const z = 10

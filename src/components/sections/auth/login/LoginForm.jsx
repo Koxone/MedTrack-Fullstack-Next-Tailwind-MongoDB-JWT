@@ -42,7 +42,7 @@ export default function LoginForm() {
       if (role === 'patient') router.push('/patient/dashboard');
       else if (role === 'doctor') router.push('/doctor/dashboard');
       else if (role === 'employee') router.push('/employee/dashboard');
-      else router.push('/admin/dashboard');
+      else router.push('/auth/login');
     } catch (error) {
       console.error('Login error:', error);
       alert('Error al conectar con el servidor');
