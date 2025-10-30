@@ -1,8 +1,8 @@
 import { connectDB } from '@/lib/mongodb';
-import User from '@/Models/User';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
+import User from '@/models/User';
 
 // @route    POST api/auth/signup
 // @desc     Create New User
