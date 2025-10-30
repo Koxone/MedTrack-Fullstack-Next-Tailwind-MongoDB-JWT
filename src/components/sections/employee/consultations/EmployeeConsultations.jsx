@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react'; /* state */
+import { useState, useMemo } from 'react';
 import {
   DollarSign,
   Users,
@@ -17,9 +17,8 @@ import {
   CreditCard,
   CheckCircle,
   Award,
-} from 'lucide-react'; /* icons */
+} from 'lucide-react';
 
-import HeaderBar from './components/HeaderBar';
 import MetricsGrid from './components/MetricsGrid';
 import SearchAddBar from './components/SearchAddBar';
 import ConsultationsTable from './components/ConsultationsTable';
@@ -27,9 +26,10 @@ import ConsultationsMobile from './components/ConsultationsMobile';
 import EmptyState from './components/EmptyState';
 import AddEditModal from './components/AddEditModal/AddEditModal';
 import DeleteModal from './components/DeleteModal';
+import GeneralSectionHeader from '@/components/general/sections/GeneralSectionHeader';
 
 /* container */
-export default function EmployeeConsultations() {
+export default function EmployeeConsultations({ role }) {
   /* ui state */
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -181,7 +181,12 @@ export default function EmployeeConsultations() {
   return (
     <div className="h-full overflow-x-hidden overflow-y-auto pb-8">
       {/* header */}
-      <HeaderBar icons={{ DollarSign }} />
+      <GeneralSectionHeader
+        role={role}
+        Icon="accounting"
+        title="Gestión de Consultas"
+        subtitle="Registrar y controlar la atención médica de los pacientes."
+      />
 
       <div className="mx-auto max-w-7xl space-y-6">
         {/* metrics */}

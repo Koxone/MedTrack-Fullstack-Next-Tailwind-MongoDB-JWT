@@ -1,12 +1,15 @@
 import EmployeeConsultations from '@/components/sections/employee/consultations/EmployeeConsultations';
 import React from 'react';
+import { getCurrentUser } from '@/lib/auth/getCurrentUser';
+export const runtime = 'nodejs';
 
-function EmployeeConsultationsPage() {
+export default async function EmployeeConsultationsPage() {
+  // Get current User info
+  const currentUser = await getCurrentUser();
+  const role = currentUser?.role;
   return (
     <div className="h-screen overflow-hidden pb-40">
-      <EmployeeConsultations />
+      <EmployeeConsultations role={role} />
     </div>
   );
 }
-
-export default EmployeeConsultationsPage;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react'; /* state */
+import { useState, useMemo } from 'react';
 import {
   Package,
   Pill,
@@ -13,9 +13,8 @@ import {
   Trash2,
   Download,
   X,
-} from 'lucide-react'; /* icons */
+} from 'lucide-react';
 
-import HeaderBar from './components/HeaderBar';
 import TabsBar from './components/TabsBar';
 import SearchAddBar from './components/SearchAddBar';
 import StatsBar from './components/StatsBar';
@@ -25,6 +24,7 @@ import RecetasGrid from './components/RecetasGrid';
 import SuministrosTable from './components/SuministrosTable';
 import AddEditModal from './components/AddEditModal';
 import DeleteModal from './components/DeleteModal';
+import GeneralSectionHeader from '@/components/general/sections/GeneralSectionHeader';
 
 /* utils */
 const getStockStatus = (stock, minimo) => {
@@ -46,7 +46,7 @@ const getCaducidadStatus = (caducidad) => {
 };
 
 /* container */
-export default function EmployeeInventory() {
+export default function EmployeeInventory({ role }) {
   /* ui state */
   const [activeTab, setActiveTab] = useState('medicamentos');
   const [searchTerm, setSearchTerm] = useState('');
@@ -293,7 +293,12 @@ export default function EmployeeInventory() {
   return (
     <div className="h-full space-y-6 overflow-x-hidden overflow-y-auto">
       {/* header */}
-      <HeaderBar />
+      <GeneralSectionHeader
+        role={role}
+        Icon="inventory"
+        title="Gestión de Inventario"
+        subtitle="Control de medicamentos, recetas y suministros"
+      />
 
       {/* tabs and actions */}
       <div className="rounded-xl border border-gray-200 bg-white shadow-sm">

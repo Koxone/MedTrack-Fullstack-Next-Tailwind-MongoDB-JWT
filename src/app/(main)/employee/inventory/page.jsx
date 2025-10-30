@@ -1,12 +1,15 @@
 import EmployeeInventory from '@/components/sections/employee/inventory/EmployeeInventory';
 import React from 'react';
+import { getCurrentUser } from '@/lib/auth/getCurrentUser';
+export const runtime = 'nodejs';
 
-function EmployeeInventoryPage() {
+export default async function EmployeeInventoryPage() {
+  // Get current User info
+  const currentUser = await getCurrentUser();
+  const role = currentUser?.role;
   return (
     <div className="h-screen overflow-hidden pb-40">
-      <EmployeeInventory />
+      <EmployeeInventory role={role} />
     </div>
   );
 }
-
-export default EmployeeInventoryPage;

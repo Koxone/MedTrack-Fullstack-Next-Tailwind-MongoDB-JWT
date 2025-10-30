@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react'; 
+import { useState } from 'react';
 import {
   Calendar,
   Clock,
@@ -15,17 +15,17 @@ import {
   AlertCircle,
   CheckCircle,
   Filter,
-} from 'lucide-react'; 
+} from 'lucide-react';
 
-import HeaderBar from './components/HeaderBar';
 import StatsGrid from './components/StatsGrid';
 import ControlsBar from './components/ControlsBar';
 import AppointmentCard from './components/AppointmentCard';
 import AddEditModal from './components/AddEditModal';
 import CancelModal from './components/CancelModal';
 import EmptyState from './components/EmptyState';
+import GeneralSectionHeader from '@/components/general/sections/GeneralSectionHeader';
 
-export default function EmployeeAppointments() {
+export default function EmployeeAppointments({ role }) {
   /* ui state */
   const [showModal, setShowModal] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
@@ -194,7 +194,12 @@ export default function EmployeeAppointments() {
   return (
     <div className="h-full overflow-x-hidden overflow-y-auto pb-8">
       {/* header */}
-      <HeaderBar />
+      <GeneralSectionHeader
+        role={role}
+        Icon="pacientes"
+        title="Gestión de Citas"
+        subtitle="Agendar y administrar citas de pacientes"
+      />
 
       {/* stats */}
       <div className="mx-auto mb-4 max-w-7xl">
