@@ -21,17 +21,17 @@ export default async function PatientCard({ patient, type }) {
       <div className="flex items-center gap-4">
         {/* Patient Avatar */}
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-purple-500 font-semibold text-white">
-          {getInitials(patient.nombre)}
+          {getInitials(patient?.fullName)}
         </div>
         <div className="flex-1">
           {/* Patient Name */}
-          <h3 className="mb-2 font-semibold text-gray-900">{patient.nombre}</h3>
+          <h3 className="mb-2 font-semibold text-gray-900">{patient?.fullName}</h3>
 
           <div className="grid grid-cols-1 gap-2 text-sm text-gray-600 sm:grid-cols-3">
             {/* Patient Phone */}
             <div className="flex items-center gap-1">
               <Phone className="h-4 w-4" />
-              <span>{patient.telefono}</span>
+              <span>{patient?.phone}</span>
             </div>
 
             {/* Patient Email */}
@@ -43,7 +43,7 @@ export default async function PatientCard({ patient, type }) {
               {/* Last Appointment */}
               <div className="flex items-center gap-1">
                 <Calendar className="h-4 w-4" />
-                <span>Última Cita: {patient.ultimaVisita}</span>
+                <span>Última Cita: {patient?.lastVisit || 'Sin Registro'}</span>
               </div>
 
               {currentUser?.role === 'doctor' ? (

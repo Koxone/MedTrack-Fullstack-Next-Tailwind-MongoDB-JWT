@@ -40,6 +40,10 @@ const UserSchema = new mongoose.Schema(
       enum: ['patient', 'doctor', 'admin', 'employee'],
       default: 'patient',
     },
+    lastVisit: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true }
 );
