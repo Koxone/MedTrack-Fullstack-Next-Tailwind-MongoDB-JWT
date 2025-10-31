@@ -1,3 +1,5 @@
+import CreateAppointmentButton from './components/CreateAppointmentButton';
+
 export default function PatientHeader({ patient, icons, moment }) {
   const { User, Mail, Phone, CalendarIcon, Activity, Stethoscope } = icons;
   return (
@@ -17,10 +19,15 @@ export default function PatientHeader({ patient, icons, moment }) {
         </div>
 
         <div className="flex-1 text-white">
-          {/* Patient Status */}
-          <div className="border-asana-beige/40 mb-3 inline-flex items-center gap-2 rounded-full border bg-black/20 px-4 py-1.5 backdrop-blur-sm">
-            <Stethoscope className="h-4 w-4" />
-            <span className="text-sm font-medium">Especialidad: Odontologia</span>
+          <div className="flex items-center justify-between">
+            {/* Patient Status */}
+            <div className="border-asana-beige/40 mb-3 inline-flex items-center gap-2 rounded-full border bg-black/20 px-4 py-1.5 backdrop-blur-sm">
+              <Stethoscope className="h-4 w-4" />
+              <span className="text-sm font-medium">Especialidad: Odontologia</span>
+            </div>
+
+            {/* Create Appointment Button */}
+            <CreateAppointmentButton />
           </div>
 
           <div>

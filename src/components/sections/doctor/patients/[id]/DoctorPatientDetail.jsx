@@ -26,7 +26,7 @@ import { useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/es';
 
-import PatientHeader from './components/PatientHeader';
+import PatientHeader from './components/patientHeader/PatientHeader';
 import QuickStats from './components/QuickStats';
 import WeightChart from './components/WeightChart';
 import ClinicalHistory from './components/clinicalHistory/ClinicalHistory';
@@ -89,7 +89,7 @@ const mockWeightData = mockRecords
   }))
   .reverse();
 
-export default function DoctorPatientDetail() {
+export default function DoctorPatientDetail({ role, currentUser, specialty }) {
   /* Router */
   const router = useRouter();
 
