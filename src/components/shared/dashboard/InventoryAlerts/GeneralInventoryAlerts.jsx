@@ -9,7 +9,7 @@ import {
   TrendingDown,
 } from 'lucide-react';
 import AlertCard from './components/AlertCard';
-import ViewMoreButton from '../accountingSummary/components/ViewMoreButton';
+import ViewMoreButton from '@/components/shared/dashboard/accountingSummary/components/ViewMoreButton';
 
 export default function GeneralInventoryAlerts({ role }) {
   return (

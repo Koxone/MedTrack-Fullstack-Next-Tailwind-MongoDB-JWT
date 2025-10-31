@@ -1,5 +1,5 @@
+import ViewMoreButton from '@/components/shared/dashboard/accountingSummary/components/ViewMoreButton';
 import { Users, Pill, AlertCircle, ChevronRight, TrendingUp, DollarSign } from 'lucide-react';
-import ViewMoreButton from '../general/accountingSummary/components/ViewMoreButton';
 
 export default function DoctorAccountingSummary({ role }) {
   return (

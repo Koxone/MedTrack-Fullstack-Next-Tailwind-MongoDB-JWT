@@ -1,4 +1,4 @@
-import GeneralDashboard from '@/components/general/dashboard/GeneralDashboard';
+import PatientDashboard from '@/components/sections/patient/dashboard/PatientDashboard';
 import { getCurrentUser } from '@/lib/auth/getCurrentUser';
 
 export const runtime = 'nodejs';
@@ -9,7 +9,7 @@ export default async function DoctorDashboardPage() {
   const role = currentUser?.role;
   return (
     <div>
-      <GeneralDashboard role={role} currentUser={currentUser} />
+      <PatientDashboard currentUser={currentUser} />
     </div>
   );
 }
