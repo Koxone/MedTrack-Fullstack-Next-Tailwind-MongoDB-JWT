@@ -1,6 +1,7 @@
 import CreateAppointmentButton from './components/CreateAppointmentButton';
+import RegisterVisitButton from './components/RegisterVisitButton';
 
-export default function PatientHeader({ patient, icons, moment }) {
+export default function PatientHeader({ patient, icons, moment, onClickNew }) {
   const { User, Mail, Phone, CalendarIcon, Activity, Stethoscope } = icons;
   return (
     <div className="bg-asana-green relative overflow-hidden rounded-2xl p-8 shadow-xl">
@@ -26,8 +27,13 @@ export default function PatientHeader({ patient, icons, moment }) {
               <span className="text-sm font-medium">Especialidad: Odontologia</span>
             </div>
 
-            {/* Create Appointment Button */}
-            <CreateAppointmentButton />
+            <div className="flex items-center gap-4">
+              {/* Create Appointment Button */}
+              <CreateAppointmentButton onClickNew={onClickNew} />
+
+              {/* Register Patient Visit Button */}
+              <RegisterVisitButton />
+            </div>
           </div>
 
           <div>

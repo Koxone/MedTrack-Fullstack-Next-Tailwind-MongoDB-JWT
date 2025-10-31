@@ -1,4 +1,3 @@
-
 export default function QuickStats({ stats, icons }) {
   const { FileText, Scale, Heart, Activity, TrendingUp } = icons;
 
@@ -6,7 +5,7 @@ export default function QuickStats({ stats, icons }) {
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       {/* Consultas Totales */}
       <div className="rounded-2xl border border-(--med-gray-border) bg-white p-6 shadow-sm transition hover:shadow-md">
-        <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--med-green)/10">
               <FileText className="h-6 w-6 text-(--med-green)" />
@@ -22,7 +21,7 @@ export default function QuickStats({ stats, icons }) {
 
       {/* Peso Actual */}
       <div className="rounded-2xl border border-(--med-gray-border) bg-white p-6 shadow-sm transition hover:shadow-md">
-        <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--med-blue-light)">
               <Scale className="h-6 w-6 text-(--med-blue)" />
@@ -38,7 +37,7 @@ export default function QuickStats({ stats, icons }) {
 
       {/* IMC Actual */}
       <div className="rounded-2xl border border-(--med-gray-border) bg-white p-6 shadow-sm transition hover:shadow-md">
-        <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--med-purple)/10">
               <Heart className="h-6 w-6 text-(--med-purple)" />

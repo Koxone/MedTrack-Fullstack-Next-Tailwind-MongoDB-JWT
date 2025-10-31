@@ -12,8 +12,11 @@ import {
   Edit2,
   Activity,
   TrendingUp,
+  Calendar,
   FileText,
   Stethoscope,
+  Clock,
+  Sparkles,
   Heart,
   Scale,
   Droplet,
@@ -33,6 +36,7 @@ import ClinicalHistory from './components/clinicalHistory/ClinicalHistory';
 import HistoryModal from './components/historyModal/HistoryModal';
 import BackButton from './components/BackButton';
 import TabsNav from './components/TabsNav';
+import CreateEditAppointmentModal from '@/components/sections/employee/appointments/components/AddEditModal';
 
 /* Mock patient */
 const mockPatient = {
@@ -99,6 +103,37 @@ export default function DoctorPatientDetail({ role, currentUser, specialty }) {
   /* Modal states */
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [editingHistory, setEditingHistory] = useState(null);
+
+  // Create New Apponitment Modal States
+  const [showCreateAppointmentModal, setShowCreateAppointmentModal] = useState(null);
+  const [editingCita, setEditingCita] = useState(null);
+  const [citaForm, setCitaForm] = useState({
+    fecha: '',
+    hora: '',
+    paciente: '',
+    telefono: '',
+    email: '',
+    motivo: '',
+  });
+  const handleSave = (e) => {
+    e.preventDefault();
+    const newCita = {
+      id: editingCita ? editingCita.id : Date.now(),
+      ...citaForm,
+      estado: editingCita ? editingCita.estado : 'Pendiente',
+      avatar: citaForm.paciente
+        .split(' ')
+        .map((n) => n[0])
+        .join('')
+        .toUpperCase(),
+    };
+    setCitas((prev) =>
+      editingCita ? prev.map((c) => (c.id === editingCita.id ? newCita : c)) : [...prev, newCita]
+    );
+    setShowModal(false);
+    setEditingCita(null);
+    setCitaForm({ fecha: '', hora: '', paciente: '', telefono: '', email: '', motivo: '' });
+  };
 
   /* Form state */
   const [historyForm, setHistoryForm] = useState({
@@ -171,6 +206,12 @@ export default function DoctorPatientDetail({ role, currentUser, specialty }) {
       </div>
     );
 
+  const handleCreateAppointmentModal = () => {
+    setEditingCita(null);
+    setCitaForm({ fecha: '', hora: '', paciente: '', telefono: '', email: '', motivo: '' });
+    setShowCreateAppointmentModal(true);
+  };
+
   return (
     <div className="h-full space-y-6 overflow-y-auto">
       {/* Top */}
@@ -180,6 +221,7 @@ export default function DoctorPatientDetail({ role, currentUser, specialty }) {
           patient={mockPatient}
           icons={{ User, Mail, Phone, CalendarIcon, Activity, Stethoscope }}
           moment={moment}
+          onClickNew={handleCreateAppointmentModal}
         />
       </div>
 
@@ -203,7 +245,7 @@ export default function DoctorPatientDetail({ role, currentUser, specialty }) {
       {/* Weight chart */}
       <WeightChart data={weightData} icons={{ TrendingUp }} />
 
-      {/* Modal */}
+      {/* History Modal */}
       {showHistoryModal && (
         <HistoryModal
           editingHistory={editingHistory}
@@ -217,6 +259,18 @@ export default function DoctorPatientDetail({ role, currentUser, specialty }) {
           }}
           icons={{ X, FileText, CalendarIcon, Scale, Heart, Activity, Stethoscope, ClipboardList }}
           isReadOnly={isReadOnly}
+        />
+      )}
+
+      {/* Create Appointment Modal */}
+      {showCreateAppointmentModal && (
+        <CreateEditAppointmentModal
+          editingCita={editingCita}
+          citaForm={citaForm}
+          setCitaForm={setCitaForm}
+          onClose={() => setShowCreateAppointmentModal(false)}
+          onSubmit={handleSave}
+          icons={{ Plus, Edit2, X, Calendar, Clock, User, Phone, Mail, Sparkles }}
         />
       )}
     </div>

@@ -1,9 +1,16 @@
-'use client';
-
+import AddHistoryButton from './components/AddHistoryButton';
 import HistoryCard from './components/HistoryCard';
 
 /* Clinical history */
-export default function ClinicalHistory({ records, onAdd, onEdit, icons }) {
+export default function ClinicalHistory({
+  records,
+  onAdd,
+  onEdit,
+  icons,
+  role,
+  currentUser,
+  specialty,
+}) {
   const { ClipboardList, Plus } = icons;
   return (
     <div className="rounded-2xl border border-(--med-gray-border) bg-(--med-gray) p-4 shadow-sm sm:p-6">
@@ -23,13 +30,8 @@ export default function ClinicalHistory({ records, onAdd, onEdit, icons }) {
           </div>
         </div>
 
-        <button
-          onClick={onAdd}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-(--med-blue) px-5 py-2.5 text-sm font-medium text-white shadow-md transition hover:bg-blue-700 active:scale-95 sm:w-auto"
-        >
-          <Plus className="h-4 w-4" />
-          Agregar
-        </button>
+        {/* Add History Button */}
+        <AddHistoryButton onAdd={onAdd} />
       </div>
 
       {/* Records */}
