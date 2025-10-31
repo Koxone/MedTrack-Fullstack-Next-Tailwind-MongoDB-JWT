@@ -40,6 +40,11 @@ const UserSchema = new mongoose.Schema(
       enum: ['patient', 'doctor', 'admin', 'employee'],
       default: 'patient',
     },
+    specialty: {
+      type: String,
+      enum: ['weight', 'dental', 'stetic', 'none'],
+      default: 'none',
+    },
     lastVisit: {
       type: Date,
       default: null,
