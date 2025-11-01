@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
-import ClinicalHistory from '@/models/ClinicalHistory';
+import ClinicalHistory from '@/models/ClinicalRecord';
 
 // @route    PUT /api/clinical-history
 // @desc     Modify patient clinical history

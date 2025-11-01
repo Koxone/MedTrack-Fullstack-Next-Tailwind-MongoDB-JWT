@@ -1,25 +1,38 @@
-// models/ClinicalHistory.js
+// models/ClinicalRecord.js
 
 import mongoose from 'mongoose';
 
-const ClinicalHistorySchema = new mongoose.Schema(
+const ClinicalRecordSchema = new mongoose.Schema(
   {
     /* --- Relaciones --- */
-    paciente: {
+    patient: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'PatientProfile',
-      index: true,
-      required: false,
+      ref: 'User',
+      required: true,
+      validate: {
+        validator: async function (id) {
+          const user = await mongoose.model('User').findById(id);
+          return user && user.role === 'patient';
+        },
+        message: 'El ID referenciado no pertenece a un paciente.',
+      },
     },
     doctor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'DoctorProfile',
-      index: true,
-      required: false,
+      ref: 'User',
+      required: true,
+      validate: {
+        validator: async function (id) {
+          const user = await mongoose.model('User').findById(id);
+          return user && user.role === 'doctor';
+        },
+        message: 'El ID referenciado no pertenece a un doctor.',
+      },
     },
 
-    /* --- Información básica (común a todas las especialidades) --- */
+    /* --- Información básica --- */
     informacionBasica: {
+      // Structure
       fecha: { type: Date, default: Date.now },
       nombreCompleto: { type: String, trim: true },
       fechaNacimiento: { type: String },
@@ -42,6 +55,7 @@ const ClinicalHistorySchema = new mongoose.Schema(
 
     /* --- Información general --- */
     informacionGeneral: {
+      // Structure
       motivoConsulta: { type: String },
       alergiasConocidas: { type: String },
       medicamentosActuales: { type: String },
@@ -54,6 +68,7 @@ const ClinicalHistorySchema = new mongoose.Schema(
       problemasCicatrizacion: { type: String },
       otrasEnfermedades: { type: String },
       enfermedades: {
+        // Map
         diabetes: { type: Boolean, default: false },
         hipertension: { type: Boolean, default: false },
         hepatitis: { type: Boolean, default: false },
@@ -77,7 +92,7 @@ const ClinicalHistorySchema = new mongoose.Schema(
 
     /* --- Información clínica específica --- */
     informacionClinica: {
-      /* Control de peso */
+      // Control peso
       controlPeso: {
         pesoObjetivo: { type: Number },
         actividadFisica: { type: String },
@@ -90,8 +105,7 @@ const ClinicalHistorySchema = new mongoose.Schema(
         cirugiasPrevias: { type: String },
         motivoConsultaPeso: { type: String },
       },
-
-      /* Odontología */
+      // Odontología
       odontologia: {
         motivoConsultaOdonto: { type: String },
         primeraVisita: { type: String },
@@ -109,8 +123,7 @@ const ClinicalHistorySchema = new mongoose.Schema(
         dolorDental: { type: String },
         tipoDolor: { type: String },
       },
-
-      /* Estética */
+      // Estética
       estetica: {
         motivoTratamiento: { type: String },
         cirugiasPrevias: { type: String },
@@ -126,6 +139,7 @@ const ClinicalHistorySchema = new mongoose.Schema(
 
     /* --- Antecedentes --- */
     antecedentes: {
+      // Heredofamiliares
       heredofamiliares: {
         diabetes: { type: Boolean, default: false },
         epilepsia: { type: Boolean, default: false },
@@ -134,6 +148,7 @@ const ClinicalHistorySchema = new mongoose.Schema(
         malformaciones: { type: Boolean, default: false },
         artritis: { type: Boolean, default: false },
       },
+      // Personales patológicos
       personalesPatologicos: {
         cardiopatias: { type: Boolean, default: false },
         enfermedadesMentales: { type: Boolean, default: false },
@@ -166,16 +181,19 @@ const ClinicalHistorySchema = new mongoose.Schema(
         embarazo: { type: String },
         lactancia: { type: String },
       },
+      // No patológicos con alias para el frontend
       noPatologicos: {
         tipoAlimentacion: { type: String },
         comidasDia: { type: String },
         intolerancias: { type: String },
         alimentosNoConsume: { type: String },
         lavadoManos: { type: String },
-        usoCepillo: { type: String },
-        usoEnjuague: { type: String },
-        usoHilo: { type: String },
+        // Aliases
+        usoCepillo: { type: String, alias: 'usoCepilloNP' },
+        usoEnjuague: { type: String, alias: 'usoEnjuagueNP' },
+        usoHilo: { type: String, alias: 'usoHiloNP' },
       },
+      // Inmunizaciones
       inmunizaciones: {
         poliomielitis: { type: Boolean, default: false },
         tuberculosis: { type: Boolean, default: false },
@@ -185,6 +203,7 @@ const ClinicalHistorySchema = new mongoose.Schema(
         hepatitisB: { type: Boolean, default: false },
         otras: { type: String },
       },
+      // Hábitos
       habitos: {
         alcohol: { type: String },
         tabaco: { type: String },
@@ -262,12 +281,14 @@ const ClinicalHistorySchema = new mongoose.Schema(
       comentarioLibre: { type: String },
     },
   },
-  { timestamps: true }
+  { timestamps: true, collection: 'clinicalRecords' }
 );
 
 /* --- Índices adicionales --- */
-ClinicalHistorySchema.index({ 'informacionBasica.nombreCompleto': 1 });
-ClinicalHistorySchema.index({ 'informacionGeneral.motivoConsulta': 1 });
+// Indexes
+ClinicalRecordSchema.index({ 'informacionBasica.nombreCompleto': 1 });
+ClinicalRecordSchema.index({ 'informacionGeneral.motivoConsulta': 1 });
+ClinicalRecordSchema.index({ patient: 1, createdAt: -1 });
 
-export default mongoose.models.ClinicalHistory ||
-  mongoose.model('ClinicalHistory', ClinicalHistorySchema);
+export default mongoose.models.ClinicalRecord ||
+  mongoose.model('ClinicalRecord', ClinicalRecordSchema);
