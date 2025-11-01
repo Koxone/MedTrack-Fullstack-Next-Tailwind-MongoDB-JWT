@@ -1,4 +1,4 @@
-import GeneralDietDetail from '@/components/general/diets/[id]/GeneralDietDetail';
+import GeneralDietDetail from '@/components/shared/diets/[id]/GeneralDietDetail';
 import React from 'react';
 
 function DoctorDietsIDPage() {

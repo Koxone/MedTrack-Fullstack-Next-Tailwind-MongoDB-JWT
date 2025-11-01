@@ -3,9 +3,9 @@ import GeneralDietCard from './components/dietCard/GeneralDietCard';
 import Link from 'next/link';
 export const runtime = 'nodejs';
 import { diets } from './components/dietCard/components/mockData';
-import GeneralSectionHeader from '../../shared/sections/GeneralSectionHeader';
+import GeneralSectionHeader from '../sections/GeneralSectionHeader';
 
-export default async function GeneralDiets({ role }) {
+export default async function SharedDiets({ role }) {
   console.log(role);
   return (
     <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
