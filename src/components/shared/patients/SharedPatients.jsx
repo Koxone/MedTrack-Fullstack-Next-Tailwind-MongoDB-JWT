@@ -1,6 +1,6 @@
 import GeneralSectionHeader from '../sections/GeneralSectionHeader';
 import PatientsList from './components/PatientsList';
-import PatientsSearchBar from './components/PatientsSearchBar';
+import PatientsSearchBar from './PatientsSearchBar';
 
 export default async function SharedPatients({ role, currentUser }) {
   return (
