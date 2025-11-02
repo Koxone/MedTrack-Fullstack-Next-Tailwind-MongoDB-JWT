@@ -1,4 +1,5 @@
 // Imports
+import { connectDB } from '@/lib/mongodb';
 import ClinicalRecord from '@/models/ClinicalRecord';
 import { buildClinicalPayloadFromQIds } from '@/server/clinical/applyQidPayload';
 
@@ -6,6 +7,7 @@ import { buildClinicalPayloadFromQIds } from '@/server/clinical/applyQidPayload'
 // @desc     Create Clinical Record
 // @access   Private
 export async function POST(req) {
+  await connectDB();
   try {
     const body = await req.json();
 
