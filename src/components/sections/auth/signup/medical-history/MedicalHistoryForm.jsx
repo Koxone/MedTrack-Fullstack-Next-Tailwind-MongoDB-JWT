@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import TabsHeader from './components/TabsHeader';
 import ActionButtons from './components/ActionButtons';
@@ -12,141 +12,141 @@ import DateField from './formFields/DateField';
 import CheckboxGroupField from './formFields/CheckboxGroupField';
 import RadioGroupField from './formFields/RadioGroupField';
 
-import {
-  indexByQId,
-  CONTROL_PESO_IDS,
-  ODONTOLOGIA_IDS,
-  ESTETICO_IDS,
-  YES_NO,
-  normalizeField,
-} from './formFields/medicalHistoryConfig';
+// Source of Truth
+import questions from '@/data/questions.json';
 
-/* Group by original section */
-function groupBySection(index, ids) {
-  const groups = new Map();
-  for (const id of ids) {
-    const f = index.get(id);
-    if (!f) continue;
-    const sec = f.__section || 'Sección';
-    if (!groups.has(sec)) groups.set(sec, []);
-    groups.get(sec).push(f);
-  }
-  return Array.from(groups.entries()).map(([title, fields]) => ({
-    title,
-    fields,
-    grid: true,
-  }));
-}
-
-/* Field renderer */
-function FieldRenderer({ field, value, onChange }) {
-  const f = normalizeField(field);
-  const wrapperClass = 'col-span-1';
-
-  /* Shared props */
-  const shared = {
-    label: f.label,
-    placeholder: f.placeholder,
-    required: !!f.required,
-  };
-
-  /* Switch minimal */
-  if (f.kind === 'input') {
-    const inputType = field.type === 'number' ? 'number' : 'text';
-    return (
-      <div className={wrapperClass}>
-        <InputField
-          type={inputType}
-          {...shared}
-          value={value || ''}
-          onChange={(e) => onChange(f.qId, e.target.value)}
-        />
-      </div>
-    );
-  }
-
-  if (f.kind === 'select') {
-    const opts = Array.isArray(f.options) ? f.options : [];
-    return (
-      <div className={wrapperClass}>
-        <SelectField
-          options={opts}
-          {...shared}
-          value={value || ''}
-          onChange={(e) => onChange(f.qId, e.target.value)}
-        />
-      </div>
-    );
-  }
-
-  if (f.kind === 'textarea') {
-    return (
-      <div className={wrapperClass}>
-        <TextareaField
-          value={value || ''}
-          onChange={(e) => onChange(f.qId, e.target.value)}
-          rows={2}
-          {...shared}
-        />
-      </div>
-    );
-  }
-
-  if (f.kind === 'date') {
-    return (
-      <div className={wrapperClass}>
-        <DateField
-          value={value || ''}
-          onChange={(e) => onChange(f.qId, e.target.value)}
-          {...shared}
-        />
-      </div>
-    );
-  }
-
-  if (f.kind === 'radio') {
-    return (
-      <div className={wrapperClass}>
-        <RadioGroupField
-          value={value || ''}
-          onChange={(val) => onChange(f.qId, val)}
-          name={`q_${f.qId}`}
-          options={YES_NO}
-          label={f.label}
-        />
-      </div>
-    );
-  }
-
-  return null;
-}
-
-/* Main */
 export default function MedicalHistoryForm() {
-  // Tabs State
-  const [activeTab, setActiveTab] = useState('peso');
-
   // Form States
   const [formData, setFormData] = useState({});
 
-  // Fields Handler
-  const handleChange = (qId, value) => {
-    setFormData((prev) => ({ ...prev, [qId]: value }));
-  };
+  // Tabs State
+  const [activeTab, setActiveTab] = useState('weight');
+  const [activeQuestions, setActiveQuestions] = useState([]);
 
-  /* Index */
-  const byId = useMemo(() => indexByQId(), []);
+  useEffect(() => {
+    setActiveQuestions(
+      questions.filter(
+        (question) =>
+          question.specialties.includes(activeTab) && question.versions.includes('short')
+      )
+    );
+  }, [activeTab, questions]);
 
-  /* IDs per tab */
-  const pickedIds = useMemo(() => {
-    if (activeTab === 'peso') return CONTROL_PESO_IDS;
-    if (activeTab === 'odontologia') return ODONTOLOGIA_IDS;
-    if (activeTab === 'estetico') return ESTETICO_IDS;
-    return [];
-  }, [activeTab]);
+  function FieldRenderer({ q, value, onChange }) {
+    const { id, question, type, placeholder, required, options } = q;
 
-  /* Sections */
-  const sections = useMemo(() => groupBySection(byId, pickedIds), [byId, pickedIds]);
+    switch (type) {
+      // Text input
+      case 'text':
+        return (
+          <div className="mb-6">
+            <label className="mb-2 block text-sm font-medium text-gray-700">{question}</label>
+            <input
+              type="text"
+              required={required}
+              value={value || ''}
+              onChange={(e) => onChange(id, e.target.value)}
+              placeholder={placeholder || ''}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 md:py-3"
+            />
+          </div>
+        );
+
+      // Number input
+      case 'number':
+        return (
+          <div className="mb-6">
+            <label className="mb-2 block text-sm font-medium text-gray-700">{question}</label>
+            <input
+              type="number"
+              required={required}
+              value={value || ''}
+              onChange={(e) => onChange(id, e.target.value)}
+              placeholder={placeholder || ''}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 md:py-3"
+            />
+          </div>
+        );
+
+      // Date input
+      case 'date':
+        return (
+          <div className="mb-6">
+            <label className="mb-2 block text-sm font-medium text-gray-700">{question}</label>
+            <input
+              type="date"
+              required={required}
+              value={value || ''}
+              onChange={(e) => onChange(id, e.target.value)}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 md:py-3"
+            />
+          </div>
+        );
+
+      // Textarea
+      case 'textarea':
+        return (
+          <div className="mb-6">
+            <label className="mb-2 block text-sm font-medium text-gray-700">{question}</label>
+            <textarea
+              required={required}
+              value={value || ''}
+              onChange={(e) => onChange(id, e.target.value)}
+              placeholder={placeholder || ''}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 md:py-3"
+              rows={3}
+            />
+          </div>
+        );
+
+      // Select
+      case 'select':
+        return (
+          <div className="mb-6">
+            <label className="mb-2 block text-sm font-medium text-gray-700">{question}</label>
+            <select
+              required={required}
+              value={value || ''}
+              onChange={(e) => onChange(id, e.target.value)}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 md:py-3"
+            >
+              <option value="">Seleccione</option>
+              {options?.map((opt) => (
+                <option key={opt} value={opt}>
+                  {opt}
+                </option>
+              ))}
+            </select>
+          </div>
+        );
+
+      // Radio
+      case 'radio':
+        return (
+          <div className="mb-6">
+            <label className="mb-2 block text-sm font-medium text-gray-700">{question}</label>
+            <div className="flex flex-wrap gap-4">
+              {options?.map((opt) => (
+                <label key={opt} className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name={`q-${id}`}
+                    value={opt}
+                    checked={value === opt}
+                    onChange={() => onChange(id, opt)}
+                  />
+                  {opt}
+                </label>
+              ))}
+            </div>
+          </div>
+        );
+
+      // Default
+      default:
+        return null;
+    }
+  }
 
   return (
     <div className="h-full overflow-y-auto p-4 py-6 md:py-10">
@@ -166,26 +166,17 @@ export default function MedicalHistoryForm() {
               e.preventDefault();
               console.log(formData);
             }}
-            className="p-4 md:p-8"
+            className="grid grid-cols-2 items-center space-x-4 p-4 md:p-8"
           >
-            {sections.length === 0 ? (
-              <div className="text-sm text-red-600">No hay preguntas para este formulario.</div>
-            ) : (
-              sections.map((section) => (
-                <SectionContainer key={section.title} title={section.title}>
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    {section.fields.map((f) => (
-                      <FieldRenderer
-                        key={f.qId}
-                        field={f}
-                        value={formData[f.qId]}
-                        onChange={handleChange}
-                      />
-                    ))}
-                  </div>
-                </SectionContainer>
-              ))
-            )}
+            {/* Questions */}
+            {activeQuestions.map((q) => (
+              <FieldRenderer
+                key={q.id}
+                q={q}
+                value={formData[q.id]}
+                onChange={(id, val) => setFormData((prev) => ({ ...prev, [id]: val }))}
+              />
+            ))}
 
             {/* Actions */}
             <ActionButtons activeTab={activeTab} />

@@ -1,7 +1,5 @@
-// src/app/records/new/page.jsx
 'use client';
 
-/* Imports */
 import { useMemo, useState } from 'react';
 import MAP from '@/data/ClinicalRecordMap.json';
 

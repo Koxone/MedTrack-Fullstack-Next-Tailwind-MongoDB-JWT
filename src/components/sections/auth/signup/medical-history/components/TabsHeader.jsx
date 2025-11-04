@@ -4,17 +4,17 @@ import { ClipboardPlus, Sparkles, SparklesIcon } from 'lucide-react';
 /* Helpers */
 function activeBg(id) {
   // Return fixed Tailwind class to avoid dynamic strings
-  if (id === 'peso') return 'bg-blue-500 text-white';
-  if (id === 'odontologia') return 'bg-emerald-500 text-white';
+  if (id === 'weight') return 'bg-blue-500 text-white';
+  if (id === 'dental') return 'bg-emerald-500 text-white';
   return 'bg-purple-500 text-white';
 }
 
 /* Component */
 export default function TabsHeader({ activeTab, setActiveTab }) {
   const tabs = [
-    { id: 'peso', label: 'Control de Peso', icon: SparklesIcon },
-    { id: 'odontologia', label: 'Odontología', icon: SparklesIcon },
-    { id: 'estetico', label: 'Tratamiento Estético', icon: SparklesIcon },
+    { id: 'weight', label: 'Control de Peso', icon: SparklesIcon },
+    { id: 'dental', label: 'Odontología', icon: SparklesIcon },
+    { id: 'stetic', label: 'Tratamiento Estético', icon: SparklesIcon },
   ];
 
   return (
