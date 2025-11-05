@@ -10,8 +10,18 @@ import VitalsSection from './components/VitalsSection';
 import DiagnosisSection from './components/DiagnosisSection';
 import QuestionnaireSection from './components/QuestionnaireSection';
 import FooterActions from './components/FooterActions';
+import {
+  X,
+  FileText,
+  CalendarIcon,
+  Scale,
+  Heart,
+  Activity,
+  Stethoscope,
+  ClipboardList,
+} from 'lucide-react';
 
-export default function HistoryModal({ onClose, record, readOnly, icons }) {
+export default function HistoryModal({ onClose, record, readOnly }) {
   const [form, setForm] = useState({
     recordDate: new Date().toISOString().split('T')[0],
     currentWeight: '',
@@ -52,7 +62,6 @@ export default function HistoryModal({ onClose, record, readOnly, icons }) {
 
   // Tabs
   const [activeTab, setActiveTab] = useState('basico');
-  const { X, FileText, CalendarIcon, Scale, Heart, Activity, Stethoscope, ClipboardList } = icons;
 
   return (
     <>

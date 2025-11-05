@@ -2,19 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import {
-  ArrowLeft,
-  TrendingUp,
-  Loader2,
-  X,
-  FileText,
-  Calendar as CalendarIcon,
-  Scale,
-  Heart,
-  Activity,
-  Stethoscope,
-  ClipboardList,
-} from 'lucide-react';
+import { ArrowLeft, TrendingUp, Loader2 } from 'lucide-react';
 import PatientHeader from './components/patientHeader/PatientHeader';
 import QuickStats from './components/QuickStats';
 import WeightChart from './components/WeightChart';
@@ -29,11 +17,11 @@ export default function DoctorPatientDetail({ patient }) {
   const router = useRouter();
   const { id } = useParams();
 
-  // Data
+  // Patient Records Data
   const { data: patientRecord, isLoading, error } = useClinicalRecord(id);
   const currentPatientInfo = patientRecord?.[0];
 
-  // Modal states
+  // History Modal states
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [showCreateAppointmentModal, setShowCreateAppointmentModal] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
@@ -98,7 +86,6 @@ export default function DoctorPatientDetail({ patient }) {
           onClose={() => setShowHistoryModal(false)}
           record={selectedRecord}
           readOnly={isReadOnly}
-          icons={{ X, FileText, CalendarIcon, Scale, Heart, Activity, Stethoscope, ClipboardList }}
         />
       )}
 
