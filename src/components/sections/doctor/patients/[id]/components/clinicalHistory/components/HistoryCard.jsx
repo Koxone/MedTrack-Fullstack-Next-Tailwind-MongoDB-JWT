@@ -11,7 +11,6 @@ function HistoryCard({ r, onEdit }) {
   const weight = Number(r?.answers?.['7']);
 
   const imc = height && weight ? (weight / (height / 100) ** 2).toFixed(2) : null;
-  console.log(r);
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:gap-4">
       {/* Date */}

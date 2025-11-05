@@ -38,8 +38,8 @@ export async function GET(req, { params }) {
     if (latest) {
       const doc = await ClinicalRecord.findOne(filter)
         .sort({ createdAt: -1 })
-        .populate('patient', 'fullName email')
-        .populate('doctor', 'fullName email')
+        .populate('patient', 'fullName email phone')
+        .populate('doctor', 'fullName email phone')
         .lean();
 
       return NextResponse.json({ data: doc, meta: { latest: true, filter } });
@@ -51,8 +51,8 @@ export async function GET(req, { params }) {
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .populate('patient', 'fullName email')
-        .populate('doctor', 'fullName email')
+        .populate('patient', 'fullName email phone')
+        .populate('doctor', 'fullName email phone')
         .lean(),
       ClinicalRecord.countDocuments(filter),
     ]);

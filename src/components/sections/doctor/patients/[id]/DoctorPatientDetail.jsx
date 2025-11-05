@@ -2,20 +2,12 @@
 
 import {
   ArrowLeft,
-  User,
-  Mail,
-  Phone,
   Calendar as CalendarIcon,
-  Plus,
   X,
-  Edit2,
   Activity,
   TrendingUp,
-  Calendar,
   FileText,
   Stethoscope,
-  Clock,
-  Sparkles,
   Heart,
   Scale,
   ClipboardList,
@@ -33,7 +25,7 @@ import ClinicalHistory from './components/clinicalHistory/ClinicalHistory';
 import HistoryModal from './components/historyModal/HistoryModal';
 import BackButton from './components/BackButton';
 import TabsNav from './components/TabsNav';
-import EmployeeCreateAppointmentModal from '@/components/sections/employee/appointments/components/EmployeeCreateAppointmentModal';
+import DoctorCreateAppointmentModal from './components/createAppointmentModal/DoctorCreateAppointmentModal';
 
 export default function DoctorPatientDetail({ patient }) {
   /* Router */
@@ -43,6 +35,8 @@ export default function DoctorPatientDetail({ patient }) {
   const { id } = useParams();
   const [patientRecord, setPatientRecord] = useState();
   const [isLoading, setIsLoading] = useState(false);
+
+  const currentPatientInfo = patientRecord?.[0];
 
   useEffect(() => {
     if (!id) return;
@@ -69,37 +63,6 @@ export default function DoctorPatientDetail({ patient }) {
   /* Modal states */
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [editingHistory, setEditingHistory] = useState(null);
-
-  // Create New Apponitment Modal States
-  const [showCreateAppointmentModal, setShowCreateAppointmentModal] = useState(null);
-  const [editingCita, setEditingCita] = useState(null);
-  const [citaForm, setCitaForm] = useState({
-    fecha: '',
-    hora: '',
-    paciente: '',
-    telefono: '',
-    email: '',
-    motivo: '',
-  });
-  const handleSave = (e) => {
-    e.preventDefault();
-    const newCita = {
-      id: editingCita ? editingCita.id : Date.now(),
-      ...citaForm,
-      estado: editingCita ? editingCita.estado : 'Pendiente',
-      avatar: citaForm.paciente
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-        .toUpperCase(),
-    };
-    setCitas((prev) =>
-      editingCita ? prev.map((c) => (c.id === editingCita.id ? newCita : c)) : [...prev, newCita]
-    );
-    setShowModal(false);
-    setEditingCita(null);
-    setCitaForm({ fecha: '', hora: '', paciente: '', telefono: '', email: '', motivo: '' });
-  };
 
   /* Form state */
   const [historyForm, setHistoryForm] = useState({
@@ -146,6 +109,7 @@ export default function DoctorPatientDetail({ patient }) {
     }
     setShowHistoryModal(true);
   };
+  const [showCreateAppointmentModal, setShowCreateAppointmentModal] = useState(false);
 
   const closeHistoryModal = () => {
     setShowHistoryModal(false);
@@ -162,12 +126,6 @@ export default function DoctorPatientDetail({ patient }) {
       </div>
     );
 
-  const handleCreateAppointmentModal = () => {
-    setEditingCita(null);
-    setCitaForm({ fecha: '', hora: '', paciente: '', telefono: '', email: '', motivo: '' });
-    setShowCreateAppointmentModal(true);
-  };
-
   return (
     <div className="h-full space-y-6 overflow-y-auto">
       {/* Top */}
@@ -176,7 +134,7 @@ export default function DoctorPatientDetail({ patient }) {
         <PatientHeader
           patientRecord={patientRecord}
           patient={patient}
-          onClickNew={handleCreateAppointmentModal}
+          onClickNew={() => setShowCreateAppointmentModal(true)}
         />
       </div>
 
@@ -215,13 +173,9 @@ export default function DoctorPatientDetail({ patient }) {
 
       {/* Create Appointment Modal */}
       {showCreateAppointmentModal && (
-        <EmployeeCreateAppointmentModal
-          editingCita={editingCita}
-          citaForm={citaForm}
-          setCitaForm={setCitaForm}
+        <DoctorCreateAppointmentModal
+          currentPatientInfo={currentPatientInfo}
           onClose={() => setShowCreateAppointmentModal(false)}
-          onSubmit={handleSave}
-          icons={{ Plus, Edit2, X, Calendar, Clock, User, Phone, Mail, Sparkles }}
         />
       )}
     </div>
