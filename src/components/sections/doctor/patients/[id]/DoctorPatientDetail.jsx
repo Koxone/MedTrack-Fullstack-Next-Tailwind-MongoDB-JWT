@@ -20,6 +20,7 @@ export default function DoctorPatientDetail({ patient }) {
   const { data: patientRecord, isLoading, error } = useClinicalRecord(id);
   const currentPatientInfo = patientRecord?.[0];
 
+  const [historyMode, setHistoryMode] = useState('view');
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [showCreateAppointmentModal, setShowCreateAppointmentModal] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
@@ -60,11 +61,13 @@ export default function DoctorPatientDetail({ patient }) {
           const lastRecord = patientRecord?.[patientRecord.length - 1] || null;
           setSelectedRecord(lastRecord);
           setIsReadOnly(false);
+          setHistoryMode('create');
           setShowHistoryModal(true);
         }}
         onEdit={(record, readOnly) => {
           setSelectedRecord(record);
           setIsReadOnly(readOnly);
+          setHistoryMode(readOnly ? 'view' : 'edit');
           setShowHistoryModal(true);
         }}
       />
@@ -80,6 +83,7 @@ export default function DoctorPatientDetail({ patient }) {
           record={selectedRecord}
           readOnly={isReadOnly}
           patientId={id}
+          mode={historyMode}
         />
       )}
 

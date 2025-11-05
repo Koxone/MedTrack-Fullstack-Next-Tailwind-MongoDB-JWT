@@ -1,4 +1,3 @@
-// src/components/sections/doctor/patients/[id]/components/historyModal/HistoryModal.jsx
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -14,7 +13,6 @@ import FooterActions from './components/FooterActions';
 import { X, FileText, Stethoscope, ClipboardList } from 'lucide-react';
 import useAuthStore from '@/zustand/useAuthStore';
 
-// Ids mapping
 const ID = {
   fullName: 1,
   height: 6,
@@ -29,7 +27,14 @@ const ID = {
   notes: 133,
 };
 
-export default function HistoryModal({ onClose, onSaved, record, readOnly, patientId }) {
+export default function HistoryModal({
+  onClose,
+  onSaved,
+  record,
+  readOnly,
+  patientId,
+  mode = 'view',
+}) {
   const { user } = useAuthStore();
 
   // Single source of truth
@@ -37,9 +42,9 @@ export default function HistoryModal({ onClose, onSaved, record, readOnly, patie
   const [isReadOnly, setIsReadOnly] = useState(!!readOnly);
   const [activeTab, setActiveTab] = useState('basico');
 
-  // Init from last record for "Agregar" or from current record for "Editar"
+  const isCreate = mode === 'create';
+
   useEffect(() => {
-    // Initialize from record.answers or empty
     const base = record?.answers ? { ...record.answers } : {};
     setAnswersDraft(base);
     setIsReadOnly(!!readOnly);
@@ -55,7 +60,6 @@ export default function HistoryModal({ onClose, onSaved, record, readOnly, patie
   );
 
   const setAnswer = useCallback((id, value) => {
-    // Update single id
     setAnswersDraft((prev) => {
       if (prev?.[id] === value) return prev;
       return { ...(prev || {}), [id]: value };
@@ -63,7 +67,6 @@ export default function HistoryModal({ onClose, onSaved, record, readOnly, patie
   }, []);
 
   const recalcIMC = useCallback((h, w) => {
-    // h in cm, w in kg
     const height = Number(h);
     const weight = Number(w);
     if (!height || !weight) return '';
@@ -82,34 +85,43 @@ export default function HistoryModal({ onClose, onSaved, record, readOnly, patie
     }
   }, [answersDraft?.[ID.height], answersDraft?.[ID.size], answersDraft?.[ID.weight], recalcIMC]);
 
-  // Submit
+  // Submit Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Build payload
-      const body = {
+      const baseBody = {
         doctor: user?.id || null,
         specialty: user?.specialty || record?.specialty || 'weight',
-        version: 'full',
+        version: record ? record.version || 'full' : 'full',
         answers: answersDraft,
       };
 
-      const res = await fetch(`/api/clinical-records/${patientId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
+      let res;
+
+      // Create New Record
+      if (isCreate) {
+        res = await fetch(`/api/clinical-records/${patientId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(baseBody),
+        });
+      } else {
+        // Edit Patient Record
+        res = await fetch(`/api/clinical-records/record/${record._id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(baseBody),
+        });
+      }
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || 'Error al guardar el historial clínico');
       }
 
-      // Optional read response
       await res.json();
 
-      // Notify and close
       if (onSaved) onSaved();
       onClose();
     } catch (error) {
@@ -128,7 +140,9 @@ export default function HistoryModal({ onClose, onSaved, record, readOnly, patie
             record
               ? isReadOnly
                 ? 'Ver Historial Clínico'
-                : 'Nuevo Historial Clínico'
+                : isCreate
+                  ? 'Nuevo Historial Clínico'
+                  : 'Editar Historial Clínico'
               : 'Nuevo Historial Clínico'
           }
           subtitle="Registro médico del paciente"
@@ -166,7 +180,10 @@ export default function HistoryModal({ onClose, onSaved, record, readOnly, patie
           )}
 
           {!isReadOnly && (
-            <FooterActions onCancel={onClose} submitLabel={'Guardar nuevo registro'} />
+            <FooterActions
+              onCancel={onClose}
+              submitLabel={isCreate ? 'Guardar nuevo registro' : 'Guardar cambios'}
+            />
           )}
         </form>
       </ModalContainer>
