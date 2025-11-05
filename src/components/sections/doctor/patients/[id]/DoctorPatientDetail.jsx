@@ -26,36 +26,16 @@ import HistoryModal from './components/historyModal/HistoryModal';
 import BackButton from './components/BackButton';
 import TabsNav from './components/TabsNav';
 import DoctorCreateAppointmentModal from './components/createAppointmentModal/DoctorCreateAppointmentModal';
+import { useClinicalRecord } from './hooks/useClinicalRecord';
 
 export default function DoctorPatientDetail({ patient }) {
   /* Router */
   const router = useRouter();
 
-  // Backend Get Clinical Record
+  // Get Current Patient Records
   const { id } = useParams();
-  const [patientRecord, setPatientRecord] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-
+  const { data: patientRecord, isLoading, error } = useClinicalRecord(id);
   const currentPatientInfo = patientRecord?.[0];
-
-  useEffect(() => {
-    if (!id) return;
-
-    async function fetchRecords() {
-      try {
-        const res = await fetch(`/api/clinical-records/${id}`);
-        if (!res.ok) throw new Error('Error en la solicitud');
-
-        const data = await res.json();
-        setPatientRecord(data.data);
-        console.log('Datos recibidos:', data);
-      } catch (error) {
-        console.error('Error al obtener clinical records:', error);
-      }
-    }
-
-    fetchRecords();
-  }, [id]);
 
   // Local States
   const [isReadOnly, setIsReadOnly] = useState(false);
@@ -116,15 +96,20 @@ export default function DoctorPatientDetail({ patient }) {
     setEditingHistory(null);
   };
 
-  if (isLoading)
+  if (error || isLoading) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="mx-auto mb-4 h-16 w-16 animate-spin text-blue-600" />
-          <p className="text-lg font-medium text-gray-600">Cargando información...</p>
-        </div>
+        {error ? (
+          <p className="text-lg font-medium text-red-600">Error al cargar los datos del paciente</p>
+        ) : (
+          <div className="text-center">
+            <Loader2 className="mx-auto mb-4 h-16 w-16 animate-spin text-blue-600" />
+            <p className="text-lg font-medium text-gray-600">Cargando información...</p>
+          </div>
+        )}
       </div>
     );
+  }
 
   return (
     <div className="h-full space-y-6 overflow-y-auto">
