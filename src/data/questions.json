@@ -104,7 +104,7 @@
   },
   {
     "id": 12,
-    "question": "Correo",
+    "question": "Email",
     "type": "text",
     "placeholder": "Ej. nombre@dominio.com",
     "specialties": ["weight", "dental", "stetic"],
