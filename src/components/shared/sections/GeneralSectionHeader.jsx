@@ -50,7 +50,7 @@ function GeneralSectionHeader({ role, Icon, title = '', subtitle = '' }) {
           {/* Doctor New Diet Button */}
           <Link
             href="/doctor/diets/new"
-            className="flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-white transition hover:bg-blue-600 active:scale-95"
+            className="bg-medtrack-green-solid hover:bg-medtrack-green-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white transition active:scale-95"
           >
             <Plus className="h-5 w-5" />
             Nueva Dieta
