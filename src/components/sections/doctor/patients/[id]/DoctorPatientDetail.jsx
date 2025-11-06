@@ -10,7 +10,7 @@ import ClinicalHistory from './components/clinicalHistory/ClinicalHistory';
 import BackButton from './components/BackButton';
 import TabsNav from './components/TabsNav';
 import DoctorCreateAppointmentModal from './components/createAppointmentModal/DoctorCreateAppointmentModal';
-import HistoryModal from './components/historyModal/HistoryModal';
+import DoctorClinicalRecordModal from './components/historyModal/DoctorClinicalRecordModal';
 import { useClinicalRecord } from './hooks/useClinicalRecord';
 
 export default function DoctorPatientDetail({ patient }) {
@@ -75,7 +75,7 @@ export default function DoctorPatientDetail({ patient }) {
       <WeightChart patientRecord={patientRecord} icons={{ TrendingUp }} />
 
       {showHistoryModal && (
-        <HistoryModal
+        <DoctorClinicalRecordModal
           onClose={() => setShowHistoryModal(false)}
           onSaved={() => {
             router.refresh();
