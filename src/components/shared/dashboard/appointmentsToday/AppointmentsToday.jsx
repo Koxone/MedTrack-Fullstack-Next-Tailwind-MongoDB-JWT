@@ -16,7 +16,7 @@ export default function AppointmentsToday({ onConfirm, onViewAll }) {
         <h2 className="text-lg font-semibold text-gray-900 md:text-xl">Citas de Hoy</h2>
         <Link
           href="/doctor/calendar"
-          className="flex items-center gap-2 rounded-lg bg-blue-500 px-3 py-2 text-sm text-white transition hover:bg-blue-600 active:scale-95"
+          className="bg-medtrack-green-solid hover:bg-medtrack-green-hover flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-white transition active:scale-95"
         >
           Ver todas
           <ChevronRight className="h-4 w-4" />

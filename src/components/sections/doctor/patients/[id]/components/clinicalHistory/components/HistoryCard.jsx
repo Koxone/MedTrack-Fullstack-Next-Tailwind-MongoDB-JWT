@@ -13,7 +13,7 @@ function HistoryCard({ r, onEdit }) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:gap-4">
       {/* Date */}
-      <div className="flex h-12 w-12 flex-col items-center justify-center rounded-lg bg-(--med-blue-light) text-(--med-blue) sm:h-14 sm:w-14">
+      <div className="flex h-12 w-12 flex-col items-center justify-center rounded-lg bg-(--med-blue-light) text-blue-600 sm:h-14 sm:w-14">
         {/* Month */}
         <span className="text-xs font-medium uppercase">
           {new Date(r.updatedAt).toLocaleDateString('es-MX', { month: 'short' })}
@@ -30,7 +30,7 @@ function HistoryCard({ r, onEdit }) {
         <div className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-3 lg:grid-cols-4">
           {/* Peso */}
           <div className="rounded-lg bg-(--med-blue-light) p-2">
-            <div className="flex items-center gap-1.5 text-xs font-medium text-(--med-blue) sm:gap-2">
+            <div className="text-medtrack-green-solid flex items-center gap-1.5 text-xs font-medium sm:gap-2">
               <Scale className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> <span className="truncate">Peso</span>
             </div>
             <p className="text-sm font-bold text-(--med-text-dark)">{getAnswer(7)} kg</p>
@@ -88,7 +88,7 @@ function HistoryCard({ r, onEdit }) {
           {/* Consultation Reason */}
           <div className="rounded-xl bg-(--med-gray) p-3 shadow-sm transition hover:shadow-md sm:p-4">
             <p className="flex items-center gap-2 text-sm font-semibold text-(--med-text-muted)">
-              <Activity className="h-4 w-4 text-(--med-blue)" />
+              <Activity className="text-medtrack-green-solid h-4 w-4" />
               Tratamiento sugerido
             </p>
             <p className="mt-2 line-clamp-4 text-sm leading-relaxed text-(--med-text-dark)">
@@ -102,7 +102,7 @@ function HistoryCard({ r, onEdit }) {
         {/* View Patient History */}
         <button
           onClick={() => onEdit(r, true)} // ← true indica modo lectura
-          className="self-start rounded-lg bg-(--med-blue-light) p-2 hover:bg-(--med-blue) hover:text-white active:scale-95 sm:self-auto sm:p-2.5"
+          className="hover:bg-medtrack-green-solid self-start rounded-lg bg-(--med-blue-light) p-2 hover:text-white active:scale-95 sm:self-auto sm:p-2.5"
         >
           <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
@@ -110,7 +110,7 @@ function HistoryCard({ r, onEdit }) {
         {/* Edit */}
         <button
           onClick={() => onEdit(r, false)} // ← false indica modo edición
-          className="self-start rounded-lg bg-(--med-blue-light) p-2 hover:bg-(--med-blue) hover:text-white active:scale-95 sm:self-auto sm:p-2.5"
+          className="hover:bg-medtrack-green-solid self-start rounded-lg bg-(--med-blue-light) p-2 hover:text-white active:scale-95 sm:self-auto sm:p-2.5"
         >
           <Edit2 className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>

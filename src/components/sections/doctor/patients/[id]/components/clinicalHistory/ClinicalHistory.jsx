@@ -10,7 +10,7 @@ export default function ClinicalHistory({ onAdd, onEdit, patientRecord }) {
       <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--med-blue-light) sm:h-12 sm:w-12">
-            <ClipboardList className="h-5 w-5 text-(--med-blue) sm:h-6 sm:w-6" />
+            <ClipboardList className="text-medtrack-green-solid h-5 w-5 sm:h-6 sm:w-6" />
           </div>
           <div>
             <h2 className="text-lg font-semibold text-(--med-text-dark) sm:text-xl">
@@ -54,7 +54,7 @@ export default function ClinicalHistory({ onAdd, onEdit, patientRecord }) {
           </p>
           <button
             onClick={onAdd}
-            className="flex items-center gap-2 rounded-lg bg-(--med-blue) px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700 active:scale-95"
+            className="bg-medtrack-green-solid flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700 active:scale-95"
           >
             <Plus className="h-4 w-4" />
             Agregar Registro
