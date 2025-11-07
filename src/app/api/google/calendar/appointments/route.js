@@ -27,6 +27,13 @@ export async function GET(req) {
     const monthFromNow = new Date();
     monthFromNow.setDate(now.getDate() + 30);
 
+    console.log({
+      GOOGLE_CALENDAR_ID_WEIGHT: process.env.GOOGLE_CALENDAR_ID_WEIGHT,
+      GOOGLE_CALENDAR_ID_DENTAL: process.env.GOOGLE_CALENDAR_ID_DENTAL,
+      GOOGLE_ACCESS_TOKEN: !!process.env.GOOGLE_ACCESS_TOKEN,
+      GOOGLE_REFRESH_TOKEN: !!process.env.GOOGLE_REFRESH_TOKEN,
+    });
+
     const response = await calendar.events.list({
       calendarId,
       timeMin: now.toISOString(),
