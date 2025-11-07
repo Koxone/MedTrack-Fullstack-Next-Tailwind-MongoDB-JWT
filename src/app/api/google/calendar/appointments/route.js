@@ -1,5 +1,5 @@
-import { google } from 'googleapis';
 import { getGoogleAuthClient } from '@/lib/google/googleClient';
+import { google } from 'googleapis';
 
 export async function GET(req) {
   try {
