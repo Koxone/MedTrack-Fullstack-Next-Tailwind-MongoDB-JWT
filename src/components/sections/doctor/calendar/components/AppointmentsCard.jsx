@@ -1,7 +1,6 @@
 import { Cross, Users, Clock, CalendarIcon, User, Phone, Mail, Sparkles } from 'lucide-react';
 
 export default function AppointmentsCard({ selectedDate, appointments }) {
-  console.log(appointments);
   const title = selectedDate
     ? selectedDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })
     : 'Selecciona un día';

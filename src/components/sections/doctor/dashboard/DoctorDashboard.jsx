@@ -14,8 +14,6 @@ export default function DoctorDashboard({ currentUser }) {
   // Google Calendar Custom Hooks
   const { appointments, loading, error } = useTodayAppointmentsBySpecialty();
 
-  const todaysAppointmentsNumber = appointments?.length;
-
   return (
     <DashboardLayout>
       {/* Header */}
@@ -31,7 +29,7 @@ export default function DoctorDashboard({ currentUser }) {
       </div>
 
       {/* Appointments */}
-      <AppointmentsToday appointments={appointments} />
+      <AppointmentsToday role={currentUser?.role} appointments={appointments} />
 
       {/* Summaries */}
       <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">

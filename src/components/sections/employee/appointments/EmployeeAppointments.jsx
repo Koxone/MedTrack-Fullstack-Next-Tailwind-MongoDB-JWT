@@ -19,7 +19,7 @@ export default function EmployeeAppointments({ role, patients }) {
 
   // Hook to get all appointments
   const { data, loading, refetch } = useAllAppointments();
-  console.log(data)
+  console.log(data);
   const [citas, setCitas] = useState([]);
 
   useEffect(() => {
@@ -96,6 +96,7 @@ export default function EmployeeAppointments({ role, patients }) {
 
     try {
       await createAppointment({
+        patientId: citaForm.patientId,
         patientName: citaForm.paciente,
         date: citaForm.fecha,
         time: citaForm.hora,

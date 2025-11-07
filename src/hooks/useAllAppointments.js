@@ -22,6 +22,7 @@ function parseDescription(desc) {
     fecha: pick('Fecha'),
     hora: pick('Hora'),
     especialidad: pick('Especialidad'),
+    pacienteId: pick('Paciente ID'),
   };
 }
 

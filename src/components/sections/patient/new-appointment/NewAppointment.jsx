@@ -136,6 +136,7 @@ export default function NewAppointment() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          patientId: user?.id,
           patientName: user?.fullName,
           specialty,
           date: formattedDate,

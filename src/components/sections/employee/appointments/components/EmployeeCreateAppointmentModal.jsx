@@ -26,7 +26,7 @@ export default function EmployeeCreateAppointmentModal({
     const selected = patients.find((p) => p._id === e.target.value);
     setCitaForm({
       ...citaForm,
-      pacienteId: selected?._id || '',
+      patientId: selected?._id || '',
       paciente: selected?.fullName || '',
       telefono: selected?.phone || '',
       email: selected?.email || '',
@@ -167,7 +167,7 @@ export default function EmployeeCreateAppointmentModal({
                   </label>
                   <select
                     required
-                    value={citaForm.pacienteId || ''}
+                    value={citaForm.patientId || ''}
                     onChange={handleSelectPatient}
                     className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-green-500 focus:shadow-md focus:shadow-green-500/20 focus:outline-none"
                   >

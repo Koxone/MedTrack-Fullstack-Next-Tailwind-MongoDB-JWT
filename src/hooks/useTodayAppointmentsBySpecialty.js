@@ -25,6 +25,7 @@ function parseDescription(desc) {
     fecha: pick('Fecha'),
     hora: pick('Hora'),
     especialidad: pick('Especialidad'),
+    patientId: pick('Paciente ID'),
   };
 }
 
@@ -68,6 +69,7 @@ function normalizeEvents(items, specialty) {
       motivo: fields.motivo || '',
       startISO,
       _dateKey: dateKey(startISO),
+      patientId: fields.patientId || '',
     };
   });
 }

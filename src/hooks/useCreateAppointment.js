@@ -1,29 +1,16 @@
-// src/hooks/useCreateAppointment.js
 'use client';
 
 import { useCallback, useState } from 'react';
 
-/* Types mini */
-/*  params: {
-      patientName: string,
-      date: 'YYYY-MM-DD',
-      time: 'HH:mm',
-      phone?: string,
-      email?: string,
-      reason: string,
-      specialty: 'weight' | 'dental'
-    }
-*/
-
 export function useCreateAppointment() {
   // State
-  const [loading, setLoading] = useState(false); // Loading
-  const [error, setError] = useState(null); // Error
-  const [data, setData] = useState(null); // Server response
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
 
   // Action
   const createAppointment = useCallback(
-    async ({ patientName, date, time, phone = '', email = '', reason, specialty }) => {
+    async ({ patientId, patientName, date, time, phone = '', email = '', reason, specialty }) => {
       // Guard
       if (!patientName || !date || !time || !reason || !specialty) {
         throw new Error('Faltan campos obligatorios');
@@ -38,10 +25,11 @@ export function useCreateAppointment() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            patientId,
             patientName,
-            specialty, // 'weight' | 'dental'
-            date, // 'YYYY-MM-DD'
-            time, // 'HH:mm'
+            specialty,
+            date,
+            time,
             phone,
             email,
             reason,
@@ -77,7 +65,6 @@ export function useCreateAppointment() {
   // API
   return { createAppointment, loading, error, data, reset };
 }
-
 
 // // Example.jsx
 // 'use client';

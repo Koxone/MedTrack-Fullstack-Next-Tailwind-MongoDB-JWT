@@ -7,7 +7,7 @@ import { getGoogleOAuthClient } from '@/lib/google/googleClient';
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { patientName, specialty, date, time, phone, email, reason } = body;
+    const { patientId, patientName, specialty, date, time, phone, email, reason } = body;
 
     const oauth2Client = getGoogleOAuthClient();
     oauth2Client.setCredentials({
@@ -28,6 +28,7 @@ export async function POST(req) {
     const summary = `${specialty === 'weight' ? 'Control de peso' : 'Odontologia'}`;
     const description = `
       Paciente: ${patientName}
+      Paciente ID: ${patientId}
       Motivo de consulta: ${reason}
       Teléfono: ${phone}
       Correo: ${email}
