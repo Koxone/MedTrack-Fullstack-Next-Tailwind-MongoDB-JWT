@@ -3,23 +3,20 @@
 /* Tabs navigation */
 export default function TabsNav({ activeTab, setActiveTab }) {
   const tabs = [
-    'Datos',
-    'General',
+    'Historial',
     'Presupuestos',
     'Cotización',
     'Caja',
-    'Facturas',
     'Productos',
     'Antecedentes',
     'Ortodoncia',
     'Imágenes',
     'Receta',
     'Laboratorios',
-    'Citas',
   ];
 
   return (
-    <div className="flex w-full flex-wrap items-center justify-start rounded-md border border-gray-200 bg-gray-50 p-1">
+    <div className="flex w-full items-center justify-between rounded-md border border-gray-200 bg-gray-50 p-1">
       {tabs.map((tab, index) => (
         <button
           key={tab}

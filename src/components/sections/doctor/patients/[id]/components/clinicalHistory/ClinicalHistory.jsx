@@ -3,7 +3,7 @@ import AddHistoryButton from './components/AddHistoryButton';
 import HistoryCard from './components/HistoryCard';
 
 /* Clinical history */
-export default function ClinicalHistory({ onAdd, onEdit, patientRecord }) {
+export default function ClinicalHistory({ onAdd, onEdit, patientRecord, specialty }) {
   return (
     <div className="rounded-2xl border border-(--med-gray-border) bg-(--med-gray) p-4 shadow-sm sm:p-6">
       {/* Header */}
@@ -39,7 +39,11 @@ export default function ClinicalHistory({ onAdd, onEdit, patientRecord }) {
               }}
             >
               {/* History Card */}
-              <HistoryCard r={r} onEdit={(record, readOnly) => onEdit(record, readOnly)} />
+              <HistoryCard
+                specialty={specialty}
+                r={r}
+                onEdit={(record, readOnly) => onEdit(record, readOnly)}
+              />
             </div>
           ))}
         </div>

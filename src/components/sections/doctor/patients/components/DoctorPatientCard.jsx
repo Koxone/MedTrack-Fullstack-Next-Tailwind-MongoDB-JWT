@@ -7,9 +7,9 @@ export default async function DoctorPatientCard({ patient }) {
       <div className="flex items-center gap-4">
         {/* Patient Avatar */}
         <img
-          src={patient?.avatar}
+          src={patient?.avatar || '/oochel.jpg'}
           alt=""
-          className="h-12 w-12 scale-95 transform-gpu rounded-full object-cover transition-all duration-100 ease-in-out hover:scale-100"
+          className="border-medtrack-green-solid h-12 w-12 scale-95 transform-gpu rounded-full border object-cover transition-all duration-100 ease-in-out hover:scale-100"
         />
 
         <div className="flex-1">
