@@ -7,14 +7,20 @@ import EmployeeCreateAppointmentModal from './components/EmployeeCreateAppointme
 import EmptyState from './components/EmptyState';
 import GeneralSectionHeader from '@/components/shared/sections/GeneralSectionHeader';
 import { useAllAppointments } from '@/hooks/useAllAppointments';
+import { useCreateAppointment } from '@/hooks/useCreateAppointment';
 
 export default function EmployeeAppointments({ role, patients }) {
   const [showModal, setShowModal] = useState(false);
   const [editingCita, setEditingCita] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { data, byDay, loading, error, refetch } = useAllAppointments();
+  // Hook para crear cita
+  const { createAppointment, loading: creating, error: createError } = useCreateAppointment();
+
+  // Hook para obtener citas
+  const { data, loading, refetch } = useAllAppointments();
   const [citas, setCitas] = useState([]);
+
   useEffect(() => {
     if (data?.all) {
       const mapped = data.all.map((item) => ({
@@ -60,7 +66,7 @@ export default function EmployeeAppointments({ role, patients }) {
     }
   };
 
-  /* Derived */
+  /* Filtrado */
   const filteredCitas = citas.filter((c) => {
     const matchSearch =
       c.paciente.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -68,36 +74,52 @@ export default function EmployeeAppointments({ role, patients }) {
     return matchSearch;
   });
 
-  /* Actions */
+  /* Abrir modal */
   const openCreate = () => {
     setEditingCita(null);
     setCitaForm({ fecha: '', hora: '', paciente: '', telefono: '', email: '', motivo: '' });
     setShowModal(true);
   };
 
-  /* Actions */
-  const handleSave = (e) => {
+  /* Crear cita */
+  const handleSave = async (e) => {
     e.preventDefault();
-    const newCita = {
-      id: editingCita ? editingCita.id : Date.now(),
-      ...citaForm,
-      estado: editingCita ? editingCita.estado : 'Pendiente',
-      avatar: citaForm.paciente
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-        .toUpperCase(),
-    };
-    setCitas((prev) =>
-      editingCita ? prev.map((c) => (c.id === editingCita.id ? newCita : c)) : [...prev, newCita]
-    );
-    setShowModal(false);
-    setEditingCita(null);
-    setCitaForm({ fecha: '', hora: '', paciente: '', telefono: '', email: '', motivo: '' });
+
+    try {
+      await createAppointment({
+        patientName: citaForm.paciente,
+        date: citaForm.fecha,
+        time: citaForm.hora,
+        phone: citaForm.telefono,
+        email: citaForm.email,
+        reason: citaForm.motivo,
+        specialty: 'weight', // o 'dental' dependiendo del contexto
+      });
+
+      setShowModal(false);
+      setEditingCita(null);
+      setCitaForm({ fecha: '', hora: '', paciente: '', telefono: '', email: '', motivo: '' });
+
+      // Refrescar citas después de crear
+      refetch?.();
+    } catch (err) {
+      console.error('Error al crear cita:', err.message);
+    }
   };
 
+  /* Loading */
   if (loading) {
     return <div className="p-8 text-center text-gray-500">Cargando citas...</div>;
+  }
+
+  if (creating) {
+    return <div className="p-8 text-center text-gray-500">Creando cita...</div>;
+  }
+
+  if (createError) {
+    return (
+      <div className="p-8 text-center text-red-500">Error al crear la cita: {createError}</div>
+    );
   }
 
   return (
@@ -106,15 +128,15 @@ export default function EmployeeAppointments({ role, patients }) {
       <GeneralSectionHeader
         role={role}
         Icon="pacientes"
-        title="Citas para el dia de hoy"
-        subtitle="Administracion de Citas"
+        title="Citas para el día de hoy"
+        subtitle="Administración de Citas"
       />
 
       <div className="mx-auto max-w-7xl space-y-6">
         {/* Controls */}
         <ControlsBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} onCreate={openCreate} />
 
-        {/* List */}
+        {/* Listado */}
         {filteredCitas.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 px-4">
             {filteredCitas.map((cita, index) => (
@@ -131,7 +153,7 @@ export default function EmployeeAppointments({ role, patients }) {
         )}
       </div>
 
-      {/* Modals */}
+      {/* Modal */}
       {showModal && (
         <EmployeeCreateAppointmentModal
           patients={patients}
