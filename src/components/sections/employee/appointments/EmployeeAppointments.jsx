@@ -19,7 +19,6 @@ export default function EmployeeAppointments({ role, patients }) {
 
   // Hook to get all appointments
   const { data, loading, refetch } = useAllAppointments();
-  console.log(data);
   const [citas, setCitas] = useState([]);
 
   useEffect(() => {
@@ -69,10 +68,12 @@ export default function EmployeeAppointments({ role, patients }) {
     }
   };
 
-  // Current Date
-  const today = new Date().toISOString().split('T')[0];
+  // Get today's date in local timezone (America/Mexico_City)
+  const now = new Date();
+  const offsetDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+  const today = offsetDate.toISOString().split('T')[0];
 
-  // Filter
+  // Filter only appointments for today
   const citasDeHoy = citas.filter((c) => c.fecha === today);
 
   /* Filtro por búsqueda */

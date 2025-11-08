@@ -2,7 +2,6 @@ import { Clock, Phone, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AppointmentsToday({ appointments, role }) {
-  console.log(role)
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
       <div className="mb-4 flex items-center justify-between">
