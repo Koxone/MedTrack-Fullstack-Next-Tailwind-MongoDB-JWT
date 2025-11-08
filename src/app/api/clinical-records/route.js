@@ -3,7 +3,7 @@ import { connectDB } from '@/lib/mongodb';
 import ClinicalRecord from '@/models/ClinicalRecord';
 
 // @route    POST /api/clinical-records
-// @desc     Create Clinical Record
+// @desc     Create a new Clinical Record
 // @access   Private
 export async function POST(req) {
   try {
@@ -32,7 +32,7 @@ export async function POST(req) {
 }
 
 // @route    GET /api/clinical-records
-// @desc     Create Clinical Record
+// @desc     Get all Clinical Records from DataBase
 // @access   Private
 export async function GET(req) {
   try {
@@ -41,7 +41,7 @@ export async function GET(req) {
 
     // Parse query
     const { searchParams } = new URL(req.url);
-    const page = Math.max(parseInt(searchParams.get('page') || '1', 10), 1); /* Paging */
+    const page = Math.max(parseInt(searchParams.get('page') || '1', 10), 1);
     const limit = Math.min(Math.max(parseInt(searchParams.get('limit') || '20', 10), 1), 100);
     const skip = (page - 1) * limit;
 

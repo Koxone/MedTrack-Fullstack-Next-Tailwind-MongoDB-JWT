@@ -3,8 +3,8 @@ import { connectDB } from '@/lib/mongodb';
 import User from '@/models/User';
 
 // @route    GET /api/users/:id
-// @desc     Obtener un usuario específico por ID
-// @access   Privado (puedes dejarlo público de momento)
+// @desc     Get a specific User by ID
+// @access   Private
 export async function GET(req, { params }) {
   try {
     await connectDB();

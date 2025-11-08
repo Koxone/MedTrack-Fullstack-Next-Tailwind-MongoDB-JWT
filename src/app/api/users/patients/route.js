@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
 import User from '@/models/User';
 
-// @route    GET /api/users
-// @desc     Obtener todos los usuarios
-// @access   Privado (puedes dejarlo público de momento)
+// @route    GET /api/users/patients
+// @desc     Get all Users with role 'patient'
+// @access   Private
 export async function GET() {
   try {
     await connectDB();
