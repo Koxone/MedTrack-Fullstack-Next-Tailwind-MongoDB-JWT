@@ -2,29 +2,24 @@ import { google } from 'googleapis';
 import { getGoogleOAuthClient } from '@/lib/google/googleClient';
 
 // @route    GET /api/google/calendar/appointments
-// @desc     Get Appointments
-// @access   Private 
+// @desc     Get appointments (both specialties)
+// @access   Private
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
     const specialty = searchParams.get('specialty') || 'weight';
 
-    const oauth2Client = getGoogleOAuthClient();
-    oauth2Client.setCredentials({
-      access_token: process.env.GOOGLE_ACCESS_TOKEN,
-      refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
-    });
+    const auth = getGoogleOAuthClient();
+    const calendar = google.calendar({ version: 'v3', auth });
 
-    const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
     const calendarId =
       specialty === 'weight'
         ? process.env.GOOGLE_CALENDAR_ID_WEIGHT
         : process.env.GOOGLE_CALENDAR_ID_DENTAL;
 
-    // Get events for the next 30 days
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    const monthFromNow = new Date();
+    const monthFromNow = new Date(now);
     monthFromNow.setDate(now.getDate() + 30);
 
     const response = await calendar.events.list({
