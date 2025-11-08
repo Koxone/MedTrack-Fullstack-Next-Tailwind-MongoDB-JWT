@@ -5,11 +5,12 @@ import HeaderWelcome from '@/components/shared/dashboard/header/HeaderWelcome';
 import StatsGrid from '@/components/shared/dashboard/statsGrid/StatsGrid';
 import AppointmentsToday from '@/components/shared/dashboard/appointmentsToday/AppointmentsToday';
 import GeneralInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/GeneralInventoryAlerts';
-import { useAllAppointments } from '@/hooks/useAllAppointments';
+import { useAllTodayAppointments } from '@/hooks/useAllTodayAppointments';
 
 export default function EmployeeDashboard({ currentUser }) {
   // Hook to get all appointments
-  const { data, loading, refetch } = useAllAppointments();
+  const { appointments, error } = useAllTodayAppointments();
+  console.log(appointments);
 
   return (
     <DashboardLayout>
@@ -21,7 +22,7 @@ export default function EmployeeDashboard({ currentUser }) {
 
       {/* Content */}
       <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
-        <AppointmentsToday role={currentUser?.role} appointments={data?.all} />
+        <AppointmentsToday role={currentUser?.role} appointments={appointments} />
         <GeneralInventoryAlerts />
       </div>
     </DashboardLayout>

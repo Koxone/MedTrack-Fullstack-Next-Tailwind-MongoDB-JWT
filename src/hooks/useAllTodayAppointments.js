@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import useAuthStore from '@/zustand/useAuthStore';
 
 /* --- Helpers --- */
 function parseDescription(desc) {
@@ -74,29 +73,31 @@ function normalizeEvents(items, specialty) {
   });
 }
 
-/* --- Hook principal --- */
-export function useTodayAppointmentsBySpecialty() {
-  const { user } = useAuthStore();
+/* --- Hook para todas las citas de hoy --- */
+export function useAllTodayAppointments() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchTodayAppointments = useCallback(async () => {
-    if (!user?.specialty) return;
-
     setLoading(true);
     setError(null);
 
     try {
-      const res = await fetch(`/api/google/calendar/appointments?specialty=${user.specialty}`);
+      const res = await fetch('/api/google/calendar/appointments/all');
 
       if (!res.ok) throw new Error('Error al cargar las citas');
 
       const json = await res.json();
-      const normalized = normalizeEvents(json.events, user.specialty);
 
+      // Normalizar todas las especialidades
+      const weight = normalizeEvents(json.weightEvents || [], 'weight');
+      const dental = normalizeEvents(json.dentalEvents || [], 'dental');
+      const all = [...weight, ...dental];
+
+      // Fecha local correcta
       const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Mexico_City' });
-      const todayAppointments = normalized.filter((ev) => ev._dateKey === today);
+      const todayAppointments = all.filter((ev) => ev._dateKey === today);
 
       setAppointments(todayAppointments);
     } catch (e) {
@@ -105,7 +106,7 @@ export function useTodayAppointmentsBySpecialty() {
     } finally {
       setLoading(false);
     }
-  }, [user?.specialty]);
+  }, []);
 
   useEffect(() => {
     fetchTodayAppointments();
@@ -113,6 +114,3 @@ export function useTodayAppointmentsBySpecialty() {
 
   return { appointments, loading, error, refetch: fetchTodayAppointments };
 }
-
-// // Google Calendar Custom Hooks
-// const { appointments, loading, error } = useTodayAppointmentsBySpecialty();
