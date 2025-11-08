@@ -7,7 +7,8 @@ export default function AppointmentsCard({ selectedDate, appointments }) {
 
   return (
     <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg transition hover:shadow-xl">
-      <div className="relative overflow-hidden bg-linear-to-r from-medtrack-green-dark to-medtrack-green-solid px-6 py-5">
+      {/* Header */}
+      <div className="from-medtrack-green-dark to-medtrack-green-solid relative overflow-hidden bg-linear-to-r px-6 py-5">
         <div className="absolute top-0 right-0 -mt-12 -mr-12 h-24 w-24 rounded-full bg-white/10" />
         <div className="relative z-10 flex items-center gap-3">
           <div className="rounded-xl bg-white/20 p-2 backdrop-blur-sm">
@@ -27,7 +28,7 @@ export default function AppointmentsCard({ selectedDate, appointments }) {
 
       <div className="p-6">
         {selectedDate && appointments.length > 0 ? (
-          <div className="scrollbar-thin max-h-[600px] space-y-3 overflow-y-auto">
+          <div className="scrollbar-thin space-y-3 overflow-y-auto">
             {appointments.map((apt, index) => (
               <div
                 key={apt.id}
