@@ -1,43 +1,58 @@
-// Create event (service account)
+// Create event (service account, fixed)
 import { google } from 'googleapis';
-import { NextResponse } from 'next/server';
 import { getGoogleOAuthClient } from '@/lib/google/googleClient';
 
 export async function POST(req) {
   try {
-    // Body
+    /* Parse body */
     const body = await req.json();
-    const { patientName, specialty, date, time, phone, email, reason } = body;
+    const { patientId, patientName, specialty, date, time, phone, email, reason } = body;
 
-    // Auth
-    const auth = getGoogleOAuthClient(); // JWT from GOOGLE_SERVICE_ACCOUNT_KEY
+    /* Auth */
+    const auth = getGoogleOAuthClient();
     const calendar = google.calendar({ version: 'v3', auth });
 
-    // Calendar id
+    /* Calendar selection */
     const calendarId =
       specialty === 'weight'
         ? process.env.GOOGLE_CALENDAR_ID_WEIGHT
         : process.env.GOOGLE_CALENDAR_ID_DENTAL;
 
-    // Dates
-    const start = new Date(`${date}T${time}:00-06:00`);
-    const end = new Date(start.getTime() + 30 * 60 * 1000);
+    /* Dates */
+    const startDateTime = new Date(`${date}T${time}:00-06:00`);
+    const endDateTime = new Date(startDateTime.getTime() + 30 * 60 * 1000);
 
-    // Payload
+    /* Event payload */
+    const summary = specialty === 'weight' ? 'Control de peso' : 'Odontología';
+    const description = `
+Paciente: ${patientName || ''}
+Paciente ID: ${patientId || ''}
+Motivo de consulta: ${reason || ''}
+Teléfono: ${phone || ''}
+Correo: ${email || ''}
+Fecha: ${date || ''}
+Hora: ${time || ''}
+Especialidad: ${specialty || ''}
+    `.trim();
+
     const event = {
-      summary: `${specialty === 'weight' ? 'Control de peso' : 'Dental'} · ${patientName}`,
-      description: `Motivo: ${reason || ''}\nTel: ${phone || ''}\nEmail: ${email || ''}`,
-      start: { dateTime: start.toISOString() },
-      end: { dateTime: end.toISOString() },
+      summary,
+      description,
+      start: { dateTime: startDateTime.toISOString(), timeZone: 'America/Mexico_City' },
+      end: { dateTime: endDateTime.toISOString(), timeZone: 'America/Mexico_City' },
+      // attendees removed — service accounts cannot invite people
     };
 
-    // Insert
-    const { data } = await calendar.events.insert({ calendarId, requestBody: event });
+    /* Insert */
+    const response = await calendar.events.insert({
+      calendarId,
+      resource: event,
+    });
 
-    // Ok
-    return NextResponse.json({ success: true, id: data.id });
+    /* Ok */
+    return Response.json({ success: true, data: response.data });
   } catch (error) {
-    // Fail
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    console.error('Error creating event:', error);
+    return Response.json({ success: false, error: error.message }, { status: 500 });
   }
 }
