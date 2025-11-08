@@ -3,7 +3,7 @@ import { getGoogleOAuthClient } from '@/lib/google/googleClient';
 
 // @route    GET /api/google/calendar/appointments
 // @desc     Get Appointments
-// @access   Private
+// @access   Private 
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
