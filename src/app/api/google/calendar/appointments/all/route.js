@@ -2,42 +2,45 @@ import { google } from 'googleapis';
 import { getGoogleOAuthClient } from '@/lib/google/googleClient';
 
 // @route    GET /api/google/calendar/appointments/all
-// @desc     Get all appointments from all specialties
+// @desc     Get all appointments from all specialties (service account)
 // @access   Private
 export async function GET() {
   try {
-    const oauth2Client = getGoogleOAuthClient();
-    oauth2Client.setCredentials({
-      access_token: process.env.GOOGLE_ACCESS_TOKEN,
-      refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
-    });
+    // Auth: service account JWT
+    const auth = getGoogleOAuthClient();
+    const calendar = google.calendar({ version: 'v3', auth });
 
-    const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-
+    // Time range for next 30 days (Mexico time)
     const now = new Date();
-    now.setHours(0, 0, 0, 0);
-    const monthFromNow = new Date();
-    monthFromNow.setDate(now.getDate() + 30);
+    const start = new Date(now);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(now);
+    end.setDate(now.getDate() + 30);
+    end.setHours(23, 59, 59, 999);
 
+    // Fetch from both calendars
     const [weightRes, dentalRes] = await Promise.all([
       calendar.events.list({
         calendarId: process.env.GOOGLE_CALENDAR_ID_WEIGHT,
-        timeMin: now.toISOString(),
-        timeMax: monthFromNow.toISOString(),
+        timeMin: start.toISOString(),
+        timeMax: end.toISOString(),
         singleEvents: true,
         orderBy: 'startTime',
         timeZone: 'America/Mexico_City',
+        maxResults: 100,
       }),
       calendar.events.list({
         calendarId: process.env.GOOGLE_CALENDAR_ID_DENTAL,
-        timeMin: now.toISOString(),
-        timeMax: monthFromNow.toISOString(),
+        timeMin: start.toISOString(),
+        timeMax: end.toISOString(),
         singleEvents: true,
         orderBy: 'startTime',
         timeZone: 'America/Mexico_City',
+        maxResults: 100,
       }),
     ]);
 
+    // Return merged results
     return Response.json({
       success: true,
       weightEvents: weightRes.data.items || [],
