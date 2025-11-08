@@ -8,6 +8,7 @@ import {
   TrendingDown,
   Clock,
   FileText,
+  Ruler,
 } from 'lucide-react';
 
 /* Doctor dashboard cards */
@@ -59,18 +60,18 @@ export const patientStats = [
     variant: 'success',
   },
   {
+    Icon: Ruler,
+    MainData: '100cm',
+    ExtraData: 'Actual',
+    Title: 'Talla Actual',
+    variant: 'success',
+  },
+  {
     Icon: TrendingDown,
     MainData: '+2.4 kg',
     ExtraData: 'Este mes',
     Title: 'Progreso',
     variant: 'purple',
-  },
-  {
-    Icon: Calendar,
-    MainData: '3 Nov',
-    ExtraData: '9:00 AM',
-    Title: 'Próxima Cita',
-    variant: 'success',
   },
 ];
 
