@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 
+import '@/models/ClinicalRecord'
+import '@/models/User'
+
 // Global cache
 let cached = global.mongoose || { conn: null, promise: null };
 global.mongoose = cached;
