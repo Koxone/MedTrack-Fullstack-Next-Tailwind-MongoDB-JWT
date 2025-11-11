@@ -7,7 +7,7 @@ import DoctorAccountingSummary from '@/components/sections/doctor/dashboard/comp
 import DoctorIncomeChart from '@/components/sections/doctor/dashboard/components/DoctorIncomeChart';
 import DoctorPatientsChart from '@/components/sections/doctor/dashboard/components/DoctorPatientsChart';
 import StatsGrid from '@/components/shared/dashboard/statsGrid/StatsGrid';
-import GeneralInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/GeneralInventoryAlerts';
+import SharedInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/SharedInventoryAlerts';
 import { useTodayAppointmentsBySpecialty } from '@/hooks/useTodayAppointmentsBySpecialty';
 
 export default function DoctorDashboard({ currentUser }) {
@@ -34,7 +34,7 @@ export default function DoctorDashboard({ currentUser }) {
       {/* Summaries */}
       <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
         <DoctorAccountingSummary />
-        <GeneralInventoryAlerts />
+        <SharedInventoryAlerts />
       </div>
     </DashboardLayout>
   );

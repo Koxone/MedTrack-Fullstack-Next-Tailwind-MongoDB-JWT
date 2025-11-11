@@ -4,7 +4,7 @@ import DashboardLayout from '@/components/shared/layouts/DashboardLayout';
 import HeaderWelcome from '@/components/shared/dashboard/header/HeaderWelcome';
 import StatsGrid from '@/components/shared/dashboard/statsGrid/StatsGrid';
 import AppointmentsToday from '@/components/shared/dashboard/appointmentsToday/AppointmentsToday';
-import GeneralInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/GeneralInventoryAlerts';
+import SharedInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/SharedInventoryAlerts';
 import { useAllTodayAppointments } from '@/hooks/useAllTodayAppointments';
 
 export default function EmployeeDashboard({ currentUser }) {
@@ -22,7 +22,7 @@ export default function EmployeeDashboard({ currentUser }) {
       {/* Content */}
       <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
         <AppointmentsToday role={currentUser?.role} appointments={appointments} />
-        <GeneralInventoryAlerts />
+        <SharedInventoryAlerts />
       </div>
     </DashboardLayout>
   );

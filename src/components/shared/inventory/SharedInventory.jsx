@@ -9,7 +9,7 @@ import RecetasGrid from './components/RecetasGrid';
 import SuministrosTable from './components/SuministrosTable';
 import DeleteModal from './components/modals/deleteProductModal/DeleteModal';
 import GeneralSectionHeader from '@/components/shared/sections/GeneralSectionHeader';
-import GeneralInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/GeneralInventoryAlerts';
+import SharedInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/SharedInventoryAlerts';
 import { getStockStatus, getCaducidadStatus } from './utils/helpers';
 import AddProductModal from './components/modals/addProductModal/AddProductModal';
 import EditProductModal from './components/modals/editProductModal/EditProductModal';
@@ -164,7 +164,7 @@ export default function SharedInventory({ role }) {
       </div>
 
       {/* Inventory Alerts */}
-      <GeneralInventoryAlerts role={role} />
+      <SharedInventoryAlerts role={role} />
 
       {/* Modals */}
       {showModal && !editingItem && (
