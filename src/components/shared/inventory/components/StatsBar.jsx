@@ -8,7 +8,7 @@ export default function StatsBar({ medicamentos, suministros, recetas }) {
   );
 
   const valorTotalSuministros = useMemo(
-    () => suministros.reduce((sum, s) => sum + s.quantity * (s.product?.salePrice || 0), 0),
+    () => suministros.reduce((sum, s) => sum + s.quantity * (s.product?.costPrice || 0), 0),
     [suministros]
   );
 
@@ -23,23 +23,31 @@ export default function StatsBar({ medicamentos, suministros, recetas }) {
       label: 'Valor medicamentos',
       value: `$${valorTotalMedicamentos.toLocaleString()}`,
       tone: 'from-emerald-500 to-teal-600',
+      title:
+        'Monto total estimado si se vendieran todos los medicamentos actualmente en inventario al precio de venta establecido.',
     },
     {
       label: 'Valor suministros',
       value: `$${valorTotalSuministros.toLocaleString()}`,
       tone: 'from-indigo-500 to-purple-600',
+      title:
+        'Monto total invertido en materiales disponibles en el consultorio según su costo de compra.',
     },
     {
       label: 'Items totales',
       value: counts.meds + counts.recs + counts.sums,
       tone: 'from-blue-500 to-cyan-600',
+      title:
+        'Cantidad total de elementos registrados en el inventario, incluyendo medicamentos, recetas y suministros médicos.',
     },
   ];
+
   return (
     <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
       {items.map((s, i) => (
         <div
           key={s.label}
+          title={s.title}
           style={{ animationDelay: `${i * 80}ms` }}
           className="animate-[fadeIn_.25s_ease-out] rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-sm"
         >

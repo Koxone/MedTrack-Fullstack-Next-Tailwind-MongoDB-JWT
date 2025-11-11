@@ -40,20 +40,22 @@ export default function SharedInventory({ role }) {
     fetchInventory();
   }, []);
 
-  // Filtered groups
+  // Filtered Meds
   const medicamentos = useMemo(
     () => inventory.filter((i) => i.product?.type === 'medicamento'),
     [inventory]
   );
 
+  // Filtered Prescriptions
   const recetas = useMemo(() => inventory.filter((i) => i.product?.type === 'receta'), [inventory]);
 
+  // Filtered Supplies
   const suministros = useMemo(
     () => inventory.filter((i) => i.product?.type === 'suministro'),
     [inventory]
   );
 
-  // Filtered by search
+  // Search Meds
   const filteredMedicamentos = useMemo(() => {
     const q = searchTerm.toLowerCase();
     return medicamentos.filter(
@@ -62,11 +64,13 @@ export default function SharedInventory({ role }) {
     );
   }, [medicamentos, searchTerm]);
 
+  // Search Prescriptions
   const filteredRecetas = useMemo(() => {
     const q = searchTerm.toLowerCase();
     return recetas.filter((r) => r.product.name.toLowerCase().includes(q));
   }, [recetas, searchTerm]);
 
+  // Search Supplies
   const filteredSuministros = useMemo(() => {
     const q = searchTerm.toLowerCase();
     return suministros.filter((s) => s.product.name.toLowerCase().includes(q));
@@ -75,6 +79,11 @@ export default function SharedInventory({ role }) {
   // Actions
   const openAddModal = () => {
     setEditingItem(null);
+    setShowModal(true);
+  };
+
+  const openEditModal = (item) => {
+    setEditingItem(item);
     setShowModal(true);
   };
 
@@ -130,7 +139,7 @@ export default function SharedInventory({ role }) {
             rows={filteredMedicamentos}
             getStockStatus={getStockStatus}
             getCaducidadStatus={getCaducidadStatus}
-            onEdit={(item) => setEditingItem(item)}
+            onEdit={openEditModal}
             onDelete={requestDelete}
           />
         )}
@@ -139,7 +148,7 @@ export default function SharedInventory({ role }) {
           <RecetasGrid
             rows={filteredRecetas}
             getStockStatus={getStockStatus}
-            onEdit={(item) => setEditingItem(item)}
+            onEdit={openEditModal}
             onDelete={requestDelete}
           />
         )}
@@ -148,7 +157,7 @@ export default function SharedInventory({ role }) {
           <SuministrosTable
             rows={filteredSuministros}
             getStockStatus={getStockStatus}
-            onEdit={(item) => setEditingItem(item)}
+            onEdit={openEditModal}
             onDelete={requestDelete}
           />
         )}
@@ -166,7 +175,6 @@ export default function SharedInventory({ role }) {
             setInventory((prev) => [...prev, payload]);
             setShowModal(false);
           }}
-          icons={{ X }}
         />
       )}
 
@@ -183,7 +191,6 @@ export default function SharedInventory({ role }) {
             setShowModal(false);
             setEditingItem(null);
           }}
-          icons={{ X }}
         />
       )}
 

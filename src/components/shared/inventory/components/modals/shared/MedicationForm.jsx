@@ -1,13 +1,13 @@
+/* --- Medication Form (with labels) --- */
 'use client';
 
 import { useState } from 'react';
 
-/* Medication Form (connected to backend) */
 export default function MedicationForm({ mode, initialData, onCancel, onSubmit }) {
   // Local state
   const [form, setForm] = useState(() => ({
-    name: initialData?.name || '',
-    category: initialData?.category || '',
+    name: initialData?.product?.name || '',
+    category: initialData?.product?.category || '',
     costPrice: initialData?.costPrice != null ? String(initialData.costPrice) : '',
     salePrice: initialData?.salePrice != null ? String(initialData.salePrice) : '',
     quantity: initialData?.quantity != null ? String(initialData.quantity) : '',
@@ -39,69 +39,101 @@ export default function MedicationForm({ mode, initialData, onCancel, onSubmit }
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="space-y-4 rounded-2xl border border-gray-100 bg-white/80 p-5 shadow-lg backdrop-blur-sm">
-        <div className="grid gap-4">
+        {/* Name */}
+        <div className="grid gap-1">
+          <label className="text-sm font-semibold text-gray-600">Nombre</label>
           <input
             type="text"
             required
             value={form.name}
             onChange={(e) => handleChange('name', e.target.value)}
-            placeholder="Nombre (ej. Paracetamol 500mg)"
+            placeholder="Ej. Paracetamol 500mg"
             className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
           />
+        </div>
+
+        {/* Category */}
+        <div className="grid gap-1">
+          <label className="text-sm font-semibold text-gray-600">Categoría</label>
           <input
             type="text"
             required
             value={form.category}
             onChange={(e) => handleChange('category', e.target.value)}
-            placeholder="Categoría (ej. Analgésico, Antibiótico)"
+            placeholder="Ej. Analgésico, Antibiótico"
             className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
           />
-          <div className="grid grid-cols-2 gap-3">
+        </div>
+
+        {/* Stock info */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-1">
+            <label className="text-sm font-semibold text-gray-600">Cantidad</label>
             <input
               type="number"
               min="0"
               value={form.quantity}
               onChange={(e) => handleChange('quantity', e.target.value)}
-              placeholder="Cantidad"
+              placeholder="Ej. 10"
               className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
             />
+          </div>
+
+          <div className="grid gap-1">
+            <label className="text-sm font-semibold text-gray-600">Stock mínimo</label>
             <input
               type="number"
               min="0"
               value={form.minStock}
               onChange={(e) => handleChange('minStock', e.target.value)}
-              placeholder="Stock mínimo"
+              placeholder="Ej. 5"
               className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
             />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+        </div>
+
+        {/* Max stock and cost */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-1">
+            <label className="text-sm font-semibold text-gray-600">Stock máximo</label>
             <input
               type="number"
               min="0"
               value={form.maxStock}
               onChange={(e) => handleChange('maxStock', e.target.value)}
-              placeholder="Stock máximo"
+              placeholder="Ej. 20"
               className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
             />
+          </div>
+
+          <div className="grid gap-1">
+            <label className="text-sm font-semibold text-gray-600">Costo ($)</label>
             <input
               type="number"
               min="0"
               value={form.costPrice}
               onChange={(e) => handleChange('costPrice', e.target.value)}
-              placeholder="Costo ($)"
+              placeholder="Ej. 10"
               className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
             />
           </div>
+        </div>
+
+        {/* Sale price */}
+        <div className="grid gap-1">
+          <label className="text-sm font-semibold text-gray-600">Precio de venta ($)</label>
           <input
             type="number"
             min="0"
             value={form.salePrice}
             onChange={(e) => handleChange('salePrice', e.target.value)}
-            placeholder="Precio de venta ($)"
+            placeholder="Ej. 15"
             className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
           />
         </div>
       </div>
+
+      {/* Buttons */}
       <div className="flex gap-3">
         <button
           type="button"

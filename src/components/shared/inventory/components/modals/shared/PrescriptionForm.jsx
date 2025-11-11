@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 
-/* Prescription Form (connected to backend) */
+/* Prescription Form (connected to backend, with labels) */
 export default function PrescriptionForm({ mode, initialData, onCancel, onSubmit }) {
   // Local state
   const [form, setForm] = useState(() => ({
-    category: initialData?.category || '',
+    category: initialData?.product?.category || '',
     quantity: initialData?.quantity != null ? String(initialData.quantity) : '',
     minStock: initialData?.minStock != null ? String(initialData.minStock) : '',
     maxStock: initialData?.maxStock != null ? String(initialData.maxStock) : '',
@@ -36,44 +36,61 @@ export default function PrescriptionForm({ mode, initialData, onCancel, onSubmit
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="space-y-4 rounded-2xl border border-gray-100 bg-white/80 p-5 shadow-lg backdrop-blur-sm">
-        <input
-          type="text"
-          required
-          value={form.category}
-          onChange={(e) => handleChange('category', e.target.value)}
-          placeholder="Tipo de receta (Control de Peso u Odontología)"
-          className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-blue-500"
-        />
-
-        <div className="grid grid-cols-2 gap-3">
+        {/* Tipo de receta */}
+        <div className="grid gap-1">
+          <label className="text-sm font-semibold text-gray-600">Tipo de receta</label>
           <input
-            type="number"
-            min="0"
-            value={form.quantity}
-            onChange={(e) => handleChange('quantity', e.target.value)}
-            placeholder="Cantidad"
-            className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-blue-500"
-          />
-          <input
-            type="number"
-            min="0"
-            value={form.minStock}
-            onChange={(e) => handleChange('minStock', e.target.value)}
-            placeholder="Stock mínimo"
+            type="text"
+            required
+            value={form.category}
+            onChange={(e) => handleChange('category', e.target.value)}
+            placeholder="Ej. Control de Peso, Odontología"
             className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-blue-500"
           />
         </div>
 
-        <input
-          type="number"
-          min="0"
-          value={form.maxStock}
-          onChange={(e) => handleChange('maxStock', e.target.value)}
-          placeholder="Stock máximo"
-          className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-blue-500"
-        />
+        {/* Cantidad y stock mínimo */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-1">
+            <label className="text-sm font-semibold text-gray-600">Cantidad</label>
+            <input
+              type="number"
+              min="0"
+              value={form.quantity}
+              onChange={(e) => handleChange('quantity', e.target.value)}
+              placeholder="Ej. 10"
+              className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-blue-500"
+            />
+          </div>
+
+          <div className="grid gap-1">
+            <label className="text-sm font-semibold text-gray-600">Stock mínimo</label>
+            <input
+              type="number"
+              min="0"
+              value={form.minStock}
+              onChange={(e) => handleChange('minStock', e.target.value)}
+              placeholder="Ej. 5"
+              className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-blue-500"
+            />
+          </div>
+        </div>
+
+        {/* Stock máximo */}
+        <div className="grid gap-1">
+          <label className="text-sm font-semibold text-gray-600">Stock máximo</label>
+          <input
+            type="number"
+            min="0"
+            value={form.maxStock}
+            onChange={(e) => handleChange('maxStock', e.target.value)}
+            placeholder="Ej. 20"
+            className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-blue-500"
+          />
+        </div>
       </div>
 
+      {/* Botones */}
       <div className="flex gap-3">
         <button
           type="button"

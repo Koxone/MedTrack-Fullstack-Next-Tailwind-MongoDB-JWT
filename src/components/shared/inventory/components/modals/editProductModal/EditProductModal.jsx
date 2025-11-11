@@ -1,6 +1,6 @@
 'use client';
 
-import { Pill, FileText, Syringe, X as XIcon } from 'lucide-react';
+import { Pill, FileText, Syringe, X, CloseIcon } from 'lucide-react';
 import MedicationForm from '../shared/MedicationForm';
 import PrescriptionForm from '../shared/PrescriptionForm';
 import SupplyForm from '../shared/SupplyForm';
@@ -18,9 +18,7 @@ function getIcon(tab) {
 }
 
 /* Modal reusing the same single-responsibility forms in edit mode */
-export default function EditProductModal({ activeTab, item, onClose, onSubmit, icons }) {
-  const CloseIcon = icons?.X || XIcon;
-
+export default function EditProductModal({ activeTab, item, onClose, onSubmit }) {
   const renderForm = () => {
     if (activeTab === 'medicamentos') {
       return (
@@ -80,7 +78,7 @@ export default function EditProductModal({ activeTab, item, onClose, onSubmit, i
                   onClick={onClose}
                   className="rounded-xl bg-gray-100 p-2 transition-all hover:bg-red-500"
                 >
-                  <CloseIcon className="h-5 w-5 text-gray-600 hover:text-white" />
+                  <X className="h-5 w-5 text-gray-600 hover:text-white" />
                 </button>
               </div>
             </div>
