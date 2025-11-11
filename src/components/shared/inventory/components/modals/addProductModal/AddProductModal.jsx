@@ -4,29 +4,40 @@ import { Pill, FileText, Syringe, X } from 'lucide-react';
 import MedicationForm from '../shared/MedicationForm';
 import PrescriptionForm from '../shared/PrescriptionForm';
 import SupplyForm from '../shared/SupplyForm';
+import { createProduct } from './services/createProduct';
+import { getGradient, getIcon } from './utils/helpers';
 
-/* Layout helpers */
-function getGradient(tab) {
-  if (tab === 'medicamentos') return 'from-green-500 to-emerald-500';
-  if (tab === 'recetas') return 'from-blue-500 to-indigo-500';
-  return 'from-purple-500 to-pink-500';
-}
-function getIcon(tab) {
-  if (tab === 'medicamentos') return <Pill className="h-6 w-6 text-white" />;
-  if (tab === 'recetas') return <FileText className="h-6 w-6 text-white" />;
-  return <Syringe className="h-6 w-6 text-white" />;
-}
+export default function AddProductModal({ activeTab, onClose }) {
+  // Create Product Backend Handler
+  async function handleSubmit(formData) {
+    const payload = {
+      ...formData,
+      type:
+        activeTab === 'medicamentos'
+          ? 'medicamento'
+          : activeTab === 'recetas'
+            ? 'receta'
+            : 'suministro',
+    };
 
-export default function AddProductModal({ activeTab, onClose, onSubmit }) {
+    const response = await createProduct(payload);
+    if (response.success) {
+      console.log('Producto agregado:', response.data);
+      onClose();
+    } else {
+      console.error(response.error);
+    }
+  }
+
   // Render form based on active tab
   const renderForm = () => {
     if (activeTab === 'medicamentos') {
-      return <MedicationForm mode="add" onCancel={onClose} onSubmit={onSubmit} />;
+      return <MedicationForm mode="add" onCancel={onClose} onSubmit={handleSubmit} />;
     }
     if (activeTab === 'recetas') {
-      return <PrescriptionForm mode="add" onCancel={onClose} onSubmit={onSubmit} />;
+      return <PrescriptionForm mode="add" onCancel={onClose} onSubmit={handleSubmit} />;
     }
-    return <SupplyForm mode="add" onCancel={onClose} onSubmit={onSubmit} />;
+    return <SupplyForm mode="add" onCancel={onClose} onSubmit={handleSubmit} />;
   };
 
   return (

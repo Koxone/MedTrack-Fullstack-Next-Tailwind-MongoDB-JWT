@@ -2,33 +2,37 @@
 
 import { useState } from 'react';
 
-/* Local, single-responsibility form for medications */
+/* Medication Form (connected to backend) */
 export default function MedicationForm({ mode, initialData, onCancel, onSubmit }) {
   // Local state
   const [form, setForm] = useState(() => ({
-    nombre: initialData?.nombre || '',
-    categoria: initialData?.categoria || '',
-    stock: initialData?.stock != null ? String(initialData.stock) : '',
-    minimo: initialData?.minimo != null ? String(initialData.minimo) : '',
-    precio: initialData?.precio != null ? String(initialData.precio) : '',
-    caducidad: initialData?.caducidad || '',
-    ubicacion: initialData?.ubicacion || '',
+    name: initialData?.name || '',
+    category: initialData?.category || '',
+    costPrice: initialData?.costPrice != null ? String(initialData.costPrice) : '',
+    salePrice: initialData?.salePrice != null ? String(initialData.salePrice) : '',
+    quantity: initialData?.quantity != null ? String(initialData.quantity) : '',
+    minStock: initialData?.minStock != null ? String(initialData.minStock) : '',
+    maxStock: initialData?.maxStock != null ? String(initialData.maxStock) : '',
   }));
 
   // Handlers
-  const handleChange = (k, v) => setForm((s) => ({ ...s, [k]: v }));
+  const handleChange = (key, value) => setForm((s) => ({ ...s, [key]: value }));
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const payload = {
-      id: initialData?.id || Date.now(),
-      nombre: form.nombre.trim(),
-      categoria: form.categoria.trim(),
-      stock: Number(form.stock || 0),
-      minimo: Number(form.minimo || 0),
-      precio: Number(form.precio || 0),
-      caducidad: form.caducidad,
-      ubicacion: form.ubicacion.trim(),
+      name: form.name.trim(),
+      type: 'medicamento',
+      category: form.category.trim(),
+      inStock: true,
+      costPrice: Number(form.costPrice || 0),
+      salePrice: Number(form.salePrice || 0),
+      quantity: Number(form.quantity || 0),
+      minStock: Number(form.minStock || 0),
+      maxStock: Number(form.maxStock || 0),
     };
+
     onSubmit(payload);
   };
 
@@ -39,34 +43,34 @@ export default function MedicationForm({ mode, initialData, onCancel, onSubmit }
           <input
             type="text"
             required
-            value={form.nombre}
-            onChange={(e) => handleChange('nombre', e.target.value)}
-            placeholder="Nombre del medicamento"
+            value={form.name}
+            onChange={(e) => handleChange('name', e.target.value)}
+            placeholder="Nombre (ej. Paracetamol 500mg)"
             className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
           />
           <input
             type="text"
             required
-            value={form.categoria}
-            onChange={(e) => handleChange('categoria', e.target.value)}
-            placeholder="Categoría"
+            value={form.category}
+            onChange={(e) => handleChange('category', e.target.value)}
+            placeholder="Categoría (ej. Analgésico, Antibiótico)"
             className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
           />
           <div className="grid grid-cols-2 gap-3">
             <input
               type="number"
               min="0"
-              value={form.stock}
-              onChange={(e) => handleChange('stock', e.target.value)}
-              placeholder="Stock"
+              value={form.quantity}
+              onChange={(e) => handleChange('quantity', e.target.value)}
+              placeholder="Cantidad"
               className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
             />
             <input
               type="number"
               min="0"
-              value={form.minimo}
-              onChange={(e) => handleChange('minimo', e.target.value)}
-              placeholder="Mínimo"
+              value={form.minStock}
+              onChange={(e) => handleChange('minStock', e.target.value)}
+              placeholder="Stock mínimo"
               className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
             />
           </div>
@@ -74,23 +78,26 @@ export default function MedicationForm({ mode, initialData, onCancel, onSubmit }
             <input
               type="number"
               min="0"
-              value={form.precio}
-              onChange={(e) => handleChange('precio', e.target.value)}
-              placeholder="Precio"
+              value={form.maxStock}
+              onChange={(e) => handleChange('maxStock', e.target.value)}
+              placeholder="Stock máximo"
               className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
             />
             <input
-              type="date"
-              value={form.caducidad}
-              onChange={(e) => handleChange('caducidad', e.target.value)}
+              type="number"
+              min="0"
+              value={form.costPrice}
+              onChange={(e) => handleChange('costPrice', e.target.value)}
+              placeholder="Costo ($)"
               className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
             />
           </div>
           <input
-            type="text"
-            value={form.ubicacion}
-            onChange={(e) => handleChange('ubicacion', e.target.value)}
-            placeholder="Ubicación"
+            type="number"
+            min="0"
+            value={form.salePrice}
+            onChange={(e) => handleChange('salePrice', e.target.value)}
+            placeholder="Precio de venta ($)"
             className="w-full rounded-xl border-2 border-gray-300 px-4 py-3 focus:border-green-500"
           />
         </div>
