@@ -7,80 +7,56 @@ import StatsBar from './components/StatsBar';
 import MedicamentosTable from './components/MedicamentosTable';
 import RecetasGrid from './components/RecetasGrid';
 import SuministrosTable from './components/SuministrosTable';
-import DeleteModal from './components/modals/deleteProductModal/DeleteModal';
 import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
 import SharedInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/SharedInventoryAlerts';
 import { getStockStatus, getCaducidadStatus } from './utils/helpers';
-import CreateProductModal from './components/modals/addProductModal/CreateProductModal';
-import EditProductModal from './components/modals/editProductModal/EditProductModal';
 
-// Hooks
+// Custom Hooks
 import { useGetFullInventory } from '@/hooks/useGetFullInventory';
 
-export default function SharedInventory({ role }) {
-  // UI State
-  const [activeTab, setActiveTab] = useState('medicamentos');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [editingItem, setEditingItem] = useState(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState(null);
+// Modals
+import RestockProductModal from './components/modals/restockProductModal/RestockProductModal';
+import CreateProductModal from './components/modals/addProductModal/CreateProductModal';
+import EditProductModal from './components/modals/editProductModal/EditProductModal';
+import DeleteModal from './components/modals/deleteProductModal/DeleteModal';
 
-  // Custom Hooks
+export default function SharedInventory({ role }) {
+  // Fetch Full Inventory Items
   const { inventory, loading, error, setInventory } = useGetFullInventory();
 
-  // Filtered Meds
-  const medicamentos = useMemo(
-    () => inventory.filter((i) => i.product?.type === 'medicamento'),
-    [inventory]
-  );
+  // States
+  const [activeTab, setActiveTab] = useState('medicamentos');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [editingItem, setEditingItem] = useState(null);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
-  // Filtered Prescriptions
-  const recetas = useMemo(() => inventory.filter((i) => i.product?.type === 'receta'), [inventory]);
+  // Modal Render States
+  const [showRestockModal, setShowRestockModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  // Filtered Supplies
-  const suministros = useMemo(
-    () => inventory.filter((i) => i.product?.type === 'suministro'),
-    [inventory]
-  );
-
-  // Search Meds
-  const filteredMedicamentos = useMemo(() => {
-    const q = searchTerm.toLowerCase();
-    return medicamentos.filter(
-      (m) =>
-        m.product.name.toLowerCase().includes(q) || m.product.category.toLowerCase().includes(q)
-    );
-  }, [medicamentos, searchTerm]);
-
-  // Search Prescriptions
-  const filteredRecetas = useMemo(() => {
-    const q = searchTerm.toLowerCase();
-    return recetas.filter((r) => r.product.name.toLowerCase().includes(q));
-  }, [recetas, searchTerm]);
-
-  // Search Supplies
-  const filteredSuministros = useMemo(() => {
-    const q = searchTerm.toLowerCase();
-    return suministros.filter((s) => s.product.name.toLowerCase().includes(q));
-  }, [suministros, searchTerm]);
-
-  // Actions
+  // Create Product Modal Handler
   const openAddModal = () => {
     setEditingItem(null);
     setShowModal(true);
   };
 
+  // Edit Product Modal Handler
   const openEditModal = (item) => {
     setEditingItem(item);
     setShowModal(true);
   };
 
+  // Restock Product Modal Handler
+  const openRestockModal = (item) => {
+    setShowRestockModal(true);
+  };
+
+  // Delete Product Modal Handler
   const requestDelete = (item) => {
     setItemToDelete(item);
     setShowDeleteModal(true);
   };
-
   const confirmDelete = async () => {
     if (!itemToDelete) return;
     try {
@@ -94,6 +70,29 @@ export default function SharedInventory({ role }) {
     }
   };
 
+  // Filtered Items based on Active Tab
+  const filteredInventory = useMemo(() => {
+    if (!inventory.length) return [];
+
+    return inventory.filter((item) => {
+      if (activeTab === 'medicamentos') return item.product?.type === 'medicamento';
+      if (activeTab === 'recetas') return item.product?.type === 'receta';
+      if (activeTab === 'suministros') return item.product?.type === 'suministro';
+      return false;
+    });
+  }, [inventory, activeTab]);
+
+  // Further filter by search term
+  const filteredItems = useMemo(() => {
+    const q = searchTerm.toLowerCase();
+    return filteredInventory.filter(
+      (item) =>
+        item.product?.name.toLowerCase().includes(q) ||
+        item.product?.category?.toLowerCase().includes(q)
+    );
+  }, [filteredInventory, searchTerm]);
+
+  // Loading State
   if (loading) {
     return (
       <div className="flex h-full items-center justify-center">
@@ -115,17 +114,22 @@ export default function SharedInventory({ role }) {
       {/* Tabs & Actions */}
       <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
         <TabsBar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <SearchAddBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} onAdd={openAddModal} />
+        <SearchAddBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          onAdd={openAddModal}
+          onRestock={openRestockModal}
+        />
       </div>
 
       {/* Stats */}
-      <StatsBar medicamentos={medicamentos} suministros={suministros} recetas={recetas} />
+      <StatsBar inventory={inventory} />
 
       {/* Content */}
       <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
         {activeTab === 'medicamentos' && (
           <MedicamentosTable
-            rows={filteredMedicamentos}
+            rows={filteredItems}
             getStockStatus={getStockStatus}
             getCaducidadStatus={getCaducidadStatus}
             onEdit={openEditModal}
@@ -135,7 +139,7 @@ export default function SharedInventory({ role }) {
 
         {activeTab === 'recetas' && (
           <RecetasGrid
-            rows={filteredRecetas}
+            rows={filteredItems}
             getStockStatus={getStockStatus}
             onEdit={openEditModal}
             onDelete={requestDelete}
@@ -144,7 +148,7 @@ export default function SharedInventory({ role }) {
 
         {activeTab === 'suministros' && (
           <SuministrosTable
-            rows={filteredSuministros}
+            rows={filteredItems}
             getStockStatus={getStockStatus}
             onEdit={openEditModal}
             onDelete={requestDelete}
@@ -155,7 +159,7 @@ export default function SharedInventory({ role }) {
       {/* Inventory Alerts */}
       <SharedInventoryAlerts role={role} inventory={inventory} />
 
-      {/* Modals */}
+      {/* Create New Product Modal */}
       {showModal && !editingItem && (
         <CreateProductModal
           activeTab={activeTab}
@@ -167,6 +171,7 @@ export default function SharedInventory({ role }) {
         />
       )}
 
+      {/* Edit Product Modal */}
       {showModal && editingItem && (
         <EditProductModal
           activeTab={activeTab}
@@ -183,12 +188,18 @@ export default function SharedInventory({ role }) {
         />
       )}
 
+      {/* Delete Product Modal */}
       {showDeleteModal && (
         <DeleteModal
           item={itemToDelete}
           onClose={() => setShowDeleteModal(false)}
           onConfirm={confirmDelete}
         />
+      )}
+
+      {/* Restock Product Modal */}
+      {showRestockModal && (
+        <RestockProductModal activeTab={activeTab} onClose={() => setShowRestockModal(false)} />
       )}
     </div>
   );
