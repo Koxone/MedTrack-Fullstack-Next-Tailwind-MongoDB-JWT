@@ -29,7 +29,7 @@ export default function EmployeeDashboard({ currentUser }) {
       <EmployeeStatsGrid role="employee" />
 
       {/* Content */}
-      <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
+      <div className="grid h-full max-h-[500px] grid-cols-1 lg:grid-cols-2 md:gap-6">
         <AppointmentsToday role={currentUser?.role} appointments={appointments} />
         <SharedInventoryAlerts role={currentUser?.role} inventory={inventory} />
       </div>

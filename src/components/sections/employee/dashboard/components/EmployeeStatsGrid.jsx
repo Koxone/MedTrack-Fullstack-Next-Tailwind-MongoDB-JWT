@@ -1,25 +1,17 @@
 'use client';
 
-import { useTodayAppointmentsBySpecialty } from '@/hooks/useTodayAppointmentsBySpecialty';
 import EmployeeStatsCard from './EmployeeStatsCard';
 import { useInventory } from '@/hooks/useInventory';
-import { Calendar, Clock, FileText, TriangleAlert } from 'lucide-react';
+import { Calendar, DollarSign, FileText, TriangleAlert } from 'lucide-react';
+import { useAllTodayAppointments } from '@/hooks/useAllTodayAppointments';
 
 export default function EmployeeStatsGrid({ role }) {
-  // Hooks
-  const { appointments, loading } = useTodayAppointmentsBySpecialty();
+  // Appointments Today logic
+  const { appointments } = useAllTodayAppointments();
   const todaysAppointmentsNumber = appointments?.length || 0;
 
-  const { inventory, loading: loadingInventory, error: errorInventory } = useInventory();
-
-  // Alerts logic
-  const criticalItems = inventory.filter((i) => i.quantity < i.minStock);
-  const lowItems = inventory.filter((i) => i.quantity === i.minStock);
-  const totalAlerts = criticalItems.length + lowItems.length;
-
-  // Mock Data
-  const pendingAppointments = 3;
-  const completedConsults = 5;
+  // Inventory and Alerts logic
+  const { totalAlerts } = useInventory();
 
   return (
     <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
@@ -32,16 +24,14 @@ export default function EmployeeStatsGrid({ role }) {
           variant: 'primary',
         },
         {
-          Icon: Clock,
-          mainData: pendingAppointments,
-          extraData: 'Pendientes',
-          title: 'Pendientes por Confirmar',
+          Icon: DollarSign,
+          mainData: '$1,200.00',
+          title: 'Venta de Medicamentos',
           variant: 'success',
         },
         {
           Icon: FileText,
-          mainData: completedConsults,
-          extraData: 'Hoy',
+          mainData: '$1,000.00',
           title: 'Consultas Hoy',
           variant: 'purple',
         },

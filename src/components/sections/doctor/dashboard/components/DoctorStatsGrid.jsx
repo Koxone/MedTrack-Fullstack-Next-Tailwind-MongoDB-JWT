@@ -26,14 +26,15 @@ export default function DoctorStatsGrid({ role }) {
         {
           Icon: Users,
           mainData: todaysAppointmentsNumber,
-          title: 'Citas de Hoy',
+          extraData: 'Hoy',
+          title: 'Citas Programadas',
           variant: 'success',
           href: '/doctor/calendar',
         },
         {
           Icon: Pill,
           mainData: '$500.00',
-          extraData: '+12%',
+          extraData: 'Hoy',
           title: 'Venta de Medicamentos',
           variant: 'purple',
         },
