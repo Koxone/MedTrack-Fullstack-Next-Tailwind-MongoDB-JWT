@@ -1,6 +1,7 @@
-import { Edit2, Power, Trash2 } from 'lucide-react';
+import { Edit2, Eye, History, Power, Trash2 } from 'lucide-react';
+import ActionButtons from './modals/shared/ActionsButtons';
 
-export default function MedicamentosTable({ rows, getStockStatus, onEdit, onDelete }) {
+export default function MedicamentosTable({ rows, getStockStatus, onEdit, onDelete, onHistory }) {
   if (!Array.isArray(rows) || rows.length === 0) {
     return (
       <div className="p-4 md:p-6">
@@ -16,7 +17,6 @@ export default function MedicamentosTable({ rows, getStockStatus, onEdit, onDele
       </div>
     );
   }
-  console.log(rows);
   return (
     <div className="p-4 md:p-6">
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
@@ -115,39 +115,14 @@ export default function MedicamentosTable({ rows, getStockStatus, onEdit, onDele
                       </span>
                     </td>
 
-                    {/* Acciones */}
+                    {/* Action Buttons */}
                     <td className="px-4 py-4">
-                      <div className="flex items-center justify-center gap-2">
-                        {/* Edit Button */}
-                        <button
-                          onClick={() => onEdit(med)}
-                          className="group/btn relative rounded-lg bg-blue-50 p-2 transition-all duration-200 hover:bg-blue-100 hover:shadow-md active:scale-95"
-                          title="Editar medicamento"
-                        >
-                          {Edit2 && (
-                            <Edit2 className="h-4 w-4 text-blue-600 transition-transform duration-200 group-hover/btn:scale-110" />
-                          )}
-                        </button>
-
-                        {/* Delete Button */}
-                        <button
-                          onClick={() => onDelete(med)}
-                          className={`group/btn relative rounded-lg p-2 transition-all duration-200 hover:shadow-md active:scale-95 ${
-                            med?.product?.inStock
-                              ? 'bg-green-300 hover:bg-green-500'
-                              : 'bg-red-50 hover:bg-red-100'
-                          }`}
-                          title={
-                            med?.product?.inStock ? 'Desactivar producto' : 'Reactivar producto'
-                          }
-                        >
-                          <Power
-                            className={`h-4 w-4 transition-transform duration-200 group-hover/btn:scale-110 ${
-                              med?.product?.inStock ? 'text-green-800' : 'text-red-600'
-                            }`}
-                          />
-                        </button>
-                      </div>
+                      <ActionButtons
+                        item={med}
+                        onEdit={onEdit}
+                        onDelete={onDelete}
+                        onHistory={onHistory}
+                      />
                     </td>
                   </tr>
                 );

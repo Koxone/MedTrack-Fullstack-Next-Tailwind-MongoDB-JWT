@@ -1,7 +1,8 @@
 'use client';
-import { Edit2, Trash2 } from 'lucide-react';
+import { Edit2, Trash2, History, Power } from 'lucide-react';
+import ActionButtons from './modals/shared/ActionsButtons';
 
-export default function SuministrosTable({ rows, getStockStatus, onEdit, onDelete }) {
+export default function SuministrosTable({ rows, getStockStatus, onEdit, onDelete, onHistory }) {
   if (!Array.isArray(rows) || rows.length === 0) {
     return (
       <div className="p-4 md:p-6">
@@ -60,21 +61,15 @@ export default function SuministrosTable({ rows, getStockStatus, onEdit, onDelet
                   <td className="hidden px-2 py-3 text-right text-sm font-semibold text-gray-900 lg:table-cell">
                     ${(sum?.quantity * sum?.product?.costPrice).toLocaleString()}
                   </td>
+
+                  {/* Action Buttons */}
                   <td className="px-2 py-3">
-                    <div className="flex items-center justify-center gap-1">
-                      <button
-                        onClick={() => onEdit(sum)}
-                        className="rounded p-1.5 transition hover:bg-blue-50 active:scale-95"
-                      >
-                        <Edit2 className="h-4 w-4 text-blue-600" />
-                      </button>
-                      <button
-                        onClick={() => onDelete(sum)}
-                        className="rounded p-1.5 transition hover:bg-red-50 active:scale-95"
-                      >
-                        <Trash2 className="h-4 w-4 text-red-600" />
-                      </button>
-                    </div>
+                    <ActionButtons
+                      item={sum}
+                      onEdit={onEdit}
+                      onDelete={onDelete}
+                      onHistory={onHistory}
+                    />
                   </td>
                 </tr>
               );

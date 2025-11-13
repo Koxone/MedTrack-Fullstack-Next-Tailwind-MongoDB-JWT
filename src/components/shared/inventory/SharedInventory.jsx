@@ -20,6 +20,7 @@ import CreateProductModal from './components/modals/addProductModal/CreateProduc
 import EditProductModal from './components/modals/editProductModal/EditProductModal';
 import DeleteProductModal from './components/modals/deleteProductModal/DeleteProductModal';
 import ToggleProductModal from './components/modals/toggleProductModal/ToggleProductModal';
+import TransactionHistoryModal from './components/modals/transactionHistoryModal/TransactionHistoryModal';
 
 export default function SharedInventory({ role }) {
   // Fetch Full Inventory Items
@@ -34,6 +35,7 @@ export default function SharedInventory({ role }) {
   // Modal Render States
   const [showRestockModal, setShowRestockModal] = useState(false);
   const [showToggleModal, setShowToggleModal] = useState(false);
+  const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   // Create Product Modal Handler
@@ -57,6 +59,12 @@ export default function SharedInventory({ role }) {
   const requestToggle = (item) => {
     setItemToToggle(item);
     setShowToggleModal(true);
+  };
+
+  // Transaction History Modal Handler
+  const openHistoryModal = (item) => {
+    setItemToToggle(item);
+    setShowHistoryModal(true);
   };
 
   const confirmToggle = async () => {
@@ -157,6 +165,7 @@ export default function SharedInventory({ role }) {
             getCaducidadStatus={getCaducidadStatus}
             onEdit={openEditModal}
             onDelete={requestToggle}
+            onHistory={openHistoryModal}
           />
         )}
 
@@ -165,6 +174,7 @@ export default function SharedInventory({ role }) {
             rows={filteredItems}
             getStockStatus={getStockStatus}
             onEdit={openEditModal}
+            onHistory={openHistoryModal}
             onDelete={requestToggle}
           />
         )}
@@ -175,6 +185,7 @@ export default function SharedInventory({ role }) {
             getStockStatus={getStockStatus}
             onEdit={openEditModal}
             onDelete={requestToggle}
+            onHistory={openHistoryModal}
           />
         )}
       </div>
@@ -234,6 +245,11 @@ export default function SharedInventory({ role }) {
             );
           }}
         />
+      )}
+
+      {/* Transaction History Modal */}
+      {showHistoryModal && (
+        <TransactionHistoryModal item={itemToToggle} onClose={() => setShowHistoryModal(false)} />
       )}
     </div>
   );
