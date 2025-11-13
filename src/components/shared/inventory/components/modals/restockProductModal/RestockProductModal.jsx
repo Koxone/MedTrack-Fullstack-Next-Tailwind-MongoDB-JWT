@@ -4,6 +4,7 @@ import { X, PackagePlus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { getGradient } from './utils/helpers';
 import { restockProduct } from './services/restockProduct';
+import { useModalClose } from '@/hooks/useModalClose';
 
 export default function RestockProductModal({ activeTab, onClose, filteredItems, onRestock }) {
   // Local states
@@ -11,19 +12,7 @@ export default function RestockProductModal({ activeTab, onClose, filteredItems,
   const [quantity, setQuantity] = useState('');
   const [reason, setReason] = useState('');
 
-  // Close on ESC key
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
-
-  // Close when clicking outside
-  const handleOverlayClick = (e) => {
-    if (e.target.id === 'overlay') onClose();
-  };
+  const { handleOverlayClick } = useModalClose(onClose);
 
   // Create Product Backend Handler
   async function handleSubmit(e) {

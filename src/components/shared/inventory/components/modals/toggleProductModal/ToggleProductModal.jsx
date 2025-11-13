@@ -2,25 +2,14 @@
 
 import { useEffect } from 'react';
 import { Power, X } from 'lucide-react';
+import { useModalClose } from '@/hooks/useModalClose';
 
 export default function ToggleProductModal({ item, onClose, onConfirm }) {
   if (!item) return null;
 
   const isActive = item?.product?.inStock === true;
 
-  // Close on ESC key
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
-
-  // Close when clicking outside
-  const handleOverlayClick = (e) => {
-    if (e.target.id === 'overlay') onClose();
-  };
+  const { handleOverlayClick } = useModalClose(onClose);
 
   return (
     <div

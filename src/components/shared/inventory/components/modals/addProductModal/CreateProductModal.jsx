@@ -7,21 +7,10 @@ import SupplyForm from '../shared/SupplyForm';
 import { createProduct } from './services/createProduct';
 import { getGradient, getIcon } from './utils/helpers';
 import { useEffect } from 'react';
+import { useModalClose } from '@/hooks/useModalClose';
 
 export default function CreateProductModal({ activeTab, onClose }) {
-  // Close on ESC key
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
-
-  // Close when clicking outside
-  const handleOverlayClick = (e) => {
-    if (e.target.id === 'overlay') onClose();
-  };
+  const { handleOverlayClick } = useModalClose(onClose);
 
   // Create Product Backend Handler
   async function handleSubmit(formData) {
