@@ -1,36 +1,63 @@
 'use client';
 
-import { Pill, FileText, Syringe, X, CloseIcon } from 'lucide-react';
+import { X } from 'lucide-react';
 import MedicationForm from '../shared/MedicationForm';
 import PrescriptionForm from '../shared/PrescriptionForm';
 import SupplyForm from '../shared/SupplyForm';
 
-/* Layout helpers */
-function getGradient(tab) {
-  if (tab === 'medicamentos') return 'from-green-500 to-emerald-500';
-  if (tab === 'recetas') return 'from-blue-500 to-indigo-500';
-  return 'from-purple-500 to-pink-500';
-}
-function getIcon(tab) {
-  if (tab === 'medicamentos') return <Pill className="h-6 w-6 text-white" />;
-  if (tab === 'recetas') return <FileText className="h-6 w-6 text-white" />;
-  return <Syringe className="h-6 w-6 text-white" />;
-}
+import { getGradient, getIcon } from './utils/helpers';
+import { editProduct } from './services/editProduct';
 
-/* Modal reusing the same single-responsibility forms in edit mode */
 export default function EditProductModal({ activeTab, item, onClose, onSubmit }) {
+  // Submit handler connected to backend
+  async function handleEditSubmit(formData) {
+    try {
+      const response = await editProduct({
+        inventoryId: item._id,
+        name: formData.name,
+        category: formData.category,
+        quantity: formData.quantity,
+        costPrice: formData.costPrice,
+        salePrice: formData.salePrice,
+        reason: 'Corrección de inventario',
+      });
+
+      if (response.success) {
+        alert('Producto actualizado correctamente.');
+        onSubmit?.(response.inventory);
+        onClose();
+      } else {
+        alert(`Error: ${response.error}`);
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
+  }
+
   const renderForm = () => {
     if (activeTab === 'medicamentos') {
       return (
-        <MedicationForm mode="edit" initialData={item} onCancel={onClose} onSubmit={onSubmit} />
+        <MedicationForm
+          mode="edit"
+          initialData={item}
+          onCancel={onClose}
+          onSubmit={handleEditSubmit}
+        />
       );
     }
     if (activeTab === 'recetas') {
       return (
-        <PrescriptionForm mode="edit" initialData={item} onCancel={onClose} onSubmit={onSubmit} />
+        <PrescriptionForm
+          mode="edit"
+          initialData={item}
+          onCancel={onClose}
+          onSubmit={handleEditSubmit}
+        />
       );
     }
-    return <SupplyForm mode="edit" initialData={item} onCancel={onClose} onSubmit={onSubmit} />;
+    return (
+      <SupplyForm mode="edit" initialData={item} onCancel={onClose} onSubmit={handleEditSubmit} />
+    );
   };
 
   return (
