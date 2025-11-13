@@ -1,7 +1,21 @@
 'use client';
 import { useMemo } from 'react';
 
-export default function StatsBar({ medicamentos, suministros, recetas }) {
+export default function StatsBar({ inventory }) {
+  // Filtered groups
+  const medicamentos = useMemo(
+    () => inventory.filter((i) => i.product?.type === 'medicamento'),
+    [inventory]
+  );
+
+  const recetas = useMemo(() => inventory.filter((i) => i.product?.type === 'receta'), [inventory]);
+
+  const suministros = useMemo(
+    () => inventory.filter((i) => i.product?.type === 'suministro'),
+    [inventory]
+  );
+
+  // Calculations
   const valorTotalMedicamentos = useMemo(
     () => medicamentos.reduce((sum, m) => sum + m.quantity * (m.product?.salePrice || 0), 0),
     [medicamentos]

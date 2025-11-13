@@ -2,7 +2,7 @@
 
 import { Search, Plus, Download } from 'lucide-react';
 
-export default function SearchAddBar({ searchTerm, setSearchTerm, onAdd }) {
+export default function SearchAddBar({ searchTerm, setSearchTerm, onAdd, onRestock }) {
   return (
     <div className="flex flex-col gap-3 p-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="relative flex-1">
@@ -21,14 +21,15 @@ export default function SearchAddBar({ searchTerm, setSearchTerm, onAdd }) {
           className="bg-medtrack-green-solid hover:bg-medtrack-green-hover flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-md transition active:scale-95"
         >
           <Plus className="h-4 w-4" />
-          Agregar
+          Nuevo Producto
         </button>
         <button
+          onClick={onRestock}
           type="button"
-          className="flex items-center gap-2 rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 active:scale-95"
+          className="bg-medtrack-blue-solid hover:bg-medtrack-blue-hover flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white transition active:scale-95"
         >
-          <Download className="h-4 w-4" />
-          Exportar
+          <Plus className="h-4 w-4" />
+          Abastecer
         </button>
       </div>
     </div>

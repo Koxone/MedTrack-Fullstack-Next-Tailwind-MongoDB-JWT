@@ -1,12 +1,6 @@
-import { Edit2, Trash2 } from 'lucide-react';
+import { Edit2, Power, Trash2 } from 'lucide-react';
 
-export default function MedicamentosTable({
-  rows,
-  getStockStatus,
-  getCaducidadStatus,
-  onEdit,
-  onDelete,
-}) {
+export default function MedicamentosTable({ rows, getStockStatus, onEdit, onDelete }) {
   if (!Array.isArray(rows) || rows.length === 0) {
     return (
       <div className="p-4 md:p-6">
@@ -22,7 +16,7 @@ export default function MedicamentosTable({
       </div>
     );
   }
-
+  console.log(rows);
   return (
     <div className="p-4 md:p-6">
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
@@ -52,7 +46,6 @@ export default function MedicamentosTable({
             <tbody className="divide-y divide-gray-100">
               {rows.map((med, index) => {
                 const stockStatus = getStockStatus(med.stock, med.minimo);
-                const cad = getCaducidadStatus(med.caducidad);
 
                 return (
                   <tr
@@ -139,12 +132,20 @@ export default function MedicamentosTable({
                         {/* Delete Button */}
                         <button
                           onClick={() => onDelete(med)}
-                          className="group/btn relative rounded-lg bg-red-50 p-2 transition-all duration-200 hover:bg-red-100 hover:shadow-md active:scale-95"
-                          title="Eliminar medicamento"
+                          className={`group/btn relative rounded-lg p-2 transition-all duration-200 hover:shadow-md active:scale-95 ${
+                            med?.product?.inStock
+                              ? 'bg-green-300 hover:bg-green-500'
+                              : 'bg-red-50 hover:bg-red-100'
+                          }`}
+                          title={
+                            med?.product?.inStock ? 'Desactivar producto' : 'Reactivar producto'
+                          }
                         >
-                          {Trash2 && (
-                            <Trash2 className="h-4 w-4 text-red-600 transition-transform duration-200 group-hover/btn:scale-110" />
-                          )}
+                          <Power
+                            className={`h-4 w-4 transition-transform duration-200 group-hover/btn:scale-110 ${
+                              med?.product?.inStock ? 'text-green-800' : 'text-red-600'
+                            }`}
+                          />
                         </button>
                       </div>
                     </td>

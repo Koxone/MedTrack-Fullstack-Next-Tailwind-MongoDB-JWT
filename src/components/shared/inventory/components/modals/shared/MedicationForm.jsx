@@ -8,8 +8,8 @@ export default function MedicationForm({ mode, initialData, onCancel, onSubmit }
   const [form, setForm] = useState(() => ({
     name: initialData?.product?.name || '',
     category: initialData?.product?.category || '',
-    costPrice: initialData?.costPrice != null ? String(initialData.costPrice) : '',
-    salePrice: initialData?.salePrice != null ? String(initialData.salePrice) : '',
+    costPrice: initialData?.product?.costPrice != null ? String(initialData.product.costPrice) : '',
+    salePrice: initialData?.product?.salePrice != null ? String(initialData.product.salePrice) : '',
     quantity: initialData?.quantity != null ? String(initialData.quantity) : '',
     minStock: initialData?.minStock != null ? String(initialData.minStock) : '',
     maxStock: initialData?.maxStock != null ? String(initialData.maxStock) : '',
