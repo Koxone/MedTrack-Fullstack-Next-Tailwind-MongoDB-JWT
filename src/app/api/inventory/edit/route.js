@@ -68,19 +68,40 @@ export async function PATCH(req) {
 
     await productItem.save();
 
+    // Previous quantity
+    const previousQuantity = inventoryItem.quantity;
+
+    // Determine movement direction
+    let movement = null;
+    let delta = 0;
+
+    if (quantity !== undefined) {
+      delta = Number(quantity) - previousQuantity;
+
+      if (delta > 0) {
+        movement = 'IN';
+      } else if (delta < 0) {
+        movement = 'OUT';
+      } else {
+        movement = 'NONE';
+      }
+    }
+
     // Update editable inventory fields
     if (quantity !== undefined) inventoryItem.quantity = Number(quantity);
     await inventoryItem.save();
 
-    // Log correction transaction
-    await Transaction.create({
-      inventory: inventoryItem._id,
-      movement: 'IN',
-      reasonType: 'correction',
-      performedBy: new mongoose.Types.ObjectId(userId),
-      quantity: quantity ?? inventoryItem.quantity,
-      reason: reason || 'Manual inventory correction',
-    });
+    // Log correction transaction ONLY if quantity changed
+    if (quantity !== undefined && movement !== 'NONE' && movement !== null) {
+      await Transaction.create({
+        inventory: inventoryItem._id,
+        movement,
+        reasonType: 'correction',
+        performedBy: new mongoose.Types.ObjectId(userId),
+        quantity: Math.abs(delta),
+        reason: reason || 'Manual inventory correction',
+      });
+    }
 
     // Return success response
     return NextResponse.json(

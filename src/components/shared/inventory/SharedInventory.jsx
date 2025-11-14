@@ -26,6 +26,7 @@ import EditProductModal from './components/modals/editProductModal/EditProductMo
 import DeleteProductModal from './components/modals/deleteProductModal/DeleteProductModal';
 import ToggleProductModal from './components/modals/toggleProductModal/ToggleProductModal';
 import TransactionHistoryModal from './components/modals/transactionHistoryModal/TransactionHistoryModal';
+import { fetchProductHistory } from './components/modals/transactionHistoryModal/services/fetchProductHistory';
 
 export default function SharedInventory({ role, showButton = true }) {
   // Fetch Full Inventory Items
@@ -42,6 +43,8 @@ export default function SharedInventory({ role, showButton = true }) {
   const [showToggleModal, setShowToggleModal] = useState(false);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [selectedProductHistory, setSelectedProductHistory] = useState(null);
+  const [historyData, setHistoryData] = useState([]);
 
   // Create Product Modal Handler
   const openAddModal = () => {
@@ -66,13 +69,21 @@ export default function SharedInventory({ role, showButton = true }) {
     setShowToggleModal(true);
   };
 
-  // Transaction History Modal Handler
-  const openHistoryModal = (item) => {
-    setItemToToggle(item);
+  // Transaction History Modal Handler and Backend Call
+  const openHistoryModal = async (item) => {
+    setSelectedProductHistory(item);
     setShowHistoryModal(true);
+
+    try {
+      const data = await fetchProductHistory(item?.product?._id);
+      setHistoryData(data.history);
+    } catch (err) {
+      console.error('Error fetching history:', err);
+      setHistoryData([]);
+    }
   };
 
-  // Confirm Toggle Product Status Handler
+  // Toggle Product Backend Call
   const confirmToggle = async () => {
     if (!itemToToggle) return;
 
@@ -245,7 +256,11 @@ export default function SharedInventory({ role, showButton = true }) {
 
       {/* Transaction History Modal */}
       {showHistoryModal && (
-        <TransactionHistoryModal item={itemToToggle} onClose={() => setShowHistoryModal(false)} />
+        <TransactionHistoryModal
+          item={selectedProductHistory}
+          history={historyData}
+          onClose={() => setShowHistoryModal(false)}
+        />
       )}
     </div>
   );

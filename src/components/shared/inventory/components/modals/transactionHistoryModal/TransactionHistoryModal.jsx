@@ -1,115 +1,20 @@
 'use client';
 
-import { X, History, ArrowDownCircle, ArrowUpCircle, User } from 'lucide-react';
+import { X, History, ArrowDownCircle, ArrowUpCircle, User, Power } from 'lucide-react';
 import { useModalClose } from '@/hooks/useModalClose';
 
-// Mock data (solo de Paracetamol 500mg)
-const mockTransactions = [
-  {
-    _id: '6915263ec9537f5227a9a0a1',
-    itemName: 'Paracetamol 500mg',
-    movement: 'IN',
-    reasonType: 'restock',
-    quantity: 100,
-    reason: 'Ingreso inicial de lote nuevo',
-    performedBy: 'Farm. Luis Ortega',
-    createdAt: '2025-11-10T10:15:46.258+00:00',
-  },
-  {
-    _id: '6915263ec9537f5227a9a0a2',
-    itemName: 'Paracetamol 500mg',
-    movement: 'OUT',
-    reasonType: 'usage',
-    quantity: 25,
-    reason: 'Distribución a sala de urgencias',
-    performedBy: 'Enf. Carla Ruiz',
-    createdAt: '2025-11-11T08:30:20.120+00:00',
-  },
-  {
-    _id: '6915263ec9537f5227a9a0a3',
-    itemName: 'Paracetamol 500mg',
-    movement: 'OUT',
-    reasonType: 'usage',
-    quantity: 15,
-    reason: 'Suministro a pacientes hospitalizados',
-    performedBy: 'Dr. Juan Pérez',
-    createdAt: '2025-11-11T16:42:11.874+00:00',
-  },
-  {
-    _id: '6915263ec9537f5227a9a0a4',
-    itemName: 'Paracetamol 500mg',
-    movement: 'IN',
-    reasonType: 'correction',
-    quantity: 5,
-    reason: 'Ajuste por conteo físico de inventario',
-    performedBy: 'Farm. Luis Ortega',
-    createdAt: '2025-11-12T09:10:12.350+00:00',
-  },
-  {
-    _id: '6915263ec9537f5227a9a0a5',
-    itemName: 'Paracetamol 500mg',
-    movement: 'OUT',
-    reasonType: 'usage',
-    quantity: 20,
-    reason: 'Uso en consultas generales',
-    performedBy: 'Enf. Laura Gómez',
-    createdAt: '2025-11-13T11:22:11.842+00:00',
-  },
-  {
-    _id: '6915263ec9537f5227a9a0a6',
-    itemName: 'Paracetamol 500mg',
-    movement: 'IN',
-    reasonType: 'restock',
-    quantity: 60,
-    reason: 'Compra semanal de reposición',
-    performedBy: 'Farm. Luis Ortega',
-    createdAt: '2025-11-14T07:55:17.194+00:00',
-  },
-  {
-    _id: '6915263ec9537f5227a9a0a7',
-    itemName: 'Paracetamol 500mg',
-    movement: 'OUT',
-    reasonType: 'usage',
-    quantity: 10,
-    reason: 'Entrega a área pediátrica',
-    performedBy: 'Enf. Mariana López',
-    createdAt: '2025-11-14T14:33:29.501+00:00',
-  },
-  {
-    _id: '6915263ec9537f5227a9a0a8',
-    itemName: 'Paracetamol 500mg',
-    movement: 'OUT',
-    reasonType: 'usage',
-    quantity: 8,
-    reason: 'Tratamiento postoperatorio',
-    performedBy: 'Dr. Juan Pérez',
-    createdAt: '2025-11-15T09:45:43.913+00:00',
-  },
-  {
-    _id: '6915263ec9537f5227a9a0a9',
-    itemName: 'Paracetamol 500mg',
-    movement: 'IN',
-    reasonType: 'correction',
-    quantity: 2,
-    reason: 'Ajuste por devolución de paciente',
-    performedBy: 'Farm. Luis Ortega',
-    createdAt: '2025-11-15T18:18:59.224+00:00',
-  },
-  {
-    _id: '6915263ec9537f5227a9a0b0',
-    itemName: 'Paracetamol 500mg',
-    movement: 'OUT',
-    reasonType: 'usage',
-    quantity: 12,
-    reason: 'Uso en control de fiebre de pacientes ambulatorios',
-    performedBy: 'Enf. Carla Ruiz',
-    createdAt: '2025-11-16T08:30:44.582+00:00',
-  },
-];
-
-/* --- Component --- */
-export default function TransactionHistoryModal({ onClose }) {
+export default function TransactionHistoryModal({ onClose, history, item }) {
   const { handleOverlayClick } = useModalClose(onClose);
+
+  const itemName = item?.product?.name;
+
+  const reasonLabels = {
+    initial: 'Ingreso Inicial',
+    sale: 'Venta',
+    restock: 'Reposición',
+    correction: 'Corrección de Inventario',
+    status_change: 'Cambio de Estatus',
+  };
 
   return (
     <div
@@ -133,13 +38,13 @@ export default function TransactionHistoryModal({ onClose }) {
             <div className="flex items-start justify-between">
               <div className="flex items-start gap-4">
                 <div className="relative">
-                  <div className="relative flex items-center justify-center rounded-2xl bg-linear-to-br from-green-200 to-emerald-300 p-3 shadow-lg">
-                    <History className="h-6 w-6 text-emerald-700" />
+                  <div className="bg-medtrack-blue-solid relative flex items-center justify-center rounded-2xl p-3 shadow-lg">
+                    <History className="h-6 w-6 text-white" />
                   </div>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    Historial de Paracetamol 500mg
+                  <h2 className="text-2xl font-bold">
+                    Historial de <span className="text-blue-500">{itemName}</span>
                   </h2>
                   <p className="mt-1 text-sm text-gray-600">Movimientos recientes del producto</p>
                 </div>
@@ -156,50 +61,75 @@ export default function TransactionHistoryModal({ onClose }) {
 
         {/* Content */}
         <div className="max-h-[calc(90vh-180px)] space-y-4 overflow-y-auto p-6">
-          {mockTransactions.map((t) => (
+          {history?.map((transaction) => (
             <div
-              key={t._id}
+              key={transaction?._id}
               className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm transition-all hover:shadow-md"
             >
               {/* Header row */}
               <div className="mb-2 flex items-center justify-between">
-                <span className="font-semibold text-gray-800">
-                  {t.movement === 'IN' ? 'Entrada' : 'Salida'}
-                </span>
-                <span
-                  className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${
-                    t.movement === 'IN'
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-rose-100 text-rose-700'
-                  }`}
-                >
-                  {t.movement === 'IN' ? (
-                    <ArrowDownCircle className="h-4 w-4" />
-                  ) : (
-                    <ArrowUpCircle className="h-4 w-4" />
-                  )}
-                  {t.quantity} unidades
-                </span>
+                {transaction?.movement && (
+                  <span
+                    className={`font-semibold ${transaction?.movement === 'IN' ? 'text-green-700' : 'text-orange-700'}`}
+                  >
+                    {transaction?.movement === 'IN' ? 'Entrada' : 'Salida'}
+                  </span>
+                )}
+
+                {transaction?.reasonType === 'status_change' && (
+                  <span className="font-semibold text-blue-600">Estatus</span>
+                )}
+
+                {/* Transaction type Movement */}
+                {transaction?.movement && (
+                  <span
+                    className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${
+                      transaction?.movement === 'IN'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-rose-100 text-rose-700'
+                    }`}
+                  >
+                    {transaction?.movement === 'IN' ? (
+                      <ArrowDownCircle className="h-4 w-4" />
+                    ) : (
+                      <ArrowUpCircle className="h-4 w-4" />
+                    )}
+                    {transaction?.quantity} unidades
+                  </span>
+                )}
+
+                {/* Transaction type Status */}
+                {transaction?.reasonType === 'status_change' && (
+                  <span
+                    className={`bg-medtrack-blue-light flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium text-black`}
+                  >
+                    <Power className="h-4 w-4" />
+                    Cambio de Estatus
+                  </span>
+                )}
               </div>
 
               {/* Details */}
               <div className="space-y-1 text-sm text-gray-700">
                 <p>
-                  <span className="font-medium text-gray-800">Motivo:</span> {t.reason}
+                  <span className="font-medium text-gray-800">Motivo:</span> {transaction?.reason}
                 </p>
                 <p>
-                  <span className="font-medium text-gray-800">Tipo:</span> {t.reasonType}
+                  <span className="font-medium text-gray-800">Tipo:</span>{' '}
+                  {reasonLabels[transaction?.reasonType] || transaction?.reasonType}
                 </p>
               </div>
 
               {/* Performed by */}
               <div className="mt-3 flex items-center gap-2 text-sm text-gray-600">
                 <User className="h-4 w-4 text-gray-500" />
-                <span>{t.performedBy}</span>
+                <span>{transaction?.performedBy?.fullName}</span>
               </div>
 
               {/* Timestamp */}
-              <p className="mt-1 text-xs text-gray-400">{new Date(t.createdAt).toLocaleString()}</p>
+              <p className="mt-1 text-xs text-gray-400">
+                {new Date(transaction?.createdAt).toLocaleString()}
+              </p>
             </div>
           ))}
         </div>
