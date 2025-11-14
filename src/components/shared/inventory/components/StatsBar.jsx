@@ -26,8 +26,6 @@ export default function StatsBar({ inventory }) {
     [suministros]
   );
 
-  console.log(medicamentos);
-
   const counts = {
     meds: medicamentos.length,
     recs: recetas.length,

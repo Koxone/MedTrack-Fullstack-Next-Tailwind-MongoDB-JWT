@@ -1,4 +1,5 @@
 'use client';
+import useAuthStore from '@/zustand/useAuthStore';
 import { useState, useEffect, useMemo } from 'react';
 
 /* --- Types --- */
@@ -11,6 +12,7 @@ interface Product {
   costPrice: number;
   salePrice: number;
   createdAt: string;
+  specialty: string;
   updatedAt: string;
 }
 
@@ -33,8 +35,12 @@ export function useGetFullInventory() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const { user } = useAuthStore();
+
   // Fetch data
   useEffect(() => {
+    if (!user) return;
+
     async function fetchInventory() {
       try {
         setLoading(true);
@@ -48,7 +54,16 @@ export function useGetFullInventory() {
         }
 
         const data: InventoryItem[] = await res.json();
-        setInventory(data);
+
+        // Filter inventory based on user role and specialty
+        const filteredInventory =
+          user?.role === 'employee' || !user?.specialty
+            ? data
+            : data.filter(
+                (item) => item?.product?.specialty && item?.product?.specialty === user?.specialty
+              );
+
+        setInventory(filteredInventory);
       } catch (err: any) {
         console.error('Inventory fetch error:', err);
         setError(err.message || 'Error desconocido');
@@ -59,7 +74,7 @@ export function useGetFullInventory() {
     }
 
     fetchInventory();
-  }, []);
+  }, [user]);
 
   // --- Inventory Alerts logic ---
   const criticalItems = useMemo(

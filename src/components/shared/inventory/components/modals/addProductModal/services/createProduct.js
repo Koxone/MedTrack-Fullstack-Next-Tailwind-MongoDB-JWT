@@ -6,6 +6,7 @@ export async function createProduct(productData) {
     const res = await fetch('/api/inventory/create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(productData),
     });
 

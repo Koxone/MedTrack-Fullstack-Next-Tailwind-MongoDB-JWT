@@ -4,6 +4,7 @@ interface IProduct extends Document {
   name: string;
   type: 'medicamento' | 'receta' | 'suministro';
   category: string;
+  specialty: string;
   inStock: boolean;
   costPrice: number;
   salePrice: number;
@@ -16,6 +17,7 @@ const ProductSchema = new Schema<IProduct>(
     name: { type: String, required: true, trim: true },
     type: { type: String, enum: ['medicamento', 'receta', 'suministro'], required: true },
     category: { type: String, required: true, trim: true },
+    specialty: { type: String, required: true, trim: true },
     inStock: { type: Boolean, default: true },
     costPrice: { type: Number, required: true },
     salePrice: { type: Number, required: true },
