@@ -2,7 +2,7 @@ import { Package, AlertTriangle, AlertCircle, TrendingDown } from 'lucide-react'
 import AlertCard from './components/AlertCard';
 import ViewMoreButton from '@/components/shared/dashboard/accountingSummary/components/ViewMoreButton';
 
-export default function SharedInventoryAlerts({ role, inventory = [] }) {
+export default function SharedInventoryAlerts({ role, inventory = [], showButton = true }) {
   // Filter items that have active alerts (quantity <= minStock)
   const alertItems = inventory.filter((item) => item.quantity <= item.minStock);
 
@@ -39,7 +39,7 @@ export default function SharedInventoryAlerts({ role, inventory = [] }) {
           </div>
 
           {/* "View more" button */}
-          <ViewMoreButton role={role} route="inventory" />
+          {showButton && <ViewMoreButton role={role} route="/inventory" />}
         </div>
       </div>
 

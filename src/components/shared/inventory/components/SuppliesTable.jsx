@@ -1,7 +1,9 @@
 'use client';
+
+import clsx from 'clsx';
 import ActionButtons from './modals/shared/ActionsButtons';
 
-export default function SuministrosTable({ rows, getStockStatus, onEdit, onDelete, onHistory }) {
+export default function SuppliesTable({ rows, getStockStatus, onEdit, onDelete, onHistory }) {
   if (!Array.isArray(rows) || rows.length === 0) {
     return (
       <div className="p-4 md:p-6">
@@ -44,11 +46,15 @@ export default function SuministrosTable({ rows, getStockStatus, onEdit, onDelet
             <tbody className="divide-y divide-gray-100">
               {rows.map((sum, index) => {
                 const stockStatus = getStockStatus(sum?.quantity, sum?.minStock);
+                const disabled = !sum?.product?.inStock;
 
                 return (
                   <tr
                     key={`${sum.id}-${index}`}
-                    className="group animate-fadeIn transition-colors duration-150 hover:bg-gray-50/80"
+                    className={clsx(
+                      'group animate-fadeIn transition-colors duration-150',
+                      disabled && 'bg-gray-300/40'
+                    )}
                     style={{
                       animationDelay: `${index * 50}ms`,
                       animationDuration: '0.3s',
@@ -57,13 +63,28 @@ export default function SuministrosTable({ rows, getStockStatus, onEdit, onDelet
                     }}
                   >
                     {/* Supply name */}
-                    <td className="px-4 py-4">
+                    <td className={clsx('px-4 py-4', disabled && 'opacity-60')}>
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-50 transition-transform duration-200 group-hover:scale-110">
-                          <span className="text-lg text-amber-600">🧴</span>
+                        <div
+                          className={clsx(
+                            'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-50 transition-transform duration-200 group-hover:scale-110',
+                            disabled && 'bg-gray-200'
+                          )}
+                        >
+                          <span
+                            className={clsx('text-lg text-amber-600', disabled && 'text-gray-500')}
+                          >
+                            🧴
+                          </span>
                         </div>
+
                         <div className="min-w-0">
-                          <p className="truncate text-sm font-semibold text-gray-900">
+                          <p
+                            className={clsx(
+                              'truncate text-sm font-semibold text-gray-900',
+                              disabled && 'text-gray-600'
+                            )}
+                          >
                             {sum?.product?.name}
                           </p>
                         </div>
@@ -72,34 +93,56 @@ export default function SuministrosTable({ rows, getStockStatus, onEdit, onDelet
 
                     {/* Category */}
                     <td className="px-4 py-4">
-                      <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
+                      <span
+                        className={clsx(
+                          'inline-flex items-center rounded-full px-3 py-1 text-xs font-medium',
+                          disabled ? 'bg-gray-200 text-gray-500' : 'bg-gray-100 text-gray-700'
+                        )}
+                      >
                         {sum?.product?.category}
                       </span>
                     </td>
 
                     {/* Stock */}
                     <td className="px-4 py-4 text-center">
-                      <div className="flex flex-col items-center gap-1">
+                      <div
+                        className={clsx(
+                          'flex flex-col items-center gap-1',
+                          disabled && 'opacity-60'
+                        )}
+                      >
                         <span
-                          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold shadow-sm ${stockStatus.bg} ${stockStatus.color}`}
+                          className={clsx(
+                            'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold shadow-sm',
+                            stockStatus.bg,
+                            stockStatus.color,
+                            disabled && 'bg-gray-200 text-gray-500'
+                          )}
                         >
                           <span className="relative flex h-2 w-2">
-                            <span
-                              className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${
-                                stockStatus.color === 'text-red-700'
-                                  ? 'bg-red-400'
-                                  : 'bg-transparent'
-                              }`}
-                            ></span>
-                            <span
-                              className={`relative inline-flex h-2 w-2 rounded-full ${
-                                stockStatus.color === 'text-red-700'
-                                  ? 'bg-red-500'
-                                  : stockStatus.color === 'text-yellow-700'
-                                    ? 'bg-yellow-500'
-                                    : 'bg-green-500'
-                              }`}
-                            ></span>
+                            {!disabled && (
+                              <>
+                                {/* Outer ping */}
+                                <span
+                                  className={clsx(
+                                    'absolute inline-flex h-full w-full animate-ping rounded-full opacity-75',
+                                    stockStatus.color.startsWith('text-red') && 'bg-red-400',
+                                    stockStatus.color.startsWith('text-yellow') && 'bg-yellow-400',
+                                    stockStatus.color.startsWith('text-green') && 'bg-green-400'
+                                  )}
+                                ></span>
+
+                                {/* Inner pulse */}
+                                <span
+                                  className={clsx(
+                                    'relative inline-flex h-2 w-2 animate-pulse rounded-full',
+                                    stockStatus.color.startsWith('text-red') && 'bg-red-500',
+                                    stockStatus.color.startsWith('text-yellow') && 'bg-yellow-600',
+                                    stockStatus.color.startsWith('text-green') && 'bg-green-500'
+                                  )}
+                                ></span>
+                              </>
+                            )}
                           </span>
                           {sum?.quantity} / {sum?.minStock}
                         </span>
@@ -108,7 +151,12 @@ export default function SuministrosTable({ rows, getStockStatus, onEdit, onDelet
 
                     {/* Price */}
                     <td className="hidden px-4 py-4 text-right lg:table-cell">
-                      <span className="text-sm font-semibold text-gray-900">
+                      <span
+                        className={clsx(
+                          'text-sm font-semibold',
+                          disabled ? 'text-gray-600' : 'text-gray-900'
+                        )}
+                      >
                         ${parseFloat(sum?.product?.costPrice).toFixed(2)}
                       </span>
                     </td>

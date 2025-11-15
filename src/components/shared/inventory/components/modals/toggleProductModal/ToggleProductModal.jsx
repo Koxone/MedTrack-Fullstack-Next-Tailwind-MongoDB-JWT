@@ -95,21 +95,25 @@ export default function ToggleProductModal({ item, onClose, onConfirm }) {
 
         {/* Content */}
         <div className="relative space-y-6 p-6">
-          <p className="text-center text-gray-800">
-            ¿Seguro que deseas{' '}
-            <span className={`font-semibold ${isActive ? 'text-emerald-600' : 'text-rose-600'}`}>
-              {isActive ? 'desactivar' : 'reactivar'}
-            </span>{' '}
-            <span className="font-semibold text-gray-800">
-              {item?.product?.name || 'este producto'}
-            </span>
-            ?
-          </p>
+          <div className="bg-medtrack-green-light/30 rounded-lg pb-1">
+            <p className="text-center text-gray-800">
+              ¿Seguro que deseas{' '}
+              <span
+                className={`animate-pulse text-lg font-semibold ${isActive ? 'text-red-600' : 'text-red-600'}`}
+              >
+                {isActive ? 'desactivar' : 'reactivar'}
+              </span>{' '}
+              <span className="font-semibold text-gray-800">
+                {item?.product?.name || 'este producto'}
+              </span>
+              ?
+            </p>
+          </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <button
               onClick={onClose}
-              className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:bg-gray-50 hover:shadow-md active:scale-95"
+              className="flex-1 rounded-xl bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
             >
               Cancelar
             </button>

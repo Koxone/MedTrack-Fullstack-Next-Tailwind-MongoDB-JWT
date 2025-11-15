@@ -10,7 +10,7 @@ export default async function EmployeeInventoryPage() {
   const role = currentUser?.role;
   return (
     <div className="h-screen overflow-hidden pb-40">
-      <SharedInventory role={role} />
+      <SharedInventory role={role} showButton={false} />
     </div>
   );
 }

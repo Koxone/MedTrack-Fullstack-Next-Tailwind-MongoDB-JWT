@@ -4,7 +4,7 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 interface IInventory extends Document {
   product: mongoose.Types.ObjectId;
   productType: 'medicamento' | 'receta' | 'suministro';
-  quantity: number;
+  quantity?: number;
   minStock: number;
   maxStock: number;
   createdAt?: Date;
@@ -15,7 +15,7 @@ const InventorySchema = new Schema<IInventory>(
   {
     product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
     productType: { type: String, enum: ['medicamento', 'receta', 'suministro'], required: true },
-    quantity: { type: Number, required: true },
+    quantity: { type: Number, required: false },
     minStock: { type: Number, required: true },
     maxStock: { type: Number, required: true },
   },

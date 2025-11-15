@@ -4,15 +4,20 @@ import { useState, useMemo } from 'react';
 import TabsBar from './components/TabsBar';
 import SearchAddBar from './components/SearchAddBar';
 import StatsBar from './components/StatsBar';
-import MedicamentosTable from './components/MedicamentosTable';
-import RecetasGrid from './components/RecetasGrid';
-import SuministrosTable from './components/SuministrosTable';
 import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
 import SharedInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/SharedInventoryAlerts';
+
+// Helpers
 import { getStockStatus, getCaducidadStatus } from './utils/helpers';
+
+// Tables
+import MedsTable from './components/MedsTable';
+import SuppliesTable from './components/SuppliesTable';
+import RecetasGrid from './components/PrescriptionsTable';
 
 // Custom Hooks
 import { useGetFullInventory } from '@/hooks/useGetFullInventory';
+import { toggleProductStatus } from './components/modals/toggleProductModal/services/toggleProductStatus';
 
 // Modals
 import RestockProductModal from './components/modals/restockProductModal/RestockProductModal';
@@ -21,8 +26,9 @@ import EditProductModal from './components/modals/editProductModal/EditProductMo
 import DeleteProductModal from './components/modals/deleteProductModal/DeleteProductModal';
 import ToggleProductModal from './components/modals/toggleProductModal/ToggleProductModal';
 import TransactionHistoryModal from './components/modals/transactionHistoryModal/TransactionHistoryModal';
+import { fetchProductHistory } from './components/modals/transactionHistoryModal/services/fetchProductHistory';
 
-export default function SharedInventory({ role }) {
+export default function SharedInventory({ role, showButton = true }) {
   // Fetch Full Inventory Items
   const { inventory, loading, setInventory } = useGetFullInventory();
 
@@ -37,6 +43,8 @@ export default function SharedInventory({ role }) {
   const [showToggleModal, setShowToggleModal] = useState(false);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [selectedProductHistory, setSelectedProductHistory] = useState(null);
+  const [historyData, setHistoryData] = useState([]);
 
   // Create Product Modal Handler
   const openAddModal = () => {
@@ -61,38 +69,37 @@ export default function SharedInventory({ role }) {
     setShowToggleModal(true);
   };
 
-  // Transaction History Modal Handler
-  const openHistoryModal = (item) => {
-    setItemToToggle(item);
+  // Transaction History Modal Handler and Backend Call
+  const openHistoryModal = async (item) => {
+    setSelectedProductHistory(item);
     setShowHistoryModal(true);
+
+    try {
+      const data = await fetchProductHistory(item?.product?._id);
+      setHistoryData(data.history);
+    } catch (err) {
+      console.error('Error fetching history:', err);
+      setHistoryData([]);
+    }
   };
 
+  // Toggle Product Backend Call
   const confirmToggle = async () => {
     if (!itemToToggle) return;
 
     try {
-      const res = await fetch('/api/inventory/toggle', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          inventoryId: itemToToggle._id,
-          inStock: !itemToToggle.product.inStock,
-        }),
+      const data = await toggleProductStatus({
+        inventoryId: itemToToggle._id,
+        inStock: !itemToToggle.product.inStock,
       });
 
-      const data = await res.json();
-      if (res.ok) {
-        setInventory((prev) =>
-          prev.map((i) =>
-            i._id === data.inventory._id
-              ? { ...i, product: { ...i.product, inStock: data.inventory.product.inStock } }
-              : i
-          )
-        );
-      } else {
-        console.error('Error toggling item:', data.error);
-      }
+      setInventory((prev) =>
+        prev.map((i) =>
+          i._id === data.inventory._id
+            ? { ...i, product: { ...i.product, inStock: data.inventory.product.inStock } }
+            : i
+        )
+      );
     } catch (err) {
       console.error('Error toggling item:', err);
     } finally {
@@ -159,7 +166,7 @@ export default function SharedInventory({ role }) {
       {/* Content */}
       <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
         {activeTab === 'medicamentos' && (
-          <MedicamentosTable
+          <MedsTable
             rows={filteredItems}
             getStockStatus={getStockStatus}
             getCaducidadStatus={getCaducidadStatus}
@@ -180,7 +187,7 @@ export default function SharedInventory({ role }) {
         )}
 
         {activeTab === 'suministros' && (
-          <SuministrosTable
+          <SuppliesTable
             rows={filteredItems}
             getStockStatus={getStockStatus}
             onEdit={openEditModal}
@@ -191,7 +198,7 @@ export default function SharedInventory({ role }) {
       </div>
 
       {/* Inventory Alerts */}
-      <SharedInventoryAlerts role={role} inventory={inventory} />
+      <SharedInventoryAlerts role={role} inventory={inventory} showButton={showButton} />
 
       {/* Create New Product Modal */}
       {showModal && !editingItem && (
@@ -249,7 +256,11 @@ export default function SharedInventory({ role }) {
 
       {/* Transaction History Modal */}
       {showHistoryModal && (
-        <TransactionHistoryModal item={itemToToggle} onClose={() => setShowHistoryModal(false)} />
+        <TransactionHistoryModal
+          item={selectedProductHistory}
+          history={historyData}
+          onClose={() => setShowHistoryModal(false)}
+        />
       )}
     </div>
   );
