@@ -16,6 +16,8 @@ export default function TransactionHistoryModal({ onClose, history, item }) {
     status_change: 'Cambio de Estatus',
   };
 
+  console.log(history);
+
   return (
     <div
       id="overlay"
@@ -64,29 +66,42 @@ export default function TransactionHistoryModal({ onClose, history, item }) {
           {history?.map((transaction) => (
             <div
               key={transaction?._id}
-              className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm transition-all hover:shadow-md"
+              className={`rounded-2xl border border-gray-200 p-4 shadow-sm transition-all hover:shadow-md ${
+                transaction?.reasonType === 'restock'
+                  ? 'bg-yellow-100/60'
+                  : transaction?.reasonType === 'correction'
+                    ? 'bg-green-100/60'
+                    : transaction?.reasonType === 'status_change' && transaction?.movement === 'IN'
+                      ? 'bg-blue-200/60'
+                      : transaction?.reasonType === 'status_change' &&
+                          transaction?.movement === 'OUT'
+                        ? 'bg-blue-200/60'
+                        : 'bg-gray-50'
+              }`}
             >
               {/* Header row */}
               <div className="mb-2 flex items-center justify-between">
-                {transaction?.movement && (
-                  <span
-                    className={`font-semibold ${transaction?.movement === 'IN' ? 'text-green-700' : 'text-orange-700'}`}
-                  >
-                    {transaction?.movement === 'IN' ? 'Entrada' : 'Salida'}
-                  </span>
-                )}
+                {/* Regular Correction */}
+                {transaction?.movement &&
+                  transaction?.reasonType !== 'status_change' &&
+                  transaction?.reasonType === 'correction' && (
+                    <span className="font-semibold">Corrección</span>
+                  )}
 
-                {transaction?.reasonType === 'status_change' && (
-                  <span className="font-semibold text-blue-600">Estatus</span>
-                )}
+                {/* Regular Restock */}
+                {transaction?.movement &&
+                  transaction?.reasonType !== 'status_change' &&
+                  transaction?.reasonType === 'restock' && (
+                    <span className="font-semibold">Reabastecimiento</span>
+                  )}
 
-                {/* Transaction type Movement */}
-                {transaction?.movement && (
+                {/* Regular*/}
+                {transaction?.movement && transaction?.reasonType !== 'status_change' && (
                   <span
                     className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${
                       transaction?.movement === 'IN'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-rose-100 text-rose-700'
+                        ? 'bg-green-200 text-green-700'
+                        : 'bg-red-200 text-red-500'
                     }`}
                   >
                     {transaction?.movement === 'IN' ? (
@@ -98,13 +113,27 @@ export default function TransactionHistoryModal({ onClose, history, item }) {
                   </span>
                 )}
 
-                {/* Transaction type Status */}
-                {transaction?.reasonType === 'status_change' && (
-                  <span
-                    className={`bg-medtrack-blue-light flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium text-black`}
-                  >
-                    <Power className="h-4 w-4" />
-                    Cambio de Estatus
+                {/* Status Change ON */}
+                {transaction?.reasonType === 'status_change' && transaction?.movement === 'IN' && (
+                  <span className="font-semibold">Disponibilidad</span>
+                )}
+
+                {/* Status Change OFF */}
+                {transaction?.reasonType === 'status_change' && transaction?.movement === 'OUT' && (
+                  <span className="font-semibold">Disponibilidad</span>
+                )}
+
+                {/* Status Change OFF */}
+                {transaction?.reasonType === 'status_change' && transaction?.movement === 'OUT' && (
+                  <span className="flex items-center gap-1 rounded-full bg-red-200 px-2 py-1 text-xs font-medium text-red-500">
+                    Apagado
+                  </span>
+                )}
+
+                {/* Status Change ON */}
+                {transaction?.reasonType === 'status_change' && transaction?.movement === 'IN' && (
+                  <span className="flex items-center gap-1 rounded-full bg-green-200 px-2 py-1 text-xs font-medium text-green-700">
+                    Encendido
                   </span>
                 )}
               </div>

@@ -71,6 +71,7 @@ export async function PATCH(req) {
     await Transaction.create({
       inventory: inventoryItem._id,
       reasonType: 'status_change',
+      movement: inStock ? 'IN' : 'OUT',
       performedBy: new mongoose.Types.ObjectId(userId),
       reason: reason || 'Cambio de estado del producto en el inventario',
     });
