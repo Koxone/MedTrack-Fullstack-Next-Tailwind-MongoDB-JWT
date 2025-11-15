@@ -71,31 +71,39 @@ export default function TransactionHistoryModal({ onClose, history, item }) {
                   ? 'bg-yellow-100/60'
                   : transaction?.reasonType === 'correction'
                     ? 'bg-green-100/60'
-                    : transaction?.reasonType === 'status_change' && transaction?.movement === 'IN'
-                      ? 'bg-blue-200/60'
+                    : transaction?.reasonType === 'initial'
+                      ? 'bg-green-400/60'
                       : transaction?.reasonType === 'status_change' &&
-                          transaction?.movement === 'OUT'
+                          transaction?.movement === 'IN'
                         ? 'bg-blue-200/60'
-                        : 'bg-gray-50'
+                        : transaction?.reasonType === 'status_change' &&
+                            transaction?.movement === 'OUT'
+                          ? 'bg-blue-200/60'
+                          : 'bg-gray-50'
               }`}
             >
               {/* Header row */}
               <div className="mb-2 flex items-center justify-between">
-                {/* Regular Correction */}
+                {/* Title Regular Initial Stock */}
+                {transaction?.movement && transaction?.reasonType === 'initial' && (
+                  <span className="font-semibold">Stock Inicial</span>
+                )}
+
+                {/* Title Regular Correction */}
                 {transaction?.movement &&
                   transaction?.reasonType !== 'status_change' &&
                   transaction?.reasonType === 'correction' && (
                     <span className="font-semibold">Corrección</span>
                   )}
 
-                {/* Regular Restock */}
+                {/* Title Regular Restock */}
                 {transaction?.movement &&
                   transaction?.reasonType !== 'status_change' &&
                   transaction?.reasonType === 'restock' && (
                     <span className="font-semibold">Reabastecimiento</span>
                   )}
 
-                {/* Regular*/}
+                {/* Badge Regular Transaction */}
                 {transaction?.movement && transaction?.reasonType !== 'status_change' && (
                   <span
                     className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${
@@ -113,24 +121,24 @@ export default function TransactionHistoryModal({ onClose, history, item }) {
                   </span>
                 )}
 
-                {/* Status Change ON */}
+                {/* Title Status Change ON */}
                 {transaction?.reasonType === 'status_change' && transaction?.movement === 'IN' && (
                   <span className="font-semibold">Disponibilidad</span>
                 )}
 
-                {/* Status Change OFF */}
+                {/* Title Status Change OFF */}
                 {transaction?.reasonType === 'status_change' && transaction?.movement === 'OUT' && (
                   <span className="font-semibold">Disponibilidad</span>
                 )}
 
-                {/* Status Change OFF */}
+                {/* Badge Status Change OFF */}
                 {transaction?.reasonType === 'status_change' && transaction?.movement === 'OUT' && (
                   <span className="flex items-center gap-1 rounded-full bg-red-200 px-2 py-1 text-xs font-medium text-red-500">
                     Apagado
                   </span>
                 )}
 
-                {/* Status Change ON */}
+                {/* Badge Status Change ON */}
                 {transaction?.reasonType === 'status_change' && transaction?.movement === 'IN' && (
                   <span className="flex items-center gap-1 rounded-full bg-green-200 px-2 py-1 text-xs font-medium text-green-700">
                     Encendido
