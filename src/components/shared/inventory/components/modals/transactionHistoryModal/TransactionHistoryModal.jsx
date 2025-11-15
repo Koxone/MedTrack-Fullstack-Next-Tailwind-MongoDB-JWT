@@ -96,6 +96,36 @@ export default function TransactionHistoryModal({ onClose, history, item }) {
                     <span className="font-semibold">Corrección</span>
                   )}
 
+                {/* Price and Cost Changes */}
+                {transaction?.reasonType === 'correction' && transaction?.priceField && (
+                  <>
+                    {/* Title */}
+                    <span className="font-semibold">
+                      {transaction?.priceField === 'costPrice'
+                        ? 'Costo de producto'
+                        : transaction?.priceField === 'salePrice'
+                          ? 'Precio de Venta'
+                          : 'Precio'}
+                    </span>
+
+                    {/* Badge */}
+                    <span
+                      className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${
+                        transaction?.movement === 'IN'
+                          ? 'bg-green-200 text-green-700'
+                          : 'bg-red-200 text-red-500'
+                      }`}
+                    >
+                      {transaction?.movement === 'IN' ? 'Aumento de ' : 'Disminución de '}
+                      {transaction?.priceField === 'costPrice'
+                        ? 'Costo'
+                        : transaction?.priceField === 'salePrice'
+                          ? 'Precio'
+                          : 'Precio'}
+                    </span>
+                  </>
+                )}
+
                 {/* Title Regular Restock */}
                 {transaction?.movement &&
                   transaction?.reasonType !== 'status_change' &&

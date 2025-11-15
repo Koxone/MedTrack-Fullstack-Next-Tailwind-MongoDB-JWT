@@ -42,6 +42,7 @@ export async function PATCH(req) {
       return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 });
     }
 
+    // Get user ID from decoded token
     const userId = decoded.id;
 
     // Validate inventory ID
@@ -55,10 +56,17 @@ export async function PATCH(req) {
       return NextResponse.json({ error: 'Inventory item not found' }, { status: 404 });
     }
 
+    // Find product item
     const productItem = await Product.findById(inventoryItem.product._id);
     if (!productItem) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
+
+    // Save previous values BEFORE editing
+    const previousQuantity = inventoryItem.quantity;
+
+    const oldCost = productItem.costPrice;
+    const oldSale = productItem.salePrice;
 
     // Update editable product fields
     if (name) productItem.name = name;
@@ -67,9 +75,6 @@ export async function PATCH(req) {
     if (salePrice !== undefined) productItem.salePrice = Number(salePrice);
 
     await productItem.save();
-
-    // Previous quantity
-    const previousQuantity = inventoryItem.quantity;
 
     // Determine movement direction
     let movement = null;
@@ -100,6 +105,44 @@ export async function PATCH(req) {
         performedBy: new mongoose.Types.ObjectId(userId),
         quantity: Math.abs(delta),
         reason: reason || 'Manual inventory correction',
+      });
+    }
+
+    // Detect price changes
+    const priceChanged =
+      (costPrice !== undefined && Number(costPrice) !== oldCost) ||
+      (salePrice !== undefined && Number(salePrice) !== oldSale);
+
+    if (priceChanged) {
+      const newCost = costPrice !== undefined ? Number(costPrice) : oldCost;
+      const newSale = salePrice !== undefined ? Number(salePrice) : oldSale;
+
+      // Determinar qué campo cambió
+      let priceField = 'both';
+      if (newCost !== oldCost && newSale === oldSale) priceField = 'costPrice';
+      if (newSale !== oldSale && newCost === oldCost) priceField = 'salePrice';
+
+      // Determinar movimiento
+      let priceMovement = 'NONE';
+      if (newCost > oldCost || newSale > oldSale) priceMovement = 'IN';
+      if (newCost < oldCost || newSale < oldSale) priceMovement = 'OUT';
+
+      const priceDelta = Math.abs(newCost - oldCost + (newSale - oldSale));
+
+      await Transaction.create({
+        inventory: inventoryItem._id,
+        movement: priceMovement,
+        reasonType: 'correction',
+        performedBy: new mongoose.Types.ObjectId(userId),
+        reason: reason || 'Price update',
+
+        oldCostPrice: oldCost,
+        newCostPrice: newCost,
+        oldSalePrice: oldSale,
+        newSalePrice: newSale,
+
+        priceField,
+        priceDelta,
       });
     }
 

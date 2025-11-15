@@ -8,6 +8,17 @@ interface ITransaction extends Document {
   reason?: string;
   performedBy: mongoose.Types.ObjectId;
   patient?: mongoose.Types.ObjectId;
+
+  /* Price change fields */
+  oldCostPrice?: number;
+  newCostPrice?: number;
+  oldSalePrice?: number;
+  newSalePrice?: number;
+
+  /* Helpers to identify what changed */
+  priceField?: 'costPrice' | 'salePrice' | 'both';
+  priceDelta?: number;
+
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -25,6 +36,16 @@ const TransactionSchema = new Schema<ITransaction>(
     reason: { type: String, trim: true },
     performedBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     patient: { type: Schema.Types.ObjectId, ref: 'User' },
+
+    /* Price change fields */
+    oldCostPrice: { type: Number },
+    newCostPrice: { type: Number },
+    oldSalePrice: { type: Number },
+    newSalePrice: { type: Number },
+
+    /* Helpers */
+    priceField: { type: String, enum: ['costPrice', 'salePrice', 'both'] },
+    priceDelta: { type: Number },
   },
   { timestamps: true }
 );
