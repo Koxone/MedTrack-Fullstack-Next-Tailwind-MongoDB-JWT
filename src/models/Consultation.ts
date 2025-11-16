@@ -3,42 +3,74 @@ import { IUser } from './User';
 import { IProduct } from './Product';
 import { ITransaction } from './Transaction';
 
-/* --- Interface --- */
+/* --- Sub Interface for items sold --- */
+interface ISoldItem {
+  product: mongoose.Types.ObjectId | IProduct;
+  inventory: mongoose.Types.ObjectId;
+  quantity: number;
+  price: number;
+  total: number;
+}
+
+/* --- Main Interface --- */
 interface IConsultation extends Document {
-  patient: mongoose.Types.ObjectId | IUser;
   employee: mongoose.Types.ObjectId | IUser;
-  date: Date;
-  time: string;
   consultationType: string;
+  patient: mongoose.Types.ObjectId | IUser;
   cost: number;
   paymentMethod: 'efectivo' | 'tarjeta' | 'transferencia';
-  itemsSold?: mongoose.Types.ObjectId[] | IProduct[];
-  transaction?: mongoose.Types.ObjectId | ITransaction | null;
+  itemsSold: ISoldItem[];
+  
+  date: Date;
+  time: string;
+  transactions: (mongoose.Types.ObjectId | ITransaction)[];
   notes?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
+/* --- Mongoose Schema --- */
 const ConsultationSchema = new Schema<IConsultation>(
   {
     patient: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     employee: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+
     date: { type: Date, required: true },
     time: { type: String, required: true },
+
     consultationType: { type: String, trim: true, required: true },
+
     cost: { type: Number, required: true, min: 0 },
+
     paymentMethod: {
       type: String,
       enum: ['efectivo', 'tarjeta', 'transferencia'],
       required: true,
     },
-    itemsSold: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
-    transaction: { type: Schema.Types.ObjectId, ref: 'Transaction', default: null },
+
+    itemsSold: [
+      {
+        product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+        inventory: { type: Schema.Types.ObjectId, ref: 'Inventory', required: true },
+        quantity: { type: Number, required: true },
+        price: { type: Number, required: true },
+        total: { type: Number, required: true },
+      },
+    ],
+
+    transactions: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Transaction',
+      },
+    ],
+
     notes: { type: String, trim: true },
   },
   { timestamps: true }
 );
 
+/* --- Model Export --- */
 const models = mongoose.models ?? {};
 
 export const Consultation: Model<IConsultation> =
@@ -46,4 +78,4 @@ export const Consultation: Model<IConsultation> =
   mongoose.model<IConsultation>('Consultation', ConsultationSchema);
 
 export default Consultation;
-export type { IConsultation };
+export type { IConsultation, ISoldItem };

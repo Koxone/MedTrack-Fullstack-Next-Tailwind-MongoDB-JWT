@@ -5,12 +5,11 @@ import ConsultationsTable from './ConsultationsTable';
 import ConsultationsMobile from './ConsultationsMobile';
 import EmptyState from './EmptyState';
 import EmployeeDeleteConsultModal from '@/components/sections/employee/consultations/components/modals/employeeDeleteConsultModal/EmployeeDeleteConsultModal';
+import { Search, Plus, FileText, Edit2, Trash2, AlertCircle } from 'lucide-react';
 
 // Modals
 import EmployeeCreateConsultModal from '@/components/sections/employee/consultations/components/modals/employeeCreateConsultModal/EmployeeCreateConsultModal';
 import EmployeeEditConsultModal from '@/components/sections/employee/consultations/components/modals/employeeEditConsultModal/EmployeeEditConsultModal';
-
-import { Search, Plus, FileText, Edit2, Trash2, AlertCircle } from 'lucide-react';
 
 /* Helper date */
 function todayISO() {
@@ -21,7 +20,6 @@ function todayISO() {
   return `${yyyy}-${mm}-${dd}`;
 }
 
-/* Autonomous component with full logic and modals */
 export default function TodayConsultsTable() {
   /* Data state */
   const [consultas, setConsultas] = useState([
