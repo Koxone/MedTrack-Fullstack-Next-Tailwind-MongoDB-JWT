@@ -18,9 +18,9 @@ export async function GET(req) {
   try {
     await connectDB();
 
-    const consultations = await Consultation.find().populate('patient employee').lean();
+    const consults = await Consultation.find().populate('patient employee').lean();
 
-    return NextResponse.json(consultations, { status: 200 });
+    return NextResponse.json(consults, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

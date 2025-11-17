@@ -22,7 +22,7 @@ import {
 import EmployeeCreateConsultModal from '@/components/sections/employee/consultations/components/modals/employeeCreateConsultModal/EmployeeCreateConsultModal';
 import EmployeeEditConsultModal from '@/components/sections/employee/consultations/components/modals/employeeEditConsultModal/EmployeeEditConsultModal';
 
-export default function TodayConsultsList() {
+export default function TodayConsultsList({ totals }) {
   const [consultas, setConsultas] = useState([
     {
       id: 1,
@@ -113,11 +113,7 @@ export default function TodayConsultsList() {
       <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
         <ConsultsList
           rows={filteredConsultas}
-          totals={{
-            totalIngresos,
-            cobradas: consultas.filter((c) => c.pagado).length,
-            total: consultas.length,
-          }}
+          totals={totals}
           onEdit={(item) => openEdit(item, setEditingItem, setShowModal)}
           onDelete={(item) => askDelete(item, setItemToDelete, setShowDeleteModal)}
         />

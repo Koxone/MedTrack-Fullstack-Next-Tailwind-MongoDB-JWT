@@ -7,9 +7,9 @@ export default function MetricsGrid({ totals }) {
   // prevent NaN
   const total = Number(totals?.total ?? 0);
   const cobradas = Number(totals?.cobradas ?? 0);
-  const totalIngresos = Number(totals?.totalIngresos ?? 0);
-  const totalPagado = Number(totals?.totalPagado ?? 0);
-  const totalPendiente = Number(totals?.totalPendiente ?? 0);
+  const grandTotal = Number(totals?.grandTotal ?? 0);
+  const consultsTotal = Number(totals?.consultsTotal ?? 0);
+  const medsTotal = Number(totals?.medsTotal ?? 0);
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -25,7 +25,7 @@ export default function MetricsGrid({ totals }) {
               Total
             </span>
           </div>
-          <p className="mb-1 text-3xl font-bold">${totalIngresos.toLocaleString()}</p>
+          <p className="mb-1 text-3xl font-bold">${grandTotal.toLocaleString()}</p>
           <p className="text-sm">Ingresos del Dia</p>
         </div>
       </div>
@@ -40,7 +40,7 @@ export default function MetricsGrid({ totals }) {
             {cobradas}
           </span>
         </div>
-        <p className="mb-1 text-3xl font-bold text-gray-900">${totalPagado.toLocaleString()}</p>
+        <p className="mb-1 text-3xl font-bold text-gray-900">${consultsTotal.toLocaleString()}</p>
         <p className="text-sm font-medium text-gray-600">Consultas</p>
       </div>
 
@@ -54,7 +54,7 @@ export default function MetricsGrid({ totals }) {
             {total - cobradas}
           </span>
         </div>
-        <p className="mb-1 text-3xl font-bold text-gray-900">${totalPendiente.toLocaleString()}</p>
+        <p className="mb-1 text-3xl font-bold text-gray-900">${medsTotal.toLocaleString()}</p>
         <p className="text-sm font-medium text-gray-600">Medicamentos</p>
       </div>
     </div>

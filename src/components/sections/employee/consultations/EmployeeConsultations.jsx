@@ -4,14 +4,23 @@ import MetricsGrid from './components/MetricsGrid';
 import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
 import TodayConsultsList from '@/components/shared/todayConsults/TodayConsultsList';
 import MedsSoldTable from '../../../shared/medsSold/MedsSoldTable';
+import { useGetAllConsults } from '@/hooks/useGetAllConsults';
+import { getConsultTotals } from './utils/getConsultTotals';
 
 export default function EmployeeConsultations({ role }) {
+  // Get consults data
+  const { consults, isLoading, error } = useGetAllConsults();
+
+  // Calculate totals
+  const totals = getConsultTotals(consults);
+  const totalConsultsCost = totals?.consultPrice || 0;
+  const totalItemsSold = totals?.totalItemsSold || 0;
+  const totalCost = totals?.totalCost || 0;
+
   const metrics = {
-    totalIngresos: 3800,
-    totalPagado: 3200,
-    totalPendiente: 600,
-    count: 5,
-    porcentajeCobrado: ((3200 / 3800) * 100).toFixed(1),
+    grandTotal: totalCost,
+    consultsTotal: totalConsultsCost,
+    medsTotal: totalItemsSold,
   };
 
   return (
@@ -28,15 +37,15 @@ export default function EmployeeConsultations({ role }) {
         {/* Metrics summary */}
         <MetricsGrid
           totals={{
-            totalIngresos: metrics.totalIngresos,
-            totalPagado: metrics.totalPagado,
-            totalPendiente: metrics.totalPendiente,
+            grandTotal: metrics.grandTotal,
+            consultsTotal: metrics.consultsTotal,
+            medsTotal: metrics.medsTotal,
             count: metrics.count,
           }}
         />
 
         {/* Consultations Table */}
-        <TodayConsultsList />
+        <TodayConsultsList totals={metrics} />
 
         {/* Medications Sold Table */}
         <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
