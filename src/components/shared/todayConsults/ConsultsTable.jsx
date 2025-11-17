@@ -11,7 +11,7 @@ import {
   Banknote,
   CreditCard,
   ArrowLeftRight,
-} from 'lucide-react';
+} from 'lucide-react'; 
 
 export default function ConsultsTable({ rows, totals, onEdit, onDelete }) {
   // Table columns

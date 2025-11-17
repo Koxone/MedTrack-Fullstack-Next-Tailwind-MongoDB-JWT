@@ -1,5 +1,7 @@
 'use client';
 
+import { DollarSign, Users, Pill, TrendingUp } from 'lucide-react';
+
 export default function MetricsGrid({
   totalDia,
   totalConsultas,
@@ -7,12 +9,7 @@ export default function MetricsGrid({
   consultasCount,
   medsCount,
   promedio,
-  consultasPagadas,
-  icons,
 }) {
-  /* icons */
-  const { DollarSign, Users, Pill, TrendingUp } = icons;
-
   return (
     <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
       {/* total día */}
@@ -63,7 +60,6 @@ export default function MetricsGrid({
         </div>
         <p className="mb-1 text-2xl font-bold text-gray-900 md:text-3xl">${promedio}</p>
         <p className="text-xs text-gray-600 md:text-sm">Promedio/paciente</p>
-        <p className="text-xs md:text-gray-500">{consultasPagadas}</p>
       </div>
     </div>
   );

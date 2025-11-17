@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { DollarSign, Users, Pill, TrendingUp } from 'lucide-react';
 
 import MetricsGrid from './components/MetricsGrid';
 import WeeklyIncomeChart from './components/WeeklyIncomeChart';
@@ -9,6 +8,8 @@ import DistributionCard from './components/DistributionCard';
 import MedsSoldTable from '../../../shared/medsSold/MedsSoldTable';
 import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
 import TodayConsultsList from '@/components/shared/todayConsults/TodayConsultsList';
+import { useGetAllConsults } from '@/hooks/useGetAllConsults';
+import { getConsultTotals } from '../../employee/consultations/utils/getConsultTotals';
 
 /* Demo data */
 const ingresosSemanales = [
@@ -22,48 +23,30 @@ const ingresosSemanales = [
 ];
 
 export default function DoctorAccounting({ role }) {
-  const [medicamentosVendidos, setMedicamentosVendidos] = useState([
-    {
-      id: 1,
-      nombre: 'Metformina 850mg',
-      cantidad: 2,
-      precioUnitario: 150,
-      total: 300,
-      paciente: 'Juan Pérez',
-    },
-    {
-      id: 2,
-      nombre: 'Atorvastatina 20mg',
-      cantidad: 1,
-      precioUnitario: 200,
-      total: 200,
-      paciente: 'María López',
-    },
-    {
-      id: 3,
-      nombre: 'Losartán 50mg',
-      cantidad: 3,
-      precioUnitario: 120,
-      total: 360,
-      paciente: 'Carlos Ruiz',
-    },
-    {
-      id: 4,
-      nombre: 'Omeprazol 20mg',
-      cantidad: 1,
-      precioUnitario: 80,
-      total: 80,
-      paciente: 'Pedro García',
-    },
-  ]);
+  // Get consults data
+  const { consults, isLoading, isError } = useGetAllConsults();
+  console.log(consults);
+
+  // Calculate totals
+  const totals = getConsultTotals(consults);
+  const totalConsultsCost = totals?.consultPrice || 0;
+  const totalItemsSold = totals?.totalItemsSold || 0;
+  const totalCost = totals?.totalCost || 0;
+  const quantityItemsSold = consults.reduce(
+    (sum, consult) => sum + (consult.itemsSold?.length || 0),
+    0
+  );
+  const metrics = {
+    grandTotal: totalCost,
+    consultsTotal: totalConsultsCost,
+    medsTotal: totalItemsSold,
+  };
 
   /* Derived */
-  const totalMedicamentos = medicamentosVendidos.reduce((sum, m) => sum + m.total, 0);
-  const distribucionIngresos = [
-    { name: 'Consultas', value: 4800, color: '#3b82f6' },
-    { name: 'Medicamentos', value: totalMedicamentos, color: '#10b981' },
+  const incomeDistribution = [
+    { name: 'Consultas', value: metrics.consultsTotal, color: '#3b82f6' },
+    { name: 'Medicamentos', value: metrics.medsTotal, color: '#10b981' },
   ];
-  const totalDia = 4800 + totalMedicamentos;
 
   return (
     <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
@@ -77,20 +60,18 @@ export default function DoctorAccounting({ role }) {
 
       {/* Metrics */}
       <MetricsGrid
-        totalDia={totalDia}
-        totalConsultas={4800}
-        totalMedicamentos={totalMedicamentos}
-        consultasCount={5}
-        medsCount={medicamentosVendidos.length}
-        promedio={(totalDia / 5).toFixed(0)}
-        consultasPagadas={`4/5`}
-        icons={{ DollarSign, Users, Pill, TrendingUp }}
+        totalDia={metrics?.grandTotal || 0}
+        totalConsultas={metrics?.consultsTotal || 0}
+        totalMedicamentos={metrics?.medsTotal || 0}
+        consultasCount={consults.length}
+        medsCount={quantityItemsSold}
+        promedio={(metrics?.grandTotal / consults.length).toFixed(2)}
       />
 
       {/* Charts */}
       <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3">
         <WeeklyIncomeChart data={ingresosSemanales} />
-        <DistributionCard data={distribucionIngresos} />
+        <DistributionCard data={incomeDistribution} />
       </div>
 
       {/* Tables */}
@@ -99,10 +80,10 @@ export default function DoctorAccounting({ role }) {
           <h2 className="text-lg font-semibold text-gray-900 md:text-xl">Consultas del Día</h2>
         </div>
 
-        <TodayConsultsList />
+        <TodayConsultsList consultsData={consults} totals={metrics} />
       </div>
 
-      <MedsSoldTable />
+      <MedsSoldTable consultsData={consults} />
     </div>
   );
 }
