@@ -1,8 +1,8 @@
 'use client';
+import { FileText } from 'lucide-react';
 
 /* empty */
-export default function EmptyState({ visible, icons }) {
-  const { FileText } = icons;
+export default function EmptyState({ visible }) {
   if (!visible) return null;
   return (
     <div className="p-12 text-center">

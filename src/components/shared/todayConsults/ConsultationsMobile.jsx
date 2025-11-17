@@ -1,8 +1,9 @@
 'use client';
 
+import { Edit2, Trash2 } from 'lucide-react';
+
 /* mobile-cards */
-export default function ConsultationsMobile({ rows, icons, onEdit, onDelete }) {
-  const { Edit2, Trash2 } = icons;
+export default function ConsultationsMobile({ rows, onEdit, onDelete }) {
   return (
     <div className="space-y-3 p-4 md:hidden">
       {rows.map((c, i) => (

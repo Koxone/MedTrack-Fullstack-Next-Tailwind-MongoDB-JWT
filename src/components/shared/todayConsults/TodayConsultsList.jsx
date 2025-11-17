@@ -5,7 +5,6 @@ import ConsultsTable from './ConsultsTable';
 import ConsultationsMobile from './ConsultationsMobile';
 import EmptyState from './EmptyState';
 import EmployeeDeleteConsultModal from '@/components/sections/employee/consultations/components/modals/employeeDeleteConsultModal/EmployeeDeleteConsultModal';
-import { FileText, Edit2, Trash2, AlertCircle } from 'lucide-react';
 import {
   filterConsults,
   openCreate,
@@ -30,24 +29,28 @@ export default function TodayConsultsList({ totals, consultsData }) {
   const [editingItem, setEditingItem] = useState(null);
   const [itemToDelete, setItemToDelete] = useState(null);
 
-  // Filter consultas based on search term
+  // Load initial consults data
   useEffect(() => {
     setConsults(consultsData);
   }, [consultsData]);
 
+  // Filter consultas based on search term
   const filteredConsults = useMemo(
     () => filterConsults(consults, searchTerm),
     [consults, searchTerm]
   );
 
+  // Create consult handler
   const handleCreate = (form) => {
     handleCreateAction(form, todayISO, setConsults, setShowModal);
   };
 
+  // Update consult handler
   const handleUpdate = (form) => {
     handleUpdateAction(form, editingItem, setConsults, setShowModal, setEditingItem);
   };
 
+  // Delete consult handler
   const handleDelete = () => {
     handleDeleteAction(itemToDelete, setConsults, setShowDeleteModal, setItemToDelete);
   };
@@ -70,12 +73,11 @@ export default function TodayConsultsList({ totals, consultsData }) {
 
         <ConsultationsMobile
           rows={filteredConsults}
-          icons={{ Edit2, Trash2 }}
           onEdit={(item) => openEdit(item, setEditingItem, setShowModal)}
           onDelete={(item) => askDelete(item, setItemToDelete, setShowDeleteModal)}
         />
 
-        <EmptyState visible={filteredConsults.length === 0} icons={{ FileText }} />
+        <EmptyState visible={filteredConsults.length === 0} />
       </div>
 
       {showModal && !editingItem && (
@@ -95,7 +97,6 @@ export default function TodayConsultsList({ totals, consultsData }) {
           item={itemToDelete}
           onClose={() => setShowDeleteModal(false)}
           onConfirm={handleDelete}
-          icons={{ AlertCircle }}
         />
       )}
     </div>
