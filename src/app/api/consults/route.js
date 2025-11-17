@@ -18,7 +18,12 @@ export async function GET(req) {
   try {
     await connectDB();
 
-    const consults = await Consultation.find().populate('patient employee').lean();
+    const consults = await Consultation.find()
+      .populate('patient')
+      .populate('employee')
+      .populate('itemsSold.product')
+      .populate('itemsSold.inventory')
+      .lean();
 
     return NextResponse.json(consults, { status: 200 });
   } catch (error) {

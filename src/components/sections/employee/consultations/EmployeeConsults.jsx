@@ -49,7 +49,7 @@ export default function EmployeeConsults({ role }) {
 
         {/* Medications Sold Table */}
         <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
-          <MedsSoldTable />
+          <MedsSoldTable consultsData={consults} />
         </div>
       </div>
     </div>
