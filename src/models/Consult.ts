@@ -25,9 +25,6 @@ interface IConsultation extends Document {
   itemsSold: ISoldItem[];
   paymentMethod: 'efectivo' | 'tarjeta' | 'transferencia';
 
-  date: Date;
-  time: string;
-
   transaction: (mongoose.Types.ObjectId | ITransaction)[];
   notes?: string;
   createdAt?: Date;
@@ -39,9 +36,6 @@ const ConsultationSchema = new Schema<IConsultation>(
   {
     patient: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     employee: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-
-    date: { type: Date, required: true },
-    time: { type: String, required: true },
 
     consultType: { type: String, trim: true, required: true },
     speciality: { type: String, trim: true },
@@ -66,7 +60,7 @@ const ConsultationSchema = new Schema<IConsultation>(
       },
     ],
 
-    transactions: [
+    transaction: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Transaction',

@@ -18,8 +18,8 @@ export default function MedsSold({ form, setForm }) {
   // Sync selected meds with parent form
   useEffect(() => {
     setForm({ ...form, itemsSold: selected });
-  }, [selected]);
-  console.log(selected)
+  }, [selected, setForm]);
+
   return (
     <div className="space-y-3">
       {/* Checkbox */}

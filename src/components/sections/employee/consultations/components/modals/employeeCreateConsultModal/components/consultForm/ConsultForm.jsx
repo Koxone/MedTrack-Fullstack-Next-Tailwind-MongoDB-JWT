@@ -4,7 +4,7 @@ import { useGetAllPatients } from '@/hooks/useGetAllPatients';
 import { useEffect } from 'react';
 
 /* Form */
-export default function ConsultationForm({ form, setForm }) {
+export default function ConsultForm({ form, setForm }) {
   // Get Patients list call
   const { patients, isLoading, error } = useGetAllPatients();
 
@@ -33,7 +33,7 @@ export default function ConsultationForm({ form, setForm }) {
       totalCost: total,
       totalItemsSold: medsTotal,
     });
-  }, [form.consultPrice, form.itemsSold]);
+  }, [form.consultPrice, form.itemsSold, setForm]);
 
   return (
     <div className="space-y-5">
@@ -105,7 +105,7 @@ export default function ConsultationForm({ form, setForm }) {
             <option value="">Seleccionar paciente</option>
 
             {patients.map((patient) => (
-              <option key={patient._id} value={patient.fullName}>
+              <option key={patient._id} value={patient._id}>
                 {patient.fullName}
               </option>
             ))}
@@ -141,9 +141,9 @@ export default function ConsultationForm({ form, setForm }) {
           className="w-full rounded-xl border-2 border-gray-200 px-4 py-3"
         >
           <option value="">Seleccionar</option>
-          <option value="Efectivo">Efectivo</option>
-          <option value="Tarjeta">Tarjeta</option>
-          <option value="Transferencia">Transferencia</option>
+          <option value="efectivo">Efectivo</option>
+          <option value="tarjeta">Tarjeta</option>
+          <option value="transferencia">Transferencia</option>
         </select>
       </div>
 

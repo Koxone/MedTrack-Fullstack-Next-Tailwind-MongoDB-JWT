@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Header from './components/Header';
-import ConsultationForm from './components/consultForm/ConsultationForm';
+import ConsultForm from './components/consultForm/ConsultForm';
 import Actions from './components/Actions';
 import { useModalClose } from '@/hooks/useModalClose';
 import useAuthStore from '@/zustand/useAuthStore';
@@ -19,17 +19,14 @@ export default function EmployeeCreateConsultModal({ onClose, onCreate }) {
   // Local state
   const [form, setForm] = useState({
     patient: '',
-    employee: user?.fullName || '',
+    employee: user?.id || '',
     consultType: '',
     speciality: user?.speciality || '',
     consultPrice: '',
     totalItemsSold: 0,
     totalCost: 0,
     paymentMethod: '',
-    date: getCurrentDate(),
-    time: getCurrentTime(),
     itemsSold: [],
-    transaction: [],
     notes: '',
   });
 
@@ -50,16 +47,16 @@ export default function EmployeeCreateConsultModal({ onClose, onCreate }) {
       className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md"
     >
       {/* Modal */}
-      <div className="relative w-full max-w-[600px] inset-0 z-50 flex items-center justify-center p-4">
+      <div className="relative inset-0 z-50 flex w-full max-w-[600px] items-center justify-center p-4">
         <div
-          className="w-full  overflow-hidden rounded-3xl bg-white shadow-2xl"
+          className="w-full overflow-hidden rounded-3xl bg-white shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
           <Header title="Agregar Consulta" onClose={onClose} />
           {/* Content */}
           <form onSubmit={handleSubmit} className="max-h-[calc(90vh-160px)] overflow-y-auto p-6">
-            <ConsultationForm form={form} setForm={setForm} />
+            <ConsultForm form={form} setForm={setForm} />
             <Actions onClose={onClose} submitLabel="Guardar" />
           </form>
         </div>
