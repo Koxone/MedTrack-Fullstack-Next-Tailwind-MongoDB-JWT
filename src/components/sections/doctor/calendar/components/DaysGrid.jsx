@@ -16,7 +16,7 @@ export default function DaysGrid({ days, selectedDate, onSelectDate, helpers }) 
             onClick={() => onSelectDate(date)}
             className={`group relative flex aspect-square flex-col items-center justify-center rounded-xl text-sm font-semibold transition ${
               isSelected
-                ? 'from-medtrack-green-dark to-medtrack-green-solid z-10 scale-110 bg-linear-to-r text-white shadow-lg'
+                ? 'bg-medtrack-blue-solid z-10 scale-110 text-white shadow-lg'
                 : hasApts
                   ? 'border-medtrack-green-solid/50 border-2 bg-linear-to-br from-blue-50 to-indigo-50 text-gray-900 hover:scale-105 hover:from-blue-100 hover:to-indigo-100 hover:shadow-md'
                   : 'bg-gray-50 text-gray-600 hover:scale-105 hover:bg-gray-100'

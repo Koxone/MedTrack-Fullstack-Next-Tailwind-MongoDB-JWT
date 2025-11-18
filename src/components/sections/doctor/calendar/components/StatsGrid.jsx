@@ -30,7 +30,7 @@ export default function StatsGrid({ stats, icons }) {
           <div
             key={label}
             style={{ animationDelay: `${i * 100}ms` }}
-            className={`bg-linear-to-br ${bg} animate-fadeInUp group relative overflow-hidden rounded-2xl border-2 border-gray-200 p-4 shadow-sm transition hover:scale-105 hover:shadow-lg`}
+            className={`bg-medtrack-blue-solid/30 animate-fadeInUp group relative overflow-hidden rounded-2xl border-2 border-gray-200 p-4 shadow-sm transition hover:scale-105 hover:shadow-lg`}
           >
             <div
               className={`absolute -right-4 -bottom-4 h-20 w-20 rounded-full bg-linear-to-br ${gradient} opacity-10 transition group-hover:scale-150`}

@@ -1,54 +1,26 @@
 'use client';
 
-import { useState } from 'react';
-import {
-  Pill,
-  Users,
-  DollarSign,
-  Edit2,
-  Trash2,
-  Award,
-} from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Pill, Users, DollarSign, Edit2, Trash2, Award } from 'lucide-react';
 
 import DeleteMedSaleModal from './DeleteMedSaleModal';
 import AddEditMedicationSellModal from './addEditMedicationSaleModal/AddEditMedicationSellModal';
 
-export default function MedicamentosTable() {
-  /* Data state */
-  const [medicamentosVendidos, setMedicamentosVendidos] = useState([
-    {
-      id: 1,
-      nombre: 'Metformina 850mg',
-      cantidad: 2,
-      precioUnitario: 150,
-      total: 300,
-      paciente: 'Juan Pérez',
-    },
-    {
-      id: 2,
-      nombre: 'Atorvastatina 20mg',
-      cantidad: 1,
-      precioUnitario: 200,
-      total: 200,
-      paciente: 'María López',
-    },
-    {
-      id: 3,
-      nombre: 'Losartán 50mg',
-      cantidad: 3,
-      precioUnitario: 120,
-      total: 360,
-      paciente: 'Carlos Ruiz',
-    },
-    {
-      id: 4,
-      nombre: 'Omeprazol 20mg',
-      cantidad: 1,
-      precioUnitario: 80,
-      total: 80,
-      paciente: 'Pedro García',
-    },
-  ]);
+export default function MedsSoldTable({ consultsData }) {
+  const [medSold, setMedsSold] = useState([]);
+
+  useEffect(() => {
+    if (!consultsData) return;
+
+    const result = consultsData.flatMap((consult) =>
+      consult.itemsSold.map((item) => ({
+        ...item,
+        patient: consult.patient,
+      }))
+    );
+
+    setMedsSold(result);
+  }, [consultsData]);
 
   /* UI state */
   const [showModal, setShowModal] = useState(false);
@@ -57,7 +29,7 @@ export default function MedicamentosTable() {
   const [itemToDelete, setItemToDelete] = useState(null);
 
   /* Derived */
-  const totalMedicamentos = medicamentosVendidos.reduce((acc, m) => acc + m.total, 0);
+  const totalMedicamentos = medSold.reduce((acc, m) => acc + m.total, 0);
 
   /* Actions */
   const openAddModal = () => {
@@ -89,11 +61,9 @@ export default function MedicamentosTable() {
     };
 
     if (editingItem) {
-      setMedicamentosVendidos((prev) =>
-        prev.map((m) => (m.id === editingItem.id ? newItem : m))
-      );
+      setMedsSold((prev) => prev.map((m) => (m.id === editingItem.id ? newItem : m)));
     } else {
-      setMedicamentosVendidos((prev) => [...prev, newItem]);
+      setMedsSold((prev) => [...prev, newItem]);
     }
 
     setShowModal(false);
@@ -101,7 +71,7 @@ export default function MedicamentosTable() {
   };
 
   const handleDelete = () => {
-    setMedicamentosVendidos((prev) => prev.filter((m) => m.id !== itemToDelete.id));
+    setMedsSold((prev) => prev.filter((m) => m.id !== itemToDelete.id));
     setShowDeleteModal(false);
     setItemToDelete(null);
   };
@@ -109,7 +79,6 @@ export default function MedicamentosTable() {
   return (
     <div className="hidden overflow-x-auto md:block">
       <table className="w-full">
-
         {/* HEADER */}
         <thead className="border-b-2 border-gray-200 bg-linear-to-r from-gray-50 to-indigo-50">
           <tr>
@@ -153,39 +122,41 @@ export default function MedicamentosTable() {
 
         {/* BODY */}
         <tbody className="divide-y divide-gray-200">
-          {medicamentosVendidos.map((m, i) => (
+          {medSold.map((med, index) => (
             <tr
-              key={m.id}
-              style={{ animationDelay: `${i * 50}ms` }}
+              key={med?.product?._id + index}
+              style={{ animationDelay: `${index * 50}ms` }}
               className="group animate-fadeInUp transition hover:bg-linear-to-r hover:from-indigo-50 hover:to-purple-50"
             >
               {/* Nombre */}
               <td className="px-6 py-4">
-                <span className="text-sm font-semibold text-gray-900">{m.nombre}</span>
+                <span className="text-sm font-semibold text-gray-900">{med?.product?.name}</span>
               </td>
 
               {/* Cantidad */}
               <td className="px-6 py-4 text-center">
-                <span className="text-sm font-medium text-gray-700">{m.cantidad}</span>
+                <span className="text-sm font-medium text-gray-700">{med?.quantity}</span>
               </td>
 
               {/* Precio Unitario */}
               <td className="px-6 py-4 text-right">
                 <span className="text-sm font-medium text-gray-700">
-                  ${m.precioUnitario.toLocaleString()}
+                  ${med?.price.toLocaleString()}
                 </span>
               </td>
 
               {/* Total */}
               <td className="px-6 py-4 text-right">
                 <span className="text-lg font-bold text-neutral-700">
-                  ${m.total.toLocaleString()}
+                  ${med?.total?.toLocaleString()}
                 </span>
               </td>
 
               {/* Paciente */}
               <td className="px-6 py-4">
-                <span className="text-sm font-semibold text-gray-800">{m.paciente}</span>
+                <span className="text-sm font-semibold text-gray-800">
+                  {med?.patient?.fullName}
+                </span>
               </td>
 
               {/* Acciones */}
@@ -227,7 +198,6 @@ export default function MedicamentosTable() {
             <td colSpan="2" />
           </tr>
         </tfoot>
-
       </table>
 
       {/* MODALS */}

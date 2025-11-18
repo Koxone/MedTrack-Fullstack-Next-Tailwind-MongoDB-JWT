@@ -3,7 +3,7 @@
 import { AlertCircle, X, Calendar } from 'lucide-react';
 
 /* modal */
-export default function EmployeeDeleteConsultModal({ item, onClose, onConfirm, icons }) {
+export default function EmployeeDeleteConsultModal({ item, onClose, onConfirm }) {
   if (!item) return null;
 
   const getGradientColor = () => 'from-blue-500 to-indigo-500';

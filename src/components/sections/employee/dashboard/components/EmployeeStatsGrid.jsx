@@ -4,6 +4,7 @@ import EmployeeStatsCard from './EmployeeStatsCard';
 import { useGetFullInventory } from '@/hooks/useGetFullInventory';
 import { Calendar, DollarSign, FileText, TriangleAlert } from 'lucide-react';
 import { useAllTodayAppointments } from '@/hooks/useAllTodayAppointments';
+import { useGetAllConsults } from '@/hooks/useGetAllConsults';
 
 export default function EmployeeStatsGrid({ role }) {
   // Appointments Today logic
@@ -13,6 +14,17 @@ export default function EmployeeStatsGrid({ role }) {
   // Inventory and Alerts logic
   const { totalAlerts } = useGetFullInventory();
 
+  // Consultations logic
+  const { consults } = useGetAllConsults();
+
+  const todayConsultsTotal = consults.map((c) => c.consultPrice).reduce((a, b) => a + b, 0) || 0;
+  const medsSoldTotal =
+    consults
+      .flatMap((c) => c.itemsSold)
+      .map((item) => item.total)
+      .reduce((a, b) => a + b, 0) || 0;
+
+  const totalSales = todayConsultsTotal + medsSoldTotal;
   return (
     <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
       {[
@@ -24,16 +36,18 @@ export default function EmployeeStatsGrid({ role }) {
           variant: 'primary',
         },
         {
-          Icon: DollarSign,
-          mainData: '$1,200.00',
-          title: 'Venta de Medicamentos',
-          variant: 'success',
+          Icon: FileText,
+          mainData: '$' + todayConsultsTotal,
+          title: 'Consultas Hoy',
+          extraData: 'Hoy',
+          variant: 'purple',
         },
         {
-          Icon: FileText,
-          mainData: '$1,000.00',
-          title: 'Consultas Hoy',
-          variant: 'purple',
+          Icon: DollarSign,
+          mainData: '$' + medsSoldTotal,
+          title: 'Venta de Medicamentos',
+          extraData: 'Hoy',
+          variant: 'success',
         },
         {
           Icon: TriangleAlert,

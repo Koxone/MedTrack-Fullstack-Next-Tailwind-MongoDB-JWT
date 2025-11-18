@@ -1,13 +1,14 @@
 'use client';
 
+import { Edit2, Trash2 } from 'lucide-react';
+
 /* mobile-cards */
-export default function ConsultationsMobile({ rows, icons, onEdit, onDelete }) {
-  const { Edit2, Trash2 } = icons;
+export default function ConsultationsMobile({ rows, onEdit, onDelete }) {
   return (
     <div className="space-y-3 p-4 md:hidden">
       {rows.map((c, i) => (
         <div
-          key={c.id}
+          key={c?.patient?._id + i}
           style={{ animationDelay: `${i * 50}ms` }}
           className="animate-fadeInUp rounded-xl border-2 border-gray-200 bg-linear-to-br from-indigo-50 to-purple-50 p-4 transition hover:border-indigo-300 hover:shadow-lg"
         >

@@ -8,6 +8,7 @@ interface IProduct extends Document {
   inStock: boolean;
   costPrice: number;
   salePrice: number;
+  inventory?: mongoose.Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -21,6 +22,7 @@ const ProductSchema = new Schema<IProduct>(
     inStock: { type: Boolean, default: true },
     costPrice: { type: Number, required: true },
     salePrice: { type: Number, required: true },
+    inventory: { type: Schema.Types.ObjectId, ref: 'Inventory' },
   },
   { timestamps: true }
 );

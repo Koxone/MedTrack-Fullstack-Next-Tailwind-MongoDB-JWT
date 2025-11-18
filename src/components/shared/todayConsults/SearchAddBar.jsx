@@ -1,8 +1,9 @@
 'use client';
 
+import { Search, Plus } from 'lucide-react';
+
 /* search-add */
-export default function SearchAddBar({ value, onChange, onAdd, icons }) {
-  const { Search, Plus } = icons;
+export default function SearchAddBar({ value, onChange, onAdd }) {
   return (
     <div className="rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-lg">
       <div className="flex flex-col gap-3 sm:flex-row">
@@ -13,7 +14,7 @@ export default function SearchAddBar({ value, onChange, onAdd, icons }) {
             placeholder="Buscar paciente..."
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className="w-full rounded-xl border-2 border-gray-200 py-3 pr-4 pl-12 font-medium transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20"
+            className="w-full rounded-xl border-2 border-gray-200 py-3 pr-4 pl-12 font-medium transition outline-none"
           />
         </div>
         <button

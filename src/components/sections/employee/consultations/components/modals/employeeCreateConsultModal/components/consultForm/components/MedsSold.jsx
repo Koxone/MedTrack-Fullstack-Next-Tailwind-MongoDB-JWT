@@ -1,46 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pill } from 'lucide-react';
+import { useGetMeds } from '@/hooks/useGetMeds';
+import { handleSelect, handleQuantity, handleRemove } from '../utils/helpers';
 
-export default function VentaMedicamentos() {
-  // Static list
-  const allMedicines = [
-    'Metformina',
-    'Ozempic',
-    'Ibuprofeno',
-    'Ketorolaco',
-    'Paracetamol',
-    'Amoxicilina',
-    'Clonazepam',
-    'Sertralina',
-    'Guantes de latex',
-  ];
+export default function MedsSold({ form, setForm }) {
+  // Get Patients list call
+  const { meds, isLoading, error } = useGetMeds('medicamento');
 
+  // Enable meds sold section
   const [enabled, setEnabled] = useState(false);
 
   // Selected medicines with quantity
   const [selected, setSelected] = useState([]);
 
-  // Add medicine
-  const handleSelect = (med) => {
-    const exists = selected.some((item) => item.name === med);
-    if (!exists) {
-      setSelected([...selected, { name: med, quantity: 1 }]);
-    }
-  };
-
-  // Update quantity
-  const handleQuantity = (name, value) => {
-    setSelected((prev) =>
-      prev.map((item) => (item.name === name ? { ...item, quantity: Number(value) } : item))
-    );
-  };
-
-  // Remove medicine
-  const handleRemove = (name) => {
-    setSelected(selected.filter((item) => item.name !== name));
-  };
+  // Sync selected meds with parent form
+  useEffect(() => {
+    setForm({ ...form, itemsSold: selected });
+  }, [selected, setForm]);
 
   return (
     <div className="space-y-3">
@@ -66,14 +44,14 @@ export default function VentaMedicamentos() {
           {/* Select */}
           <select
             value=""
-            onChange={(e) => handleSelect(e.target.value)}
+            onChange={(e) => handleSelect(e.target.value, meds, selected, setSelected)}
             className="w-full rounded-xl border-2 border-gray-200 px-4 py-3"
           >
             <option value="">Seleccionar</option>
 
-            {allMedicines.map((med) => (
-              <option key={med} value={med}>
-                {med}
+            {meds.map((med) => (
+              <option key={med._id} value={med?._id}>
+                {med?.name}
               </option>
             ))}
           </select>
@@ -83,7 +61,7 @@ export default function VentaMedicamentos() {
             <div className="space-y-3">
               {selected.map((item) => (
                 <div
-                  key={item.name}
+                  key={item.product}
                   className="space-y-2 rounded-xl border border-gray-200 bg-gray-50 p-3"
                 >
                   {/* Row */}
@@ -92,7 +70,7 @@ export default function VentaMedicamentos() {
 
                     <button
                       type="button"
-                      onClick={() => handleRemove(item.name)}
+                      onClick={() => handleRemove(item.product, selected, setSelected)}
                       className="text-sm font-semibold text-red-600"
                     >
                       Quitar
@@ -107,7 +85,7 @@ export default function VentaMedicamentos() {
                       type="number"
                       min="1"
                       value={item.quantity}
-                      onChange={(e) => handleQuantity(item.name, e.target.value)}
+                      onChange={(e) => handleQuantity(item.product, e.target.value, setSelected)}
                       className="w-full rounded-xl border-2 border-gray-200 px-3 py-2"
                     />
                   </div>

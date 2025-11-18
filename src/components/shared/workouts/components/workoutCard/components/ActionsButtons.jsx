@@ -7,7 +7,7 @@ function ActionsButtons({ handleEdit, workout, setWorkoutToDelete, setShowDelete
       {/* Edit Workout */}
       <button
         onClick={(e) => handleEdit(workout)}
-        className="bg-medtrack-green-light hover:bg-medtrack-green-light-hover text-medtrack-green-dark hover:text-medtrack-green-dark-hover flex flex-1 items-center justify-center gap-2 rounded-lg py-2 text-sm font-medium transition active:scale-95"
+        className="bg-medtrack-blue-light hover:bg-medtrack-blue-light-hover text-medtrack-blue-dark hover:text-medtrack-blue-dark-hover flex flex-1 items-center justify-center gap-2 rounded-lg py-2 text-sm font-medium transition active:scale-95"
       >
         <Edit2 className="h-4 w-4" />
         Editar

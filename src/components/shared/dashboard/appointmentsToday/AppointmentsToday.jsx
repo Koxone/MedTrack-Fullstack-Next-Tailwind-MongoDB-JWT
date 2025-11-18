@@ -8,7 +8,7 @@ export default function AppointmentsToday({ appointments, role }) {
         <h2 className="text-lg font-semibold text-gray-900 md:text-xl">Citas de Hoy</h2>
         <Link
           href={role === 'doctor' ? '/doctor/calendar' : '/employee/appointments'}
-          className="bg-medtrack-green-solid hover:bg-medtrack-green-hover flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-white transition active:scale-95"
+          className="bg-medtrack-blue-solid hover:bg-medtrack-blue-hover flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-white transition active:scale-95"
         >
           Ver todas
           <ChevronRight className="h-4 w-4" />

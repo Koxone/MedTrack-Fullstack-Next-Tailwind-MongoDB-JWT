@@ -18,7 +18,7 @@ export default function SearchAddBar({ searchTerm, setSearchTerm, onAdd, onResto
       <div className="flex items-center gap-2">
         <button
           onClick={onAdd}
-          className="bg-medtrack-green-solid hover:bg-medtrack-green-hover flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-md transition active:scale-95"
+          className="bg-medtrack-blue-solid hover:bg-medtrack-blue-hover flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-md transition active:scale-95"
         >
           <Plus className="h-4 w-4" />
           Nuevo Producto

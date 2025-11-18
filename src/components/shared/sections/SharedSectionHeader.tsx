@@ -73,14 +73,14 @@ export default function SharedSectionHeader({
           {/* Doctor New Diet Button */}
           <Link
             href="/doctor/diets/new"
-            className="bg-medtrack-green-solid hover:bg-medtrack-green-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white transition active:scale-95"
+            className="bg-medtrack-blue-solid hover:bg-medtrack-blue-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white transition active:scale-95"
           >
             <Plus className="h-5 w-5" />
             Nueva Dieta
           </Link>
 
           {/* Doctor Export Button */}
-          <button className="bg-medtrack-green-solid hover:bg-medtrack-green-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white transition active:scale-95">
+          <button className="bg-medtrack-blue-solid hover:bg-medtrack-blue-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white transition active:scale-95">
             <Download className="h-5 w-5" />
             <span className="hidden sm:inline">Exportar</span>
           </button>

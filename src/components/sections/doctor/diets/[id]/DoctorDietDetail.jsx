@@ -2,14 +2,14 @@ import { ArrowLeft, Apple, Clock, User, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { diets } from '@/components/shared/diets/[id]/components/sharedDietsMockData';
 
-export default function DoctorDietDetail({ params }) {
+export default function DoctorDietDetail({ params, role }) {
   const { id } = params;
   const diet = diets.find((d) => d.id === id);
 
   return (
     <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
       <Link
-        href="/patient/diets"
+        href={`/${role}/diets`}
         className="flex items-center gap-2 text-gray-600 transition hover:text-gray-900"
       >
         <ArrowLeft className="h-5 w-5" />

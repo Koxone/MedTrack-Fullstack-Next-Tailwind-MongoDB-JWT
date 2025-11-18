@@ -2,6 +2,8 @@
 
 import { X, History } from 'lucide-react';
 import { useModalClose } from '@/hooks/useModalClose';
+
+// Main Blocks
 import PriceBlock from './components/PriceBlock';
 import RestockBlock from './components/RestockBlock';
 import QuantityBlock from './components/QuantityBlock';
@@ -9,10 +11,53 @@ import StatusOnBlock from './components/StatusOnBlock';
 import StatusOffBlock from './components/StatusOffBlock';
 import InitialStockBlock from './components/InitialStockBlock';
 
-export default function TransactionHistoryModal({ onClose, history, item }) {
+export default function TransactionHistoryModal({ onClose, history, item, isLoading }) {
   const { handleOverlayClick } = useModalClose(onClose);
 
   const itemName = item?.product?.name;
+
+  // Color mapping for transaction backgrounds
+  const bgColorMap = {
+    initial: 'bg-green-400/60',
+    restock: 'bg-yellow-100/60',
+    correction: 'bg-green-100/60',
+    status_change_IN: 'bg-blue-200/60',
+    status_change_OUT: 'bg-blue-200/60',
+  };
+
+  function getTransactionBg(transaction) {
+    if (!transaction) return 'bg-gray-50';
+    const { reasonType, movement } = transaction;
+    if (reasonType === 'status_change') {
+      return bgColorMap[`status_change_${movement}`] || 'bg-gray-50';
+    }
+    return bgColorMap[reasonType] || 'bg-gray-50';
+  }
+
+  /* Loading state */
+  if (isLoading) {
+    return (
+      <div
+        id="overlay"
+        onClick={handleOverlayClick}
+        className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md"
+      >
+        <div
+          className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white p-8 text-center shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Spinner container */}
+          <div className="flex flex-col items-center justify-center gap-4">
+            {/* Spinner */}
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-blue-500"></div>
+
+            {/* Loading text */}
+            <h2 className="text-xl font-bold text-gray-900">Cargando</h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   /* No history */
   if (!history || history.length === 0) {
@@ -90,21 +135,7 @@ export default function TransactionHistoryModal({ onClose, history, item }) {
           {history?.map((transaction) => (
             <div
               key={transaction?._id}
-              className={`rounded-2xl border border-gray-200 p-4 shadow-sm transition-all hover:shadow-md ${
-                transaction?.reasonType === 'restock'
-                  ? 'bg-yellow-100/60'
-                  : transaction?.reasonType === 'correction'
-                    ? 'bg-green-100/60'
-                    : transaction?.reasonType === 'initial'
-                      ? 'bg-green-400/60'
-                      : transaction?.reasonType === 'status_change' &&
-                          transaction?.movement === 'IN'
-                        ? 'bg-blue-200/60'
-                        : transaction?.reasonType === 'status_change' &&
-                            transaction?.movement === 'OUT'
-                          ? 'bg-blue-200/60'
-                          : 'bg-gray-50'
-              }`}
+              className={`rounded-2xl border border-gray-200 p-4 shadow-sm transition-all hover:shadow-md ${getTransactionBg(transaction)}`}
             >
               {/* BLOCK: INITIAL STOCK */}
               {transaction?.reasonType === 'initial' && (

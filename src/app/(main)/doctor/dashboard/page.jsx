@@ -7,9 +7,10 @@ export default async function DoctorDashboardPage() {
   // Get current User info
   const currentUser = await getCurrentUser();
   const role = currentUser?.role;
+  const specialty = currentUser?.specialty;
   return (
     <div className="h-screen overflow-hidden pb-40">
-      <DoctorDashboard currentUser={currentUser} />
+      <DoctorDashboard currentUser={currentUser} role={role} specialty={specialty} />
     </div>
   );
 }
