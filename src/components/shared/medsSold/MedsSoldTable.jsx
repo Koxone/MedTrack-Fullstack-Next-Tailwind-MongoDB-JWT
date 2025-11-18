@@ -8,7 +8,6 @@ import AddEditMedicationSellModal from './addEditMedicationSaleModal/AddEditMedi
 
 export default function MedsSoldTable({ consultsData }) {
   const [medSold, setMedsSold] = useState([]);
-  console.log(medSold);
 
   useEffect(() => {
     if (!consultsData) return;

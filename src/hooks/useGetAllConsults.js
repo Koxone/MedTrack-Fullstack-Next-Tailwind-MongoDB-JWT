@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
-export function useGetAllConsults() {
+export function useGetAllConsults({ speciality = null } = {}) {
   const [consults, setConsults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,5 +28,10 @@ export function useGetAllConsults() {
     fetchConsults();
   }, []);
 
-  return { consults, isLoading, error, setConsults };
+  const filteredConsults = useMemo(() => {
+    if (!speciality) return consults;
+    return consults.filter((c) => c.speciality === speciality);
+  }, [consults, speciality]);
+
+  return { consults: filteredConsults, isLoading, error, setConsults };
 }

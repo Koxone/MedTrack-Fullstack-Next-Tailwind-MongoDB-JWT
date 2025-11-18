@@ -24,8 +24,7 @@ const ingresosSemanales = [
 
 export default function DoctorAccounting({ role }) {
   // Get consults data
-  const { consults, isLoading, isError } = useGetAllConsults();
-  console.log(consults);
+  const { consults, isLoading, isError } = useGetAllConsults({ speciality: role });
 
   // Calculate totals
   const totals = getConsultTotals(consults);
@@ -37,9 +36,9 @@ export default function DoctorAccounting({ role }) {
     0
   );
   const metrics = {
-    grandTotal: totalCost,
-    consultsTotal: totalConsultsCost,
-    medsTotal: totalItemsSold,
+    grandTotal: totalCost || 0,
+    consultsTotal: totalConsultsCost || 0,
+    medsTotal: totalItemsSold || 0,
   };
 
   /* Derived */
@@ -65,7 +64,7 @@ export default function DoctorAccounting({ role }) {
         totalMedicamentos={metrics?.medsTotal || 0}
         consultasCount={consults.length}
         medsCount={quantityItemsSold}
-        promedio={(metrics?.grandTotal / consults.length).toFixed(2)}
+        promedio={consults.length > 0 ? (metrics.grandTotal / consults.length).toFixed(2) : 0}
       />
 
       {/* Charts */}
