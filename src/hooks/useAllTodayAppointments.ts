@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { AuthUser } from '@/zustand/useAuthStore';
 
 interface ParsedDescription {
   paciente?: string;
@@ -26,7 +27,7 @@ interface CalendarEvent {
 
 interface NormalizedAppointment {
   id: string;
-  specialty: 'weight' | 'dental';
+  specialty: AuthUser['specialty'];
   tipo: string;
   hora: string;
   paciente: string;
@@ -84,7 +85,7 @@ function dateKey(dateISO?: string | null): string {
 /* --- Normalizador --- */
 function normalizeEvents(
   items: CalendarEvent[],
-  specialty: 'weight' | 'dental'
+  specialty: AuthUser['specialty']
 ): NormalizedAppointment[] {
   return (items || []).map((ev: CalendarEvent) => {
     const fields = parseDescription(ev.description || '');

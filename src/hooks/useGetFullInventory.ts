@@ -1,6 +1,7 @@
 'use client';
 import useAuthStore from '@/zustand/useAuthStore';
 import { useState, useEffect, useMemo } from 'react';
+import { AuthUser } from '@/zustand/useAuthStore';
 
 /* --- Types --- */
 interface Product {
@@ -12,7 +13,7 @@ interface Product {
   costPrice: number;
   salePrice: number;
   createdAt: string;
-  specialty: string;
+  specialty: AuthUser['specialty'];
   updatedAt: string;
 }
 
