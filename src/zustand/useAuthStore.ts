@@ -8,7 +8,7 @@ interface AuthUser {
   email: string;
   role: string;
   avatar?: string;
-  speciality?: string;
+  specialty?: string;
 }
 
 /* Store shape */
