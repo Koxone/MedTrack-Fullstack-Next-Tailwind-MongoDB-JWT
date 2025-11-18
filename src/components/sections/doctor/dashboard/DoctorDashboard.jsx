@@ -34,7 +34,7 @@ export default function DoctorDashboard({ currentUser, role, specialty }) {
 
       {/* Summaries */}
       <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
-        <DoctorAccountingSummary />
+        <DoctorAccountingSummary role={role} />
         <SharedInventoryAlerts inventory={inventory} role={currentUser?.role} />
       </div>
     </DashboardLayout>

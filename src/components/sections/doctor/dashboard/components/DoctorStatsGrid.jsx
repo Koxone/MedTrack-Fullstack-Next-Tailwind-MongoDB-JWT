@@ -50,6 +50,7 @@ export default function DoctorStatsGrid({ role, specialty }) {
           extraData: 'Hoy',
           title: 'Venta de Medicamentos',
           variant: 'purple',
+          href: '/doctor/inventory',
         },
         {
           Icon: AlertTriangle,

@@ -21,6 +21,12 @@ button {
   --color-medtrack-blue-light: #bbd3fa;
   --color-medtrack-blue-light-hover: #a3c0f5;
 
+  /* Red */
+  --color-medtrack-red-solid: #da6767;
+  --color-medtrack-red-hover: #cc5151;
+  --color-medtrack-red-light: #fabbba;
+  --color-medtrack-red-light-hover: #f5a3a3;
+
   --color-asana-beige: #efe1d5;
   --color-asana-blue: #2563eb;
 

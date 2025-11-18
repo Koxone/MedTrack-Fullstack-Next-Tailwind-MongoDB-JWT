@@ -11,17 +11,6 @@ import TodayConsultsList from '@/components/shared/todayConsults/TodayConsultsLi
 import { useGetAllConsults } from '@/hooks/useGetAllConsults';
 import { getConsultTotals } from '../../employee/consultations/utils/getConsultTotals';
 
-/* Demo data */
-const ingresosSemanales = [
-  { dia: 'Lun', consultas: 3200, medicamentos: 450 },
-  { dia: 'Mar', consultas: 2800, medicamentos: 380 },
-  { dia: 'Mié', consultas: 3600, medicamentos: 520 },
-  { dia: 'Jue', consultas: 3000, medicamentos: 410 },
-  { dia: 'Vie', consultas: 3800, medicamentos: 940 },
-  { dia: 'Sáb', consultas: 2400, medicamentos: 320 },
-  { dia: 'Dom', consultas: 0, medicamentos: 0 },
-];
-
 export default function DoctorAccounting({ role, specialty }) {
   // Get consults data
   const { consults, isLoading, isError } = useGetAllConsults({ speciality: specialty });

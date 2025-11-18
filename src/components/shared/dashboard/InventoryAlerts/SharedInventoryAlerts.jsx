@@ -15,7 +15,7 @@ export default function SharedInventoryAlerts({ role, inventory = [], showButton
   return (
     <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
       {/* Header section */}
-      <div className="from-medtrack-green-dark to-medtrack-green-solid relative overflow-hidden bg-linear-to-r px-6 py-5">
+      <div className="bg-medtrack-red-solid relative overflow-hidden px-6 py-5">
         <div className="absolute top-0 right-0 -mt-16 -mr-16 h-32 w-32 animate-pulse rounded-full bg-white/10" />
         <div className="absolute bottom-0 left-0 -mb-12 -ml-12 h-24 w-24 rounded-full bg-white/10" />
 
