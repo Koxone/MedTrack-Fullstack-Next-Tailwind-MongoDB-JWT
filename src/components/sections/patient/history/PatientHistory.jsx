@@ -9,7 +9,7 @@ import RecordsTable from '../history/components/RecordsTable';
 import RecordsMobileList from '../history/components/RecordsMobileList';
 import EmptyState from '../history/components/EmptyState';
 import AddRecordModal from '../history/components/AddRecordModal';
-import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
+import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
 
 /* Mock data */
 const mockUser = { id: 'user_12345' };

@@ -6,7 +6,7 @@ import MetricsGrid from './components/MetricsGrid';
 import WeeklyIncomeChart from './components/WeeklyIncomeChart';
 import DistributionCard from './components/DistributionCard';
 import MedsSoldTable from '../../../shared/medsSold/MedsSoldTable';
-import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
+import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
 import TodayConsultsList from '@/components/shared/todayConsults/TodayConsultsList';
 import { useGetAllConsults } from '@/hooks/consults/useGetAllConsults';
 import { getConsultTotals } from '../../employee/consultations/utils/getConsultTotals';

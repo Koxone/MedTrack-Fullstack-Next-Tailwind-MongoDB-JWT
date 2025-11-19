@@ -1,4 +1,4 @@
-import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
+import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
 import DoctorPatientsList from './components/DoctorPatientsList';
 import { UserData } from '@/lib/auth/getCurrentUser';
 

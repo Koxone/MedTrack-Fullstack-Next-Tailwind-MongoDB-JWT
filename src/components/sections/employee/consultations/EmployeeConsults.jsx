@@ -1,7 +1,7 @@
 'use client';
 
 import MetricsGrid from './components/MetricsGrid';
-import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
+import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
 import TodayConsultsList from '@/components/shared/todayConsults/TodayConsultsList';
 import MedsSoldTable from '../../../shared/medsSold/MedsSoldTable';
 import { useGetAllConsults } from '@/hooks/consults/useGetAllConsults';
