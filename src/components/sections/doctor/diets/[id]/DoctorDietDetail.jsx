@@ -23,8 +23,14 @@ import GoBackButton from '@/components/shared/diets/[id]/components/GoBackButton
 import DietImage from './components/sections/DietImage';
 
 export default function DoctorDietDetail({ params, role, specialty }) {
-  const { id } = params;
+  // Local states to refresh UI
+  const [refreshToggle, setRefreshToggle] = useState(false);
 
+  useEffect(() => {
+    console.log(refreshToggle);
+  }, [refreshToggle]);
+
+  const { id } = params;
   const { dietsData, isLoading, error } = useGetAllDiets();
   const diet = dietsData.find((d) => d._id === id);
 
@@ -91,7 +97,7 @@ export default function DoctorDietDetail({ params, role, specialty }) {
           </div>
 
           {/* Select Patient to assign the diet */}
-          <AssignDiet specialty={specialty} />
+          <AssignDiet specialty={specialty} dietId={id} />
 
           {/* Patients assigned to this diet */}
           <PatientsAssignedViewer patients={diet.patients} />

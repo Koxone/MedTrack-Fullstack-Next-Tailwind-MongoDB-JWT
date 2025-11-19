@@ -1,5 +1,3 @@
-/* Block comment: Compact Patients Assigned Component */
-
 'use client';
 
 import { useState } from 'react';
@@ -7,12 +5,12 @@ import { Users, ChevronRight, X, Clock, CheckCircle } from 'lucide-react';
 import PatientsAssignedModal from './PatientsAssignedModal';
 
 export default function PatientsAssignedCompact({ patients }) {
-  /* Block comment: Internal state */
+  // Internal state
   const [open, setOpen] = useState(false);
   const list = patients || [];
 
-  /* Block comment: First three patients */
-  const preview = list.slice(0, 3);
+  // Control how many patients to show in preview
+  const preview = list.slice(0, 2);
 
   return (
     <>

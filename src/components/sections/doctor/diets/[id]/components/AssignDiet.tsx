@@ -1,15 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Check } from 'lucide-react';
 import { useGetAllPatients } from '@/hooks/patients/useGetAllPatients';
+import { useAssignDiet } from '../hooks/useAssignDiet';
 
-export default function AssignDiet({ specialty }: { specialty: string }) {
+export default function AssignDiet({ specialty, dietId }: { specialty: string; dietId: string }) {
   // Fetch patients
-  const { patients, isLoading, error, setPatients } = useGetAllPatients();
+  const { patients, isLoading, error } = useGetAllPatients();
   const [patientsData, setPatientsData] = useState(patients || []);
-
-  // Update local state when patients data changes
   useEffect(() => {
     if (patients && patients.length > 0) {
       const filteredPatients = patients.filter((patient) => patient.specialty.includes(specialty));
@@ -17,24 +16,50 @@ export default function AssignDiet({ specialty }: { specialty: string }) {
     }
   }, [patients, specialty]);
 
-  /* State: Dropdown control */
+  // Dropdown control
   const [open, setOpen] = useState(false);
 
   // Selected patients
   const [selected, setSelected] = useState<string[]>([]);
 
-  // Toggle patient selection
+  // Success notification state
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // Toggle selection
   const togglePatient = (id: string) => {
     setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   };
 
+  // Hook to assign diet
+  const {
+    editPatients: assignDietToPatients,
+    isLoading: assigning,
+    error: assignError,
+  } = useAssignDiet();
+
+  const handleAssign = async () => {
+    if (selected.length === 0) return;
+    const patientsPayload = selected.map((id) => ({ patient: id }));
+    try {
+      const updatedDiet = await assignDietToPatients(dietId, patientsPayload);
+      console.log('Diet updated:', updatedDiet);
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 3000);
+      setSelected([]);
+      setOpen(false);
+    } catch (err) {
+      console.error('Error assigning diet:', err);
+    }
+  };
+
   return (
     <div className="flex flex-col rounded-lg border border-gray-400 bg-white p-4">
-      {/* Label */}
       <label className="mb-2 text-xs font-semibold tracking-wide text-gray-500 uppercase">
         Asignar dieta a pacientes{' '}
         <span className="text-[10px] normal-case">
-          (Esta funcion solo es visible para Doctores)
+          (Esta función solo es visible para Doctores)
         </span>
       </label>
 
@@ -54,7 +79,6 @@ export default function AssignDiet({ specialty }: { specialty: string }) {
       {/* Dropdown panel */}
       {open && (
         <div className="mt-2 max-h-56 w-full overflow-y-auto rounded-lg border border-gray-400 bg-white shadow-md">
-          {/* Block comment: Search input */}
           <div className="sticky top-0 bg-white p-2 shadow-sm">
             <input
               type="text"
@@ -63,7 +87,6 @@ export default function AssignDiet({ specialty }: { specialty: string }) {
             />
           </div>
 
-          {/* List */}
           <ul className="divide-y divide-gray-100">
             {patientsData.map((patient) => (
               <li
@@ -84,8 +107,27 @@ export default function AssignDiet({ specialty }: { specialty: string }) {
         </div>
       )}
 
+      {/* Assign button */}
+      <button
+        onClick={handleAssign}
+        disabled={assigning || selected.length === 0}
+        className="mt-2 rounded-md bg-blue-600 px-3 py-2 text-sm text-white disabled:opacity-50"
+      >
+        {assigning ? 'Asignando...' : 'Asignar dieta'}
+      </button>
+
+      {/* Success notification */}
+      {showSuccess && (
+        <div className="mt-2 flex items-center gap-2 rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
+          <Check className="h-4 w-4" />
+          <span>Dieta asignada correctamente a los pacientes seleccionados</span>
+        </div>
+      )}
+
       {/* Info */}
       <p className="mt-2 text-xs text-gray-500">Selecciona uno o varios pacientes del listado.</p>
+
+      {assignError && <p className="mt-1 text-xs text-red-500">{assignError}</p>}
     </div>
   );
 }
