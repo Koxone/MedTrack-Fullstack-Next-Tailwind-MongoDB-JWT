@@ -113,7 +113,7 @@ export default function AssignDiet({
                   type="checkbox"
                   checked={selected.includes(patient._id)}
                   onChange={() => togglePatient(patient._id)}
-                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="text-medtrack-blue-solid focus:ring-medtrack-blue-solid h-4 w-4 rounded border-gray-300"
                 />
                 <span className="text-sm text-gray-700">{patient.fullName}</span>
               </li>
@@ -126,7 +126,7 @@ export default function AssignDiet({
       <button
         onClick={handleAssign}
         disabled={assigning || selected.length === 0}
-        className="mt-2 rounded-md bg-blue-600 px-3 py-2 text-sm text-white disabled:opacity-50"
+        className="bg-medtrack-blue-solid hover:bg-medtrack-blue-hover mt-2 rounded-md px-3 py-2 text-sm text-white disabled:opacity-50"
       >
         {assigning ? 'Asignando...' : 'Asignar dieta'}
       </button>
