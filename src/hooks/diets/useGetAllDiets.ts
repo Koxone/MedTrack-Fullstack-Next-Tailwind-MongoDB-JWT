@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import { ZDiet, dietSchema } from '@/zod/diets/diet.schema';
-import { z } from 'zod';
+import { useEffect, useState, useCallback } from 'react';
+import { ZDiet } from '@/zod/diets/diet.schema';
 import { dietsResponseSchema } from '@/zod/diets/api.diets.schema';
 
 export function useGetAllDiets() {
@@ -8,28 +7,29 @@ export function useGetAllDiets() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchDiets() {
-      try {
-        const res = await fetch('/api/diets');
-        if (!res.ok) {
-          throw new Error('Failed to fetch diets');
-        }
+  // Fetch function
+  const fetchDiets = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/diets');
+      if (!res.ok) throw new Error('Failed to fetch diets');
 
-        const json = await res.json();
+      const json = await res.json();
+      const data = dietsResponseSchema.parse(json);
 
-        const data = dietsResponseSchema.parse(json);
-        setDietsData(data.diets);
-        setIsLoading(false);
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error.message);
-        }
-      }
+      setDietsData(data.diets);
+    } catch (err) {
+      if (err instanceof Error) setError(err.message);
+    } finally {
+      setIsLoading(false);
     }
-
-    fetchDiets();
   }, []);
 
-  return { dietsData, isLoading, error };
+  // Initial fetch
+  useEffect(() => {
+    fetchDiets();
+  }, [fetchDiets]);
+
+  return { dietsData, isLoading, error, refetch: fetchDiets };
 }

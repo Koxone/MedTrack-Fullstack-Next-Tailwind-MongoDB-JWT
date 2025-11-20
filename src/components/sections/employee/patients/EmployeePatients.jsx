@@ -1,6 +1,6 @@
 'use client';
 
-import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
+import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
 import EmployeePatientsList from './components/EmployeePatientsList';
 import PatientsSearchBar from '@/components/shared/patients/PatientsSearchBar';
 import React, { useEffect, useState } from 'react';

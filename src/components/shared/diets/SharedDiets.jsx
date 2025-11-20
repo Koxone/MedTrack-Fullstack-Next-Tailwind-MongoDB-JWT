@@ -3,7 +3,7 @@
 import SharedDietCard from './components/dietCard/SharedDietCard';
 import Link from 'next/link';
 export const runtime = 'nodejs';
-import SharedSectionHeader from '../sections/SharedSectionHeader';
+import SharedSectionHeader from '../headers/SharedSectionHeader';
 import { useGetAllDiets } from '@/hooks/diets/useGetAllDiets';
 
 export default function SharedDiets({ role }) {

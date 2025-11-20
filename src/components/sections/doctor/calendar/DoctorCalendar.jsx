@@ -18,7 +18,7 @@ import { useEffect, useMemo, useState } from 'react';
 import StatsGrid from './components/StatsGrid';
 import AppointmentsCard from './components/AppointmentsCard';
 import DoctorCalendarCard from './components/DoctorCalendarCard';
-import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
+import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
 
 const getDaysInMonth = (date) => {
   const year = date.getFullYear();

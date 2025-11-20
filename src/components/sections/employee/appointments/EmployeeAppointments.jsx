@@ -5,7 +5,7 @@ import ControlsBar from './components/ControlsBar';
 import AppointmentCard from './components/AppointmentCard';
 import EmployeeCreateAppointmentModal from './components/EmployeeCreateAppointmentModal';
 import EmptyState from './components/EmptyState';
-import SharedSectionHeader from '@/components/shared/sections/SharedSectionHeader';
+import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
 import { useAllAppointments } from '@/hooks/appointments/useAllAppointments';
 import { useCreateAppointment } from '@/hooks/appointments/useCreateAppointment';
 
