@@ -1,37 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { XCircle, Plus, Trash2 } from 'lucide-react';
 
-export default function ForbiddenLiquids({ diet, isEditing = false, onChange }) {
-  // State setup
+export default function ForbiddenLiquids({ diet, isEditing = false, editDiet }) {
   const [items, setItems] = useState(diet.forbiddenLiquids.items || []);
   const [note, setNote] = useState(diet.forbiddenLiquids.note || '');
   const [newItem, setNewItem] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Item add
+  useEffect(() => {
+    setItems(diet.forbiddenLiquids.items || []);
+    setNote(diet.forbiddenLiquids.note || '');
+  }, [diet.forbiddenLiquids]);
+
   const handleAdd = () => {
     if (!newItem.trim()) return;
-    const updated = [...items, newItem.trim()];
-    setItems(updated);
+    setItems([...items, newItem.trim()]);
     setNewItem('');
-    onChange({ items: updated, note });
   };
 
-  // Item delete
-  const handleDelete = (i) => {
-    const updated = items.filter((_, idx) => idx !== i);
-    setItems(updated);
-    onChange({ items: updated, note });
-  };
+  const handleDelete = (index) => setItems(items.filter((_, i) => i !== index));
 
-  // Note update
-  const handleNoteChange = (e) => {
-    const updated = e.target.value;
-    setNote(updated);
-    onChange({ items, note: updated });
+  const handleSave = async () => {
+    setIsSaving(true);
+    setError(null);
+    try {
+      await editDiet(diet._id, { forbiddenLiquids: { items, note } });
+    } catch (err) {
+      setError(err.message || 'Error al guardar');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
-    <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md md:p-4">
+    <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md md:p-4">
       {/* Header */}
       <div className="mb-4 flex items-center gap-3">
         <div className="rounded-lg bg-red-100 p-2">
@@ -44,9 +47,9 @@ export default function ForbiddenLiquids({ diet, isEditing = false, onChange }) 
         <>
           {/* Read items */}
           <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {items.map((i) => (
+            {items.map((i, idx) => (
               <div
-                key={i}
+                key={idx}
                 className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-3"
               >
                 <XCircle className="mt-1 h-4 w-4 shrink-0 text-red-600" />
@@ -88,12 +91,7 @@ export default function ForbiddenLiquids({ diet, isEditing = false, onChange }) 
             ))}
           </div>
 
-          {/* New item label */}
-          <label className="mb-1 block text-sm font-medium text-gray-700">
-            Agregar líquido prohibido
-          </label>
-
-          {/* New item */}
+          {/* New item input */}
           <div className="mb-4 flex gap-2">
             <input
               type="text"
@@ -111,17 +109,27 @@ export default function ForbiddenLiquids({ diet, isEditing = false, onChange }) 
             </button>
           </div>
 
-          {/* Note label */}
+          {/* Note input */}
           <label className="mb-1 block text-sm font-medium text-gray-700">Nota opcional</label>
-
-          {/* Edit note */}
           <textarea
             value={note}
-            onChange={handleNoteChange}
+            onChange={(e) => setNote(e.target.value)}
             placeholder="Detalles o excepciones sobre líquidos prohibidos"
             className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm"
             rows={3}
           />
+
+          {/* Save button */}
+          <div className="mt-3 flex items-center gap-3">
+            <button
+              onClick={handleSave}
+              disabled={isSaving}
+              className="rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700 disabled:opacity-50"
+            >
+              {isSaving ? 'Guardando...' : 'Guardar'}
+            </button>
+            {error && <p className="text-xs text-red-500">{error}</p>}
+          </div>
         </>
       )}
     </section>

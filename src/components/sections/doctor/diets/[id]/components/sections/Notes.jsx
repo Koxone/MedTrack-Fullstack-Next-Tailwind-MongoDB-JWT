@@ -1,9 +1,28 @@
 import { AlertCircle } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function Notes({ diet, isEditing }) {
+function Notes({ diet, isEditing, editDiet }) {
   const [notes, setNotes] = useState(diet.notes || '');
+  const [noteValue, setNoteValue] = useState(diet.description || '');
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    setNoteValue(diet.notes || '');
+  }, [diet.notes]);
+
+  const handleSave = async () => {
+    setIsSaving(true);
+    setError(null);
+
+    try {
+      await editDiet(diet._id, { notes: noteValue });
+    } catch (err) {
+      setError(err.message || 'Error al guardar');
+    } finally {
+      setIsSaving(false);
+    }
+  };
   return (
     <section className="rounded-xl border-2 border-blue-200 bg-blue-50 p-6 md:p-4">
       {/* Header block */}
@@ -20,12 +39,25 @@ function Notes({ diet, isEditing }) {
       {/* Edit block */}
       {isEditing && (
         <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
+          value={noteValue}
+          onChange={(e) => setNoteValue(e.target.value)}
           placeholder="Escribe las notas del médico"
           className="w-full rounded-lg border border-blue-300 bg-white p-3 text-blue-900 focus:border-blue-600 focus:outline-none"
           rows={2}
         />
+      )}
+
+      {isEditing && (
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleSave}
+            disabled={isSaving}
+            className="bg-medtrack-green-secondary-solid hover:bg-medtrack-green-secondary-hover rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition-opacity disabled:opacity-50"
+          >
+            {isSaving ? 'Guardando...' : 'Guardar'}
+          </button>
+          {error && <p className="text-xs text-red-500">{error}</p>}
+        </div>
       )}
     </section>
   );

@@ -1,33 +1,38 @@
 import { CheckCircle, Plus, Trash2 } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function AllowedFoods({ diet, isEditing = false, onChange }) {
-  // state setup
+export default function AllowedFoods({ diet, isEditing = false, editDiet }) {
   const [items, setItems] = useState(diet.allowedFoods.items || []);
   const [note, setNote] = useState(diet.allowedFoods.note || '');
   const [newItem, setNewItem] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState(null);
 
-  // item add
+  // sync with diet changes
+  useEffect(() => {
+    setItems(diet.allowedFoods.items || []);
+    setNote(diet.allowedFoods.note || '');
+  }, [diet.allowedFoods]);
+
   const handleAdd = () => {
     if (!newItem.trim()) return;
     const updated = [...items, newItem.trim()];
     setItems(updated);
     setNewItem('');
-    onChange({ items: updated, note });
   };
 
-  // item delete
-  const handleDelete = (i) => {
-    const updated = items.filter((_, idx) => idx !== i);
-    setItems(updated);
-    onChange({ items: updated, note });
-  };
+  const handleDelete = (i) => setItems(items.filter((_, idx) => idx !== i));
 
-  // note update
-  const handleNoteChange = (e) => {
-    const updated = e.target.value;
-    setNote(updated);
-    onChange({ items, note: updated });
+  const handleSave = async () => {
+    setIsSaving(true);
+    setError(null);
+    try {
+      await editDiet(diet._id, { allowedFoods: { items, note } });
+    } catch (err) {
+      setError(err.message || 'Error al guardar');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -41,7 +46,6 @@ export default function AllowedFoods({ diet, isEditing = false, onChange }) {
 
       {!isEditing && (
         <>
-          {/* read items */}
           <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {items.map((i) => (
               <div
@@ -53,8 +57,6 @@ export default function AllowedFoods({ diet, isEditing = false, onChange }) {
               </div>
             ))}
           </div>
-
-          {/* read note */}
           {note && (
             <div className="rounded-lg border-l-2 border-gray-300 bg-gray-50 p-3">
               <p className="text-sm text-gray-600 italic">{note}</p>
@@ -65,7 +67,6 @@ export default function AllowedFoods({ diet, isEditing = false, onChange }) {
 
       {isEditing && (
         <>
-          {/* edit items */}
           <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {items.map((i, idx) => (
               <div
@@ -87,10 +88,6 @@ export default function AllowedFoods({ diet, isEditing = false, onChange }) {
             ))}
           </div>
 
-          {/* new item label */}
-          <label className="mb-1 block text-sm font-medium text-gray-700">Agregar alimento</label>
-
-          {/* new item */}
           <div className="mb-4 flex gap-2">
             <input
               type="text"
@@ -108,17 +105,25 @@ export default function AllowedFoods({ diet, isEditing = false, onChange }) {
             </button>
           </div>
 
-          {/* note label */}
           <label className="mb-1 block text-sm font-medium text-gray-700">Nota opcional</label>
-
-          {/* edit note */}
           <textarea
             value={note}
-            onChange={handleNoteChange}
+            onChange={(e) => setNote(e.target.value)}
             placeholder="Escribe una nota para esta sección"
             className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm"
             rows={3}
           />
+
+          <div className="mt-3 flex items-center gap-3">
+            <button
+              onClick={handleSave}
+              disabled={isSaving}
+              className="rounded-lg bg-green-600 px-4 py-2 text-white hover:bg-green-700 disabled:opacity-50"
+            >
+              {isSaving ? 'Guardando...' : 'Guardar'}
+            </button>
+            {error && <p className="text-xs text-red-500">{error}</p>}
+          </div>
         </>
       )}
     </section>
