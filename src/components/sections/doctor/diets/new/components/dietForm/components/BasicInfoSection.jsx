@@ -1,6 +1,6 @@
 import React from 'react';
 
-function BasicInfoSection() {
+function BasicInfoSection({ formData, setFormData }) {
   return (
     <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
       <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-gray-900">
@@ -20,6 +20,8 @@ function BasicInfoSection() {
               type="text"
               className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 transition-all focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
               placeholder="Ej: Plan Mediterráneo"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
             <p className="mt-1 text-xs text-gray-500">Nombre identificativo del plan</p>
           </div>
@@ -33,6 +35,8 @@ function BasicInfoSection() {
             <div className="relative">
               <input
                 type="text"
+                value={formData.duration}
+                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
                 className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 transition-all focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 placeholder="Ej: 30 días, 4 semanas"
               />
@@ -49,6 +53,8 @@ function BasicInfoSection() {
           </label>
           <input
             type="text"
+            value={formData.category}
+            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
             className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 transition-all focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
             placeholder="Ej: Pérdida de peso, Mantenimiento, Ganancia muscular"
           />

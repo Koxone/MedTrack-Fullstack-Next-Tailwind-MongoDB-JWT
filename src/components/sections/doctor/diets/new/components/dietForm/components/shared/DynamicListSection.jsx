@@ -1,8 +1,16 @@
 import { Plus, X } from 'lucide-react';
 import React, { useState } from 'react';
 
-function DynamicListSection({ title, Icon, variant = 'success', placeholder, optional = true }) {
-  // variant styles
+function DynamicListSection({
+  title,
+  Icon,
+  variant = 'success',
+  placeholder,
+  optional = true,
+  value,
+  onChange,
+}) {
+  // Variant styles
   const variantStyles = {
     success: {
       background: 'bg-medtrack-green-secondary-solid',
@@ -21,29 +29,48 @@ function DynamicListSection({ title, Icon, variant = 'success', placeholder, opt
     },
   };
 
-  // selected styles
   const styles = variantStyles[variant];
 
-  // local state
-  const [items, setItems] = useState([]);
+  // local state solo para input temporal
   const [inputValue, setInputValue] = useState('');
 
-  // add item
+  // Detect if value has items and note
+  const items = Array.isArray(value) ? value : value.items || [];
+  const note = !Array.isArray(value) && value.note !== undefined ? value.note : '';
+
+  // Agregar item
   const handleAdd = () => {
     if (!inputValue.trim()) return;
-    setItems([...items, inputValue.trim()]);
+    const newItems = [...items, inputValue.trim()];
     setInputValue('');
+    if (Array.isArray(value)) {
+      onChange({ target: { value: newItems } });
+    } else {
+      onChange({ target: { value: { ...value, items: newItems } } });
+    }
   };
 
-  // remove item
+  // Eliminar item
   const handleRemove = (index) => {
-    const filtered = items.filter((_, i) => i !== index);
-    setItems(filtered);
+    const newItems = items.filter((_, i) => i !== index);
+    if (Array.isArray(value)) {
+      onChange({ target: { value: newItems } });
+    } else {
+      onChange({ target: { value: { ...value, items: newItems } } });
+    }
+  };
+
+  // Actualizar nota
+  const handleNoteChange = (e) => {
+    const newNote = e.target.value;
+    if (!Array.isArray(value)) {
+      onChange({ target: { value: { ...value, note: newNote } } });
+    }
   };
 
   return (
     <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md md:p-4">
-      {/* header */}
+      {/* Header */}
       <div className="mb-4 flex items-center gap-3">
         <div className={`rounded-lg ${styles.background} p-2`}>
           <Icon className={`h-5 w-5 ${styles.text}`} />
@@ -53,7 +80,7 @@ function DynamicListSection({ title, Icon, variant = 'success', placeholder, opt
         {!optional && <span className="ml-1 text-xs text-gray-400">(Requerido)</span>}
       </div>
 
-      {/* items list */}
+      {/* Items list */}
       <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {items.map((item, index) => (
           <div
@@ -61,8 +88,6 @@ function DynamicListSection({ title, Icon, variant = 'success', placeholder, opt
             className="flex items-center justify-between rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm"
           >
             <span>{item}</span>
-
-            {/* remove button */}
             <button onClick={() => handleRemove(index)} className="rounded-lg bg-gray-200 p-1">
               <X className="h-4 w-4 text-gray-600" />
             </button>
@@ -70,7 +95,7 @@ function DynamicListSection({ title, Icon, variant = 'success', placeholder, opt
         ))}
       </div>
 
-      {/* add item input */}
+      {/* Add item input */}
       <div className="mb-4 flex gap-2">
         <input
           type="text"
@@ -88,15 +113,21 @@ function DynamicListSection({ title, Icon, variant = 'success', placeholder, opt
         </button>
       </div>
 
-      {/* note */}
-      <label className="mb-1 block text-sm font-medium text-gray-700">Nota opcional</label>
-      <textarea
-        placeholder="Escribe una nota para esta sección"
-        className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm"
-        rows={3}
-      />
+      {/* Note */}
+      {!Array.isArray(value) && (
+        <>
+          <label className="mb-1 block text-sm font-medium text-gray-700">Nota opcional</label>
+          <textarea
+            placeholder="Escribe una nota para esta sección"
+            className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm"
+            rows={3}
+            value={note}
+            onChange={handleNoteChange}
+          />
+        </>
+      )}
 
-      {/* save */}
+      {/* Save button */}
       <div className="mt-3 flex items-center gap-3">
         <button className={`rounded-lg ${styles.buttons} px-4 py-2 text-white`}>Guardar</button>
       </div>

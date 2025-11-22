@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BasicInfoSection from './components/BasicInfoSection';
 import ImagesSection from './components/ImagesSection';
 import { Check, FileText, CheckCircle, ShoppingBasket, Search, X } from 'lucide-react';
@@ -15,18 +15,30 @@ export default function DietForm() {
     description: '',
     benefits: '',
     instructions: '',
-    ingredients: [''],
-    allowedFoods: '',
-    allowedFoodsNote: '',
-    forbiddenFoods: '',
-    forbiddenFoodsNote: '',
-    allowedLiquids: '',
-    allowedLiquidsNote: '',
-    forbiddenLiquids: '',
-    forbiddenLiquidsNote: '',
+    ingredients: [],
+    allowedFoods: {
+      items: [],
+      note: '',
+    },
+    forbiddenFoods: {
+      items: [],
+      note: '',
+    },
+    allowedLiquids: {
+      items: [],
+      note: '',
+    },
+    forbiddenLiquids: {
+      items: [],
+      note: '',
+    },
     notes: '',
     images: [],
   });
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   return (
     <div className="min-h-full bg-linear-to-br from-gray-50 to-white">
@@ -42,7 +54,7 @@ export default function DietForm() {
         </div>
 
         {/* Basic info section */}
-        <BasicInfoSection formData={formData} />
+        <BasicInfoSection formData={formData} setFormData={setFormData} />
 
         {/* Description section */}
         <DinamicTextSection
@@ -50,6 +62,8 @@ export default function DietForm() {
           Icon={FileText}
           optional={false}
           placeholder="Escribe una descripción del plan nutricional"
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
         />
 
         {/* Benefits section */}
@@ -57,6 +71,8 @@ export default function DietForm() {
           title="Beneficios"
           Icon={CheckCircle}
           placeholder="Escribe los beneficios del plan nutricional"
+          value={formData.benefits}
+          onChange={(e) => setFormData({ ...formData, benefits: e.target.value })}
         />
 
         {/* Instructions section */}
@@ -64,6 +80,8 @@ export default function DietForm() {
           title="Instrucciones"
           Icon={Search}
           placeholder="Escribe las instrucciones del plan nutricional"
+          value={formData.instructions}
+          onChange={(e) => setFormData({ ...formData, instructions: e.target.value })}
         />
 
         {/* Ingredients - Optional */}
@@ -71,6 +89,8 @@ export default function DietForm() {
           title="Ingredientes"
           Icon={ShoppingBasket}
           variant="neutral"
+          value={formData.ingredients}
+          onChange={(e) => setFormData({ ...formData, ingredients: e.target.value })}
           placeholder="ej. Pollo, arroz, verduras, etc."
         />
 
@@ -79,6 +99,13 @@ export default function DietForm() {
           title="Alimentos Permitidos"
           Icon={CheckCircle}
           variant="success"
+          value={formData.allowedFoods.items}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              allowedFoods: { ...formData.allowedFoods, items: e.target.value },
+            })
+          }
           placeholder="ej. Pollo a la plancha, ensalada, etc."
         />
 
@@ -87,6 +114,13 @@ export default function DietForm() {
           title="Líquidos Permitidos"
           Icon={CheckCircle}
           variant="success"
+          value={formData.allowedLiquids.items}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              allowedLiquids: { ...formData.allowedLiquids, items: e.target.value },
+            })
+          }
           placeholder="ej. Agua, té, etc."
         />
 
@@ -95,6 +129,13 @@ export default function DietForm() {
           title="Alimentos Prohibidos"
           Icon={X}
           variant="warning"
+          value={formData.forbiddenFoods.items}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              forbiddenFoods: { ...formData.forbiddenFoods, items: e.target.value },
+            })
+          }
           placeholder="ej. Pollo frito, comida rápida, etc."
         />
 
@@ -103,6 +144,13 @@ export default function DietForm() {
           title="Líquidos Prohibidos"
           Icon={X}
           variant="warning"
+          value={formData.forbiddenLiquids.items}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              forbiddenLiquids: { ...formData.forbiddenLiquids, items: e.target.value },
+            })
+          }
           placeholder="ej. Refrescos, alcohol, etc."
         />
 
@@ -111,6 +159,8 @@ export default function DietForm() {
           title="Notas Médicas"
           Icon={FileText}
           placeholder="Agrega cualquier nota adicional relevante para el plan nutricional"
+          value={formData.notes}
+          onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
         />
 
         {/* Images - Optional */}
