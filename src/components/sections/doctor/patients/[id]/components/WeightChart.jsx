@@ -13,9 +13,8 @@ import {
 import { TrendingUp } from 'lucide-react';
 
 export default function WeightChart({ patientRecord }) {
-  // Transform patientRecord to chart data
   const formattedData = (patientRecord || [])
-    .filter((rec) => rec?.answers?.['7']) // Ensure there's a weight
+    .filter((rec) => rec?.answers?.['7'])
     .map((rec) => ({
       fecha: new Date(rec.createdAt).toLocaleDateString('es-MX'),
       peso: Number(rec.answers['7']),
@@ -28,7 +27,7 @@ export default function WeightChart({ patientRecord }) {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-500 to-cyan-500">
+          <div className="bg-medtrack-blue-solid flex h-12 w-12 items-center justify-center rounded-xl">
             <TrendingUp className="h-6 w-6 text-white" />
           </div>
           <div>
@@ -38,7 +37,7 @@ export default function WeightChart({ patientRecord }) {
         </div>
 
         <div className="rounded-full bg-blue-50 px-4 py-2">
-          <span className="text-sm font-semibold text-blue-700">{total} registros</span>
+          <span className="text-medtrack-blue-solid text-sm font-semibold">{total} registros</span>
         </div>
       </div>
 

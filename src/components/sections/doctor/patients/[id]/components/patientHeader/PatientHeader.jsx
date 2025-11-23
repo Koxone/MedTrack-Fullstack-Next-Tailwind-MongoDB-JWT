@@ -24,7 +24,7 @@ export default function PatientHeader({ patient, onClickNew, patientRecord }) {
   }
 
   return (
-    <div className="bg-asana-green relative overflow-hidden rounded-2xl p-8 shadow-xl">
+    <div className="bg-medtrack-green-solid relative overflow-hidden rounded-2xl p-8 shadow-xl">
       <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
       <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
 
