@@ -7,7 +7,6 @@ import SupplyForm from '../shared/SupplyForm';
 
 import { getGradient, getIcon } from './utils/helpers';
 import { editProduct } from './services/editProduct';
-import { useEffect } from 'react';
 import { useModalClose } from '@/hooks/useModalClose';
 
 export default function EditProductModal({ activeTab, item, onClose, onSubmit }) {
@@ -21,6 +20,8 @@ export default function EditProductModal({ activeTab, item, onClose, onSubmit })
         name: formData.name,
         category: formData.category,
         quantity: formData.quantity,
+        minStock: formData.minStock,
+        maxStock: formData.maxStock,
         costPrice: formData.costPrice,
         salePrice: formData.salePrice,
         reason: formData.reason,

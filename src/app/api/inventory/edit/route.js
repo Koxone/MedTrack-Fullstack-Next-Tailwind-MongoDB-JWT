@@ -16,7 +16,17 @@ export async function PATCH(req) {
 
     // Parse request body
     const body = await req.json();
-    const { inventoryId, name, category, quantity, costPrice, salePrice, reason } = body;
+    const {
+      inventoryId,
+      name,
+      category,
+      quantity,
+      costPrice,
+      salePrice,
+      reason,
+      minStock,
+      maxStock,
+    } = body;
 
     // Extract token from cookie or authorization header
     const cookieHeader = req.headers.get('cookie') || '';
@@ -64,7 +74,6 @@ export async function PATCH(req) {
 
     // Save previous values BEFORE editing
     const previousQuantity = inventoryItem.quantity;
-
     const oldCost = productItem.costPrice;
     const oldSale = productItem.salePrice;
 
@@ -92,10 +101,20 @@ export async function PATCH(req) {
       }
     }
 
+    // Update inventory fields
     if (quantity !== undefined) {
       inventoryItem.quantity = Number(quantity);
-      await inventoryItem.save();
     }
+
+    if (minStock !== undefined) {
+      inventoryItem.minStock = Number(minStock);
+    }
+
+    if (maxStock !== undefined) {
+      inventoryItem.maxStock = Number(maxStock);
+    }
+
+    await inventoryItem.save();
 
     // Detailed quantity change logging
     if (quantity !== undefined && movement !== 'NONE' && movement !== null) {
@@ -105,6 +124,7 @@ export async function PATCH(req) {
         inventory: inventoryItem._id,
         movement,
         reasonType: 'correction',
+        actionType: 'quantity-edit',
         performedBy: new mongoose.Types.ObjectId(userId),
 
         oldQuantity: previousQuantity,
@@ -150,6 +170,7 @@ export async function PATCH(req) {
         inventory: inventoryItem._id,
         movement: priceMovement,
         reasonType: 'correction',
+        actionType: 'price-edit',
         performedBy: new mongoose.Types.ObjectId(userId),
         reason: reason || 'Price update',
 
