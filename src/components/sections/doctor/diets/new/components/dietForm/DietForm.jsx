@@ -6,8 +6,10 @@ import ImagesSection from './components/ImagesSection';
 import { Check, FileText, CheckCircle, ShoppingBasket, Search, X } from 'lucide-react';
 import DinamicTextSection from './components/DinamicTextSection';
 import DynamicListSection from './components/shared/DynamicListSection';
+import { createDiet } from './services/createDiet';
 
 export default function DietForm() {
+  // States for form data
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -35,7 +37,6 @@ export default function DietForm() {
     notes: '',
     images: [],
   });
-
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -44,41 +45,32 @@ export default function DietForm() {
     setMessage('');
 
     try {
-      const response = await fetch('/api/diets/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setMessage(data.message || 'Error creando la dieta');
-      } else {
-        setMessage('Dieta creada correctamente');
-        // Reset form
-        setFormData({
-          name: '',
-          category: '',
-          duration: '',
-          description: '',
-          benefits: '',
-          instructions: '',
-          ingredients: [],
-          allowedFoods: { items: [], note: '' },
-          forbiddenFoods: { items: [], note: '' },
-          allowedLiquids: { items: [], note: '' },
-          forbiddenLiquids: { items: [], note: '' },
-          notes: '',
-          images: [],
-        });
-      }
+      const data = await createDiet(formData);
+      setMessage('Dieta creada correctamente');
+      resetForm();
     } catch (error) {
-      console.error('Error:', error);
-      setMessage('Error del servidor');
+      setMessage(error.message);
     } finally {
       setLoading(false);
     }
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      category: '',
+      duration: '',
+      description: '',
+      benefits: '',
+      instructions: '',
+      ingredients: [],
+      allowedFoods: { items: [], note: '' },
+      forbiddenFoods: { items: [], note: '' },
+      allowedLiquids: { items: [], note: '' },
+      forbiddenLiquids: { items: [], note: '' },
+      notes: '',
+      images: [],
+    });
   };
 
   return (
@@ -242,23 +234,7 @@ export default function DietForm() {
           {/* Cancel Button */}
           <button
             type="button"
-            onClick={() =>
-              setFormData({
-                name: '',
-                category: '',
-                duration: '',
-                description: '',
-                benefits: '',
-                instructions: '',
-                ingredients: [],
-                allowedFoods: { items: [], note: '' },
-                forbiddenFoods: { items: [], note: '' },
-                allowedLiquids: { items: [], note: '' },
-                forbiddenLiquids: { items: [], note: '' },
-                notes: '',
-                images: [],
-              })
-            }
+            onClick={resetForm}
             className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-gray-300 px-6 py-3 font-semibold text-gray-700 transition-all hover:bg-gray-50 active:scale-95"
           >
             Cancelar

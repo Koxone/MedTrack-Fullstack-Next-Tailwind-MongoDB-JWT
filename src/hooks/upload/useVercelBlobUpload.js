@@ -6,9 +6,9 @@ export function useVercelBlobUpload() {
 
   /**
    * uploadFile
-   * @param {File} file - file object from input
-   * @param {'avatars' | 'diets'} folder - folder name for the blob
-   * @returns {Promise<string>} - URL of the uploaded blob
+   * @param {File} file 
+   * @param {'avatars' | 'diets'} folder 
+   * @returns {Promise<string>}
    */
   const uploadFile = async (file, folder) => {
     if (!file) return null;
@@ -16,7 +16,6 @@ export function useVercelBlobUpload() {
     setError(null);
 
     try {
-      // Ensure filename is unique by prefixing folder and timestamp
       const timestamp = Date.now();
       const safeFilename = `${folder}/${timestamp}-${file.name}`;
 
@@ -34,7 +33,7 @@ export function useVercelBlobUpload() {
       }
 
       setLoading(false);
-      return data.url; 
+      return data.url;
     } catch (err) {
       setError(err.message);
       setLoading(false);
@@ -44,3 +43,28 @@ export function useVercelBlobUpload() {
 
   return { uploadFile, loading, error };
 }
+
+// How to use it
+// const [loading, setLoading] = useState(false);
+// const [error, setError] = useState(null);
+// const { uploadFile } = useVercelBlobUpload();
+
+// const handleAddImage = async (e) => {
+//   const file = e.target.files?.[0];
+//   if (!file) return;
+
+//   if (file.size > 5 * 1024 * 1024) {
+//     alert('El archivo excede el tamaño máximo de 5MB');
+//     return;
+//   }
+
+//   setLoading(true);
+//   setError(null);
+//   try {
+//     const url = await uploadFile(file, 'diets');
+//     if (url) setImages([...images, url]);
+//   } catch (err) {
+//     setError(err.message);
+//   }
+//   setLoading(false);
+// };
