@@ -93,7 +93,7 @@ export default function DietForm() {
           onChange={(e) =>
             setFormData({
               ...formData,
-              ingredients: e.target.value, 
+              ingredients: e.target.value,
             })
           }
           placeholder="ej. Pollo, arroz, verduras, etc."
@@ -181,7 +181,10 @@ export default function DietForm() {
         />
 
         {/* Images - Optional */}
-        <ImagesSection />
+        <ImagesSection
+          images={formData.images}
+          setImages={(newImages) => setFormData({ ...formData, images: newImages })}
+        />
 
         {/* Actions */}
         <div className="flex flex-col gap-4 pb-8 sm:flex-row">

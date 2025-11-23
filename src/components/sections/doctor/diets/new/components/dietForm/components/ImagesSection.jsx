@@ -1,23 +1,38 @@
-import { ImageIcon } from 'lucide-react';
+'use client';
+
+import { useVercelBlobUpload } from '@/hooks/upload/useVercelBlobUpload';
+import { ImageIcon, X } from 'lucide-react';
 import React, { useState } from 'react';
 
-function ImagesSection() {
-  const [images, setImages] = useState([]);
+function ImagesSection({ images, setImages }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { uploadFile } = useVercelBlobUpload();
 
-  const handleAddImage = (e) => {
+  const handleAddImage = async (e) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setImages([...images, event.target?.result]);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert('El archivo excede el tamaño máximo de 5MB');
+      return;
     }
+
+    setLoading(true);
+    setError(null);
+    try {
+      const url = await uploadFile(file, 'diets');
+      if (url) setImages([...images, url]);
+    } catch (err) {
+      setError(err.message);
+    }
+    setLoading(false);
   };
 
   const handleRemoveImage = (index) => {
     setImages(images.filter((_, i) => i !== index));
   };
+
   return (
     <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
       <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-gray-900">
@@ -42,7 +57,9 @@ function ImagesSection() {
           </label>
         </div>
 
-        {/* Images preview */}
+        {loading && <p className="text-sm text-gray-500">Subiendo imagen...</p>}
+        {error && <p className="text-sm text-red-500">{error}</p>}
+
         {images.length > 0 && (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
             {images.map((image, index) => (
