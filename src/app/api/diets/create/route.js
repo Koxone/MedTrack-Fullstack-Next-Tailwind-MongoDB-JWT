@@ -46,18 +46,19 @@ export async function POST(req) {
       isActive,
       notes,
     } = await req.json();
-    if (!patients || !name) {
+    if (!name) {
       return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
     }
 
     // Create new diet
     const newDiet = await Diet.create({
       doctor: new mongoose.Types.ObjectId(userId),
-      patients: patients.map((id) => ({
-        patient: new mongoose.Types.ObjectId(id),
-        isActive: true, 
-        assignedAt: new Date(), 
-      })),
+      patients:
+        patients?.map((id) => ({
+          patient: new mongoose.Types.ObjectId(id),
+          isActive: true,
+          assignedAt: new Date(),
+        })) || [],
       description,
       images,
       name,

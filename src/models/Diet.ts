@@ -49,7 +49,7 @@ const DietSchema = new Schema<IDiet>(
 
     patients: [
       {
-        patient: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+        patient: { type: Schema.Types.ObjectId, ref: 'User' },
         isActive: { type: Boolean, default: true },
         assignedAt: { type: Date, default: Date.now },
         finishedAt: { type: Date },

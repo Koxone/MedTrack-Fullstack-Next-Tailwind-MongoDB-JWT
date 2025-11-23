@@ -36,9 +36,50 @@ export default function DietForm() {
     images: [],
   });
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setMessage('');
+
+    try {
+      const response = await fetch('/api/diets/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMessage(data.message || 'Error creando la dieta');
+      } else {
+        setMessage('Dieta creada correctamente');
+        // Reset form
+        setFormData({
+          name: '',
+          category: '',
+          duration: '',
+          description: '',
+          benefits: '',
+          instructions: '',
+          ingredients: [],
+          allowedFoods: { items: [], note: '' },
+          forbiddenFoods: { items: [], note: '' },
+          allowedLiquids: { items: [], note: '' },
+          forbiddenLiquids: { items: [], note: '' },
+          notes: '',
+          images: [],
+        });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMessage('Error del servidor');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-full bg-linear-to-br from-gray-50 to-white">
@@ -190,13 +231,34 @@ export default function DietForm() {
         <div className="flex flex-col gap-4 pb-8 sm:flex-row">
           <button
             type="button"
-            className="bg-medtrack-blue-solid hover:bg-medtrack-blue-hover flex flex-1 items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+            onClick={handleSubmit}
+            disabled={loading}
+            className="bg-medtrack-blue-solid hover:bg-medtrack-blue-hover flex flex-1 items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold text-white shadow-md transition-all hover:shadow-lg active:scale-95 disabled:opacity-50"
           >
             <Check className="h-5 w-5" />
-            Crear Plan Dietético
+            {loading ? 'Creando...' : 'Crear Plan Dietético'}
           </button>
+
+          {/* Cancel Button */}
           <button
             type="button"
+            onClick={() =>
+              setFormData({
+                name: '',
+                category: '',
+                duration: '',
+                description: '',
+                benefits: '',
+                instructions: '',
+                ingredients: [],
+                allowedFoods: { items: [], note: '' },
+                forbiddenFoods: { items: [], note: '' },
+                allowedLiquids: { items: [], note: '' },
+                forbiddenLiquids: { items: [], note: '' },
+                notes: '',
+                images: [],
+              })
+            }
             className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-gray-300 px-6 py-3 font-semibold text-gray-700 transition-all hover:bg-gray-50 active:scale-95"
           >
             Cancelar

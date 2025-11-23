@@ -134,11 +134,6 @@ function DynamicListSection({
           />
         </>
       )}
-
-      {/* Save button */}
-      <div className="mt-3 flex items-center gap-3">
-        <button className={`rounded-lg ${styles.buttons} px-4 py-2 text-white`}>Guardar</button>
-      </div>
     </section>
   );
 }
