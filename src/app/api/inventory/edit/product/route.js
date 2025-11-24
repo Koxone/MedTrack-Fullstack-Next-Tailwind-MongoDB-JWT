@@ -86,7 +86,7 @@ export async function PATCH(req) {
       movement: 'PRODUCT_UPDATE',
       reasonType: 'correction',
       performedBy: new mongoose.Types.ObjectId(userId),
-      reason: reason || 'Product field update',
+      reason: reason || 'Correccion de producto',
     };
 
     // Check if price fields have changed

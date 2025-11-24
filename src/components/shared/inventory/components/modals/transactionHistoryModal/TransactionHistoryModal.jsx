@@ -10,9 +10,12 @@ import QuantityBlock from './components/QuantityBlock';
 import StatusOnBlock from './components/StatusOnBlock';
 import StatusOffBlock from './components/StatusOffBlock';
 import InitialStockBlock from './components/InitialStockBlock';
+import NameBlock from './components/NameBlock';
+import CategoryBlock from './components/CategoryBlock';
 
 export default function TransactionHistoryModal({ onClose, history, item, isLoading }) {
   const { handleOverlayClick } = useModalClose(onClose);
+  console.log(history);
 
   const itemName = item?.product?.name;
 
@@ -143,17 +146,31 @@ export default function TransactionHistoryModal({ onClose, history, item, isLoad
               )}
 
               {/* BLOCK: RESTOCK */}
-              {transaction?.reasonType === 'restock' && <RestockBlock transaction={transaction} />}
+              {/* {transaction?.reasonType === 'restock' && <RestockBlock transaction={transaction} />} */}
+
+              {/* BLOCK: PRODUCT UPDATE: NAME */}
+              {transaction?.reasonType === 'correction' &&
+                transaction?.changedFields?.includes('name') && (
+                  <NameBlock transaction={transaction} />
+                )}
+
+              {/* BLOCK: PRODUCT UPDATE: CATEGORY */}
+              {transaction?.reasonType === 'correction' &&
+                transaction?.changedFields?.includes('category') && (
+                  <CategoryBlock transaction={transaction} />
+                )}
 
               {/* BLOCK: QUANTITY CORRECTION */}
-              {transaction?.reasonType === 'correction' && !transaction?.priceField && (
+              {/* {transaction?.reasonType === 'correction' && !transaction?.priceField && (
                 <QuantityBlock transaction={transaction} />
-              )}
+              )} */}
 
               {/* BLOCK: PRICE CORRECTION */}
-              {transaction?.reasonType === 'correction' && transaction?.priceField && (
-                <PriceBlock transaction={transaction} />
-              )}
+              {transaction?.reasonType === 'correction' &&
+                (transaction?.changedFields?.includes('costPrice') ||
+                  transaction?.changedFields?.includes('salePrice')) && (
+                  <PriceBlock transaction={transaction} />
+                )}
 
               {/* BLOCK: STATUS ON */}
               {transaction?.reasonType === 'status_change' && transaction?.movement === 'IN' && (

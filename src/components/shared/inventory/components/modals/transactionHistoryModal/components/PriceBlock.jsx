@@ -7,9 +7,9 @@ function PriceBlock({ transaction }) {
       <div className="mb-2 flex items-center justify-between">
         {/* Title */}
         <span className="font-semibold">
-          {transaction?.priceField === 'costPrice'
+          {transaction?.changedFields?.includes('costPrice')
             ? 'Costo de producto'
-            : transaction?.priceField === 'salePrice'
+            : transaction?.changedFields?.includes('salePrice')
               ? 'Precio de Venta'
               : 'Precio'}
         </span>
@@ -28,10 +28,10 @@ function PriceBlock({ transaction }) {
             <ArrowDownCircle className="h-4 w-4" />
           )}
           {transaction?.movement === 'IN' ? 'Aumento de ' : 'Disminución de '}
-          {transaction?.priceField === 'costPrice'
+          {transaction?.changedFields?.includes('costPrice')
             ? 'Costo'
-            : transaction?.priceField === 'salePrice'
-              ? 'Precio'
+            : transaction?.changedFields?.includes('salePrice')
+              ? 'Precio de Venta'
               : 'Precio'}
         </span>
       </div>
@@ -43,31 +43,40 @@ function PriceBlock({ transaction }) {
           <span className="font-medium text-gray-800">Motivo:</span> {transaction?.reason}
         </p>
         <p>
-          <span className="font-medium text-gray-800">Tipo:</span> Corrección de Inventario
+          <span className="font-medium text-gray-800">Tipo:</span>{' '}
+          {transaction?.changedFields?.includes('costPrice')
+            ? transaction?.oldCostPrice > transaction?.newCostPrice
+              ? 'Disminución de Costo'
+              : 'Aumento de Costo'
+            : transaction?.changedFields?.includes('salePrice')
+              ? transaction?.oldSalePrice > transaction?.newSalePrice
+                ? 'Disminución de Precio de Venta'
+                : 'Aumento de Precio de Venta'
+              : 'Precio'}
         </p>
 
         {/* Change Info */}
         <p>
           <span className="font-medium text-gray-800">Anterior:</span>{' '}
-          {transaction?.priceField === 'costPrice'
-            ? `$${transaction?.oldCostPrice.toFixed(2)}`
-            : transaction?.priceField === 'salePrice'
-              ? `$${transaction?.oldSalePrice.toFixed(2)}`
-              : `$${transaction?.oldPrice.toFixed(2)}`}
+          {transaction?.changedFields?.includes('costPrice')
+            ? `$${transaction?.oldCostPrice}`
+            : transaction?.changedFields?.includes('salePrice')
+              ? `$${transaction?.oldSalePrice}`
+              : `$${transaction?.oldPrice}`}
         </p>
 
         <p>
           <span className="font-medium text-gray-800">Cambio:</span>{' '}
-          {transaction?.movement === 'IN' ? '+' : '-'}${transaction?.priceDelta.toFixed(2)}
+          {transaction?.movement === 'IN' ? '+' : '-'}${transaction?.priceDelta}
         </p>
 
         <p>
           <span className="font-medium text-gray-800">Nuevo:</span>{' '}
-          {transaction?.priceField === 'costPrice'
-            ? `$${transaction?.newCostPrice.toFixed(2)}`
-            : transaction?.priceField === 'salePrice'
-              ? `$${transaction?.newSalePrice.toFixed(2)}`
-              : `$${transaction?.newPrice.toFixed(2)}`}
+          {transaction?.changedFields?.includes('costPrice')
+            ? `$${transaction?.newCostPrice}`
+            : transaction?.changedFields?.includes('salePrice')
+              ? `$${transaction?.newSalePrice}`
+              : `$${transaction?.newPrice}`}
         </p>
       </div>
 
