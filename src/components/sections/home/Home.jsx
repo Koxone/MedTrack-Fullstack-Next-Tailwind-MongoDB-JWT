@@ -94,7 +94,7 @@ export default function Home() {
           </div>
 
           {/* Weight Loss Counter Card */}
-          <div className="animate-in fade-in slide-in-from-right-4 rounded-2xl bg-gradient-to-br from-blue-100 to-green-100 p-8 shadow-xl duration-700 md:p-12">
+          <div className="animate-in fade-in slide-in-from-right-4 rounded-2xl bg-linear-to-br from-blue-100 to-green-100 p-8 shadow-xl duration-700 md:p-12">
             <div className="bg-beehealth-body-main rounded-xl p-6 shadow-lg md:p-8">
               {/* Icon with animation */}
               <div className="mb-4 flex justify-center">
