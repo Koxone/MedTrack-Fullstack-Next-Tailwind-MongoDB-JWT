@@ -16,7 +16,7 @@ export default function PatientDietDetail({ params }) {
         Volver a Dietas
       </Link>
 
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div className="bg-medtrack-body-main overflow-hidden rounded-xl border border-gray-200 shadow-sm">
         <div className="flex h-64 items-center justify-center bg-linear-to-br from-green-100 to-blue-100">
           <Apple className="h-32 w-32 text-green-600" />
         </div>
@@ -48,7 +48,7 @@ export default function PatientDietDetail({ params }) {
             </h2>
             <div className="mb-6 space-y-4">
               {diet.plan.map((meal, index) => (
-                <div key={index} className="rounded-lg bg-gray-50 p-4">
+                <div key={index} className="bg-medtrack-body-main rounded-lg p-4">
                   {/* Title and time */}
                   <h3 className="mb-2 font-semibold text-gray-900">
                     {meal.title} ({meal.time})

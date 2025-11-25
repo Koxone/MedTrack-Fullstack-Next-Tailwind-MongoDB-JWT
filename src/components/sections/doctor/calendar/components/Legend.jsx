@@ -7,7 +7,7 @@ export default function Legend() {
         <span className="font-medium text-gray-700">Con citas</span>
       </div>
       <div className="flex items-center gap-2">
-        <div className="h-5 w-5 rounded-lg border border-gray-300 bg-gray-50" />
+        <div className="bg-medtrack-body-main h-5 w-5 rounded-lg border border-gray-300" />
         <span className="font-medium text-gray-700">Sin citas</span>
       </div>
       <div className="flex items-center gap-2">

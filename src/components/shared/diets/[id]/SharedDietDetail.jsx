@@ -20,7 +20,7 @@ export default async function SharedDietDetail() {
     <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
       <GoBackButton />
 
-      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div className="bg-medtrack-body-main rounded-xl border border-gray-200 shadow-sm">
         {/* Diet Image */}
         <div className="flex h-64 items-center justify-center rounded-t-xl bg-linear-to-br from-green-100 to-blue-100">
           <Apple className="h-32 w-32 text-green-600" />

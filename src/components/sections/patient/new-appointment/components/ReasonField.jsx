@@ -5,7 +5,7 @@ import { FileText } from 'lucide-react'; // icon
 /* text */
 export default function ReasonField({ value, onChange }) {
   return (
-    <div className="animate-slideDown rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg">
+    <div className="animate-slideDown bg-medtrack-body-main rounded-2xl border-2 border-gray-200 p-6 shadow-sm transition-all duration-300 hover:shadow-lg">
       <div className="mb-4 flex items-center gap-3">
         <div className="rounded-lg bg-green-100 p-2">
           <FileText className="h-5 w-5 text-green-600" />

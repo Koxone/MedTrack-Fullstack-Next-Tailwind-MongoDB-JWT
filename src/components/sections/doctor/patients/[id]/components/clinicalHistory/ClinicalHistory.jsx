@@ -5,7 +5,7 @@ import HistoryCard from './components/HistoryCard';
 /* Clinical history */
 export default function ClinicalHistory({ onAdd, onEdit, patientRecord, specialty }) {
   return (
-    <div className="rounded-2xl border border-(--med-gray-border) bg-(--med-gray) p-4 shadow-sm sm:p-6">
+    <div className="bg-medtrack-body-main rounded-2xl border border-(--med-gray-border) p-4 shadow-sm sm:p-6">
       {/* Header */}
       <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
@@ -32,7 +32,7 @@ export default function ClinicalHistory({ onAdd, onEdit, patientRecord, specialt
           {patientRecord.map((r, index) => (
             <div
               key={r._id}
-              className="rounded-xl border border-(--med-gray-border) bg-white p-3 shadow-sm transition hover:shadow-md sm:p-4"
+              className="bg-medtrack-body-main rounded-xl border border-(--med-gray-border) p-3 shadow-sm transition hover:shadow-md sm:p-4"
               style={{
                 animationDelay: `${index * 100}ms`,
                 animation: 'fadeIn 0.3s ease-out forwards',
@@ -48,7 +48,7 @@ export default function ClinicalHistory({ onAdd, onEdit, patientRecord, specialt
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-xl border border-(--med-gray-border) bg-white py-12 text-center sm:py-16">
+        <div className="bg-medtrack-body-main flex flex-col items-center justify-center rounded-xl border border-(--med-gray-border) py-12 text-center sm:py-16">
           <ClipboardList className="mb-3 h-10 w-10 text-gray-400 sm:h-12 sm:w-12" />
           <p className="mb-1 text-sm font-medium text-(--med-text-dark) sm:text-base">
             Sin registros clínicos

@@ -10,7 +10,7 @@ interface TabsNavProps {
 
 export default function TabsNav({ activeTab, setActiveTab }: TabsNavProps) {
   return (
-    <div className="scrollbar-thin scrollbar-thumb-emerald-400/30 scrollbar-track-transparent flex w-full justify-between overflow-x-auto rounded-2xl border border-(--med-gray-border) bg-white/80 p-1 shadow-sm backdrop-blur-sm">
+    <div className="scrollbar-thin scrollbar-thumb-emerald-400/30 scrollbar-track-transparent bg-medtrack-body-main/80 flex w-full justify-between overflow-x-auto rounded-2xl border border-(--med-gray-border) p-1 shadow-sm backdrop-blur-sm">
       {tabs.map(({ name, icon: Icon }) => (
         <button
           key={name}
@@ -32,7 +32,7 @@ export default function TabsNav({ activeTab, setActiveTab }: TabsNavProps) {
           <span className="whitespace-nowrap">{name}</span>
 
           {activeTab === name && (
-            <div className="absolute right-0 bottom-0 left-0 h-[3px] rounded-full bg-white/70 shadow-md transition-all duration-300" />
+            <div className="bg-medtrack-body-main/70 absolute right-0 bottom-0 left-0 h-[3px] rounded-full shadow-md transition-all duration-300" />
           )}
         </button>
       ))}

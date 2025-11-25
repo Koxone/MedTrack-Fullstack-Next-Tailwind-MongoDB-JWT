@@ -7,7 +7,7 @@ export default function CancelAppointmentModal() {
     <>
       <div className="animate-fadeIn fixed inset-0 z-50 bg-black/50" />
       <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="animate-slideUp pointer-events-auto w-full max-w-md rounded-2xl bg-white shadow-2xl">
+        <div className="animate-slideUp bg-medtrack-body-main pointer-events-auto w-full max-w-md rounded-2xl shadow-2xl">
           {/* Header */}
           <div className="border-b border-gray-200 px-6 py-4">
             <div className="flex items-center gap-3">
@@ -22,7 +22,7 @@ export default function CancelAppointmentModal() {
           <div className="p-6">
             <p className="mb-4 text-gray-700">¿Estás seguro de que deseas cancelar esta cita?</p>
 
-            <div className="mb-6 space-y-2 rounded-lg bg-gray-50 p-4">
+            <div className="bg-medtrack-body-main mb-6 space-y-2 rounded-lg p-4">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4 text-gray-600" />
                 <p className="text-sm font-medium text-gray-900">Juan Pérez</p>
@@ -45,7 +45,7 @@ export default function CancelAppointmentModal() {
 
             {/* Actions */}
             <div className="flex gap-3">
-              <button className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-gray-700 transition hover:bg-gray-50 active:scale-95">
+              <button className="hover:bg-medtrack-body-main flex-1 rounded-lg border border-gray-300 px-4 py-2 text-gray-700 transition active:scale-95">
                 Mantener cita
               </button>
               <button className="flex-1 rounded-lg bg-red-500 px-4 py-2 text-white transition hover:bg-red-600 active:scale-95">

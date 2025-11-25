@@ -153,7 +153,7 @@ export default function MedicalHistoryForm() {
         </div>
 
         {/* Card block */}
-        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
+        <div className="bg-medtrack-body-main overflow-hidden rounded-2xl border border-gray-200 shadow-xl">
           <TabsHeader activeTab={activeTab} setActiveTab={setActiveTab} />
 
           <form

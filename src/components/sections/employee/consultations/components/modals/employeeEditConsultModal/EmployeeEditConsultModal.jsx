@@ -41,7 +41,7 @@ export default function EmployeeEditConsultModal({ editingItem, onClose, onUpdat
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div
-          className="w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl"
+          className="bg-medtrack-body-main w-full max-w-lg overflow-hidden rounded-3xl shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}

@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 function HomeHeader({ setShowMenu, showMenu }) {
   const router = useRouter();
   return (
-    <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur-sm">
+    <header className="bg-medtrack-body-main/80 sticky top-0 z-50 border-b backdrop-blur-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <button onClick={() => router.push('/')} className="flex items-center gap-2">
           <img src="/BeeHealth.png" alt="" className="max-w-10" />
@@ -53,14 +53,14 @@ function HomeHeader({ setShowMenu, showMenu }) {
 
       {/* Mobile Menu */}
       {showMenu && (
-        <div className="border-t bg-white md:hidden">
+        <div className="bg-medtrack-body-main border-t md:hidden">
           <div className="space-y-2 px-4 py-3">
             <button
               onClick={() => {
                 setShowMenu(false);
                 router.push('/about');
               }}
-              className="w-full rounded-lg px-4 py-2 text-left text-gray-700 transition hover:bg-gray-50"
+              className="hover:bg-medtrack-body-main w-full rounded-lg px-4 py-2 text-left text-gray-700 transition"
             >
               Acerca de
             </button>
@@ -69,7 +69,7 @@ function HomeHeader({ setShowMenu, showMenu }) {
                 setShowMenu(false);
                 router.push('/contact');
               }}
-              className="w-full rounded-lg px-4 py-2 text-left text-gray-700 transition hover:bg-gray-50"
+              className="hover:bg-medtrack-body-main w-full rounded-lg px-4 py-2 text-left text-gray-700 transition"
             >
               Contacto
             </button>

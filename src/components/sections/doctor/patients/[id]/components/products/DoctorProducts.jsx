@@ -49,7 +49,7 @@ export default function DoctorProducts() {
   ];
 
   return (
-    <div className="rounded-2xl border border-(--med-gray-border) bg-(--med-gray) p-4 shadow-sm sm:p-6">
+    <div className="bg-medtrack-body-main rounded-2xl border border-(--med-gray-border) p-4 shadow-sm sm:p-6">
       {/* Header */}
       <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
@@ -77,7 +77,7 @@ export default function DoctorProducts() {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-xl border border-(--med-gray-border) bg-white shadow-sm">
+      <div className="bg-medtrack-body-main overflow-x-auto rounded-xl border border-(--med-gray-border) shadow-sm">
         <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="bg-(--med-blue-light)/30 text-left text-(--med-text-muted)">
@@ -98,7 +98,7 @@ export default function DoctorProducts() {
             {products.map((p, index) => (
               <tr
                 key={p.id}
-                className="border-t border-(--med-gray-border) bg-white transition hover:bg-(--med-blue-light)/10"
+                className="bg-medtrack-body-main border-t border-(--med-gray-border) transition hover:bg-(--med-blue-light)/10"
                 style={{
                   animationDelay: `${index * 80}ms`,
                   animation: 'fadeIn 0.3s ease-out forwards',

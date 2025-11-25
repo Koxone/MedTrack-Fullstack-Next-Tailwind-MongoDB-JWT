@@ -154,7 +154,7 @@ export default function SharedInventory({ role, showButton = true }) {
       />
 
       {/* Tabs & Actions */}
-      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div className="bg-medtrack-body-main rounded-xl border border-gray-200 shadow-sm">
         <TabsBar activeTab={activeTab} setActiveTab={setActiveTab} />
         <SearchAddBar
           searchTerm={searchTerm}
@@ -168,7 +168,7 @@ export default function SharedInventory({ role, showButton = true }) {
       <StatsBar inventory={inventory} />
 
       {/* Content */}
-      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div className="bg-medtrack-body-main rounded-xl border border-gray-200 shadow-sm">
         {activeTab === 'medicamentos' && (
           <MedsTable
             rows={filteredItems}

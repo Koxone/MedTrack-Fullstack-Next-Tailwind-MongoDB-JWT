@@ -35,7 +35,7 @@ export default function DeleteProductModal({ item, onClose, onConfirm }) {
         <div className="pointer-events-none absolute bottom-0 left-0 h-40 w-40 rounded-full bg-linear-to-tr from-pink-500 to-rose-600 opacity-20 blur-3xl" />
 
         {/* Header */}
-        <div className="relative overflow-hidden border-b border-white/50 bg-white/80 backdrop-blur-xl">
+        <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-white/50 backdrop-blur-xl">
           <div className="absolute inset-0 bg-linear-to-r from-rose-500 to-pink-600 opacity-10" />
           <div className="relative px-6 py-6">
             <div className="flex items-start justify-between">
@@ -78,7 +78,7 @@ export default function DeleteProductModal({ item, onClose, onConfirm }) {
           <div className="flex flex-col gap-3 sm:flex-row">
             <button
               onClick={onClose}
-              className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:bg-gray-50 hover:shadow-md active:scale-95"
+              className="bg-medtrack-body-main hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:shadow-md active:scale-95"
             >
               Cancelar
             </button>

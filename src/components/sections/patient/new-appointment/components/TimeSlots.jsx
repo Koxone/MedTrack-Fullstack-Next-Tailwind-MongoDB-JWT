@@ -5,7 +5,7 @@ import { Clock, Check } from 'lucide-react';
 /* slots */
 export default function TimeSlots({ dateLabel, times, selectedTime, onSelectTime }) {
   return (
-    <div className="animate-slideDown rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg">
+    <div className="animate-slideDown bg-medtrack-body-main rounded-2xl border-2 border-gray-200 p-6 shadow-sm transition-all duration-300 hover:shadow-lg">
       <div className="mb-4 flex items-center gap-3">
         <div className="rounded-lg bg-purple-100 p-2">
           <Clock className="h-5 w-5 text-purple-600" />
@@ -26,7 +26,7 @@ export default function TimeSlots({ dateLabel, times, selectedTime, onSelectTime
             className={`group animate-fadeInUp relative flex flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border-2 px-3 py-4 transition-all duration-300 ${
               selectedTime === time
                 ? 'scale-110 border-purple-600 bg-linear-to-br from-purple-50 to-pink-50 shadow-lg'
-                : 'border-gray-200 bg-white hover:border-purple-300 hover:shadow-md active:scale-95'
+                : 'bg-medtrack-body-main border-gray-200 hover:border-purple-300 hover:shadow-md active:scale-95'
             }`}
           >
             <Clock

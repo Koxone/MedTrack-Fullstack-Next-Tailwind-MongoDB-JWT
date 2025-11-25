@@ -1,7 +1,3 @@
 export default function HomeRootLayout({ children }) {
-  return (
-    <div className="min-h-screen w-full bg-white">
-      {children}
-    </div>
-  );
+  return <div className="bg-medtrack-body-main min-h-screen w-full">{children}</div>;
 }

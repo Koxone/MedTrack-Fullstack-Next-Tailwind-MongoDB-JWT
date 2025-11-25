@@ -5,13 +5,13 @@ export default function Actions({ onClose, submitLabel }) {
       <button
         type="button"
         onClick={onClose}
-        className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700"
+        className="bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700"
       >
         Cancelar
       </button>
       <button
         type="submit"
-        className="flex-1 rounded-xl bg-medtrack-blue-solid hover:bg-medtrack-blue-hover px-6 py-3.5 font-semibold text-white"
+        className="bg-medtrack-blue-solid hover:bg-medtrack-blue-hover flex-1 rounded-xl px-6 py-3.5 font-semibold text-white"
       >
         {submitLabel}
       </button>

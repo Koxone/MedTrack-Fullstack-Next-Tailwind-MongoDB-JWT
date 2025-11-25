@@ -34,14 +34,14 @@ export default function Home() {
               </button>
               <button
                 onClick={() => router.push('/about')}
-                className="w-full rounded-lg border border-gray-300 px-6 py-3 font-medium text-gray-700 transition hover:bg-gray-50 active:scale-95 sm:w-auto"
+                className="hover:bg-medtrack-body-main w-full rounded-lg border border-gray-300 px-6 py-3 font-medium text-gray-700 transition active:scale-95 sm:w-auto"
               >
                 Conocer más
               </button>
             </div>
           </div>
           <div className="rounded-2xl bg-linear-to-br from-blue-100 to-green-100 p-8 shadow-xl md:p-12">
-            <div className="rounded-xl bg-white p-6 shadow-lg md:p-8">
+            <div className="bg-medtrack-body-main rounded-xl p-6 shadow-lg md:p-8">
               <Activity className="mx-auto mb-4 h-12 w-12 text-blue-500 md:h-16 md:w-16" />
               <h3 className="text-center text-lg font-semibold text-gray-900 md:text-xl">
                 Tu salud en tiempo real
@@ -57,28 +57,28 @@ export default function Home() {
           Todo lo que necesitas para cuidar tu salud
         </h2>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
-          <div className="rounded-xl bg-white p-4 shadow-md transition hover:shadow-lg md:p-6">
+          <div className="bg-medtrack-body-main rounded-xl p-4 shadow-md transition hover:shadow-lg md:p-6">
             <Activity className="mb-3 h-8 w-8 text-blue-500 md:mb-4 md:h-12 md:w-12" />
             <h3 className="mb-1 text-sm font-semibold text-gray-900 md:mb-2 md:text-lg">
               Control de Peso
             </h3>
             <p className="text-xs text-gray-600 md:text-base">Monitorea tu peso e IMC</p>
           </div>
-          <div className="rounded-xl bg-white p-4 shadow-md transition hover:shadow-lg md:p-6">
+          <div className="bg-medtrack-body-main rounded-xl p-4 shadow-md transition hover:shadow-lg md:p-6">
             <Heart className="mb-3 h-8 w-8 text-red-500 md:mb-4 md:h-12 md:w-12" />
             <h3 className="mb-1 text-sm font-semibold text-gray-900 md:mb-2 md:text-lg">
               Historial Clínico
             </h3>
             <p className="text-xs text-gray-600 md:text-base">Historial completo</p>
           </div>
-          <div className="rounded-xl bg-white p-4 shadow-md transition hover:shadow-lg md:p-6">
+          <div className="bg-medtrack-body-main rounded-xl p-4 shadow-md transition hover:shadow-lg md:p-6">
             <Calendar className="mb-3 h-8 w-8 text-green-500 md:mb-4 md:h-12 md:w-12" />
             <h3 className="mb-1 text-sm font-semibold text-gray-900 md:mb-2 md:text-lg">
               Citas Médicas
             </h3>
             <p className="text-xs text-gray-600 md:text-base">Agenda fácilmente</p>
           </div>
-          <div className="rounded-xl bg-white p-4 shadow-md transition hover:shadow-lg md:p-6">
+          <div className="bg-medtrack-body-main rounded-xl p-4 shadow-md transition hover:shadow-lg md:p-6">
             <Apple className="mb-3 h-8 w-8 text-yellow-500 md:mb-4 md:h-12 md:w-12" />
             <h3 className="mb-1 text-sm font-semibold text-gray-900 md:mb-2 md:text-lg">Dietas</h3>
             <p className="text-xs text-gray-600 md:text-base">Planes a tu medida</p>

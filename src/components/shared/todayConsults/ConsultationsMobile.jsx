@@ -34,12 +34,12 @@ export default function ConsultationsMobile({ rows, onEdit, onDelete }) {
           </div>
 
           <div className="mb-3 grid grid-cols-2 gap-2">
-            <div className="rounded-lg bg-white p-3">
+            <div className="bg-medtrack-body-main rounded-lg p-3">
               <p className="mb-1 text-xs text-gray-600">Fecha</p>
               <p className="text-sm font-bold text-gray-900">{c.fecha}</p>
               <p className="text-xs text-gray-500">{c.hora}</p>
             </div>
-            <div className="rounded-lg bg-white p-3">
+            <div className="bg-medtrack-body-main rounded-lg p-3">
               <p className="mb-1 text-xs text-gray-600">Costo</p>
               <p className="text-xl font-bold text-indigo-600">${c.costo}</p>
             </div>

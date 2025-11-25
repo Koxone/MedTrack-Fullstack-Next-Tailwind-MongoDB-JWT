@@ -16,7 +16,7 @@ export default function DietCardActions({ id }) {
       {/* Edit button */}
       <Link
         href={`/doctor/diets/${id}?mode=edit`}
-        className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 active:scale-95"
+        className="hover:bg-medtrack-body-main flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 transition active:scale-95"
       >
         <Edit className="h-4 w-4" />
         Editar

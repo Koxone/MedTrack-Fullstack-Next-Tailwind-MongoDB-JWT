@@ -27,7 +27,7 @@ export default function DiagnosisSection({ isReadOnly, getAnswer, setAnswer, ico
             disabled={isReadOnly}
             value={getAnswer(ID.diagnosis)}
             onChange={(e) => setAnswer(ID.diagnosis, e.target.value)}
-            className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 transition focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+            className="focus:bg-medtrack-body-main bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
             placeholder="Ingrese el diagnóstico..."
           />
         </div>
@@ -41,7 +41,7 @@ export default function DiagnosisSection({ isReadOnly, getAnswer, setAnswer, ico
             disabled={isReadOnly}
             value={getAnswer(ID.treatment)}
             onChange={(e) => setAnswer(ID.treatment, e.target.value)}
-            className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 transition focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+            className="focus:bg-medtrack-body-main bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
             placeholder="Ingrese el tratamiento recomendado..."
           />
         </div>
@@ -55,7 +55,7 @@ export default function DiagnosisSection({ isReadOnly, getAnswer, setAnswer, ico
             disabled={isReadOnly}
             value={getAnswer(ID.notes)}
             onChange={(e) => setAnswer(ID.notes, e.target.value)}
-            className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 transition focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+            className="focus:bg-medtrack-body-main bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
             placeholder="Observaciones adicionales, recomendaciones, etc..."
           />
         </div>

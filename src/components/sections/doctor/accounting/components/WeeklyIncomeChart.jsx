@@ -4,7 +4,7 @@ import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } fro
 
 export default function WeeklyIncomeChart({ data }) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+    <div className="bg-medtrack-body-main rounded-xl border border-gray-200 p-4 shadow-sm md:p-6">
       <h2 className="mb-4 text-lg font-semibold text-gray-900 md:text-xl">Ingresos por Paciente</h2>
 
       <ResponsiveContainer width="100%" height={300}>

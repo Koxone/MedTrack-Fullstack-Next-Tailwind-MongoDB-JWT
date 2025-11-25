@@ -6,12 +6,12 @@ import { Sparkles, User, Calendar as CalendarIcon, Clock } from 'lucide-react';
 export default function SummaryCard({ doctor, date, time }) {
   return (
     <div className="animate-slideDown bg-medtrack-blue-solid border-medtrack-blue-solid relative overflow-hidden rounded-2xl border-2 p-6 text-white shadow-2xl">
-      <div className="absolute top-0 right-0 -mt-16 -mr-16 h-32 w-32 rounded-full bg-white/10" />
-      <div className="absolute bottom-0 left-0 -mb-12 -ml-12 h-24 w-24 rounded-full bg-white/10" />
+      <div className="bg-medtrack-body-main/10 absolute top-0 right-0 -mt-16 -mr-16 h-32 w-32 rounded-full" />
+      <div className="bg-medtrack-body-main/10 absolute bottom-0 left-0 -mb-12 -ml-12 h-24 w-24 rounded-full" />
 
       <div className="relative z-10">
         <div className="mb-6 flex items-center gap-3">
-          <div className="rounded-lg bg-white/20 p-2 backdrop-blur-sm">
+          <div className="bg-medtrack-body-main/20 rounded-lg p-2 backdrop-blur-sm">
             <Sparkles className="h-6 w-6 text-white" />
           </div>
           <h3 className="text-2xl font-bold">Resumen de tu cita</h3>

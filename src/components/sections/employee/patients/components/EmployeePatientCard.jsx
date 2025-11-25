@@ -9,7 +9,7 @@ const getInitials = (name = '') =>
 
 export default function EmployeePatientCard({ patient, currentUser, role }) {
   return (
-    <div className="rounded-xl border-2 border-gray-200 bg-white p-4 transition hover:border-blue-300">
+    <div className="bg-medtrack-body-main rounded-xl border-2 border-gray-200 p-4 transition hover:border-blue-300">
       <div className="flex items-center gap-4">
         {/* Patient Avatar */}
         {patient?.avatar ? (

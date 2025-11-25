@@ -7,7 +7,7 @@ export default function SuppliesTable({ rows, getStockStatus, onEdit, onDelete, 
   if (!Array.isArray(rows) || rows.length === 0) {
     return (
       <div className="p-4 md:p-6">
-        <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-16">
+        <div className="bg-medtrack-body-main flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 py-16">
           <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
             <span className="text-2xl text-gray-400">📦</span>
           </div>
@@ -20,11 +20,11 @@ export default function SuppliesTable({ rows, getStockStatus, onEdit, onDelete, 
 
   return (
     <div className="p-4 md:p-6">
-      <div className="max-h-[500px] overflow-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div className="bg-medtrack-body-main max-h-[500px] overflow-auto rounded-xl border border-gray-200 shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-gray-200 bg-gray-50/50">
+              <tr className="bg-medtrack-body-main/50 border-b border-gray-200">
                 <th className="px-4 py-4 text-left text-xs font-semibold tracking-wider text-gray-600 uppercase">
                   Suministro
                 </th>

@@ -50,7 +50,7 @@ export default function SupplyForm({ mode, initialData, onCancel, onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="space-y-4 rounded-2xl border border-gray-100 bg-white/80 p-5 shadow-lg backdrop-blur-sm">
+      <div className="bg-medtrack-body-main/80 space-y-4 rounded-2xl border border-gray-100 p-5 shadow-lg backdrop-blur-sm">
         {/* Nombre */}
         <div className="grid gap-1">
           <label className="text-sm font-semibold text-gray-600">Nombre del suministro</label>
@@ -155,7 +155,7 @@ export default function SupplyForm({ mode, initialData, onCancel, onSubmit }) {
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm hover:bg-gray-50"
+          className="bg-medtrack-body-main hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm"
         >
           Cancelar
         </button>

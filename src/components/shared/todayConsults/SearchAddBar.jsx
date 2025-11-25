@@ -5,7 +5,7 @@ import { Search, Plus } from 'lucide-react';
 /* search-add */
 export default function SearchAddBar({ value, onChange, onAdd }) {
   return (
-    <div className="rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-lg">
+    <div className="bg-medtrack-body-main rounded-2xl border-2 border-gray-200 p-4 shadow-lg">
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-400" />

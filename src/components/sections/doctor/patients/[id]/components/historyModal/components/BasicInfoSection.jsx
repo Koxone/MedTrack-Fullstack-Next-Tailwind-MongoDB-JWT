@@ -36,7 +36,7 @@ export default function BasicInfoSection({ isReadOnly, getAnswer, setAnswer }) {
             onChange={(e) => setAnswer(ID.fullName, e.target.value)}
             disabled={isReadOnly}
             placeholder="Ingrese el nombre completo"
-            className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 transition focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+            className="focus:bg-medtrack-body-main bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
           />
         </div>
 
@@ -55,7 +55,7 @@ export default function BasicInfoSection({ isReadOnly, getAnswer, setAnswer }) {
               disabled={isReadOnly}
               value={getAnswer(ID.weight)}
               onChange={(e) => setAnswer(ID.weight, e.target.value)}
-              className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 py-3 pr-4 pl-11 transition focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+              className="focus:bg-medtrack-body-main bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 py-3 pr-4 pl-11 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
               placeholder="75.5"
             />
           </div>
@@ -78,7 +78,7 @@ export default function BasicInfoSection({ isReadOnly, getAnswer, setAnswer }) {
                 // Prefer size id if exists
                 setAnswer(ID.size, e.target.value);
               }}
-              className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 py-3 pr-4 pl-11 transition focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100"
+              className="focus:bg-medtrack-body-main bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 py-3 pr-4 pl-11 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
               placeholder="180"
             />
           </div>

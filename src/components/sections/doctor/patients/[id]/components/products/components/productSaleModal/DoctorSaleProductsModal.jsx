@@ -60,7 +60,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="relative overflow-hidden border-b border-white/50 bg-white/80 backdrop-blur-xl">
+          <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-white/50 backdrop-blur-xl">
             <div className="absolute inset-0 bg-linear-to-r from-purple-500 to-indigo-500 opacity-10" />
             <div className="relative px-6 py-6 sm:px-8">
               <div className="flex items-start justify-between">
@@ -95,7 +95,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
           <div className="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-300 relative max-h-[calc(95vh-180px)] overflow-y-auto">
             <form onSubmit={handleSubmit} className="space-y-6 p-6 sm:p-8">
               {/* Información básica */}
-              <div className="rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-purple-500 to-indigo-500 p-2.5">
                     <Info className="h-5 w-5 text-white" />
@@ -110,7 +110,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
                       <Calendar className="h-4 w-4 text-purple-500" />
                       Fecha
                     </label>
-                    <div className="rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm">
+                    <div className="bg-medtrack-body-main rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm">
                       {productForm.fecha}
                     </div>
                   </div>
@@ -125,7 +125,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
                       required
                       value={productForm.producto}
                       onChange={(e) => handleChange('producto', e.target.value)}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
                     >
                       <option value="">Seleccionar</option>
                       <option>GUM FLOSSERS CRAYOLA (INFANTIL)</option>
@@ -138,7 +138,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
               </div>
 
               {/* Detalles */}
-              <div className="rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-indigo-500 to-purple-500 p-2.5">
                     <Package className="h-5 w-5 text-white" />
@@ -154,7 +154,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
                       type="number"
                       value={productForm.cantidad}
                       onChange={(e) => handleChange('cantidad', e.target.value)}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                     />
                   </div>
 
@@ -165,7 +165,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
                       type="number"
                       value={productForm.precio}
                       onChange={(e) => handleChange('precio', e.target.value)}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                     />
                   </div>
 
@@ -176,7 +176,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
                       type="text"
                       value={productForm.consultorio}
                       onChange={(e) => handleChange('consultorio', e.target.value)}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                     />
                   </div>
 
@@ -186,7 +186,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
                     <textarea
                       value={productForm.observaciones}
                       onChange={(e) => handleChange('observaciones', e.target.value)}
-                      className="w-full resize-none rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full resize-none rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
                       rows="2"
                     />
                   </div>
@@ -194,7 +194,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
               </div>
 
               {/* Pagos */}
-              <div className="rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-violet-500 to-purple-500 p-2.5">
                     <CreditCard className="h-5 w-5 text-white" />
@@ -210,7 +210,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
                         type="number"
                         value={productForm[`pago${i}`]}
                         onChange={(e) => handleChange(`pago${i}`, e.target.value)}
-                        className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
+                        className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                       />
                     </div>
 
@@ -219,7 +219,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
                       <select
                         value={productForm[`caja${i}`]}
                         onChange={(e) => handleChange(`caja${i}`, e.target.value)}
-                        className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
+                        className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
                       >
                         <option>Caja 1</option>
                         <option>Caja 2</option>
@@ -231,7 +231,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
                       <select
                         value={productForm[`formaPago${i}`]}
                         onChange={(e) => handleChange(`formaPago${i}`, e.target.value)}
-                        className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
+                        className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                       >
                         <option>Pendiente de pago</option>
                         <option>Efectivo</option>
@@ -248,7 +248,7 @@ export default function DoctorSaleProductsModal({ onClose }) {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:bg-gray-50 hover:shadow-md active:scale-95"
+                  className="bg-medtrack-body-main hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:shadow-md active:scale-95"
                 >
                   Cancelar
                 </button>

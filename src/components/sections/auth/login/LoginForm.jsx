@@ -59,7 +59,7 @@ export default function LoginForm() {
 
   return (
     <div className="flex h-full items-center justify-center overflow-hidden p-4">
-      <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-xl">
+      <div className="bg-medtrack-body-main w-full max-w-md rounded-2xl border border-gray-200 p-8 shadow-xl">
         {/* Title */}
         <h2 className="mb-2 text-center text-2xl font-bold text-gray-900">Iniciar Sesión</h2>
         <p className="mb-8 text-center text-gray-600">Accede a tu cuenta médica</p>

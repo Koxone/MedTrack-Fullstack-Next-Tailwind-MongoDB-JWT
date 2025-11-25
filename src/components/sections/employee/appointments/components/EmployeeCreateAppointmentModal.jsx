@@ -48,7 +48,7 @@ export default function EmployeeCreateAppointmentModal({
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="relative overflow-hidden border-b border-white/50 bg-white/80 backdrop-blur-xl">
+          <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-white/50 backdrop-blur-xl">
             <div className={`absolute inset-0 bg-linear-to-r ${getColor()} opacity-10`} />
             <div className="relative px-6 py-6 sm:px-8">
               <div className="flex items-start justify-between">
@@ -91,7 +91,7 @@ export default function EmployeeCreateAppointmentModal({
           <div className="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-emerald-300 relative max-h-[calc(95vh-180px)] overflow-y-auto">
             <form onSubmit={onSubmit} className="space-y-6 p-6 sm:p-8">
               {/* Info básica */}
-              <div className="group rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="group bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-emerald-500 to-teal-500 p-2.5">
                     <Info className="h-5 w-5 text-white" />
@@ -111,7 +111,7 @@ export default function EmployeeCreateAppointmentModal({
                       required
                       value={citaForm.fecha}
                       onChange={(e) => setCitaForm({ ...citaForm, fecha: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-emerald-500 focus:shadow-md focus:shadow-emerald-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-emerald-500 focus:shadow-md focus:shadow-emerald-500/20 focus:outline-none"
                     />
                   </div>
 
@@ -126,7 +126,7 @@ export default function EmployeeCreateAppointmentModal({
                       required
                       value={citaForm.hora}
                       onChange={(e) => setCitaForm({ ...citaForm, hora: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-teal-500 focus:shadow-md focus:shadow-teal-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-teal-500 focus:shadow-md focus:shadow-teal-500/20 focus:outline-none"
                     />
                   </div>
 
@@ -140,7 +140,7 @@ export default function EmployeeCreateAppointmentModal({
                       required
                       value={citaForm.specialty || ''}
                       onChange={(e) => setCitaForm({ ...citaForm, specialty: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-teal-500 focus:shadow-md focus:shadow-teal-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-teal-500 focus:shadow-md focus:shadow-teal-500/20 focus:outline-none"
                     >
                       <option value="">-- Selecciona especialidad --</option>
                       <option value="weight">Control de peso</option>
@@ -152,7 +152,7 @@ export default function EmployeeCreateAppointmentModal({
               </div>
 
               {/* Datos del paciente */}
-              <div className="group rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="group bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-green-500 to-emerald-500 p-2.5">
                     <User className="h-5 w-5 text-white" />
@@ -169,7 +169,7 @@ export default function EmployeeCreateAppointmentModal({
                     required
                     value={citaForm.patientId || ''}
                     onChange={handleSelectPatient}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-green-500 focus:shadow-md focus:shadow-green-500/20 focus:outline-none"
+                    className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-green-500 focus:shadow-md focus:shadow-green-500/20 focus:outline-none"
                   >
                     <option value="">-- Selecciona un paciente --</option>
                     {patients.map((p) => (
@@ -182,7 +182,7 @@ export default function EmployeeCreateAppointmentModal({
               </div>
 
               {/* Motivo */}
-              <div className="group rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="group bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-yellow-500 to-orange-500 p-2.5">
                     <Sparkles className="h-5 w-5 text-white" />
@@ -195,7 +195,7 @@ export default function EmployeeCreateAppointmentModal({
                   value={citaForm.motivo}
                   onChange={(e) => setCitaForm({ ...citaForm, motivo: e.target.value })}
                   placeholder="Describe el motivo de la cita..."
-                  className="w-full resize-none rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-orange-500 focus:shadow-md focus:shadow-orange-500/20 focus:outline-none"
+                  className="bg-medtrack-body-main w-full resize-none rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-orange-500 focus:shadow-md focus:shadow-orange-500/20 focus:outline-none"
                   rows="4"
                 />
               </div>
@@ -205,7 +205,7 @@ export default function EmployeeCreateAppointmentModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:bg-gray-50 hover:shadow-md active:scale-95"
+                  className="bg-medtrack-body-main hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:shadow-md active:scale-95"
                 >
                   Cancelar
                 </button>

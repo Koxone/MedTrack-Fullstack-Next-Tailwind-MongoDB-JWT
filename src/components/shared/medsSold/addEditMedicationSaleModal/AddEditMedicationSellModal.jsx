@@ -64,7 +64,7 @@ export default function AddEditMedicationSellModal({
           />
 
           {/* Header */}
-          <div className="relative overflow-hidden border-b border-white/50 bg-white/80 backdrop-blur-xl">
+          <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-white/50 backdrop-blur-xl">
             <div className={`absolute inset-0 bg-linear-to-r ${getGradientColor()} opacity-10`} />
             <div className="relative px-6 py-6">
               <div className="flex items-start justify-between">
@@ -111,7 +111,7 @@ export default function AddEditMedicationSellModal({
             {isConsulta ? (
               <form onSubmit={onSubmit} className="space-y-5">
                 {/* Consult */}
-                <div className="space-y-4 rounded-2xl border border-gray-100 bg-white/80 p-5 shadow-lg backdrop-blur-sm">
+                <div className="bg-medtrack-body-main/80 space-y-4 rounded-2xl border border-gray-100 p-5 shadow-lg backdrop-blur-sm">
                   <div className="mb-4 flex items-center gap-2 border-b border-gray-100 pb-3">
                     <div className="rounded-lg bg-linear-to-br from-blue-500 to-indigo-500 p-1.5">
                       <Calendar className="h-4 w-4 text-white" />
@@ -130,7 +130,7 @@ export default function AddEditMedicationSellModal({
                       required
                       value={form.hora}
                       onChange={(e) => setForm({ ...form, hora: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:shadow-md focus:shadow-blue-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:shadow-md focus:shadow-blue-500/20 focus:outline-none"
                     />
                   </div>
 
@@ -144,7 +144,7 @@ export default function AddEditMedicationSellModal({
                       required
                       value={form.paciente}
                       onChange={(e) => setForm({ ...form, paciente: e.target.value })}
-                      className="w-full appearance-none rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full appearance-none rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                     >
                       <option value="">Seleccionar paciente...</option>
                       <option value="Juan Pérez">Juan Pérez</option>
@@ -165,7 +165,7 @@ export default function AddEditMedicationSellModal({
                       required
                       value={form.tipo}
                       onChange={(e) => setForm({ ...form, tipo: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
                     >
                       <option value="">Seleccionar tipo...</option>
                       <option value="Primera Consulta">🆕 Primera Consulta</option>
@@ -188,7 +188,7 @@ export default function AddEditMedicationSellModal({
                       step="0.01"
                       value={form.costo}
                       onChange={(e) => setForm({ ...form, costo: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm focus:border-green-500 focus:shadow-md focus:shadow-green-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-green-500 focus:shadow-md focus:shadow-green-500/20 focus:outline-none"
                       placeholder="800.00"
                     />
                   </div>
@@ -215,7 +215,7 @@ export default function AddEditMedicationSellModal({
                   <button
                     type="button"
                     onClick={onClose}
-                    className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm hover:border-gray-400 hover:bg-gray-50"
+                    className="bg-medtrack-body-main hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm hover:border-gray-400"
                   >
                     Cancelar
                   </button>
@@ -233,7 +233,7 @@ export default function AddEditMedicationSellModal({
             ) : (
               /* Meds */
               <form onSubmit={onSubmit} className="space-y-5">
-                <div className="space-y-4 rounded-2xl border border-gray-100 bg-white/80 p-5 shadow-lg backdrop-blur-sm">
+                <div className="bg-medtrack-body-main/80 space-y-4 rounded-2xl border border-gray-100 p-5 shadow-lg backdrop-blur-sm">
                   <div className="mb-4 flex items-center gap-2 border-b border-gray-100 pb-3">
                     <div className="rounded-lg bg-linear-to-br from-green-500 to-emerald-500 p-1.5">
                       <Pill className="h-4 w-4 text-white" />
@@ -252,7 +252,7 @@ export default function AddEditMedicationSellModal({
                       required
                       value={form.nombre}
                       onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm focus:border-green-500 focus:shadow-green-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-green-500 focus:shadow-green-500/20 focus:outline-none"
                       placeholder="Nombre del medicamento"
                     />
                   </div>
@@ -269,7 +269,7 @@ export default function AddEditMedicationSellModal({
                       min="1"
                       value={form.cantidad}
                       onChange={(e) => setForm({ ...form, cantidad: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:shadow-blue-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:shadow-blue-500/20 focus:outline-none"
                       placeholder="1"
                     />
                   </div>
@@ -287,7 +287,7 @@ export default function AddEditMedicationSellModal({
                       step="0.01"
                       value={form.precioUnitario}
                       onChange={(e) => setForm({ ...form, precioUnitario: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm focus:border-emerald-500 focus:shadow-emerald-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-emerald-500 focus:shadow-emerald-500/20 focus:outline-none"
                       placeholder="150.00"
                     />
                   </div>
@@ -302,7 +302,7 @@ export default function AddEditMedicationSellModal({
                       required
                       value={form.paciente}
                       onChange={(e) => setForm({ ...form, paciente: e.target.value })}
-                      className="w-full appearance-none rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm focus:border-purple-500 focus:shadow-purple-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full appearance-none rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm focus:border-purple-500 focus:shadow-purple-500/20 focus:outline-none"
                     >
                       <option value="">Seleccionar paciente...</option>
                       <option value="Juan Pérez">Juan Pérez</option>
@@ -319,7 +319,7 @@ export default function AddEditMedicationSellModal({
                   <button
                     type="button"
                     onClick={onClose}
-                    className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm hover:border-gray-400 hover:bg-gray-50"
+                    className="bg-medtrack-body-main hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm hover:border-gray-400"
                   >
                     Cancelar
                   </button>

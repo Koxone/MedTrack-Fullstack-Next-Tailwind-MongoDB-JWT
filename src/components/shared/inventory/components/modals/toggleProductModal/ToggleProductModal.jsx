@@ -42,7 +42,7 @@ export default function ToggleProductModal({ item, onClose, onConfirm }) {
         />
 
         {/* Header */}
-        <div className="relative overflow-hidden border-b border-white/50 bg-white/80 backdrop-blur-xl">
+        <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-white/50 backdrop-blur-xl">
           <div
             className={`absolute inset-0 bg-linear-to-r ${
               isActive ? 'from-green-500 to-emerald-600' : 'from-red-500 to-rose-600'
@@ -113,7 +113,7 @@ export default function ToggleProductModal({ item, onClose, onConfirm }) {
           <div className="flex flex-col gap-3 sm:flex-row">
             <button
               onClick={onClose}
-              className="flex-1 rounded-xl bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
+              className="bg-medtrack-body-main flex-1 rounded-xl px-6 py-3.5 font-semibold text-gray-700 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
             >
               Cancelar
             </button>

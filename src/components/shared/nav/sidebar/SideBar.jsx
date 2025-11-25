@@ -44,7 +44,7 @@ export default function Sidebar({ role, currentUser, specialty }) {
                 className={`group animate-fadeInLeft relative flex w-full items-center justify-between gap-3 overflow-hidden rounded-xl px-4 py-3.5 ${
                   isActive
                     ? 'border-medtrack-green-light text-medtrack-green-dark scale-105 border font-semibold shadow-md'
-                    : 'border-2 border-transparent text-gray-700 hover:scale-105 hover:bg-white hover:shadow-md active:scale-95'
+                    : 'hover:bg-medtrack-body-main border-2 border-transparent text-gray-700 hover:scale-105 hover:shadow-md active:scale-95'
                 }`}
               >
                 {/* Active background */}
@@ -88,7 +88,7 @@ export default function Sidebar({ role, currentUser, specialty }) {
       </aside>
 
       {/* Mobile navigation */}
-      <nav className="safe-area-inset-bottom fixed right-0 bottom-0 left-0 z-50 border-t-2 border-gray-200 bg-white/95 shadow-2xl backdrop-blur-lg md:hidden">
+      <nav className="safe-area-inset-bottom bg-medtrack-body-main/95 fixed right-0 bottom-0 left-0 z-50 border-t-2 border-gray-200 shadow-2xl backdrop-blur-lg md:hidden">
         <div className="grid grid-cols-5 gap-1 px-2 py-3">
           <button className="relative flex scale-110 flex-col items-center justify-center rounded-xl px-1 py-2.5 text-blue-600 transition-all duration-200">
             <div className="animate-fadeIn absolute inset-0 rounded-xl bg-linear-to-t from-blue-50 to-indigo-50" />

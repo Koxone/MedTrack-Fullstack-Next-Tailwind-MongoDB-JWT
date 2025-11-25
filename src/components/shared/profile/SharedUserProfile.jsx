@@ -29,12 +29,12 @@ export default function SharedUserProfile({ role, currentUser }) {
       <div className="h-full space-y-6 overflow-y-auto">
         {/* Header gradient */}
         <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-green-500 via-emerald-600 to-teal-600 p-8 shadow-xl">
-          <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
-          <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
+          <div className="bg-medtrack-body-main/10 absolute -top-10 -right-10 h-40 w-40 rounded-full blur-3xl"></div>
+          <div className="bg-medtrack-body-main/10 absolute -bottom-10 -left-10 h-40 w-40 rounded-full blur-3xl"></div>
 
           <div className="relative flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <div className="flex items-center gap-4">
-              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/20 shadow-lg ring-4 ring-white/30 backdrop-blur-sm">
+              <div className="bg-medtrack-body-main/20 flex h-20 w-20 items-center justify-center rounded-2xl shadow-lg ring-4 ring-white/30 backdrop-blur-sm">
                 <User className="h-10 w-10 text-white" />
               </div>
               <div>
@@ -47,7 +47,7 @@ export default function SharedUserProfile({ role, currentUser }) {
 
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="group flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-green-600 shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95"
+              className="group bg-medtrack-body-main flex items-center gap-2 rounded-xl px-6 py-3 font-semibold text-green-600 shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95"
             >
               {isEditing ? (
                 <>
@@ -66,7 +66,7 @@ export default function SharedUserProfile({ role, currentUser }) {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Profile card */}
-          <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
+          <div className="group bg-medtrack-body-main relative overflow-hidden rounded-2xl border border-gray-200 p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
             <div className="absolute -top-5 -right-5 h-32 w-32 rounded-full bg-linear-to-br from-green-100 to-emerald-50 opacity-50 blur-2xl"></div>
 
             <div className="relative flex flex-col items-center">
@@ -100,7 +100,7 @@ export default function SharedUserProfile({ role, currentUser }) {
           </div>
 
           {/* Personal info */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg md:col-span-2">
+          <div className="bg-medtrack-body-main rounded-2xl border border-gray-200 p-6 shadow-lg md:col-span-2">
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50">
                 <User className="h-5 w-5 text-blue-600" />
@@ -133,7 +133,7 @@ export default function SharedUserProfile({ role, currentUser }) {
         </div>
 
         {/* Professional info */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+        <div className="bg-medtrack-body-main rounded-2xl border border-gray-200 p-6 shadow-lg">
           <div className="mb-6 flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50">
               <Briefcase className="h-5 w-5 text-purple-600" />
@@ -151,7 +151,7 @@ export default function SharedUserProfile({ role, currentUser }) {
                 rows="4"
                 defaultValue="Especialista en nutrición clínica con más de 10 años de experiencia ayudando a pacientes a alcanzar sus objetivos de salud."
                 disabled={!isEditing}
-                className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-700 transition-all duration-200 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:opacity-60"
+                className="focus:bg-medtrack-body-main bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-700 transition-all duration-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:opacity-60"
               ></textarea>
             </div>
 
@@ -201,8 +201,8 @@ export default function SharedUserProfile({ role, currentUser }) {
       <div className="h-full space-y-6 overflow-y-auto">
         {/* Header gradient employee */}
         <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-purple-500 via-pink-500 to-rose-500 p-8 shadow-xl">
-          <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
-          <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
+          <div className="bg-medtrack-body-main/10 absolute -top-10 -right-10 h-40 w-40 rounded-full blur-3xl"></div>
+          <div className="bg-medtrack-body-main/10 absolute -bottom-10 -left-10 h-40 w-40 rounded-full blur-3xl"></div>
 
           <div className="relative">
             <h1 className="mb-2 text-3xl font-bold text-white md:text-4xl">Mi Perfil</h1>
@@ -210,7 +210,7 @@ export default function SharedUserProfile({ role, currentUser }) {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-lg">
+        <div className="bg-medtrack-body-main rounded-2xl border border-gray-200 p-8 shadow-lg">
           {/* Avatar initials */}
           <div className="mb-8 flex flex-col items-center">
             <div className="group relative mb-6">
@@ -253,12 +253,12 @@ export default function SharedUserProfile({ role, currentUser }) {
       <div className="space-y-6">
         {/* Header gradient patient */}
         <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-blue-500 via-cyan-500 to-teal-500 p-8 shadow-xl">
-          <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
-          <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
+          <div className="bg-medtrack-body-main/10 absolute -top-10 -right-10 h-40 w-40 rounded-full blur-3xl"></div>
+          <div className="bg-medtrack-body-main/10 absolute -bottom-10 -left-10 h-40 w-40 rounded-full blur-3xl"></div>
 
           <div className="relative flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <div className="flex items-center gap-4">
-              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/20 shadow-lg ring-4 ring-white/30 backdrop-blur-sm">
+              <div className="bg-medtrack-body-main/20 flex h-20 w-20 items-center justify-center rounded-2xl shadow-lg ring-4 ring-white/30 backdrop-blur-sm">
                 <User className="h-10 w-10 text-white" />
               </div>
               <div>
@@ -269,7 +269,7 @@ export default function SharedUserProfile({ role, currentUser }) {
 
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="group flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-blue-600 shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95"
+              className="group bg-medtrack-body-main flex items-center gap-2 rounded-xl px-6 py-3 font-semibold text-blue-600 shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95"
             >
               {isEditing ? (
                 <>
@@ -288,7 +288,7 @@ export default function SharedUserProfile({ role, currentUser }) {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Patient profile card */}
-          <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
+          <div className="group bg-medtrack-body-main relative overflow-hidden rounded-2xl border border-gray-200 p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
             <div className="absolute -top-5 -right-5 h-32 w-32 rounded-full bg-linear-to-br from-blue-100 to-cyan-50 opacity-50 blur-2xl"></div>
 
             <div className="relative flex flex-col items-center">
@@ -319,7 +319,7 @@ export default function SharedUserProfile({ role, currentUser }) {
           </div>
 
           {/* Patient personal info */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg md:col-span-2">
+          <div className="bg-medtrack-body-main rounded-2xl border border-gray-200 p-6 shadow-lg md:col-span-2">
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50">
                 <User className="h-5 w-5 text-blue-600" />
@@ -351,7 +351,7 @@ export default function SharedUserProfile({ role, currentUser }) {
     );
 
   return (
-    <div className="flex min-h-[400px] items-center justify-center rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 p-8">
+    <div className="bg-medtrack-body-main flex min-h-[400px] items-center justify-center rounded-2xl border-2 border-dashed border-gray-300 p-8">
       <div className="text-center">
         <User className="mx-auto mb-4 h-16 w-16 text-gray-400" />
         <p className="text-lg font-medium text-gray-600">No se encontró un perfil válido</p>
@@ -374,7 +374,7 @@ function Field({ label, value, isEditing, icon: Icon }) {
           type="text"
           defaultValue={value}
           disabled={!isEditing}
-          className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-700 transition-all duration-200 focus:border-blue-400 focus:bg-white focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:opacity-60"
+          className="focus:bg-medtrack-body-main bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-700 transition-all duration-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:opacity-60"
         />
         {isEditing && (
           <div className="absolute top-1/2 right-3 -translate-y-1/2">
@@ -393,7 +393,7 @@ function InfoCard({ icon: Icon, label, value, color = 'gray' }) {
     green: 'bg-green-50 border-green-100 hover:bg-green-100',
     purple: 'bg-purple-50 border-purple-100 hover:bg-purple-100',
     orange: 'bg-orange-50 border-orange-100 hover:bg-orange-100',
-    gray: 'bg-gray-50 border-gray-100 hover:bg-gray-100',
+    gray: 'bg-medtrack-body-main border-gray-100 hover:bg-gray-100',
   };
 
   const iconColorClasses = {
@@ -408,7 +408,7 @@ function InfoCard({ icon: Icon, label, value, color = 'gray' }) {
     <div
       className={`group flex items-center gap-4 rounded-xl border-2 p-4 transition-all duration-200 ${colorClasses[color]}`}
     >
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white shadow-sm transition-transform duration-200 group-hover:scale-110">
+      <div className="bg-medtrack-body-main flex h-12 w-12 shrink-0 items-center justify-center rounded-lg shadow-sm transition-transform duration-200 group-hover:scale-110">
         <Icon className={`h-6 w-6 ${iconColorClasses[color]}`} />
       </div>
       <div className="min-w-0 flex-1">
@@ -422,7 +422,7 @@ function InfoCard({ icon: Icon, label, value, color = 'gray' }) {
 /* Security section */
 function SecuritySection() {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+    <div className="bg-medtrack-body-main rounded-2xl border border-gray-200 p-6 shadow-lg">
       <div className="mb-6 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50">
           <Shield className="h-5 w-5 text-red-600" />
@@ -434,7 +434,7 @@ function SecuritySection() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <button className="group flex items-center justify-between rounded-xl border-2 border-gray-200 bg-gray-50 px-6 py-4 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50 active:scale-95">
+        <button className="group bg-medtrack-body-main flex items-center justify-between rounded-xl border-2 border-gray-200 px-6 py-4 transition-all duration-200 hover:border-blue-300 hover:bg-blue-50 active:scale-95">
           <div className="flex items-center gap-3">
             <Lock className="h-5 w-5 text-gray-600 transition-colors group-hover:text-blue-600" />
             <div className="text-left">
@@ -445,7 +445,7 @@ function SecuritySection() {
           <div className="text-gray-400 transition-transform group-hover:translate-x-1">→</div>
         </button>
 
-        <button className="group flex items-center justify-between rounded-xl border-2 border-gray-200 bg-gray-50 px-6 py-4 transition-all duration-200 hover:border-green-300 hover:bg-green-50 active:scale-95">
+        <button className="group bg-medtrack-body-main flex items-center justify-between rounded-xl border-2 border-gray-200 px-6 py-4 transition-all duration-200 hover:border-green-300 hover:bg-green-50 active:scale-95">
           <div className="flex items-center gap-3">
             <Shield className="h-5 w-5 text-gray-600 transition-colors group-hover:text-green-600" />
             <div className="text-left">

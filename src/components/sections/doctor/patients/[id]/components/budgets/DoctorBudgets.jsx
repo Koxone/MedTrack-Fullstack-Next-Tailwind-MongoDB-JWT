@@ -55,7 +55,7 @@ export default function DoctorBudgets() {
   ];
 
   return (
-    <div className="rounded-2xl border border-(--med-gray-border) bg-(--med-gray) p-4 shadow-sm sm:p-6">
+    <div className="bg-medtrack-body-main rounded-2xl border border-(--med-gray-border) p-4 shadow-sm sm:p-6">
       {/* Header */}
       <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
@@ -105,7 +105,7 @@ export default function DoctorBudgets() {
             {budgets.map((b) => (
               <tr
                 key={b.id}
-                className="border-t border-(--med-gray-border) bg-white transition hover:bg-(--med-blue-light)/10"
+                className="bg-medtrack-body-main border-t border-(--med-gray-border) transition hover:bg-(--med-blue-light)/10"
               >
                 {/* PDF Icon */}
                 <td className="p-3 text-center">

@@ -82,7 +82,7 @@ export default function PatientHistory({ role }) {
         <Stats type="weight" historyData={mappedHistory} />
         <Stats type="size" historyData={mappedHistory} />
 
-        <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
+        <div className="bg-medtrack-body-main overflow-hidden rounded-2xl border-2 border-gray-200 shadow-lg transition-all duration-300 hover:shadow-xl">
           <RecordsTable historyData={mappedHistory} />
           <RecordsMobileList historyData={mappedHistory} />
         </div>

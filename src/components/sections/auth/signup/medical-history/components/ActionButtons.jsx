@@ -5,7 +5,7 @@ export default function ActionButtons({ activeTab }) {
     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
       <button
         type="button"
-        className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-6 py-3 font-medium text-gray-700 transition hover:bg-gray-50 active:scale-95"
+        className="hover:bg-medtrack-body-main flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-6 py-3 font-medium text-gray-700 transition active:scale-95"
       >
         <ArrowLeft className="h-5 w-5" />
         Volver

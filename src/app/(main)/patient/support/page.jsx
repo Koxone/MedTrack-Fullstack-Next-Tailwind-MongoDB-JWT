@@ -31,7 +31,7 @@ export default function PatientSupport() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-1 md:gap-6">
         <div className="space-y-4 md:space-y-6">
-          <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+          <div className="bg-medtrack-body-main rounded-xl border border-gray-200 p-4 shadow-sm md:p-6">
             <h2 className="mb-4 text-lg font-semibold text-gray-900 md:text-xl">
               Preguntas Frecuentes
             </h2>
@@ -40,7 +40,7 @@ export default function PatientSupport() {
                 <div key={idx} className="rounded-lg border border-gray-200">
                   <button
                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="flex w-full items-center justify-between p-4 text-left transition hover:bg-gray-50"
+                    className="hover:bg-medtrack-body-main flex w-full items-center justify-between p-4 text-left transition"
                   >
                     <span className="font-medium text-gray-900">{faq.q}</span>
                     {openFaq === idx ? (
@@ -55,7 +55,7 @@ export default function PatientSupport() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+          <div className="bg-medtrack-body-main rounded-xl border border-gray-200 p-4 shadow-sm md:p-6">
             <h2 className="mb-4 text-lg font-semibold text-gray-900 md:text-xl">
               Información de Contacto
             </h2>

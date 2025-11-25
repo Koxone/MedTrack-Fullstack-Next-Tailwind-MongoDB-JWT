@@ -22,7 +22,7 @@ export default function ModalDelete({ workoutToDelete, handleDelete, setShowDele
           <div className="pointer-events-none absolute bottom-0 left-0 h-40 w-40 rounded-full bg-linear-to-tr from-rose-400/20 to-red-400/20 blur-3xl" />
 
           {/* Header con icono de advertencia */}
-          <div className="relative border-b border-red-100 bg-white/80 backdrop-blur-xl">
+          <div className="bg-medtrack-body-main/80 relative border-b border-red-100 backdrop-blur-xl">
             <div className="absolute inset-0 bg-linear-to-r from-red-500 to-orange-500 opacity-5" />
             <div className="relative px-6 py-6">
               <div className="flex items-start justify-between">
@@ -67,7 +67,7 @@ export default function ModalDelete({ workoutToDelete, handleDelete, setShowDele
             </div>
 
             {/* Información del ejercicio a eliminar */}
-            <div className="mb-6 overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-sm">
+            <div className="bg-medtrack-body-main mb-6 overflow-hidden rounded-2xl border-2 border-gray-200 shadow-sm">
               <div className="bg-linear-to-r from-gray-50 to-gray-100 px-4 py-2">
                 <p className="text-xs font-semibold tracking-wide text-gray-600 uppercase">
                   Ejercicio a eliminar
@@ -97,7 +97,7 @@ export default function ModalDelete({ workoutToDelete, handleDelete, setShowDele
             <div className="flex gap-3">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:bg-gray-50 hover:shadow-md active:scale-95"
+                className="bg-medtrack-body-main hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:shadow-md active:scale-95"
               >
                 Cancelar
               </button>
@@ -113,11 +113,11 @@ export default function ModalDelete({ workoutToDelete, handleDelete, setShowDele
             </div>
 
             {/* Nota adicional */}
-            <div className="mt-4 flex items-start gap-2 rounded-lg bg-gray-50 px-3 py-2">
+            <div className="bg-medtrack-body-main mt-4 flex items-start gap-2 rounded-lg px-3 py-2">
               <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-gray-500" />
               <p className="text-xs text-gray-600">
                 Tip: Puedes cancelar presionando{' '}
-                <kbd className="rounded border bg-white px-1.5 py-0.5 text-xs font-semibold shadow-sm">
+                <kbd className="bg-medtrack-body-main rounded border px-1.5 py-0.5 text-xs font-semibold shadow-sm">
                   ESC
                 </kbd>{' '}
                 o haciendo clic fuera del modal.

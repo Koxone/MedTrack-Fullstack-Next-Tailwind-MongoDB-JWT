@@ -239,7 +239,10 @@ export default function ClinicalRecordTestPage() {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border bg-white p-6">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-medtrack-body-main space-y-6 rounded-2xl border p-6"
+      >
         {/* Fields */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {ordered.map((f) => (

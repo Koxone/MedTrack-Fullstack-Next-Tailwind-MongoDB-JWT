@@ -19,7 +19,7 @@ export default function TabsBar({ activeTab, setActiveTab }) {
             className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition ${
               active
                 ? 'border border-blue-200 bg-blue-50 text-blue-700'
-                : 'text-gray-700 hover:bg-gray-50'
+                : 'hover:bg-medtrack-body-main text-gray-700'
             }`}
           >
             <Icon className={`h-4 w-4 ${active ? 'text-blue-600' : 'text-gray-500'}`} />

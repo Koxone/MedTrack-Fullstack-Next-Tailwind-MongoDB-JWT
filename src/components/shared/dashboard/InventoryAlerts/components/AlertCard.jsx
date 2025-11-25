@@ -59,7 +59,7 @@ function AlertCard({ item }) {
                     ? 'bg-rose-600 text-rose-100'
                     : status.color === 'amber'
                       ? 'bg-amber-500 text-amber-50'
-                      : 'bg-gray-500 text-gray-100'
+                      : 'bg-medtrack-body-main0 text-gray-100'
                 }`}
               >
                 {status.label}

@@ -6,12 +6,12 @@ export default function AppointmentsCard({ selectedDate, appointments }) {
     : 'Selecciona un día';
 
   return (
-    <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg transition hover:shadow-xl">
+    <div className="bg-medtrack-body-main overflow-hidden rounded-2xl border-2 border-gray-200 shadow-lg transition hover:shadow-xl">
       {/* Header */}
       <div className="bg-medtrack-blue-solid relative overflow-hidden px-6 py-5">
-        <div className="absolute top-0 right-0 -mt-12 -mr-12 h-24 w-24 rounded-full bg-white/10" />
+        <div className="bg-medtrack-body-main/10 absolute top-0 right-0 -mt-12 -mr-12 h-24 w-24 rounded-full" />
         <div className="relative z-10 flex items-center gap-3">
-          <div className="rounded-xl bg-white/20 p-2 backdrop-blur-sm">
+          <div className="bg-medtrack-body-main/20 rounded-xl p-2 backdrop-blur-sm">
             <Users className="h-5 w-5 text-white" />
           </div>
           <div>

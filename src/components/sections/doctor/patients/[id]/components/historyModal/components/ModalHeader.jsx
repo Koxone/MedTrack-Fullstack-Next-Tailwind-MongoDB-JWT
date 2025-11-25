@@ -7,11 +7,11 @@ export default function ModalHeader({ title, subtitle, onClose, icons }) {
   return (
     <div className="relative overflow-hidden bg-linear-to-r from-blue-500 to-cyan-500 px-6 py-6">
       {/* glow */}
-      <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
+      <div className="bg-medtrack-body-main/10 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-2xl" />
       {/* bar */}
       <div className="relative flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
+          <div className="bg-medtrack-body-main/20 flex h-12 w-12 items-center justify-center rounded-xl backdrop-blur-sm">
             <FileText className="h-6 w-6 text-white" />
           </div>
           <div>
@@ -21,7 +21,7 @@ export default function ModalHeader({ title, subtitle, onClose, icons }) {
         </div>
         <button
           onClick={onClose}
-          className="rounded-xl bg-white/20 p-2 backdrop-blur-sm transition hover:bg-white/30 active:scale-95"
+          className="bg-medtrack-body-main/20 hover:bg-medtrack-body-main/30 rounded-xl p-2 backdrop-blur-sm transition active:scale-95"
         >
           <X className="h-6 w-6 text-white" />
         </button>

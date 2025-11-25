@@ -16,7 +16,7 @@ export default function MetricsGrid({
       <div className="bg-medtrack-blue-solid rounded-xl p-4 text-white shadow-sm md:p-6">
         <div className="mb-2 flex items-center justify-between">
           <DollarSign className="h-8 w-8 opacity-80" />
-          <span className="rounded bg-white/20 px-2 py-1 text-xs">Hoy</span>
+          <span className="bg-medtrack-body-main/20 rounded px-2 py-1 text-xs">Hoy</span>
         </div>
         <p className="mb-1 text-2xl font-bold md:text-3xl">${totalDia.toLocaleString()}</p>
         <p className="text-xs text-blue-100 md:text-sm">Total del día</p>

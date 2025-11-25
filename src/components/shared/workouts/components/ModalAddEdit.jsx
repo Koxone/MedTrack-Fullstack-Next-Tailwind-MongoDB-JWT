@@ -84,7 +84,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
           <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-linear-to-tr from-pink-400/20 to-orange-400/20 blur-3xl" />
 
           {/* Header Premium */}
-          <div className="relative overflow-hidden border-b border-white/50 bg-white/80 backdrop-blur-xl">
+          <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-white/50 backdrop-blur-xl">
             <div
               className={`absolute inset-0 bg-linear-to-r ${getCategoriaColor(form.categoria)} opacity-10`}
             />
@@ -124,7 +124,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
 
           <div className="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-300 relative max-h-[calc(95vh-180px)] overflow-y-auto">
             <form onSubmit={(e) => handleSave(e, form)} className="space-y-6 p-6 sm:p-8">
-              <div className="group rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="group bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-blue-500 to-purple-500 p-2.5">
                     <Info className="h-5 w-5 text-white" />
@@ -144,7 +144,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                       required
                       value={form.nombre}
                       onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:shadow-md focus:shadow-blue-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:shadow-md focus:shadow-blue-500/20 focus:outline-none"
                     />
                   </div>
 
@@ -157,7 +157,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                       <select
                         value={form.categoria}
                         onChange={(e) => setForm({ ...form, categoria: e.target.value })}
-                        className="w-full appearance-none rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
+                        className="bg-medtrack-body-main w-full appearance-none rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                       >
                         <option value="Fuerza">💪 Fuerza</option>
                         <option value="Cardio">❤️ Cardio</option>
@@ -192,7 +192,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                       placeholder="Ej: 3 series de 15 repeticiones"
                       value={form.duracion}
                       onChange={(e) => setForm({ ...form, duracion: e.target.value })}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-green-500 focus:shadow-md focus:shadow-green-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-green-500 focus:shadow-md focus:shadow-green-500/20 focus:outline-none"
                     />
                   </div>
 
@@ -232,7 +232,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
               </div>
 
               {/* Multimedia Section */}
-              <div className="group rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="group bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-pink-500 to-rose-500 p-2.5">
                     <ImageIcon className="h-5 w-5 text-white" />
@@ -250,7 +250,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                       value={form.imagenes}
                       onChange={(e) => setForm({ ...form, imagenes: e.target.value })}
                       placeholder="https://ejemplo.com/imagen1.jpg&#10;https://ejemplo.com/imagen2.jpg&#10;https://ejemplo.com/imagen3.jpg"
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 font-mono text-sm text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-pink-500 focus:shadow-md focus:shadow-pink-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 font-mono text-sm text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-pink-500 focus:shadow-md focus:shadow-pink-500/20 focus:outline-none"
                       rows="3"
                     />
                     <div className="flex items-start gap-2 rounded-lg bg-pink-50 px-3 py-2">
@@ -271,7 +271,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                       value={form.videoUrl}
                       onChange={(e) => setForm({ ...form, videoUrl: e.target.value })}
                       placeholder="https://www.youtube.com/embed/..."
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 font-mono text-sm text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-red-500 focus:shadow-md focus:shadow-red-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 font-mono text-sm text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-red-500 focus:shadow-md focus:shadow-red-500/20 focus:outline-none"
                     />
                     <div className="flex items-start gap-2 rounded-lg bg-red-50 px-3 py-2">
                       <Play className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
@@ -284,7 +284,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
               </div>
 
               {/* Workout Details */}
-              <div className="group rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="group bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-teal-500 to-emerald-500 p-2.5">
                     <List className="h-5 w-5 text-white" />
@@ -301,7 +301,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                       value={form.explicacion}
                       onChange={(e) => setForm({ ...form, explicacion: e.target.value })}
                       placeholder="Describe el ejercicio, qué músculos trabaja y sus características principales..."
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-teal-500 focus:shadow-md focus:shadow-teal-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-teal-500 focus:shadow-md focus:shadow-teal-500/20 focus:outline-none"
                       rows="3"
                     />
                   </div>
@@ -315,7 +315,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                       value={form.instrucciones}
                       onChange={(e) => setForm({ ...form, instrucciones: e.target.value })}
                       placeholder="Paso 1: Colócate en la posición inicial...&#10;Paso 2: Realiza el movimiento...&#10;Paso 3: Regresa a la posición inicial..."
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:shadow-md focus:shadow-blue-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:shadow-md focus:shadow-blue-500/20 focus:outline-none"
                       rows="4"
                     />
                   </div>
@@ -330,7 +330,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                         value={form.beneficios}
                         onChange={(e) => setForm({ ...form, beneficios: e.target.value })}
                         placeholder="• Fortalece los músculos&#10;• Mejora la resistencia&#10;• Aumenta la flexibilidad..."
-                        className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-yellow-500 focus:shadow-md focus:shadow-yellow-500/20 focus:outline-none"
+                        className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-yellow-500 focus:shadow-md focus:shadow-yellow-500/20 focus:outline-none"
                         rows="4"
                       />
                     </div>
@@ -344,7 +344,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                         value={form.precauciones}
                         onChange={(e) => setForm({ ...form, precauciones: e.target.value })}
                         placeholder="• Mantén la espalda recta&#10;• No fuerces las articulaciones&#10;• Calienta antes de comenzar..."
-                        className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-orange-500 focus:shadow-md focus:shadow-orange-500/20 focus:outline-none"
+                        className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-orange-500 focus:shadow-md focus:shadow-orange-500/20 focus:outline-none"
                         rows="4"
                       />
                     </div>
@@ -357,7 +357,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                 <button
                   type="button"
                   onClick={() => setShowEditModal(false)}
-                  className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:bg-gray-50 hover:shadow-md active:scale-95"
+                  className="bg-medtrack-body-main hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:shadow-md active:scale-95"
                 >
                   Cancelar
                 </button>

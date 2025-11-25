@@ -69,7 +69,7 @@ function DynamicListSection({
   };
 
   return (
-    <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md md:p-4">
+    <section className="bg-medtrack-body-main rounded-xl border border-gray-200 p-6 shadow-sm transition-shadow hover:shadow-md md:p-4">
       {/* Header */}
       <div className="mb-4 flex items-center gap-3">
         <div className={`rounded-lg ${styles.background} p-2`}>
@@ -85,7 +85,7 @@ function DynamicListSection({
         {items.map((item, index) => (
           <div
             key={index}
-            className="flex items-center justify-between rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm"
+            className="bg-medtrack-body-main flex items-center justify-between rounded-lg border border-gray-300 p-2 text-sm"
           >
             <span>{item}</span>
             <button onClick={() => handleRemove(index)} className="rounded-lg bg-gray-200 p-1">
@@ -127,7 +127,7 @@ function DynamicListSection({
           <label className="mb-1 block text-sm font-medium text-gray-700">Nota opcional</label>
           <textarea
             placeholder="Escribe una nota para esta sección"
-            className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm"
+            className="bg-medtrack-body-main w-full rounded-lg border border-gray-300 p-3 text-sm"
             rows={3}
             value={note}
             onChange={handleNoteChange}

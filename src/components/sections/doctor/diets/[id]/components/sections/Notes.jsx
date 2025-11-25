@@ -42,7 +42,7 @@ function Notes({ diet, isEditing, editDiet }) {
           value={noteValue}
           onChange={(e) => setNoteValue(e.target.value)}
           placeholder="Escribe las notas del médico"
-          className="w-full rounded-lg border border-blue-300 bg-white p-3 text-blue-900 focus:border-blue-600 focus:outline-none"
+          className="bg-medtrack-body-main w-full rounded-lg border border-blue-300 p-3 text-blue-900 focus:border-blue-600 focus:outline-none"
           rows={2}
         />
       )}

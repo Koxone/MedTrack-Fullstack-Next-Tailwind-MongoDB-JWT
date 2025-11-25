@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function AppointmentsToday({ appointments, role }) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+    <div className="bg-medtrack-body-main rounded-xl border border-gray-200 p-4 shadow-sm md:p-6">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-900 md:text-xl">Citas de Hoy</h2>
         <Link
@@ -17,7 +17,7 @@ export default function AppointmentsToday({ appointments, role }) {
 
       {/* No appointments */}
       {appointments.length === 0 && (
-        <div className="flex h-40 items-center justify-center rounded-xl border border-gray-200 bg-gray-50">
+        <div className="bg-medtrack-body-main flex h-40 items-center justify-center rounded-xl border border-gray-200">
           <p className="text-gray-500">No hay citas programadas para hoy</p>
         </div>
       )}

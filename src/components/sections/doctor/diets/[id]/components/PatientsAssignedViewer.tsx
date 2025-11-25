@@ -15,7 +15,7 @@ export default function PatientsAssignedCompact({ patients }) {
   return (
     <>
       {/* Compact Card */}
-      <div className="flex flex-col rounded-lg border border-gray-200 bg-white p-4">
+      <div className="bg-medtrack-body-main flex flex-col rounded-lg border border-gray-200 p-4">
         {/* Header */}
         <div className="mb-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -34,7 +34,7 @@ export default function PatientsAssignedCompact({ patients }) {
 
         {/* Empty state */}
         {list.length === 0 && (
-          <p className="rounded-md border border-gray-200 bg-gray-50 p-3 text-sm text-gray-600">
+          <p className="bg-medtrack-body-main rounded-md border border-gray-200 p-3 text-sm text-gray-600">
             Esta dieta no está asignada a ningún paciente.
           </p>
         )}

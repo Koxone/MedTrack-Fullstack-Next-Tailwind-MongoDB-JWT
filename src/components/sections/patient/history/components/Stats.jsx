@@ -34,7 +34,7 @@ export default function Stats({ historyData = [], type = 'weight' }) {
   return (
     <div className="grid grid-cols-1 gap-4 px-2 md:grid-cols-4">
       {/* Initial */}
-      <div className="rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg">
+      <div className="bg-medtrack-body-main rounded-2xl border-2 border-gray-200 p-4 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg">
         <div className="mb-2 flex items-center justify-between">
           <p className="text-sm font-medium text-gray-600">{labels.initial}</p>
           <div className="rounded-lg bg-blue-100 p-2">{icon}</div>
@@ -45,7 +45,7 @@ export default function Stats({ historyData = [], type = 'weight' }) {
       </div>
 
       {/* Current */}
-      <div className="rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg">
+      <div className="bg-medtrack-body-main rounded-2xl border-2 border-gray-200 p-4 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg">
         <div className="mb-2 flex items-center justify-between">
           <p className="text-sm font-medium text-gray-600">{labels.current}</p>
           <div className="rounded-lg bg-emerald-100 p-2">
@@ -58,7 +58,7 @@ export default function Stats({ historyData = [], type = 'weight' }) {
       </div>
 
       {/* Difference */}
-      <div className="rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg">
+      <div className="bg-medtrack-body-main rounded-2xl border-2 border-gray-200 p-4 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg">
         <div className="mb-2 flex items-center justify-between">
           <p className="text-sm font-medium text-gray-600">{labels.difference}</p>
           <div className={`rounded-lg p-2 ${stats.isPositive ? 'bg-green-100' : 'bg-red-100'}`}>
@@ -76,8 +76,8 @@ export default function Stats({ historyData = [], type = 'weight' }) {
       </div>
 
       {/* Progress */}
-      <div className="rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg">
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 h-20 w-20 rounded-full bg-white/10" />
+      <div className="bg-medtrack-body-main rounded-2xl border-2 border-gray-200 p-4 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg">
+        <div className="bg-medtrack-body-main/10 absolute top-0 right-0 -mt-10 -mr-10 h-20 w-20 rounded-full" />
         <div className="relative z-10">
           <div className="mb-2 flex items-center justify-between">
             <p className="text-sm font-medium text-gray-600">Progreso</p>

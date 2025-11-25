@@ -34,7 +34,7 @@ function ImagesSection({ images, setImages }) {
   };
 
   return (
-    <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+    <section className="bg-medtrack-body-main rounded-xl border border-gray-200 p-6 shadow-sm md:p-8">
       <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-gray-900">
         <div className="h-6 w-1 rounded-full bg-pink-600"></div>
         Imágenes

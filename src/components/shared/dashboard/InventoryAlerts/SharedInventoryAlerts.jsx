@@ -13,18 +13,18 @@ export default function SharedInventoryAlerts({ role, inventory = [], showButton
   const totalAlerts = alertItems.length;
 
   return (
-    <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
+    <div className="bg-medtrack-body-main overflow-hidden rounded-2xl border-2 border-gray-200 shadow-lg transition-all duration-300 hover:shadow-xl">
       {/* Header section */}
       <div className="bg-medtrack-red-solid relative overflow-hidden px-6 py-5">
-        <div className="absolute top-0 right-0 -mt-16 -mr-16 h-32 w-32 animate-pulse rounded-full bg-white/10" />
-        <div className="absolute bottom-0 left-0 -mb-12 -ml-12 h-24 w-24 rounded-full bg-white/10" />
+        <div className="bg-medtrack-body-main/10 absolute top-0 right-0 -mt-16 -mr-16 h-32 w-32 animate-pulse rounded-full" />
+        <div className="bg-medtrack-body-main/10 absolute bottom-0 left-0 -mb-12 -ml-12 h-24 w-24 rounded-full" />
 
         <div className="relative z-10 flex items-center justify-between">
           {/* Title and alert counter */}
           <div className="flex items-center gap-3">
-            <div className="relative rounded-xl bg-white/20 p-2.5 backdrop-blur-sm">
+            <div className="bg-medtrack-body-main/20 relative rounded-xl p-2.5 backdrop-blur-sm">
               <AlertTriangle className="h-6 w-6 text-white" />
-              <div className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-white">
+              <div className="bg-medtrack-body-main absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full">
                 <span className="text-xs font-bold text-rose-600">{totalAlerts}</span>
               </div>
             </div>

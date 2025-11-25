@@ -42,7 +42,7 @@ export default function ProgressSteps({ getStepStatus }) {
                   status === 'complete'
                     ? 'bg-medtrack-blue-solid scale-110 text-white shadow-lg'
                     : status === 'current'
-                      ? 'scale-105 border-2 border-blue-600 bg-white text-blue-600 shadow-md'
+                      ? 'bg-medtrack-body-main scale-105 border-2 border-blue-600 text-blue-600 shadow-md'
                       : 'bg-gray-200 text-gray-400'
                 }`}
               >

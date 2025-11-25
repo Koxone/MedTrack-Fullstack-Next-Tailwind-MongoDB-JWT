@@ -48,7 +48,7 @@ export default function EmployeeConsults({ role }) {
         <TodayConsultsList consultsData={consults} totals={metrics} />
 
         {/* Medications Sold Table */}
-        <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
+        <div className="bg-medtrack-body-main overflow-hidden rounded-2xl border-2 border-gray-200 shadow-lg">
           <MedsSoldTable consultsData={consults} />
         </div>
       </div>

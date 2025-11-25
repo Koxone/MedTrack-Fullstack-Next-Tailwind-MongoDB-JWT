@@ -69,7 +69,7 @@ export default function DoctorAccounting({ role, specialty }) {
       </div>
 
       {/* Consults */}
-      <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+      <div className="bg-medtrack-body-main rounded-xl border border-gray-200 p-4 shadow-sm md:p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-gray-900 md:text-xl">Consultas del Día</h2>
         </div>
@@ -78,7 +78,7 @@ export default function DoctorAccounting({ role, specialty }) {
       </div>
 
       {/* Meds Sold */}
-      <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+      <div className="bg-medtrack-body-main rounded-xl border border-gray-200 p-4 shadow-sm md:p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-gray-900 md:text-xl">
             Medicamentos Vendidos del Día

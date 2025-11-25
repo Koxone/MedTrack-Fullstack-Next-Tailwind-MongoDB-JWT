@@ -235,7 +235,7 @@ export default function DietForm() {
           <button
             type="button"
             onClick={resetForm}
-            className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-gray-300 px-6 py-3 font-semibold text-gray-700 transition-all hover:bg-gray-50 active:scale-95"
+            className="hover:bg-medtrack-body-main flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-gray-300 px-6 py-3 font-semibold text-gray-700 transition-all active:scale-95"
           >
             Cancelar
           </button>

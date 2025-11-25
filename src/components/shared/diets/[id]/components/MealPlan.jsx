@@ -1,6 +1,6 @@
 function MealBlock({ title, time, items }) {
   return (
-    <div className="rounded-lg bg-gray-50 p-4">
+    <div className="bg-medtrack-body-main rounded-lg p-4">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="font-semibold text-gray-900">{title}</h3>
         <span className="text-sm text-gray-600">{time}</span>

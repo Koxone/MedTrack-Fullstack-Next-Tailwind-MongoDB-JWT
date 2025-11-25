@@ -12,8 +12,10 @@ export default function EmployeeStatsCard({
   const styles = {
     primary:
       'bg-linear-to-r from-medtrack-green-dark to-medtrack-green-solid text-white border-transparent',
-    success: 'border border-gray-200 bg-white text-gray-900 hover:border-green-300 active:scale-95',
-    purple: 'border border-gray-200 bg-white text-gray-900 hover:border-purple-300 active:scale-95',
+    success:
+      'border border-gray-200 bg-medtrack-body-main text-gray-900 hover:border-green-300 active:scale-95',
+    purple:
+      'border border-gray-200 bg-medtrack-body-main text-gray-900 hover:border-purple-300 active:scale-95',
     danger: 'border-2 border-red-200 bg-red-50 text-gray-900 hover:border-red-300 active:scale-95',
   };
 
@@ -25,7 +27,7 @@ export default function EmployeeStatsCard({
   };
 
   const badgeColors = {
-    primary: 'bg-white/20 text-white',
+    primary: 'bg-medtrack-body-main/20 text-white',
     success: 'bg-green-100 text-green-700',
     purple: 'bg-purple-100 text-purple-700',
     danger: 'bg-red-100 text-red-700',

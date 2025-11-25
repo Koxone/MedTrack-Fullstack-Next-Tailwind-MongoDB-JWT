@@ -25,15 +25,15 @@ export default function PatientHeader({ patient, onClickNew, patientRecord }) {
 
   return (
     <div className="bg-medtrack-green-solid relative overflow-hidden rounded-2xl p-8 shadow-xl">
-      <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
-      <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
+      <div className="bg-medtrack-body-main/10 absolute -top-10 -right-10 h-40 w-40 rounded-full blur-3xl" />
+      <div className="bg-medtrack-body-main/10 absolute -bottom-10 -left-10 h-40 w-40 rounded-full blur-3xl" />
 
       <div className="relative flex flex-col items-start gap-6 md:flex-row md:items-center">
         <div className="group relative">
-          <div className="absolute inset-0 rounded-full bg-white opacity-75 blur-xl transition-opacity group-hover:opacity-100" />
+          <div className="bg-medtrack-body-main absolute inset-0 rounded-full opacity-75 blur-xl transition-opacity group-hover:opacity-100" />
 
           {/* Avatar */}
-          <div className="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-white shadow-2xl ring-4 ring-white/30 transition-transform duration-300 group-hover:scale-105">
+          <div className="bg-medtrack-body-main relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full shadow-2xl ring-4 ring-white/30 transition-transform duration-300 group-hover:scale-105">
             <img src={patient?.avatar || '/oochel.jpg'} alt="" />
           </div>
         </div>
@@ -67,7 +67,7 @@ export default function PatientHeader({ patient, onClickNew, patientRecord }) {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {/* Patient Mail */}
             <div className="border-asana-beige/40 flex items-center gap-3 rounded-xl border bg-black/20 p-3 backdrop-blur-sm">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20">
+              <div className="bg-medtrack-body-main/20 flex h-10 w-10 items-center justify-center rounded-lg">
                 <Mail className="h-5 w-5 text-white" />
               </div>
               <div className="min-w-0 flex-1">
@@ -78,7 +78,7 @@ export default function PatientHeader({ patient, onClickNew, patientRecord }) {
 
             {/* Patient Phone Number */}
             <div className="border-asana-beige/40 flex items-center gap-3 rounded-xl border bg-black/20 p-3 backdrop-blur-sm">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20">
+              <div className="bg-medtrack-body-main/20 flex h-10 w-10 items-center justify-center rounded-lg">
                 <Phone className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -89,7 +89,7 @@ export default function PatientHeader({ patient, onClickNew, patientRecord }) {
 
             {/* Patient First Consultation */}
             <div className="border-asana-beige/40 flex items-center gap-3 rounded-xl border bg-black/20 p-3 backdrop-blur-sm">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20">
+              <div className="bg-medtrack-body-main/20 flex h-10 w-10 items-center justify-center rounded-lg">
                 <CalendarIcon className="h-5 w-5 text-white" />
               </div>
               <div>

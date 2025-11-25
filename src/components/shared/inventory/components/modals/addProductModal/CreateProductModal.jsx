@@ -52,7 +52,7 @@ export default function CreateProductModal({ activeTab, onClose }) {
     >
       {/* Modal */}
       <div
-        className="relative w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl"
+        className="bg-medtrack-body-main relative w-full max-w-lg overflow-hidden rounded-3xl shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Decorative */}
@@ -64,7 +64,7 @@ export default function CreateProductModal({ activeTab, onClose }) {
         />
 
         {/* Header */}
-        <div className="relative overflow-hidden border-b border-gray-100 bg-white/80 backdrop-blur-xl">
+        <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-gray-100 backdrop-blur-xl">
           <div className={`absolute inset-0 bg-linear-to-r ${getGradient(activeTab)} opacity-10`} />
           <div className="relative px-6 py-6">
             <div className="flex items-start justify-between">

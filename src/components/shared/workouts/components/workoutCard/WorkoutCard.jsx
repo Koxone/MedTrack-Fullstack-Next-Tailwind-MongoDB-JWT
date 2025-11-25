@@ -23,7 +23,7 @@ export default function WorkoutCard({
   return (
     <div
       onClick={onOpen}
-      className="group hover:border-medtrack-blue-solid cursor-pointer overflow-hidden rounded-xl border-2 border-gray-200 bg-white shadow-sm transition-all duration-200 hover:shadow-lg active:scale-95"
+      className="group hover:border-medtrack-blue-solid bg-medtrack-body-main cursor-pointer overflow-hidden rounded-xl border-2 border-gray-200 shadow-sm transition-all duration-200 hover:shadow-lg active:scale-95"
     >
       {/* Main Image */}
       <div className="relative h-48 overflow-hidden bg-gray-100">
@@ -35,7 +35,7 @@ export default function WorkoutCard({
         <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         <div className="absolute top-3 right-3">
           <span
-            className={`rounded-full bg-white/80 px-2 py-1 text-xs font-medium shadow-sm backdrop-blur-sm ${getNivelColor(workout.nivel)}`}
+            className={`bg-medtrack-body-main/80 rounded-full px-2 py-1 text-xs font-medium shadow-sm backdrop-blur-sm ${getNivelColor(workout.nivel)}`}
           >
             {workout.nivel}
           </span>

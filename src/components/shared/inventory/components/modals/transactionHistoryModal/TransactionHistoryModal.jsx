@@ -24,12 +24,12 @@ export default function TransactionHistoryModal({ onClose, history, item, isLoad
   };
 
   function getTransactionBg(transaction) {
-    if (!transaction) return 'bg-gray-50';
+    if (!transaction) return 'bg-medtrack-body-main';
     const { reasonType, movement } = transaction;
     if (reasonType === 'status_change') {
-      return bgColorMap[`status_change_${movement}`] || 'bg-gray-50';
+      return bgColorMap[`status_change_${movement}`] || 'bg-medtrack-body-main';
     }
-    return bgColorMap[reasonType] || 'bg-gray-50';
+    return bgColorMap[reasonType] || 'bg-medtrack-body-main';
   }
 
   /* Loading state */
@@ -41,7 +41,7 @@ export default function TransactionHistoryModal({ onClose, history, item, isLoad
         className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md"
       >
         <div
-          className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white p-8 text-center shadow-2xl"
+          className="bg-medtrack-body-main relative w-full max-w-md overflow-hidden rounded-3xl p-8 text-center shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Spinner container */}
@@ -66,7 +66,7 @@ export default function TransactionHistoryModal({ onClose, history, item, isLoad
         className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md"
       >
         <div
-          className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white p-8 text-center shadow-2xl"
+          className="bg-medtrack-body-main relative w-full max-w-md overflow-hidden rounded-3xl p-8 text-center shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           <h2 className="text-xl font-bold text-gray-900">Sin historial</h2>
@@ -93,7 +93,7 @@ export default function TransactionHistoryModal({ onClose, history, item, isLoad
     >
       {/* Modal */}
       <div
-        className="relative w-full max-w-2xl overflow-hidden rounded-3xl bg-white shadow-2xl"
+        className="bg-medtrack-body-main relative w-full max-w-2xl overflow-hidden rounded-3xl shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Decorative */}
@@ -101,7 +101,7 @@ export default function TransactionHistoryModal({ onClose, history, item, isLoad
         <div className="pointer-events-none absolute bottom-0 left-0 h-40 w-40 rounded-full bg-linear-to-tr from-green-100 to-emerald-200 opacity-20 blur-3xl" />
 
         {/* Header */}
-        <div className="relative overflow-hidden border-b border-gray-100 bg-white/80 backdrop-blur-xl">
+        <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-gray-100 backdrop-blur-xl">
           <div className="absolute inset-0 bg-linear-to-r from-green-100 to-emerald-200 opacity-10" />
           <div className="relative px-6 py-6">
             <div className="flex items-start justify-between">

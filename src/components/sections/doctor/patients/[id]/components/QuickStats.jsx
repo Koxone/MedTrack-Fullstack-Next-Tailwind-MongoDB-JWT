@@ -14,7 +14,7 @@ export default function QuickStats({ patientRecord, specialty }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       {/* Consultas Totales */}
-      <div className="rounded-2xl border border-(--med-gray-border) bg-white p-6 shadow-sm transition hover:shadow-md">
+      <div className="bg-medtrack-body-main rounded-2xl border border-(--med-gray-border) p-6 shadow-sm transition hover:shadow-md">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--med-green)/10">
@@ -31,7 +31,7 @@ export default function QuickStats({ patientRecord, specialty }) {
 
       {/* Current Weight */}
       {specialty === 'weight' && (
-        <div className="rounded-2xl border border-(--med-gray-border) bg-white p-6 shadow-sm transition hover:shadow-md">
+        <div className="bg-medtrack-body-main rounded-2xl border border-(--med-gray-border) p-6 shadow-sm transition hover:shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--med-blue-light)">
@@ -49,7 +49,7 @@ export default function QuickStats({ patientRecord, specialty }) {
 
       {/* Patients Debts */}
       {specialty === 'dental' && (
-        <div className="rounded-2xl border border-(--med-gray-border) bg-white p-6 shadow-sm transition hover:shadow-md">
+        <div className="bg-medtrack-body-main rounded-2xl border border-(--med-gray-border) p-6 shadow-sm transition hover:shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--med-blue-light)">
@@ -66,7 +66,7 @@ export default function QuickStats({ patientRecord, specialty }) {
       )}
 
       {/* IMC Actual */}
-      <div className="rounded-2xl border border-(--med-gray-border) bg-white p-6 shadow-sm transition hover:shadow-md">
+      <div className="bg-medtrack-body-main rounded-2xl border border-(--med-gray-border) p-6 shadow-sm transition hover:shadow-md">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--med-purple)/10">

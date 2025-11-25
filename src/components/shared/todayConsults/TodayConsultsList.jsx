@@ -10,7 +10,7 @@ import {
   openCreate,
   openEdit,
   askDelete,
-  handleCreateAction, 
+  handleCreateAction,
   handleUpdateAction,
   handleDeleteAction,
   todayISO,
@@ -63,7 +63,7 @@ export default function TodayConsultsList({ totals, consultsData }) {
         onAdd={() => openCreate(setEditingItem, setShowModal)}
       />
 
-      <div className="overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg">
+      <div className="bg-medtrack-body-main overflow-hidden rounded-2xl border-2 border-gray-200 shadow-lg">
         <ConsultsTable
           rows={filteredConsults}
           totals={totals}

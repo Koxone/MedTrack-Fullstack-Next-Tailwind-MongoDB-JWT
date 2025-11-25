@@ -19,7 +19,7 @@ export default function DaysGrid({ days, selectedDate, onSelectDate, helpers }) 
                 ? 'bg-medtrack-blue-solid z-10 scale-110 text-white shadow-lg'
                 : hasApts
                   ? 'border-medtrack-green-solid/50 border-2 bg-linear-to-br from-blue-50 to-indigo-50 text-gray-900 hover:scale-105 hover:from-blue-100 hover:to-indigo-100 hover:shadow-md'
-                  : 'bg-gray-50 text-gray-600 hover:scale-105 hover:bg-gray-100'
+                  : 'bg-medtrack-body-main text-gray-600 hover:scale-105 hover:bg-gray-100'
             } ${isToday && !isSelected ? 'ring-medtrack-green-solid ring-2 ring-offset-1' : ''} active:scale-95`}
           >
             <span className="mb-1">{date.getDate()}</span>
@@ -28,7 +28,7 @@ export default function DaysGrid({ days, selectedDate, onSelectDate, helpers }) 
                 className={`flex items-center gap-1 ${isSelected ? 'text-white' : 'text-blue-600'}`}
               >
                 <div
-                  className={`h-1.5 w-1.5 rounded-full ${isSelected ? 'bg-white' : 'bg-blue-600'}`}
+                  className={`h-1.5 w-1.5 rounded-full ${isSelected ? 'bg-medtrack-body-main' : 'bg-blue-600'}`}
                 />
                 <span className="text-xs font-bold">{aptCount}</span>
               </div>

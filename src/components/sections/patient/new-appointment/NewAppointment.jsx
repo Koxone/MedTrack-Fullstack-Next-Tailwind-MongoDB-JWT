@@ -221,7 +221,7 @@ export default function NewAppointment() {
             <button
               type="button"
               onClick={() => router.back()}
-              className="flex-1 rounded-xl border-2 border-gray-300 px-6 py-4 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:shadow-md active:scale-95"
+              className="hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-4 font-semibold text-gray-700 transition-all duration-200 hover:shadow-md active:scale-95"
             >
               Cancelar
             </button>

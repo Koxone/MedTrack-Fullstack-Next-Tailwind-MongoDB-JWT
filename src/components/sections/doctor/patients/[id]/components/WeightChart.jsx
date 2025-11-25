@@ -23,7 +23,7 @@ export default function WeightChart({ patientRecord }) {
   const total = formattedData.length;
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+    <div className="bg-medtrack-body-main rounded-2xl border border-gray-200 p-6 shadow-lg">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -88,7 +88,7 @@ export default function WeightChart({ patientRecord }) {
           </AreaChart>
         </ResponsiveContainer>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-16">
+        <div className="bg-medtrack-body-main flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 py-16">
           <TrendingUp className="mb-3 h-12 w-12 text-gray-300" />
           <p className="mb-1 font-medium text-gray-600">Sin datos de evolución</p>
           <p className="text-sm text-gray-500">Agrega registros para ver el progreso</p>

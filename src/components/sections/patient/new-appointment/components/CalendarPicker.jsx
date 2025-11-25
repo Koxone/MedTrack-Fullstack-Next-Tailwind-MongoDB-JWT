@@ -14,7 +14,7 @@ export default function CalendarPicker({
   isPastDate,
 }) {
   return (
-    <div className="animate-slideDown rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg">
+    <div className="animate-slideDown bg-medtrack-body-main rounded-2xl border-2 border-gray-200 p-6 shadow-sm transition-all duration-300 hover:shadow-lg">
       <div className="mb-4 flex items-center gap-3">
         <div className="rounded-lg bg-indigo-100 p-2">
           <CalendarIcon className="h-5 w-5 text-indigo-600" />
@@ -31,17 +31,17 @@ export default function CalendarPicker({
           <button
             type="button"
             onClick={onPrev}
-            className="group rounded-xl border border-gray-200 p-2.5 shadow-sm transition-all duration-200 hover:bg-white active:scale-95"
+            className="group hover:bg-medtrack-body-main rounded-xl border border-gray-200 p-2.5 shadow-sm transition-all duration-200 active:scale-95"
           >
             <ChevronLeft className="h-5 w-5 text-gray-600 transition-transform duration-200 group-hover:-translate-x-1" />
           </button>
-          <h3 className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-lg font-bold text-gray-900 capitalize shadow-sm">
+          <h3 className="bg-medtrack-body-main rounded-xl border border-gray-200 px-4 py-2 text-lg font-bold text-gray-900 capitalize shadow-sm">
             {monthName}
           </h3>
           <button
             type="button"
             onClick={onNext}
-            className="group rounded-xl border border-gray-200 p-2.5 shadow-sm transition-all duration-200 hover:bg-white active:scale-95"
+            className="group hover:bg-medtrack-body-main rounded-xl border border-gray-200 p-2.5 shadow-sm transition-all duration-200 active:scale-95"
           >
             <ChevronRight className="h-5 w-5 text-gray-600 transition-transform duration-200 group-hover:translate-x-1" />
           </button>
@@ -73,7 +73,7 @@ export default function CalendarPicker({
                   selected
                     ? 'bg-medtrack-blue-solid z-10 scale-110 text-white shadow-lg'
                     : isAvailable && !past
-                      ? 'border-2 border-blue-300 bg-white text-gray-900 hover:scale-105 hover:bg-blue-50 hover:shadow-md active:scale-95'
+                      ? 'bg-medtrack-body-main border-2 border-blue-300 text-gray-900 hover:scale-105 hover:bg-blue-50 hover:shadow-md active:scale-95'
                       : 'cursor-not-allowed bg-gray-100 text-gray-400 opacity-50'
                 }`}
               >
@@ -89,7 +89,7 @@ export default function CalendarPicker({
         {/* legend */}
         <div className="mt-6 flex flex-wrap items-center gap-4 border-t border-gray-200 pt-5 text-xs">
           <div className="flex items-center gap-2">
-            <div className="h-5 w-5 rounded-lg border-2 border-blue-300 bg-white shadow-sm" />
+            <div className="bg-medtrack-body-main h-5 w-5 rounded-lg border-2 border-blue-300 shadow-sm" />
             <span className="font-medium text-gray-700">Disponible</span>
           </div>
           <div className="flex items-center gap-2">

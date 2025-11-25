@@ -32,7 +32,7 @@ export default function EmployeeDeleteConsultModal({ item, onClose, onConfirm })
           />
 
           {/* Header */}
-          <div className="relative overflow-hidden border-b border-white/50 bg-white/80 backdrop-blur-xl">
+          <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-white/50 backdrop-blur-xl">
             <div className={`absolute inset-0 bg-linear-to-r ${getGradientColor()} opacity-10`} />
             <div className="relative flex items-center justify-between px-6 py-5">
               <div className="flex items-center gap-4">
@@ -60,14 +60,14 @@ export default function EmployeeDeleteConsultModal({ item, onClose, onConfirm })
           {/* Content */}
           <div className="relative p-6">
             {/* Confirmation text with styled block */}
-            <div className="mb-6 flex items-center rounded-xl border-2 border-gray-100 bg-white/80 p-4 shadow-md backdrop-blur-sm">
+            <div className="bg-medtrack-body-main/80 mb-6 flex items-center rounded-xl border-2 border-gray-100 p-4 shadow-md backdrop-blur-sm">
               <p className="font-medium text-gray-700">
                 ¿Estás seguro de que deseas eliminar esta consulta médica del registro?
               </p>
             </div>
 
             {/* Patient Info */}
-            <div className="mb-6 flex items-center gap-3 rounded-xl border-2 border-gray-100 bg-white/80 p-4 shadow-md backdrop-blur-sm">
+            <div className="bg-medtrack-body-main/80 mb-6 flex items-center gap-3 rounded-xl border-2 border-gray-100 p-4 shadow-md backdrop-blur-sm">
               <div className={`rounded-lg bg-linear-to-br ${getGradientColor()} p-2.5 shadow-sm`}>
                 <Calendar className="h-5 w-5 text-white" />
               </div>
@@ -81,7 +81,7 @@ export default function EmployeeDeleteConsultModal({ item, onClose, onConfirm })
 
             {/* Cost */}
             <div className="rounded-xl border-2 border-gray-200 bg-linear-to-br from-gray-50 to-blue-50">
-              <div className="rounded-lg bg-white p-3">
+              <div className="bg-medtrack-body-main rounded-lg p-3">
                 <p className="mb-1 text-xs text-gray-500">Costo de la consulta</p>
                 <p className="text-2xl font-bold text-blue-600">${item.costo}</p>
               </div>
@@ -91,7 +91,7 @@ export default function EmployeeDeleteConsultModal({ item, onClose, onConfirm })
             <div className="mt-6 flex gap-3">
               <button
                 onClick={onClose}
-                className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:bg-gray-50 hover:shadow-md active:scale-95"
+                className="bg-medtrack-body-main hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:shadow-md active:scale-95"
               >
                 Cancelar
               </button>

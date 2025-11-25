@@ -8,9 +8,9 @@ export default function RecordsTable({ historyData = [] }) {
     <>
       {/* Header de la tabla */}
       <div className="bg-medtrack-blue-solid relative overflow-hidden px-6 py-4">
-        <div className="absolute top-0 right-0 -mt-16 -mr-16 h-32 w-32 rounded-full bg-white/10" />
+        <div className="bg-medtrack-body-main/10 absolute top-0 right-0 -mt-16 -mr-16 h-32 w-32 rounded-full" />
         <div className="relative z-10 flex items-center gap-3">
-          <div className="rounded-xl bg-white/20 p-2 backdrop-blur-sm">
+          <div className="bg-medtrack-body-main/20 rounded-xl p-2 backdrop-blur-sm">
             <BarChart3 className="h-5 w-5 text-white" />
           </div>
           <div>

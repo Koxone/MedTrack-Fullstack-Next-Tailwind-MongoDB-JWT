@@ -25,17 +25,17 @@ export default function RecordsMobileList({ historyData = [] }) {
             </div>
 
             <div className="mb-3 grid grid-cols-2 gap-3">
-              <div className="rounded-lg bg-white p-3">
+              <div className="bg-medtrack-body-main rounded-lg p-3">
                 <p className="mb-1 text-xs text-gray-600">Peso</p>
                 <p className="text-xl font-bold text-purple-600">{record.peso} kg</p>
               </div>
-              <div className="rounded-lg bg-white p-3">
+              <div className="bg-medtrack-body-main rounded-lg p-3">
                 <p className="mb-1 text-xs text-gray-600">IMC</p>
                 <p className="text-xl font-bold text-gray-900">{record.imc}</p>
               </div>
             </div>
 
-            <div className="rounded-lg bg-white p-3">
+            <div className="bg-medtrack-body-main rounded-lg p-3">
               <p className="mb-1 text-xs text-gray-600">Notas</p>
               <p className="text-sm font-medium text-gray-900">{record.notas}</p>
             </div>

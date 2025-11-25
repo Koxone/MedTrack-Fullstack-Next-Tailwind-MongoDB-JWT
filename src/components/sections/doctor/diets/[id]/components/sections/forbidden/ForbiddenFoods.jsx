@@ -35,7 +35,7 @@ export default function ForbiddenFoods({ diet, isEditing = false, editDiet }) {
   };
 
   return (
-    <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md md:p-4">
+    <section className="bg-medtrack-body-main rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md md:p-4">
       <div className="mb-4 flex items-center gap-3">
         <div className="rounded-lg bg-red-100 p-2">
           <XCircle className="h-5 w-5 text-red-600" />
@@ -57,7 +57,7 @@ export default function ForbiddenFoods({ diet, isEditing = false, editDiet }) {
             ))}
           </div>
           {note && (
-            <div className="rounded-lg border-l-2 border-gray-300 bg-gray-50 p-3">
+            <div className="bg-medtrack-body-main rounded-lg border-l-2 border-gray-300 p-3">
               <p className="text-sm text-gray-600 italic">{note}</p>
             </div>
           )}
@@ -109,7 +109,7 @@ export default function ForbiddenFoods({ diet, isEditing = false, editDiet }) {
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Detalles o consideraciones sobre alimentos prohibidos"
-            className="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm"
+            className="bg-medtrack-body-main w-full rounded-lg border border-gray-300 p-3 text-sm"
             rows={3}
           />
 

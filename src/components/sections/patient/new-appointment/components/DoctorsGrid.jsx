@@ -19,7 +19,7 @@ export default function DoctorsGrid({ selectedDoctor, onSelect }) {
   ];
 
   return (
-    <div className="rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg">
+    <div className="bg-medtrack-body-main rounded-2xl border-2 border-gray-200 p-6 shadow-sm transition-all duration-300 hover:shadow-lg">
       {/* header */}
       <div className="mb-4 flex items-center gap-3">
         <div className="rounded-lg bg-blue-100 p-2">

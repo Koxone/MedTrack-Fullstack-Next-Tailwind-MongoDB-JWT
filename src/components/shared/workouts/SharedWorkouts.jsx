@@ -83,7 +83,7 @@ export default function SharedWorkouts({ role }) {
               className={`rounded-lg px-4 py-2 font-medium ${
                 filterCategorie === cat
                   ? 'bg-medtrack-blue-solid hover:bg-medtrack-blue-hover text-white'
-                  : 'border border-gray-300 bg-white hover:bg-gray-50'
+                  : 'bg-medtrack-body-main hover:bg-medtrack-body-main border border-gray-300'
               }`}
             >
               {cat}

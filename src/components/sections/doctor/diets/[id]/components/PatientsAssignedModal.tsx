@@ -17,7 +17,7 @@ export default function PatientsAssignedModal({ patients, onClose }) {
     >
       {/* Modal container */}
       <div
-        className="relative w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl"
+        className="bg-medtrack-body-main relative w-full max-w-lg overflow-hidden rounded-3xl shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Decorative background */}
@@ -25,7 +25,7 @@ export default function PatientsAssignedModal({ patients, onClose }) {
         <div className="pointer-events-none absolute bottom-0 left-0 h-40 w-40 rounded-full bg-linear-to-tr from-blue-300 to-blue-500 opacity-20 blur-3xl" />
 
         {/* Header */}
-        <div className="relative overflow-hidden border-b border-gray-100 bg-white/80 backdrop-blur-xl">
+        <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-gray-100 backdrop-blur-xl">
           <div className="absolute inset-0 bg-linear-to-r from-blue-200 to-blue-300 opacity-10" />
           <div className="relative px-6 py-6">
             <div className="flex items-start justify-between">

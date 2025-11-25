@@ -14,6 +14,6 @@ const getCaducidadStatus = (caducidad) => {
   const dias = Math.floor((fecha - hoy) / (1000 * 60 * 60 * 24));
   if (dias < 30) return { color: 'text-red-700', bg: 'bg-red-50' };
   if (dias < 90) return { color: 'text-yellow-700', bg: 'bg-yellow-50' };
-  return { color: 'text-gray-600', bg: 'bg-gray-50' };
+  return { color: 'text-gray-600', bg: 'bg-medtrack-body-main' };
 };
 export { getStockStatus, getCaducidadStatus };

@@ -8,7 +8,7 @@ export default function Privacy() {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-green-50">
-      <header className="border-b bg-white/80 backdrop-blur-sm">
+      <header className="bg-medtrack-body-main/80 border-b backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <button onClick={() => router.push('/')} className="flex items-center gap-2">
             <img src="/BeeHealth.png" alt="" className="max-w-10" />
@@ -19,7 +19,7 @@ export default function Privacy() {
 
       <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
         <h1 className="mb-6 text-4xl font-bold text-gray-900">Política de Privacidad</h1>
-        <div className="space-y-6 rounded-xl bg-white p-8 shadow-md">
+        <div className="bg-medtrack-body-main space-y-6 rounded-xl p-8 shadow-md">
           <section>
             <h2 className="mb-3 text-2xl font-semibold text-gray-900">Recopilación de Datos</h2>
             <p className="text-gray-600">

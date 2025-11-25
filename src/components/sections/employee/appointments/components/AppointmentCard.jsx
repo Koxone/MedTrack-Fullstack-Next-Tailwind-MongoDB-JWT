@@ -6,7 +6,7 @@ export default function AppointmentCard({ index, cita, getEstadoBadge }) {
   return (
     <div
       style={{ animationDelay: `${index * 50}ms` }}
-      className={`group animate-fadeInUp relative overflow-hidden rounded-2xl border-2 bg-white p-5 transition-all duration-300 hover:shadow-xl ${
+      className={`group animate-fadeInUp bg-medtrack-body-main relative overflow-hidden rounded-2xl border-2 p-5 transition-all duration-300 hover:shadow-xl ${
         cita.estado === 'Cancelada'
           ? 'border-rose-200 bg-linear-to-r from-rose-50/50 to-white opacity-75'
           : 'border-gray-200 hover:scale-[1.01] hover:border-emerald-300'

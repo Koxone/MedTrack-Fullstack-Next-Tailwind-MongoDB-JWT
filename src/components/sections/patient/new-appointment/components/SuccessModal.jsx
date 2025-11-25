@@ -8,7 +8,7 @@ export default function SuccessModal({ data, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="animate-slideDown relative w-full max-w-lg rounded-3xl border-2 border-green-500 bg-white p-8 shadow-2xl">
+      <div className="animate-slideDown bg-medtrack-body-main relative w-full max-w-lg rounded-3xl border-2 border-green-500 p-8 shadow-2xl">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
@@ -25,7 +25,7 @@ export default function SuccessModal({ data, onClose }) {
         <h2 className="mb-2 text-center text-3xl font-bold text-gray-900">¡Cita Confirmada!</h2>
         <p className="mb-6 text-center text-gray-600">Tu cita ha sido agendada exitosamente</p>
 
-        <div className="space-y-4 rounded-2xl bg-gray-50 p-6">
+        <div className="bg-medtrack-body-main space-y-4 rounded-2xl p-6">
           <div className="border-b border-gray-200 pb-3">
             <p className="text-sm font-semibold text-gray-500 uppercase">Médico</p>
             <p className="text-lg font-bold text-gray-900">{data.doctor.nombre}</p>

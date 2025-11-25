@@ -28,7 +28,7 @@ export default function EmployeeCreateConsultModal({ onClose, onCreate }) {
     itemsSold: [],
     notes: '',
   });
-  console.log(form)
+  console.log(form);
 
   // Loading and error states
   const [isLoading, setIsLoading] = useState(false);
@@ -107,7 +107,7 @@ export default function EmployeeCreateConsultModal({ onClose, onCreate }) {
       {/* Modal */}
       <div className="relative inset-0 z-50 flex w-full max-w-[600px] items-center justify-center p-4">
         <div
-          className="w-full overflow-hidden rounded-3xl bg-white shadow-2xl"
+          className="bg-medtrack-body-main w-full overflow-hidden rounded-3xl shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
@@ -115,7 +115,7 @@ export default function EmployeeCreateConsultModal({ onClose, onCreate }) {
 
           {/* Error Alert */}
           {error && (
-            <div className="mx-6 mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-700 border border-red-200">
+            <div className="mx-6 mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
               {error}
             </div>
           )}

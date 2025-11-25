@@ -62,7 +62,7 @@ export default function MedsSold({ form, setForm }) {
               {selected.map((item) => (
                 <div
                   key={item.product}
-                  className="space-y-2 rounded-xl border border-gray-200 bg-gray-50 p-3"
+                  className="bg-medtrack-body-main space-y-2 rounded-xl border border-gray-200 p-3"
                 >
                   {/* Row */}
                   <div className="flex items-center justify-between">

@@ -51,7 +51,7 @@ export default function DoctorCreateBudgetModal({ onClose }) {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="relative overflow-hidden border-b border-white/50 bg-white/80 backdrop-blur-xl">
+          <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-white/50 backdrop-blur-xl">
             <div className="absolute inset-0 bg-linear-to-r from-purple-500 to-indigo-500 opacity-10" />
             <div className="relative px-6 py-6 sm:px-8">
               <div className="flex items-start justify-between">
@@ -86,7 +86,7 @@ export default function DoctorCreateBudgetModal({ onClose }) {
           <div className="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-300 relative max-h-[calc(95vh-180px)] overflow-y-auto">
             <form onSubmit={handleSubmit} className="space-y-8 p-6 sm:p-8">
               {/* Info básica */}
-              <div className="rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-purple-500 to-indigo-500 p-2.5">
                     <ClipboardList className="h-5 w-5 text-white" />
@@ -102,7 +102,7 @@ export default function DoctorCreateBudgetModal({ onClose }) {
                       required
                       value={budgetForm.diagnosis}
                       onChange={(e) => handleChange('diagnosis', e.target.value)}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                     >
                       <option value="">Seleccionar</option>
                       <option>Prevención</option>
@@ -121,14 +121,14 @@ export default function DoctorCreateBudgetModal({ onClose }) {
                       type="text"
                       value={budgetForm.other}
                       onChange={(e) => handleChange('other', e.target.value)}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                     />
                   </div>
 
                   {/* Doctor */}
                   <div className="space-y-2">
                     <label className="text-sm font-semibold text-gray-700">Doctor</label>
-                    <p className="rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
+                    <p className="bg-medtrack-body-main rounded-xl border-2 border-gray-200 px-4 py-3 text-sm text-gray-600">
                       {budgetForm.doctor}
                     </p>
                   </div>
@@ -139,7 +139,7 @@ export default function DoctorCreateBudgetModal({ onClose }) {
                     <select
                       value={budgetForm.discount}
                       onChange={(e) => handleChange('discount', e.target.value)}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm transition focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                     >
                       {[0, 10, 20, 30, 40].map((v) => (
                         <option key={v} value={v}>
@@ -152,7 +152,7 @@ export default function DoctorCreateBudgetModal({ onClose }) {
               </div>
 
               {/* Tipo */}
-              <div className="rounded-2xl border border-gray-100 bg-white/80 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+              <div className="bg-medtrack-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-xl bg-linear-to-br from-indigo-500 to-blue-500 p-2.5">
                     <FileText className="h-5 w-5 text-white" />
@@ -166,7 +166,7 @@ export default function DoctorCreateBudgetModal({ onClose }) {
                     required
                     value={budgetForm.type}
                     onChange={(e) => handleChange('type', e.target.value)}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-sm transition focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
+                    className="bg-medtrack-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 shadow-sm transition focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
                   >
                     <option value="">Seleccionar</option>
                     <option>Operatoria</option>
@@ -182,7 +182,7 @@ export default function DoctorCreateBudgetModal({ onClose }) {
                       key={i}
                       value={t}
                       onChange={(e) => handleTreatmentChange(i, e.target.value)}
-                      className="rounded-xl border-2 border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
+                      className="bg-medtrack-body-main rounded-xl border-2 border-gray-200 px-3 py-2 text-sm text-gray-900 shadow-sm transition focus:border-indigo-500 focus:shadow-md focus:shadow-indigo-500/20 focus:outline-none"
                     >
                       <option>-</option>
                       <option>PROFILAXIS Y FLUOR</option>
@@ -199,7 +199,7 @@ export default function DoctorCreateBudgetModal({ onClose }) {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 rounded-xl border-2 border-gray-300 bg-white px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition hover:border-gray-400 hover:bg-gray-50 hover:shadow-md active:scale-95"
+                  className="bg-medtrack-body-main hover:bg-medtrack-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition hover:border-gray-400 hover:shadow-md active:scale-95"
                 >
                   Cancelar
                 </button>

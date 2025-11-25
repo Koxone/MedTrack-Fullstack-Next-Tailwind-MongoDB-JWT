@@ -3,7 +3,7 @@ import { X, Calendar, Sparkles } from 'lucide-react';
 /* Header */
 export default function Header({ title, onClose }) {
   return (
-    <div className="relative border-b border-gray-100 bg-white">
+    <div className="bg-medtrack-body-main relative border-b border-gray-100">
       <div className="relative px-6 py-5">
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-3">

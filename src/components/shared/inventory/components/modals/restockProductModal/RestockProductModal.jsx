@@ -58,7 +58,7 @@ export default function RestockProductModal({ activeTab, onClose, filteredItems,
     >
       {/* Modal */}
       <div
-        className="relative w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl"
+        className="bg-medtrack-body-main relative w-full max-w-lg overflow-hidden rounded-3xl shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Decorative */}
@@ -74,7 +74,7 @@ export default function RestockProductModal({ activeTab, onClose, filteredItems,
         />
 
         {/* Header */}
-        <div className="relative overflow-hidden border-b border-gray-100 bg-white/80 backdrop-blur-xl">
+        <div className="bg-medtrack-body-main/80 relative overflow-hidden border-b border-gray-100 backdrop-blur-xl">
           <div className={`absolute inset-0 bg-linear-to-r ${getGradient(activeTab)} opacity-10`} />
           <div className="relative px-6 py-6">
             <div className="flex items-start justify-between">
@@ -129,7 +129,7 @@ export default function RestockProductModal({ activeTab, onClose, filteredItems,
 
           {/* Current quantity display */}
           {selectedProduct && (
-            <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm text-gray-700">
+            <div className="bg-medtrack-body-main rounded-lg border border-gray-200 p-3 text-sm text-gray-700">
               <span className="font-medium">Cantidad actual:</span>{' '}
               {filteredItems.find((item) => item._id === selectedProduct)?.quantity ??
                 'No disponible'}

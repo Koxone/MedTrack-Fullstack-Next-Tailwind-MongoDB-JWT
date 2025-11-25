@@ -63,7 +63,7 @@ export default function StatsBar({ inventory }) {
           key={s.label}
           title={s.title}
           style={{ animationDelay: `${i * 80}ms` }}
-          className="animate-[fadeIn_.25s_ease-out] rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-sm"
+          className="bg-medtrack-body-main animate-[fadeIn_.25s_ease-out] rounded-2xl border-2 border-gray-200 p-4 shadow-sm"
         >
           <div
             className={`bg-medtrack-blue-solid mb-2 inline-block rounded-lg px-2 py-1 text-xs font-bold text-white`}

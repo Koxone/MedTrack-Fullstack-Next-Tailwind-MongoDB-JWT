@@ -76,7 +76,7 @@ export default function SignupForm() {
         </div>
 
         {/* Form */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-xl md:p-8">
+        <div className="bg-medtrack-body-main rounded-2xl border border-gray-200 p-6 shadow-xl md:p-8">
           <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
             {/* Name */}
             <div>

@@ -16,7 +16,7 @@ export default function EmployeePatients({ currentUser, role }) {
         subtitle="Lista de todos los pacientes de la clínica"
       />
 
-      <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+      <div className="bg-medtrack-body-main rounded-xl border border-gray-200 p-4 shadow-sm">
         <PatientsSearchBar
           searchValue={searchTerm}
           setSearchValue={setSearchTerm}

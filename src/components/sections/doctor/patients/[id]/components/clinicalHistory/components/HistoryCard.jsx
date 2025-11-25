@@ -77,7 +77,7 @@ function HistoryCard({ r, onEdit, specialty }) {
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {/* Doctor Notes */}
-            <div className="rounded-xl bg-(--med-gray) p-3 shadow-sm transition hover:shadow-md sm:p-4">
+            <div className="bg-medtrack-body-main rounded-xl p-3 shadow-sm transition hover:shadow-md sm:p-4">
               <p className="flex items-center gap-2 text-sm font-semibold text-(--med-text-muted)">
                 <Stethoscope className="h-4 w-4 text-(--med-purple)" />
                 Notas del médico
@@ -88,7 +88,7 @@ function HistoryCard({ r, onEdit, specialty }) {
             </div>
 
             {/* Consultation Reason */}
-            <div className="rounded-xl bg-(--med-gray) p-3 shadow-sm transition hover:shadow-md sm:p-4">
+            <div className="bg-medtrack-body-main rounded-xl p-3 shadow-sm transition hover:shadow-md sm:p-4">
               <p className="flex items-center gap-2 text-sm font-semibold text-(--med-text-muted)">
                 <Activity className="text-medtrack-green-solid h-4 w-4" />
                 Tratamiento sugerido
@@ -153,7 +153,7 @@ function HistoryCard({ r, onEdit, specialty }) {
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {/* Doctor Notes */}
-            <div className="rounded-xl bg-(--med-gray) p-3 shadow-sm transition hover:shadow-md sm:p-4">
+            <div className="bg-medtrack-body-main rounded-xl p-3 shadow-sm transition hover:shadow-md sm:p-4">
               <p className="flex items-center gap-2 text-sm font-semibold text-(--med-text-muted)">
                 <Stethoscope className="h-4 w-4 text-(--med-purple)" />
                 Notas del médico
@@ -164,7 +164,7 @@ function HistoryCard({ r, onEdit, specialty }) {
             </div>
 
             {/* Consultation Reason */}
-            <div className="rounded-xl bg-(--med-gray) p-3 shadow-sm transition hover:shadow-md sm:p-4">
+            <div className="bg-medtrack-body-main rounded-xl p-3 shadow-sm transition hover:shadow-md sm:p-4">
               <p className="flex items-center gap-2 text-sm font-semibold text-(--med-text-muted)">
                 <Activity className="text-medtrack-green-solid h-4 w-4" />
                 Tratamiento sugerido
