@@ -1,10 +1,11 @@
 'use client';
 
-import SharedDietCard from './components/dietCard/SharedDietCard';
 export const runtime = 'nodejs';
 import SharedSectionHeader from '../headers/SharedSectionHeader';
 import { useGetAllDiets } from '@/hooks/diets/useGetAllDiets';
 import { Loader2 } from 'lucide-react';
+import DoctorDietCard from '@/components/sections/doctor/diets/components/DoctorDietCard';
+import PatientDietCard from '@/components/sections/patient/diets/components/PatientDietCard';
 
 export default function SharedDiets({ role }) {
   // Fetch all diets
@@ -43,9 +44,13 @@ export default function SharedDiets({ role }) {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {dietsData?.map((diet) => (
-          <SharedDietCard role={role} diet={diet} key={diet._id} />
-        ))}
+        {dietsData?.map((diet) =>
+          role === 'doctor' ? (
+            <DoctorDietCard diet={diet} key={diet._id} />
+          ) : (
+            <PatientDietCard diet={diet} key={diet._id} />
+          )
+        )}
       </div>
     </div>
   );
