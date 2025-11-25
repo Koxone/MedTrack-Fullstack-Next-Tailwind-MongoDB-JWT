@@ -21,7 +21,7 @@ const getNivelColor = (nivel) => {
   return map[nivel] || 'bg-gray-100 text-gray-800';
 };
 
-export default function ModalOpenWorkout({
+export default function SharedModalOpenWorkout({
   workout,
   currentImageIndex,
   setCurrentImageIndex,

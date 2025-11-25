@@ -1,7 +1,6 @@
 'use client';
 
-import { Clock, Edit2, Trash2 } from 'lucide-react';
-import ActionsButtons from './components/ActionsButtons';
+import { Clock } from 'lucide-react';
 
 const getNivelColor = (nivel) => {
   const map = {
@@ -12,14 +11,7 @@ const getNivelColor = (nivel) => {
   return map[nivel] || 'bg-gray-100 text-gray-800';
 };
 
-export default function WorkoutCard({
-  workout,
-  onOpen,
-  role,
-  setShowDeleteModal,
-  handleEdit,
-  setWorkoutToDelete,
-}) {
+export default function WorkoutCard({ workout, onOpen }) {
   return (
     <div
       onClick={onOpen}
@@ -28,7 +20,7 @@ export default function WorkoutCard({
       {/* Main Image */}
       <div className="relative h-48 overflow-hidden bg-gray-100">
         <img
-          src={workout?.images}
+          src={workout?.images?.[0]}
           alt={workout?.name}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
@@ -57,21 +49,9 @@ export default function WorkoutCard({
         </div>
 
         {/* Patient Actions */}
-        {role === 'patient' && (
-          <p className="mt-3 text-sm font-medium text-blue-600 opacity-90 transition-opacity group-hover:opacity-100">
-            Click para ver detalles →
-          </p>
-        )}
-
-        {/* Doctor Actions */}
-        {role === 'doctor' && (
-          <ActionsButtons
-            handleEdit={handleEdit}
-            setShowDeleteModal={setShowDeleteModal}
-            setWorkoutToDelete={setWorkoutToDelete}
-            workout={workout}
-          />
-        )}
+        <p className="mt-3 text-sm font-medium text-blue-600 opacity-90 transition-opacity group-hover:opacity-100">
+          Click para ver detalles →
+        </p>
       </div>
     </div>
   );

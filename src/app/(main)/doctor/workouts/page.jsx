@@ -1,6 +1,5 @@
 import React from 'react';
 import { getCurrentUser } from '@/lib/auth/getCurrentUser';
-import SharedWorkouts from '@/components/shared/workouts/SharedWorkouts';
 import DoctorWorkouts from '@/components/sections/doctor/workouts/DoctorWorkouts';
 
 export const runtime = 'nodejs';

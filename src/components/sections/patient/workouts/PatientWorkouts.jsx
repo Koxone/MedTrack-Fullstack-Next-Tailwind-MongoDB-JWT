@@ -1,32 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Plus, Search } from 'lucide-react';
+import { useState } from 'react';
+import { Search } from 'lucide-react';
 
-import ModalDelete from './components/modals/ModalDelete';
-import { workoutsMockData } from './components/workoutsMockData';
-import WorkoutCard from './components/workoutCard/WorkoutCard';
-import SharedModalOpenWorkout from '../../../shared/workouts/SharedModalOpenWorkout';
+import WorkoutCard from './components/WorkoutCard';
 import { useGetAllWorkouts } from '@/hooks/workouts/useGetAllWorkouts';
-import ModalEditWorkout from './components/modals/ModalEditWorkout';
-import ModalCreateWorkout from './components/modals/ModalCreateWorkout';
 import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
+import SharedModalOpenWorkout from '../../../shared/workouts/SharedModalOpenWorkout';
 
-export default function DoctorWorkouts({ role }) {
+export default function PatientWorkouts({ role }) {
   // Get Workouts from API
   const { workoutData, isLoading, error, refetch: fetchWorkouts } = useGetAllWorkouts();
 
   // Local States
-  const [workouts, setWorkouts] = useState(workoutsMockData);
   const [filterCategorie, setFilterCategorie] = useState('Todos');
   const [searchTerm, setSearchTerm] = useState('');
-
-  // Doctor Actions Modal
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [editingWorkout, setEditingWorkout] = useState(null);
-  const [workoutToDelete, setWorkoutToDelete] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showCreateWorkoutModal, setShowCreateWorkoutModal] = useState(false);
 
   // Workout Modal States
   const [seletctedWorkout, setSelectedWorkout] = useState();
@@ -39,36 +27,6 @@ export default function DoctorWorkouts({ role }) {
     const matchSearch = e.name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchCategorie && matchSearch;
   });
-
-  const handleSave = (e, form) => {
-    e.preventDefault();
-    const imagesArray = form.imagenes.split('\n').filter((url) => url.trim());
-    const newWorkout = {
-      id: editingWorkout ? editingWorkout.id : Date.now(),
-      ...form,
-      imagenPrincipal: imagesArray[0] || form.imagenPrincipal,
-      imagenes: imagesArray,
-    };
-    if (editingWorkout) {
-      setWorkouts(workouts.map((e) => (e.id === editingWorkout.id ? newWorkout : e)));
-    } else {
-      setWorkouts([...workouts, newWorkout]);
-    }
-    setShowEditModal(false);
-    setEditingWorkout(null);
-  };
-
-  // Edit Workout
-  const handleEdit = (workout) => {
-    setEditingWorkout(workout);
-    setShowEditModal(true);
-  };
-
-  // Delete Workout
-  const handleDelete = () => {
-    setWorkouts(workouts.filter((e) => e.id !== workoutToDelete.id));
-    setShowDeleteModal(false);
-  };
 
   return (
     <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
@@ -109,17 +67,6 @@ export default function DoctorWorkouts({ role }) {
               className="w-full rounded-lg border border-gray-300 py-2 pr-3 pl-10 outline-none"
             />
           </div>
-
-          {/* Doctor New Workout Button */}
-          <button
-            onClick={() => {
-              setEditingWorkout(null);
-              setShowCreateWorkoutModal(true);
-            }}
-            className="bg-beehealth-blue-solid hover:bg-beehealth-blue-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white"
-          >
-            <Plus className="h-5 w-5" /> Nuevo
-          </button>
         </div>
       </div>
 
@@ -128,11 +75,7 @@ export default function DoctorWorkouts({ role }) {
         {filteredWorkouts.map((workout) => (
           <WorkoutCard
             key={workout._id}
-            role={role}
             workout={workout}
-            setShowDeleteModal={setShowDeleteModal}
-            setWorkoutToDelete={setWorkoutToDelete}
-            handleEdit={handleEdit}
             onOpen={() => {
               setSelectedWorkout(workout);
               setCurrentImageIndex(0);
@@ -148,34 +91,6 @@ export default function DoctorWorkouts({ role }) {
           currentImageIndex={currentImageIndex}
           setCurrentImageIndex={setCurrentImageIndex}
           onClose={() => setSelectedWorkout(null)}
-        />
-      )}
-
-      {/* Doctor Delete Workout Modal */}
-      {showDeleteModal && (
-        <ModalDelete
-          workoutToDelete={workoutToDelete}
-          setSeletctedWorkout={setSelectedWorkout}
-          handleDelete={handleDelete}
-          setShowDeleteModal={setShowDeleteModal}
-        />
-      )}
-
-      {/* Doctor Edit Workout Modal */}
-      {showEditModal && (
-        <ModalEditWorkout
-          setShowEditModal={setShowEditModal}
-          editingWorkout={editingWorkout}
-          handleSave={handleSave}
-        />
-      )}
-
-      {/* Doctor Create New Workout Modal */}
-      {showCreateWorkoutModal && (
-        <ModalCreateWorkout
-          setShowCreateModal={setShowCreateWorkoutModal}
-          editingWorkout={editingWorkout}
-          handleSave={handleSave}
         />
       )}
     </div>
