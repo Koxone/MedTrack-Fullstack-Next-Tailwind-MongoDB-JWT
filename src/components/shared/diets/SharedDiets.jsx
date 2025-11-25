@@ -10,6 +10,14 @@ export default function SharedDiets({ role }) {
   // Fetch all diets
   const { dietsData, isLoading, error } = useGetAllDiets();
 
+  if (isLoading) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-transparent"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
       <div className="flex items-center justify-between">

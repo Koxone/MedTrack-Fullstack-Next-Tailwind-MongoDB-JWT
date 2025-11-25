@@ -137,8 +137,8 @@ export default function SharedInventory({ role, showButton = true }) {
   // Loading State
   if (loading) {
     return (
-      <div className="flex h-full items-center justify-center">
-        <p className="text-gray-500">Cargando inventario...</p>
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-transparent"></div>
       </div>
     );
   }

@@ -31,6 +31,14 @@ export default function DoctorDashboard({ currentUser, role, specialty }) {
   } = useGetAllConsults({ speciality: specialty });
 
   const { consultPrice, totalItemsSold, totalCost } = getConsultTotals(consults);
+
+  if (loading || loadingInventory || loadingConsults) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-transparent"></div>
+      </div>
+    );
+  }
   return (
     <DashboardLayout>
       {/* Header */}
@@ -51,7 +59,11 @@ export default function DoctorDashboard({ currentUser, role, specialty }) {
           totalCost={totalCost}
           consults={consults}
         />
-        <SharedInventoryAlerts inventory={inventory} role={currentUser?.role} />
+        <SharedInventoryAlerts
+          inventory={inventory}
+          role={currentUser?.role}
+          loading={loadingInventory}
+        />
       </div>
     </DashboardLayout>
   );

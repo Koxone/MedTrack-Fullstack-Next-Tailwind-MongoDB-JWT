@@ -42,6 +42,14 @@ export default function DoctorAccounting({ role, specialty }) {
     medicamentos: c.totalItemsSold,
   }));
 
+  if (isLoading) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-transparent"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
       {/* Header */}
