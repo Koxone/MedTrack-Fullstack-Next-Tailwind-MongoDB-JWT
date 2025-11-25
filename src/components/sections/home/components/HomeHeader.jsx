@@ -76,7 +76,7 @@ function HomeHeader({ setShowMenu, showMenu }) {
             <button
               onClick={() => {
                 setShowMenu(false);
-                router.push('/login');
+                router.push('/auth/login');
               }}
               className="w-full rounded-lg px-4 py-2 font-medium text-blue-600 transition hover:bg-blue-50"
             >

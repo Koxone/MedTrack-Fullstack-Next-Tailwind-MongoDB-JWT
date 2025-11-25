@@ -5,7 +5,7 @@ export default async function ServerRoleGuard({ allowedRoles = [], children }) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    redirect('/login');
+    redirect('/auth/login');
   }
 
   const role = currentUser.role?.toLowerCase().trim();
