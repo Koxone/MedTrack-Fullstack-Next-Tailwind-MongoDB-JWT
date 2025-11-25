@@ -13,8 +13,8 @@ export default function WeeklyIncomeChart({ data }) {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="consultas" fill="#3b82f6" />
-          <Bar dataKey="medicamentos" fill="#10b981" />
+          <Bar dataKey="consultas" fill="#678bda" />
+          <Bar dataKey="medicamentos" fill="#73c89f" />
         </BarChart>
       </ResponsiveContainer>
     </div>

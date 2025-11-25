@@ -32,8 +32,8 @@ export default function DoctorAccounting({ role, specialty }) {
 
   /* Derived */
   const incomeDistribution = [
-    { name: 'Consultas', value: metrics.consultsTotal, color: '#3b82f6' },
-    { name: 'Medicamentos', value: metrics.medsTotal, color: '#10b981' },
+    { name: 'Consultas', value: metrics.consultsTotal, color: '#678bda' },
+    { name: 'Medicamentos', value: metrics.medsTotal, color: '#73c89f' },
   ];
 
   const ingresosPorPaciente = consults.map((c) => ({
