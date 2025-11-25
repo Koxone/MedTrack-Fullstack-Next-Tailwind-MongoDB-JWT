@@ -1,5 +1,6 @@
 'use client';
 
+import { useCreateWorkout } from '@/hooks/workouts/useCreateWorkout';
 import {
   X,
   Play,
@@ -12,28 +13,137 @@ import {
   Award,
   Sparkles,
   Info,
+  Loader,
 } from 'lucide-react';
 import { useState } from 'react';
 
-export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
+export default function ModalCreateWorkout({ setShowCreateModal }) {
+  // Create Workout Hook
+  const { createWorkout, loading, error } = useCreateWorkout();
+
+  // Form State
   const [form, setForm] = useState({
-    nombre: '',
-    categoria: 'Fuerza',
-    duracion: '',
-    nivel: 'Principiante',
-    imagenes: '',
-    videoUrl: '',
-    explicacion: '',
-    instrucciones: '',
-    beneficios: '',
-    precauciones: '',
+    patients: [],
+    name: '',
+    type: '',
+    difficulty: '',
+    duration: 0,
+    about: '',
+    instructions: '',
+    benefits: '',
+    cautions: '',
+    images: '',
+    video: '',
   });
+
+  const [submitError, setSubmitError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitError(null);
+
+    if (!form.name.trim()) {
+      setSubmitError('El nombre del ejercicio es requerido');
+      return;
+    }
+    if (!form.type) {
+      setSubmitError('Selecciona una categoría');
+      return;
+    }
+    if (!form.difficulty) {
+      setSubmitError('Selecciona un nivel de dificultad');
+      return;
+    }
+    if (!form.duration || form.duration <= 0) {
+      setSubmitError('La duración debe ser mayor a 0');
+      return;
+    }
+    if (!form.about.trim()) {
+      setSubmitError('La explicación es requerida');
+      return;
+    }
+
+    const instructions = form.instructions
+      .split('\n')
+      .map((i) => i.trim())
+      .filter((i) => i.length > 0);
+
+    const benefits = form.benefits
+      .split('\n')
+      .map((i) => i.trim())
+      .filter((i) => i.length > 0);
+
+    const cautions = form.cautions
+      .split('\n')
+      .map((i) => i.trim())
+      .filter((i) => i.length > 0);
+
+    const images = form.images
+      .split('\n')
+      .map((i) => i.trim())
+      .filter((i) => i.length > 0);
+
+    if (instructions.length === 0) {
+      setSubmitError('Debes agregar al menos una instrucción');
+      return;
+    }
+    if (benefits.length === 0) {
+      setSubmitError('Debes agregar al menos un beneficio');
+      return;
+    }
+    if (cautions.length === 0) {
+      setSubmitError('Debes agregar al menos una precaución');
+      return;
+    }
+    if (images.length === 0) {
+      setSubmitError('Debes agregar al menos una imagen');
+      return;
+    }
+    if (!form.video.trim()) {
+      setSubmitError('Debes agregar un video');
+      return;
+    }
+
+    const payload = {
+      patients: form.patients,
+      name: form.name.trim(),
+      type: form.type,
+      difficulty: form.difficulty,
+      duration: Number(form.duration),
+      about: form.about.trim(),
+      instructions,
+      benefits,
+      cautions,
+      images,
+      video: form.video.trim(),
+    };
+
+    const res = await createWorkout(payload);
+
+    if (res) {
+      setShowCreateModal(false);
+      // Reset form
+      setForm({
+        patients: [],
+        name: '',
+        type: '',
+        difficulty: '',
+        duration: 0,
+        about: '',
+        instructions: '',
+        benefits: '',
+        cautions: '',
+        images: '',
+        video: '',
+      });
+    }
+  };
 
   const getNivelColor = (nivel) => {
     const colors = {
-      Principiante: 'bg-green-100 text-green-700 border-green-300',
-      Intermedio: 'bg-yellow-100 text-yellow-700 border-yellow-300',
-      Avanzado: 'bg-red-100 text-red-700 border-red-300',
+      Beginner: 'bg-green-100 text-green-700 border-green-300',
+      Intermediate: 'bg-yellow-100 text-yellow-700 border-yellow-300',
+      Advanced: 'bg-red-100 text-red-700 border-red-300',
     };
     return colors[nivel] || 'bg-gray-100 text-gray-700 border-gray-300';
   };
@@ -63,7 +173,6 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4">
                   <div className="relative">
-                    {/* Anillo pulsante */}
                     <div className="absolute inset-0 animate-ping rounded-2xl bg-blue-500 opacity-20" />
                     <div className={`bg-beehealth-blue-solid relative rounded-2xl p-3 shadow-lg`}>
                       <Dumbbell className="h-7 w-7 text-white" />
@@ -89,7 +198,18 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
           </div>
 
           <div className="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-300 relative max-h-[calc(95vh-180px)] overflow-y-auto">
-            <form onSubmit={(e) => handleSave(e, form)} className="space-y-6 p-6 sm:p-8">
+            <form onSubmit={handleSubmit} className="space-y-6 p-6 sm:p-8">
+              {/* Error Messages */}
+              {(submitError || error) && (
+                <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4">
+                  <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                  <div>
+                    <p className="font-semibold text-red-800">Error</p>
+                    <p className="text-sm text-red-700">{submitError || error}</p>
+                  </div>
+                </div>
+              )}
+
               <div className="group bg-beehealth-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="bg-beehealth-blue-solid rounded-xl p-2.5">
@@ -108,8 +228,8 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                       type="text"
                       placeholder="Ej: Sentadillas con Peso"
                       required
-                      value={form.nombre}
-                      onChange={(e) => setForm({ ...form, nombre: e.target.value })}
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
                       className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:shadow-md focus:shadow-blue-500/20 focus:outline-none"
                     />
                   </div>
@@ -121,10 +241,11 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                     </label>
                     <div className="relative">
                       <select
-                        value={form.categoria}
-                        onChange={(e) => setForm({ ...form, categoria: e.target.value })}
+                        value={form.type}
+                        onChange={(e) => setForm({ ...form, type: e.target.value })}
                         className="bg-beehealth-body-main w-full appearance-none rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
                       >
+                        <option value="">Selecciona una categoría</option>
                         <option value="Fuerza">Fuerza</option>
                         <option value="Cardio">Cardio</option>
                         <option value="Core">Core</option>
@@ -151,13 +272,14 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                   <div className="space-y-2">
                     <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
                       <Clock className="h-4 w-4 text-green-500" />
-                      Duración
+                      Duración (minutos)
                     </label>
                     <input
-                      type="text"
-                      placeholder="Ej: 3 series de 15 repeticiones"
-                      value={form.duracion}
-                      onChange={(e) => setForm({ ...form, duracion: e.target.value })}
+                      type="number"
+                      placeholder="Ej: 30"
+                      min="1"
+                      value={form.duration}
+                      onChange={(e) => setForm({ ...form, duration: e.target.value })}
                       className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-green-500 focus:shadow-md focus:shadow-green-500/20 focus:outline-none"
                     />
                   </div>
@@ -169,13 +291,14 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                     </label>
                     <div className="relative">
                       <select
-                        value={form.nivel}
-                        onChange={(e) => setForm({ ...form, nivel: e.target.value })}
-                        className={`w-full appearance-none rounded-xl border-2 px-4 py-3.5 font-semibold shadow-sm transition-all duration-300 focus:shadow-md focus:outline-none ${getNivelColor(form.nivel)}`}
+                        value={form.difficulty}
+                        onChange={(e) => setForm({ ...form, difficulty: e.target.value })}
+                        className={`w-full appearance-none rounded-xl border-2 px-4 py-3.5 font-semibold shadow-sm transition-all duration-300 focus:shadow-md focus:outline-none ${getNivelColor(form.difficulty)}`}
                       >
-                        <option value="Principiante">Principiante</option>
-                        <option value="Intermedio">Intermedio</option>
-                        <option value="Avanzado">Avanzado</option>
+                        <option value="">Selecciona un nivel</option>
+                        <option value="Beginner">Principiante</option>
+                        <option value="Intermediate">Intermedio</option>
+                        <option value="Advanced">Avanzado</option>
                       </select>
                       <div className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2">
                         <svg
@@ -214,8 +337,8 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                       Galería de Imágenes
                     </label>
                     <textarea
-                      value={form.imagenes}
-                      onChange={(e) => setForm({ ...form, imagenes: e.target.value })}
+                      value={form.images}
+                      onChange={(e) => setForm({ ...form, images: e.target.value })}
                       placeholder="https://ejemplo.com/imagen1.jpg&#10;https://ejemplo.com/imagen2.jpg&#10;https://ejemplo.com/imagen3.jpg"
                       className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 font-mono text-sm text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-pink-500 focus:shadow-md focus:shadow-pink-500/20 focus:outline-none"
                       rows="3"
@@ -235,8 +358,8 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                     </label>
                     <input
                       type="url"
-                      value={form.videoUrl}
-                      onChange={(e) => setForm({ ...form, videoUrl: e.target.value })}
+                      value={form.video}
+                      onChange={(e) => setForm({ ...form, video: e.target.value })}
                       placeholder="https://www.youtube.com/embed/..."
                       className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 font-mono text-sm text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-red-500 focus:shadow-md focus:shadow-red-500/20 focus:outline-none"
                     />
@@ -265,8 +388,8 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                       📝 Explicación General
                     </label>
                     <textarea
-                      value={form.explicacion}
-                      onChange={(e) => setForm({ ...form, explicacion: e.target.value })}
+                      value={form.about}
+                      onChange={(e) => setForm({ ...form, about: e.target.value })}
                       placeholder="Describe el ejercicio, qué músculos trabaja y sus características principales..."
                       className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-teal-500 focus:shadow-md focus:shadow-teal-500/20 focus:outline-none"
                       rows="3"
@@ -279,8 +402,8 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                       Instrucciones Paso a Paso
                     </label>
                     <textarea
-                      value={form.instrucciones}
-                      onChange={(e) => setForm({ ...form, instrucciones: e.target.value })}
+                      value={form.instructions}
+                      onChange={(e) => setForm({ ...form, instructions: e.target.value })}
                       placeholder="Paso 1: Colócate en la posición inicial...&#10;Paso 2: Realiza el movimiento...&#10;Paso 3: Regresa a la posición inicial..."
                       className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:shadow-md focus:shadow-blue-500/20 focus:outline-none"
                       rows="4"
@@ -294,8 +417,8 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                         Beneficios
                       </label>
                       <textarea
-                        value={form.beneficios}
-                        onChange={(e) => setForm({ ...form, beneficios: e.target.value })}
+                        value={form.benefits}
+                        onChange={(e) => setForm({ ...form, benefits: e.target.value })}
                         placeholder="• Fortalece los músculos&#10;• Mejora la resistencia&#10;• Aumenta la flexibilidad..."
                         className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-yellow-500 focus:shadow-md focus:shadow-yellow-500/20 focus:outline-none"
                         rows="4"
@@ -308,8 +431,8 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                         Precauciones
                       </label>
                       <textarea
-                        value={form.precauciones}
-                        onChange={(e) => setForm({ ...form, precauciones: e.target.value })}
+                        value={form.cautions}
+                        onChange={(e) => setForm({ ...form, cautions: e.target.value })}
                         placeholder="• Mantén la espalda recta&#10;• No fuerces las articulaciones&#10;• Calienta antes de comenzar..."
                         className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-orange-500 focus:shadow-md focus:shadow-orange-500/20 focus:outline-none"
                         rows="4"
@@ -324,17 +447,28 @@ export default function ModalCreateWorkout({ setShowCreateModal, handleSave }) {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="bg-beehealth-body-main hover:bg-beehealth-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:shadow-md active:scale-95"
+                  disabled={loading}
+                  className="bg-beehealth-body-main hover:bg-beehealth-body-main flex-1 rounded-xl border-2 border-gray-300 px-6 py-3.5 font-semibold text-gray-700 shadow-sm transition-all duration-300 hover:border-gray-400 hover:shadow-md active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="group bg-beehealth-blue-solid hover:shadow-beehealth-blue-solid flex-1 rounded-xl px-6 py-3.5 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
+                  disabled={loading}
+                  className="group bg-beehealth-blue-solid hover:shadow-beehealth-blue-solid flex-1 rounded-xl px-6 py-3.5 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span className="flex items-center justify-center gap-2">
-                    <Dumbbell className="h-5 w-5 transition-transform group-hover:rotate-12" />
-                    Crear Ejercicio
+                    {loading ? (
+                      <>
+                        <Loader className="h-5 w-5 animate-spin" />
+                        Creando...
+                      </>
+                    ) : (
+                      <>
+                        <Dumbbell className="h-5 w-5 transition-transform group-hover:rotate-12" />
+                        Crear Ejercicio
+                      </>
+                    )}
                   </span>
                 </button>
               </div>
