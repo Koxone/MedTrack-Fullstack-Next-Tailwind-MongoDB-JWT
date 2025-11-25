@@ -143,7 +143,6 @@ export default function DoctorWorkouts({ role }) {
         {filteredWorkouts.map((workout) => (
           <WorkoutCard
             key={workout._id}
-            role={role}
             workout={workout}
             setShowDeleteModal={setShowDeleteModal}
             setWorkoutToDelete={setWorkoutToDelete}

@@ -15,7 +15,6 @@ const getNivelColor = (nivel) => {
 export default function WorkoutCard({
   workout,
   onOpen,
-  role,
   setShowDeleteModal,
   handleEdit,
   setWorkoutToDelete,
@@ -57,14 +56,12 @@ export default function WorkoutCard({
         </div>
 
         {/* Doctor Actions */}
-        {role === 'doctor' && (
-          <ActionsButtons
-            handleEdit={handleEdit}
-            setShowDeleteModal={setShowDeleteModal}
-            setWorkoutToDelete={setWorkoutToDelete}
-            workout={workout}
-          />
-        )}
+        <ActionsButtons
+          handleEdit={handleEdit}
+          setShowDeleteModal={setShowDeleteModal}
+          setWorkoutToDelete={setWorkoutToDelete}
+          workout={workout}
+        />
       </div>
     </div>
   );
