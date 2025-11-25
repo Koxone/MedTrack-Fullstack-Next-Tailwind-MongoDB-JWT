@@ -235,6 +235,7 @@ export default function ModalAddEdit({ setShowEditModal, editingWorkout, handleS
                   <h3 className="text-xl font-bold text-gray-900">Contenido Multimedia</h3>
                 </div>
 
+                {/* Images */}
                 <div className="space-y-5">
                   <div className="space-y-2">
                     <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
