@@ -31,6 +31,13 @@ export default function SharedModalOpenWorkout({
     setCurrentImageIndex((prev) => (prev === workout?.imagenes.length - 1 ? 0 : prev + 1));
   const prevImage = () =>
     setCurrentImageIndex((prev) => (prev === 0 ? workout?.imagenes.length - 1 : prev - 1));
+
+  // Convert video URL to embed format
+  const getEmbedUrl = (url) => {
+    const match = url.match(/v=([^&]+)/);
+    const id = match ? match[1] : null;
+    return id ? `https://www.youtube.com/embed/${id}` : url;
+  };
   return (
     <>
       <div
@@ -114,7 +121,7 @@ export default function SharedModalOpenWorkout({
               </div>
               <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                 <iframe
-                  src={workout?.video}
+                  src={getEmbedUrl(workout?.video)}
                   className="absolute top-0 left-0 h-full w-full rounded-xl"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
