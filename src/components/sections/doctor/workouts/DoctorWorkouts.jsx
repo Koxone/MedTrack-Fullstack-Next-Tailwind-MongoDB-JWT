@@ -10,7 +10,7 @@ import { useGetAllWorkouts } from '@/hooks/workouts/useGetAllWorkouts';
 import { workoutsMockData } from './components/workoutsMockData';
 
 // Modals
-import SharedModalOpenWorkout from '../../../shared/workouts/SharedModalOpenWorkout';
+import SharedModalOpenWorkout from '@/components/shared/workouts/SharedModalOpenWorkout';
 import ModalEditWorkout from './components/modals/ModalEditWorkout';
 import ModalDelete from './components/modals/ModalDelete';
 import ModalCreateWorkout from './components/modals/create/ModalCreateWorkout';
