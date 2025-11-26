@@ -41,7 +41,7 @@ export default function AllowedLiquids({ diet, isEditing = false, editDiet }) {
         <div className="rounded-lg bg-blue-100 p-2">
           <CheckCircle className="h-5 w-5 text-blue-600" />
         </div>
-        <h2 className="text-xl font-semibold text-gray-900">Líquidos Permitidos</h2>
+        <h2 className="text-xl font-semibold text-gray-900">Bebidas Permitidas</h2>
       </div>
 
       {!isEditing && (

@@ -152,7 +152,7 @@ export default function DietForm() {
 
         {/* Allowed Liquids */}
         <DynamicListSection
-          title="Líquidos Permitidos"
+          title="Bebidas Permitidas"
           Icon={CheckCircle}
           variant="success"
           value={formData.allowedLiquids}
@@ -188,7 +188,7 @@ export default function DietForm() {
 
         {/* Forbidden Liquids */}
         <DynamicListSection
-          title="Líquidos Prohibidos"
+          title="Bebidas Prohibidas"
           Icon={X}
           variant="warning"
           value={formData.forbiddenLiquids}
