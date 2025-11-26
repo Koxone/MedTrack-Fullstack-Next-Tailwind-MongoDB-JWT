@@ -79,7 +79,7 @@ export default function DoctorAccounting({ role, specialty }) {
       />
 
       {/* Charts */}
-      <div className="grid grid-cols-2 gap-4 md:gap-6">
+      <div className="hidden grid-cols-2 gap-4 md:grid md:gap-6">
         <WeeklyIncomeChart data={ingresosPorPaciente} />
         <DistributionCard data={incomeDistribution} />
       </div>
