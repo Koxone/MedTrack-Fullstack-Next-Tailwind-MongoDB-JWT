@@ -6,7 +6,6 @@ import React from 'react';
 
 function ProfileButton({ role, currentUser }) {
   const router = useRouter();
-  console.log(currentUser);
   return (
     <button
       onClick={() => router.push(`/${role}/profile`)}
