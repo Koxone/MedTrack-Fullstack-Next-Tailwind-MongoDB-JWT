@@ -1,4 +1,4 @@
-# 🏥 **BeeHealth — Medical Management Platform**
+# 🏥 **BeeHealth — Inventory Management Platform**
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=nextdotjs)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=flat-square&logo=typescript)
@@ -9,7 +9,7 @@
 ![Google Calendar API](https://img.shields.io/badge/Google%20API-Calendar-red?style=flat-square&logo=google)
 ![Vercel](https://img.shields.io/badge/Vercel-Hosting-black?style=flat-square&logo=vercel)
 
-**A modern medical platform designed for doctors, employees, and patients with real-time scheduling, consult management, inventory tracking, and Google Calendar integration.**
+**A modern Inventory platform designed for doctors, employees, and patients with real-time scheduling, consult management, inventory tracking, and Google Calendar integration.**
 
 🔗 **Live Demo:** [https://www.efsett.org/](https://www.efsett.org/)
 
@@ -25,11 +25,11 @@
 
 ### 📅 **Google Calendar Integration**
 
-- Events parsed and normalized for medical use
+- Events parsed and normalized for Inventory use
 - Automatic specialty routing
 - Same-day appointment detection in real time
 
-### 🧪 **Medical Inventory System**
+### 🧪 **Inventory Inventory System**
 
 - Intelligent stock tracking
 - Low and critical stock alerts
@@ -137,7 +137,7 @@ npm start
 ## 📦 **Features in Development**
 
 - Full patient portal
-- Rich medical record system
+- Rich Inventory record system
 - Multi-clinic support
 - Medication barcode scanning
 - Staff performance analytics
@@ -160,7 +160,7 @@ This project is licensed under the MIT License.
 
 ## 💡 Why BeeHealth?
 
-This platform is designed to function as a **real**, production-ready medical system with:
+This platform is designed to function as a **real**, production-ready Inventory system with:
 
 ✔ Clinical workflows
 ✔ Inventory management
