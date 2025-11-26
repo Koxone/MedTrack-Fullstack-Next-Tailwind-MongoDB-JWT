@@ -16,23 +16,58 @@ import {
   Loader,
 } from 'lucide-react';
 import { useState } from 'react';
+import ImageGalleryUpload from './components/ImageGalleryUpload';
 
 export default function ModalCreateWorkout({ setShowCreateModal }) {
   // Create Workout Hook
   const { createWorkout, loading, error } = useCreateWorkout();
 
-  // Images
-  const [imageInputs, setImageInputs] = useState(['']);
-  const handleAddImageInput = () => {
-    setImageInputs([...imageInputs, '']);
+  // Upload Images
+  const [uploadingImages, setUploadingImages] = useState({});
+  const [imageFiles, setImageFiles] = useState([null]);
+
+  const handleAddImageFile = (index, file) => {
+    const newFiles = [...imageFiles];
+    newFiles[index] = file;
+    setImageFiles(newFiles);
   };
-  const handleRemoveImageInput = (index) => {
-    setImageInputs(imageInputs.filter((_, i) => i !== index));
+
+  const handleAddImageButton = () => {
+    setImageFiles([...imageFiles, null]);
   };
-  const handleImageInputChange = (index, value) => {
-    const newInputs = [...imageInputs];
-    newInputs[index] = value;
-    setImageInputs(newInputs);
+
+  const handleRemoveImageFile = (index) => {
+    setImageFiles(imageFiles.filter((_, i) => i !== index));
+    const newUploading = { ...uploadingImages };
+    delete newUploading[index];
+    setUploadingImages(newUploading);
+  };
+
+  const uploadImage = async (file, index) => {
+    if (!file) return null;
+
+    try {
+      setUploadingImages((prev) => ({ ...prev, [index]: true }));
+
+      const filename = `workout-${Date.now()}-${Math.random().toString(36).substr(2, 9)}-${file.name}`;
+      const response = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
+        method: 'POST',
+        body: file,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const data = await response.json();
+      return data.url;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      setSubmitError('Error al subir la imagen');
+      return null;
+    } finally {
+      setUploadingImages((prev) => ({ ...prev, [index]: false }));
+    }
   };
 
   // Instructions
@@ -125,7 +160,14 @@ export default function ModalCreateWorkout({ setShowCreateModal }) {
 
     const cautions = cautionInputs.map((i) => i.trim()).filter((i) => i.length > 0);
 
-    const images = imageInputs.map((i) => i.trim()).filter((i) => i.length > 0);
+    const images = await Promise.all(
+      imageFiles.map(async (file, idx) => {
+        if (!file) return null;
+        return await uploadImage(file, idx);
+      })
+    );
+
+    const validImages = images.filter((img) => img !== null);
 
     if (instructions.length === 0) {
       setSubmitError('Debes agregar al menos una instrucción');
@@ -139,7 +181,7 @@ export default function ModalCreateWorkout({ setShowCreateModal }) {
       setSubmitError('Debes agregar al menos una precaución');
       return;
     }
-    if (images.length === 0) {
+    if (validImages.length === 0) {
       setSubmitError('Debes agregar al menos una imagen');
       return;
     }
@@ -158,7 +200,7 @@ export default function ModalCreateWorkout({ setShowCreateModal }) {
       instructions,
       benefits,
       cautions,
-      images,
+      images: validImages,
       video: form.video.trim(),
     };
 
@@ -180,7 +222,7 @@ export default function ModalCreateWorkout({ setShowCreateModal }) {
         images: '',
         video: '',
       });
-      setImageInputs(['']);
+      setImageFiles([null]);
       setInstructionInputs(['']);
       setBenefitInputs(['']);
       setCautionInputs(['']);
@@ -383,55 +425,13 @@ export default function ModalCreateWorkout({ setShowCreateModal }) {
 
                 {/* Images Gallery */}
                 <div className="space-y-5">
-                  <div className="space-y-3">
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      <ImageIcon className="h-4 w-4 text-pink-500" />
-                      Galería de Imágenes
-                    </label>
-
-                    {/* Images List */}
-                    <div className="space-y-3">
-                      {imageInputs.map((imageUrl, index) => (
-                        <div key={index} className="flex gap-2">
-                          <input
-                            type="url"
-                            value={imageUrl}
-                            onChange={(e) => handleImageInputChange(index, e.target.value)}
-                            placeholder={
-                              index === 0 ? 'Imagen principal (URL)' : 'Imagen adicional (URL)'
-                            }
-                            className="bg-beehealth-body-main flex-1 rounded-xl border-2 border-gray-200 px-4 py-3.5 font-mono text-sm text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-pink-500 focus:shadow-md focus:shadow-pink-500/20 focus:outline-none"
-                          />
-                          {imageInputs.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveImageInput(index)}
-                              className="rounded-xl border-2 border-red-300 bg-red-50 px-4 py-3.5 font-semibold text-red-600 shadow-sm transition-all duration-300 hover:border-red-400 hover:bg-red-100 active:scale-95"
-                            >
-                              Eliminar
-                            </button>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Add Button */}
-                    <button
-                      type="button"
-                      onClick={handleAddImageInput}
-                      className="w-full rounded-xl border-2 border-dashed border-pink-300 bg-pink-50 px-4 py-3.5 font-semibold text-pink-600 shadow-sm transition-all duration-300 hover:border-pink-400 hover:bg-pink-100 active:scale-95"
-                    >
-                      + Agregar otra imagen
-                    </button>
-
-                    {/* Info */}
-                    <div className="flex items-start gap-2 rounded-lg bg-pink-50 px-3 py-2">
-                      <Info className="mt-0.5 h-4 w-4 shrink-0 text-pink-600" />
-                      <p className="text-xs text-pink-700">
-                        La primera imagen será la portada principal de la galería.
-                      </p>
-                    </div>
-                  </div>
+                  <ImageGalleryUpload
+                    imageFiles={imageFiles}
+                    onAddImage={handleAddImageFile}
+                    onAddImageButton={handleAddImageButton}
+                    onRemoveImage={handleRemoveImageFile}
+                    uploadingImages={uploadingImages}
+                  />
 
                   {/* Video Tutorial */}
                   <div className="space-y-2">

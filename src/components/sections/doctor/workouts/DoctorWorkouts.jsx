@@ -13,7 +13,7 @@ import { workoutsMockData } from './components/workoutsMockData';
 import SharedModalOpenWorkout from '../../../shared/workouts/SharedModalOpenWorkout';
 import ModalEditWorkout from './components/modals/ModalEditWorkout';
 import ModalDelete from './components/modals/ModalDelete';
-import ModalCreateWorkout from './components/modals/ModalCreateWorkout';
+import ModalCreateWorkout from './components/modals/create/ModalCreateWorkout';
 
 export default function DoctorWorkouts({ role }) {
   // Get Workouts from API
