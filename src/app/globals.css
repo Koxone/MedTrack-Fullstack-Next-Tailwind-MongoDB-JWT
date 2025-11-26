@@ -24,11 +24,17 @@ button {
   --color-beehealth-green-secondary-light: #c6e6d8;
   --color-beehealth-green-secondary-light-hover: #b2dccb;
 
-  /* Blue */
+  /* Blue Primary */
   --color-beehealth-blue-solid: #678bda;
   --color-beehealth-blue-hover: #5176cc;
   --color-beehealth-blue-light: #bbd3fa;
   --color-beehealth-blue-light-hover: #a3c0f5;
+
+  /* Blue Secondary */
+  --color-beehealth-blue-secondary-solid: #5475b8;
+  --color-beehealth-blue-secondary-solid-hover: #4967a5;
+  --color-beehealth-blue-secondary-light: #3f5a92;
+  --color-beehealth-blue-secondary-light-hover: #354e80;
 
   /* Red */
   --color-beehealth-red-solid: #da6767;

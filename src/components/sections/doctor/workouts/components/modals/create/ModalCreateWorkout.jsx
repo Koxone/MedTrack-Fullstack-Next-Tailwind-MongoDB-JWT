@@ -1,22 +1,11 @@
 'use client';
 
 import { useCreateWorkout } from '@/hooks/workouts/useCreateWorkout';
-import {
-  X,
-  Play,
-  Image as ImageIcon,
-  Dumbbell,
-  Clock,
-  TrendingUp,
-  AlertCircle,
-  List,
-  Award,
-  Sparkles,
-  Info,
-  Loader,
-} from 'lucide-react';
+import { X, Dumbbell, AlertCircle, Loader } from 'lucide-react';
 import { useState } from 'react';
-import ImageGalleryUpload from './components/ImageGalleryUpload';
+import BasicInfoSection from './components/basic/BasicInfoSection';
+import MultimediaSection from './components/multimedia/MultimediaSection';
+import DetailsSection from './components/details/DetailsSection';
 
 export default function ModalCreateWorkout({ setShowCreateModal }) {
   // Create Workout Hook
@@ -256,7 +245,7 @@ export default function ModalCreateWorkout({ setShowCreateModal }) {
           <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 rounded-full bg-linear-to-br from-blue-400/20 to-purple-400/20 blur-3xl" />
           <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-linear-to-tr from-pink-400/20 to-orange-400/20 blur-3xl" />
 
-          {/* Header Premium */}
+          {/* Header */}
           <div className="bg-beehealth-body-main/80 relative overflow-hidden border-b border-white/50 backdrop-blur-xl">
             <div className={`bg-beehealth-blue-light absolute inset-0`} />
             <div className="relative px-6 py-6 sm:px-8">
@@ -300,345 +289,37 @@ export default function ModalCreateWorkout({ setShowCreateModal }) {
                 </div>
               )}
 
-              <div className="group bg-beehealth-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
-                <div className="mb-6 flex items-center gap-3">
-                  <div className="bg-beehealth-blue-solid rounded-xl p-2.5">
-                    <Info className="h-5 w-5 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900">Información Básica</h3>
-                </div>
-
-                {/* Name */}
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      <Dumbbell className="h-4 w-4 text-blue-500" />
-                      Nombre del Ejercicio
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Ej: Sentadillas con Peso"
-                      required
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:shadow-md focus:shadow-blue-500/20 focus:outline-none"
-                    />
-                  </div>
-
-                  {/* Category */}
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      <Sparkles className="h-4 w-4 text-purple-500" />
-                      Categoría
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={form.type}
-                        onChange={(e) => setForm({ ...form, type: e.target.value })}
-                        className="bg-beehealth-body-main w-full appearance-none rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-purple-500 focus:shadow-md focus:shadow-purple-500/20 focus:outline-none"
-                      >
-                        <option value="">Selecciona una categoría</option>
-                        <option value="Fuerza">Fuerza</option>
-                        <option value="Cardio">Cardio</option>
-                        <option value="Core">Core</option>
-                        <option value="Flexibilidad">Flexibilidad</option>
-                      </select>
-                      <div className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2">
-                        <svg
-                          className="h-5 w-5 text-gray-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Duration */}
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      <Clock className="h-4 w-4 text-green-500" />
-                      Duración (minutos)
-                    </label>
-                    <input
-                      type="number"
-                      placeholder="Ej: 30"
-                      min="1"
-                      value={form.duration}
-                      onChange={(e) => setForm({ ...form, duration: e.target.value })}
-                      className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-green-500 focus:shadow-md focus:shadow-green-500/20 focus:outline-none"
-                    />
-                  </div>
-
-                  {/* Difficulty Level */}
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      <TrendingUp className="h-4 w-4 text-orange-500" />
-                      Nivel de Dificultad
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={form.difficulty}
-                        onChange={(e) => setForm({ ...form, difficulty: e.target.value })}
-                        className={`w-full appearance-none rounded-xl border-2 px-4 py-3.5 font-semibold shadow-sm transition-all duration-300 focus:shadow-md focus:outline-none ${getNivelColor(form.difficulty)}`}
-                      >
-                        <option value="">Selecciona un nivel</option>
-                        <option value="Beginner">Principiante</option>
-                        <option value="Intermediate">Intermedio</option>
-                        <option value="Advanced">Avanzado</option>
-                      </select>
-                      <div className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2">
-                        <svg
-                          className="h-5 w-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Basic Info Section */}
+              <BasicInfoSection form={form} setForm={setForm} getNivelColor={getNivelColor} />
 
               {/* Multimedia Section */}
-              <div className="group bg-beehealth-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
-                <div className="mb-6 flex items-center gap-3">
-                  <div className="bg-beehealth-blue-solid rounded-xl p-2.5">
-                    <ImageIcon className="h-5 w-5 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900">Contenido Multimedia</h3>
-                </div>
-
-                {/* Images Gallery */}
-                <div className="space-y-5">
-                  <ImageGalleryUpload
-                    imageFiles={imageFiles}
-                    onAddImage={handleAddImageFile}
-                    onAddImageButton={handleAddImageButton}
-                    onRemoveImage={handleRemoveImageFile}
-                    uploadingImages={uploadingImages}
-                  />
-
-                  {/* Video Tutorial */}
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      <Play className="h-4 w-4 text-red-500" />
-                      Video Tutorial (YouTube)
-                    </label>
-                    <input
-                      type="url"
-                      value={form.video}
-                      onChange={(e) => setForm({ ...form, video: e.target.value })}
-                      placeholder="https://www.youtube.com/embed/..."
-                      className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 font-mono text-sm text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-red-500 focus:shadow-md focus:shadow-red-500/20 focus:outline-none"
-                    />
-                    <div className="flex items-start gap-2 rounded-lg bg-red-50 px-3 py-2">
-                      <Play className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
-                      <p className="text-xs text-red-700">
-                        Usa el formato embed: youtube.com/embed/VIDEO_ID
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <MultimediaSection
+                imageFiles={imageFiles}
+                handleAddImageFile={handleAddImageFile}
+                handleAddImageButton={handleAddImageButton}
+                handleRemoveImageFile={handleRemoveImageFile}
+                uploadingImages={uploadingImages}
+                form={form}
+                setForm={setForm}
+              />
 
               {/* Workout Details */}
-              <div className="group bg-beehealth-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
-                <div className="mb-6 flex items-center gap-3">
-                  <div className="bg-beehealth-blue-solid rounded-xl p-2.5">
-                    <List className="h-5 w-5 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900">Descripción Completa</h3>
-                </div>
-
-                <div className="space-y-5">
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      📝 Explicación General
-                    </label>
-                    <textarea
-                      value={form.about}
-                      onChange={(e) => setForm({ ...form, about: e.target.value })}
-                      placeholder="Describe el ejercicio, qué músculos trabaja y sus características principales..."
-                      className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-teal-500 focus:shadow-md focus:shadow-teal-500/20 focus:outline-none"
-                      rows="3"
-                    />
-                  </div>
-
-                  {/* Instructions */}
-                  <div className="space-y-3">
-                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      <List className="h-4 w-4 text-blue-500" />
-                      Instrucciones Paso a Paso
-                    </label>
-
-                    {/* Instructions List */}
-                    <div className="space-y-3">
-                      {instructionInputs.map((instruction, index) => (
-                        <div key={index} className="flex gap-2">
-                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100">
-                            <span className="text-sm font-bold text-blue-600">{index + 1}</span>
-                          </div>
-                          <textarea
-                            value={instruction}
-                            onChange={(e) => handleInstructionInputChange(index, e.target.value)}
-                            placeholder={`Paso ${index + 1}: Describe la instrucción...`}
-                            className="bg-beehealth-body-main flex-1 resize-none rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:shadow-md focus:shadow-blue-500/20 focus:outline-none"
-                            rows="1"
-                          />
-                          {instructionInputs.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveInstructionInput(index)}
-                              className="h-fit rounded-xl border-2 border-red-300 bg-red-50 px-4 py-3.5 font-semibold text-red-600 shadow-sm transition-all duration-300 hover:border-red-400 hover:bg-red-100 active:scale-95"
-                            >
-                              Eliminar
-                            </button>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Add Button */}
-                    <button
-                      type="button"
-                      onClick={handleAddInstructionInput}
-                      className="w-full rounded-xl border-2 border-dashed border-blue-300 bg-blue-50 px-4 py-3.5 font-semibold text-blue-600 shadow-sm transition-all duration-300 hover:border-blue-400 hover:bg-blue-100 active:scale-95"
-                    >
-                      + Agregar paso
-                    </button>
-
-                    {/* Info */}
-                    <div className="flex items-start gap-2 rounded-lg bg-blue-50 px-3 py-2">
-                      <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
-                      <p className="text-xs text-blue-700">
-                        Cada paso se mostrará numerado para el usuario. Sé claro y conciso en cada
-                        instrucción.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    {/* Benefits */}
-                    <div className="space-y-3">
-                      <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                        <Award className="h-4 w-4 text-yellow-500" />
-                        Beneficios
-                      </label>
-
-                      {/* Benefits List */}
-                      <div className="space-y-3">
-                        {benefitInputs.map((benefit, index) => (
-                          <div key={index} className="flex gap-2">
-                            <div className="mt-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-yellow-100">
-                              <span className="text-xs font-bold text-yellow-600">•</span>
-                            </div>
-                            <textarea
-                              value={benefit}
-                              onChange={(e) => handleBenefitInputChange(index, e.target.value)}
-                              placeholder={`Beneficio ${index + 1}...`}
-                              className="bg-beehealth-body-main flex-1 resize-none rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-yellow-500 focus:shadow-md focus:shadow-yellow-500/20 focus:outline-none"
-                              rows="1"
-                            />
-                            {benefitInputs.length > 1 && (
-                              <button
-                                type="button"
-                                onClick={() => handleRemoveBenefitInput(index)}
-                                className="h-fit rounded-xl border-2 border-red-300 bg-red-50 px-3 py-3.5 font-semibold text-red-600 shadow-sm transition-all duration-300 hover:border-red-400 hover:bg-red-100 active:scale-95"
-                              >
-                                Eliminar
-                              </button>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Add Button */}
-                      <button
-                        type="button"
-                        onClick={handleAddBenefitInput}
-                        className="w-full rounded-xl border-2 border-dashed border-yellow-300 bg-yellow-50 px-4 py-3.5 font-semibold text-yellow-600 shadow-sm transition-all duration-300 hover:border-yellow-400 hover:bg-yellow-100 active:scale-95"
-                      >
-                        + Agregar beneficio
-                      </button>
-
-                      {/* Info */}
-                      <div className="flex items-start gap-2 rounded-lg bg-yellow-50 px-3 py-2">
-                        <Info className="mt-0.5 h-4 w-4 shrink-0 text-yellow-600" />
-                        <p className="text-xs text-yellow-700">
-                          Lista los beneficios principales que proporciona este ejercicio.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Cautions */}
-                    <div className="space-y-3">
-                      <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                        <AlertCircle className="h-4 w-4 text-orange-500" />
-                        Precauciones
-                      </label>
-
-                      {/* Cautions List */}
-                      <div className="space-y-3">
-                        {cautionInputs.map((caution, index) => (
-                          <div key={index} className="flex gap-2">
-                            <div className="mt-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100">
-                              <span className="text-xs font-bold text-orange-600">!</span>
-                            </div>
-                            <textarea
-                              value={caution}
-                              onChange={(e) => handleCautionInputChange(index, e.target.value)}
-                              placeholder={`Precaución ${index + 1}...`}
-                              className="bg-beehealth-body-main flex-1 resize-none rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-orange-500 focus:shadow-md focus:shadow-orange-500/20 focus:outline-none"
-                              rows="1"
-                            />
-                            {cautionInputs.length > 1 && (
-                              <button
-                                type="button"
-                                onClick={() => handleRemoveCautionInput(index)}
-                                className="h-fit rounded-xl border-2 border-red-300 bg-red-50 px-3 py-3.5 font-semibold text-red-600 shadow-sm transition-all duration-300 hover:border-red-400 hover:bg-red-100 active:scale-95"
-                              >
-                                Eliminar
-                              </button>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Add Button */}
-                      <button
-                        type="button"
-                        onClick={handleAddCautionInput}
-                        className="w-full rounded-xl border-2 border-dashed border-orange-300 bg-orange-50 px-4 py-3.5 font-semibold text-orange-600 shadow-sm transition-all duration-300 hover:border-orange-400 hover:bg-orange-100 active:scale-95"
-                      >
-                        + Agregar precaución
-                      </button>
-
-                      {/* Info */}
-                      <div className="flex items-start gap-2 rounded-lg bg-orange-50 px-3 py-2">
-                        <Info className="mt-0.5 h-4 w-4 shrink-0 text-orange-600" />
-                        <p className="text-xs text-orange-700">
-                          Advierte sobre lesiones o errores comunes al realizar este ejercicio.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <DetailsSection
+                form={form}
+                setForm={setForm}
+                instructionInputs={instructionInputs}
+                handleInstructionInputChange={handleInstructionInputChange}
+                handleAddInstructionInput={handleAddInstructionInput}
+                handleRemoveInstructionInput={handleRemoveInstructionInput}
+                benefitInputs={benefitInputs}
+                handleBenefitInputChange={handleBenefitInputChange}
+                handleAddBenefitInput={handleAddBenefitInput}
+                handleRemoveBenefitInput={handleRemoveBenefitInput}
+                cautionInputs={cautionInputs}
+                handleCautionInputChange={handleCautionInputChange}
+                handleAddCautionInput={handleAddCautionInput}
+                handleRemoveCautionInput={handleRemoveCautionInput}
+              />
 
               {/* Actions */}
               <div className="flex gap-3">
