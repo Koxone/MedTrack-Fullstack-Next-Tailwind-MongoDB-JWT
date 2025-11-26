@@ -8,6 +8,7 @@ import WorkoutCard from './components/workoutCard/WorkoutCard';
 // Hooks
 import { useGetAllWorkouts } from '@/hooks/workouts/useGetAllWorkouts';
 import { workoutsMockData } from './components/workoutsMockData';
+import { useDeleteWorkout } from '@/hooks/workouts/useDeleteWorkout';
 
 // Modals
 import SharedModalOpenWorkout from '@/components/shared/workouts/SharedModalOpenWorkout';
@@ -18,6 +19,9 @@ import ModalCreateWorkout from './components/modals/create/ModalCreateWorkout';
 export default function DoctorWorkouts({ role }) {
   // Get Workouts from API
   const { workoutData, isLoading, error, refetch: fetchWorkouts } = useGetAllWorkouts();
+
+  // Delete Workout Hook
+  const { deleteWorkout } = useDeleteWorkout();
 
   // Local States
   const [workouts, setWorkouts] = useState(workoutsMockData);
@@ -68,8 +72,13 @@ export default function DoctorWorkouts({ role }) {
   };
 
   // Delete Workout
-  const handleDelete = () => {
-    setWorkouts(workouts.filter((e) => e.id !== workoutToDelete.id));
+  const handleDelete = async () => {
+    if (!workoutToDelete) return;
+    const result = await deleteWorkout({ id: workoutToDelete._id });
+    if (result) {
+      setWorkouts(workouts.filter((e) => e._id !== workoutToDelete._id));
+      fetchWorkouts();
+    }
     setShowDeleteModal(false);
   };
 
