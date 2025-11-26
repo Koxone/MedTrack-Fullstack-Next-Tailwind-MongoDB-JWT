@@ -21,7 +21,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import GoBackButton from '@/components/shared/diets/[id]/components/GoBackButton';
 import DietImage from './components/sections/DietImage';
-import { useEditDiet } from './hooks/useEditDiet';
+import { useEditDiet } from '../../../../../hooks/diets/useEditDiet';
 
 export default function DoctorDietDetail({ params, role, specialty }) {
   const { id } = params;
