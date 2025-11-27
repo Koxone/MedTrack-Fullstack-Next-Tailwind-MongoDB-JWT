@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import {
   Package,
   Calendar,
@@ -12,10 +14,12 @@ import {
   Dumbbell,
 } from 'lucide-react';
 import Link from 'next/link';
+import CreatePatientModal from './components/CreatePatientModal';
 
 interface GeneralSectionHeaderProps {
   newPatient?: boolean;
   newWorkout?: boolean;
+  specialty?: string;
   setShowCreateWorkoutModal?: React.Dispatch<React.SetStateAction<boolean>>;
   setEditingWorkout?: React.Dispatch<React.SetStateAction<any>>;
   role?: 'doctor' | 'patient' | 'employee' | 'admin';
@@ -37,6 +41,7 @@ export default function SharedSectionHeader({
   newPatient,
   newWorkout,
   setEditingWorkout,
+  specialty,
   setShowCreateWorkoutModal,
   Icon,
   title = '',
@@ -59,6 +64,8 @@ export default function SharedSectionHeader({
 
   const SelectedIcon = iconsMap[Icon] ?? Package;
 
+  const [isModalPatientsOpen, setIsModalPatientsOpen] = useState(false);
+
   return (
     <div className="-mx-4 -mt-4 mb-6 flex w-full items-center justify-between px-4 pt-6 md:rounded-2xl">
       <div>
@@ -75,7 +82,7 @@ export default function SharedSectionHeader({
         </div>
       </div>
 
-      {/* Doctor Export Button */}
+      {/* New Diet Button */}
       {role === 'doctor' && Icon === 'diets' && (
         <div className="flex items-center gap-4">
           {/* Doctor New Diet Button */}
@@ -89,17 +96,25 @@ export default function SharedSectionHeader({
         </div>
       )}
 
-      {/* Doctor Export Button */}
+      {/* New Patient Button */}
       {role === 'doctor' && newPatient && (
         <div className="flex items-center gap-4">
           {/* Doctor New Diet Button */}
-          <Link
-            href="/doctor/diets/new"
+          <button
+            onClick={() => setIsModalPatientsOpen(true)}
             className="bg-beehealth-green-secondary-solid hover:bg-beehealth-green-secondary-solid-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white transition active:scale-95"
           >
             <Plus className="h-5 w-5" />
             Nuevo Paciente
-          </Link>
+          </button>
+
+          {isModalPatientsOpen && (
+            <CreatePatientModal
+              isModalPatientsOpen={isModalPatientsOpen}
+              setIsModalPatientsOpen={setIsModalPatientsOpen}
+              specialty={specialty}
+            />
+          )}
         </div>
       )}
 

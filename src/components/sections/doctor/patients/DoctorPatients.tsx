@@ -18,6 +18,7 @@ export default function DoctorPatients({ currentUser, role }: DoctorPatientsProp
         role={role}
         title="Mis Pacientes"
         subtitle="Gestiona tu lista de pacientes"
+        specialty={currentUser?.specialty}
       />
 
       <DoctorPatientsList currentUser={currentUser} role={role} />
