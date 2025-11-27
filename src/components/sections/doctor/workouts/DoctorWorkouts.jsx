@@ -8,16 +8,20 @@ import WorkoutCard from './components/workoutCard/WorkoutCard';
 // Hooks
 import { useGetAllWorkouts } from '@/hooks/workouts/useGetAllWorkouts';
 import { workoutsMockData } from './components/workoutsMockData';
+import { useDeleteWorkout } from '@/hooks/workouts/useDeleteWorkout';
 
 // Modals
-import SharedModalOpenWorkout from '../../../shared/workouts/SharedModalOpenWorkout';
+import SharedModalOpenWorkout from '@/components/shared/workouts/SharedModalOpenWorkout';
 import ModalEditWorkout from './components/modals/ModalEditWorkout';
 import ModalDelete from './components/modals/ModalDelete';
-import ModalCreateWorkout from './components/modals/ModalCreateWorkout';
+import ModalCreateWorkout from './components/modals/create/ModalCreateWorkout';
 
 export default function DoctorWorkouts({ role }) {
   // Get Workouts from API
   const { workoutData, isLoading, error, refetch: fetchWorkouts } = useGetAllWorkouts();
+
+  // Delete Workout Hook
+  const { deleteWorkout } = useDeleteWorkout();
 
   // Local States
   const [workouts, setWorkouts] = useState(workoutsMockData);
@@ -68,8 +72,13 @@ export default function DoctorWorkouts({ role }) {
   };
 
   // Delete Workout
-  const handleDelete = () => {
-    setWorkouts(workouts.filter((e) => e.id !== workoutToDelete.id));
+  const handleDelete = async () => {
+    if (!workoutToDelete) return;
+    const result = await deleteWorkout({ id: workoutToDelete._id });
+    if (result) {
+      setWorkouts(workouts.filter((e) => e._id !== workoutToDelete._id));
+      fetchWorkouts();
+    }
     setShowDeleteModal(false);
   };
 
@@ -94,6 +103,9 @@ export default function DoctorWorkouts({ role }) {
       <SharedSectionHeader
         role={role}
         Icon="workouts"
+        newWorkout
+        setEditingWorkout={setEditingWorkout}
+        setShowCreateWorkoutModal={setShowCreateWorkoutModal}
         title={role === 'doctor' ? 'Gestion de Ejercicios' : 'Mis Ejercicios'}
         subtitle={role === 'doctor' ? 'Crea y personaliza ejercicios' : 'Ejercicios Personalizados'}
       />
@@ -107,7 +119,7 @@ export default function DoctorWorkouts({ role }) {
               onClick={() => setFilterCategorie(cat)}
               className={`rounded-lg px-4 py-2 font-medium ${
                 filterCategorie === cat
-                  ? 'bg-beehealth-blue-solid hover:bg-beehealth-blue-hover text-white'
+                  ? 'bg-beehealth-blue-primary-solid hover:bg-beehealth-blue-primary-solid-hover text-white'
                   : 'bg-beehealth-body-main hover:bg-beehealth-body-main border border-gray-300'
               }`}
             >
@@ -130,15 +142,15 @@ export default function DoctorWorkouts({ role }) {
           </div>
 
           {/* Create Workout Button */}
-          <button
+          {/* <button
             onClick={() => {
               setEditingWorkout(null);
               setShowCreateWorkoutModal(true);
             }}
-            className="bg-beehealth-green-secondary-solid hover:bg-beehealth-green-secondary-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white"
+            className="bg-beehealth-green-secondary-solid hover:bg-beehealth-green-secondary-solid-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white"
           >
             <Plus className="h-5 w-5" /> Nuevo
-          </button>
+          </button> */}
         </div>
       </div>
 

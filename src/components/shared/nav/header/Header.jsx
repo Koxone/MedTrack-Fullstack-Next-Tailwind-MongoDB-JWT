@@ -23,6 +23,7 @@ export default async function Header() {
     <header className="sticky top-0 z-40 border-b-2 border-gray-200 shadow-lg backdrop-blur-lg">
       {/* Desktop header */}
       <div className="hidden items-center justify-between px-6 py-4 md:flex">
+        {/* Logo */}
         <div className="flex items-center gap-4">
           <img src="/BeeHealth.png" alt="" className="max-w-10" />
           <div>
@@ -47,7 +48,7 @@ export default async function Header() {
                 <p className="text-xs font-medium text-gray-500">{roleLabel}</p>
               </div>
             </div>
-            <ProfileButton role={role} />
+            <ProfileButton role={role} currentUser={currentUser} />
           </div>
 
           {/* Logout */}

@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import {
   Package,
   Calendar,
@@ -12,8 +14,14 @@ import {
   Dumbbell,
 } from 'lucide-react';
 import Link from 'next/link';
+import CreatePatientModal from './components/CreatePatientModal';
 
 interface GeneralSectionHeaderProps {
+  newPatient?: boolean;
+  newWorkout?: boolean;
+  specialty?: string;
+  setShowCreateWorkoutModal?: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditingWorkout?: React.Dispatch<React.SetStateAction<any>>;
   role?: 'doctor' | 'patient' | 'employee' | 'admin';
   Icon:
     | 'inventory'
@@ -30,6 +38,11 @@ interface GeneralSectionHeaderProps {
 
 export default function SharedSectionHeader({
   role,
+  newPatient,
+  newWorkout,
+  setEditingWorkout,
+  specialty,
+  setShowCreateWorkoutModal,
   Icon,
   title = '',
   subtitle = '',
@@ -51,11 +64,13 @@ export default function SharedSectionHeader({
 
   const SelectedIcon = iconsMap[Icon] ?? Package;
 
+  const [isModalPatientsOpen, setIsModalPatientsOpen] = useState(false);
+
   return (
     <div className="-mx-4 -mt-4 mb-6 flex w-full items-center justify-between px-4 pt-6 md:rounded-2xl">
       <div>
         <div className="flex items-start gap-4">
-          <div className="bg-beehealth-blue-solid rounded-2xl p-3 shadow-lg">
+          <div className="bg-beehealth-blue-primary-solid rounded-2xl p-3 shadow-lg">
             <SelectedIcon className="h-8 w-8 text-white" />
           </div>
           <div>
@@ -67,7 +82,7 @@ export default function SharedSectionHeader({
         </div>
       </div>
 
-      {/* Doctor Export Button */}
+      {/* New Diet Button */}
       {role === 'doctor' && Icon === 'diets' && (
         <div className="flex items-center gap-4">
           {/* Doctor New Diet Button */}
@@ -78,11 +93,41 @@ export default function SharedSectionHeader({
             <Plus className="h-5 w-5" />
             Nueva Dieta
           </Link>
+        </div>
+      )}
 
-          {/* Doctor Export Button */}
-          <button className="bg-beehealth-blue-solid hover:bg-beehealth-blue-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white transition active:scale-95">
-            <Download className="h-5 w-5" />
-            <span className="hidden sm:inline">Exportar</span>
+      {/* New Patient Button */}
+      {role === 'doctor' && newPatient && (
+        <div className="flex items-center gap-4">
+          {/* Doctor New Diet Button */}
+          <button
+            onClick={() => setIsModalPatientsOpen(true)}
+            className="bg-beehealth-green-secondary-solid hover:bg-beehealth-green-secondary-solid-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white transition active:scale-95"
+          >
+            <Plus className="h-5 w-5" />
+            Nuevo Paciente
+          </button>
+
+          {isModalPatientsOpen && (
+            <CreatePatientModal
+              setIsModalPatientsOpen={setIsModalPatientsOpen}
+              specialty={specialty}
+            />
+          )}
+        </div>
+      )}
+
+      {/* New Workout Button */}
+      {role === 'doctor' && newWorkout && (
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => {
+              setEditingWorkout(null);
+              setShowCreateWorkoutModal(true);
+            }}
+            className="bg-beehealth-green-secondary-solid hover:bg-beehealth-green-secondary-solid-hover flex items-center gap-2 rounded-lg px-4 py-2 text-white"
+          >
+            <Plus className="h-5 w-5" /> Nuevo Ejercicio
           </button>
         </div>
       )}

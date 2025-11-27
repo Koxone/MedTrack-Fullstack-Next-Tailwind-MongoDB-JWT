@@ -5,7 +5,8 @@ export const runtime = 'nodejs';
 export default async function DoctorPatientsPage() {
   // Get current User info
   const currentUser = await getCurrentUser();
-  const role: string | undefined = currentUser?.role;
+  const role = currentUser?.role as 'doctor' | 'patient' | 'employee' | 'admin';
+
   return (
     <div className="max-h-screen overflow-hidden">
       <DoctorPatients currentUser={currentUser} role={role} />

@@ -1,6 +1,6 @@
 'use client';
 
-import { Clock, Edit2, Trash2 } from 'lucide-react';
+import { Clock, Edit2, Trash2, User } from 'lucide-react';
 import ActionsButtons from './components/ActionsButtons';
 
 const getNivelColor = (nivel) => {
@@ -22,12 +22,12 @@ export default function WorkoutCard({
   return (
     <div
       onClick={onOpen}
-      className="group hover:border-beehealth-blue-solid bg-beehealth-body-main cursor-pointer overflow-hidden rounded-xl border-2 border-gray-200 shadow-sm transition-all duration-200 hover:shadow-lg active:scale-95"
+      className="group hover:border-beehealth-blue-primary-solid bg-beehealth-body-main cursor-pointer overflow-hidden rounded-xl border-2 border-gray-200 shadow-sm transition-all duration-200 hover:shadow-lg active:scale-95"
     >
       {/* Main Image */}
       <div className="relative h-48 overflow-hidden bg-gray-100">
         <img
-          src={workout?.images}
+          src={workout?.images?.[0]}
           alt={workout?.name}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
@@ -40,7 +40,7 @@ export default function WorkoutCard({
           </span>
         </div>
         <div className="absolute bottom-3 left-3">
-          <span className="bg-beehealth-blue-solid rounded-full px-2 py-1 text-xs font-medium text-white shadow-sm backdrop-blur-sm">
+          <span className="bg-beehealth-blue-primary-solid rounded-full px-2 py-1 text-xs font-medium text-white shadow-sm backdrop-blur-sm">
             {workout?.type}
           </span>
         </div>
@@ -53,6 +53,10 @@ export default function WorkoutCard({
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <Clock className="h-4 w-4" />
           <span>{workout?.duration} minutos</span>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-gray-600">
+          <User className="h-4 w-4" />
+          <span>{workout?.patients?.length} pacientes asignados</span>
         </div>
 
         {/* Doctor Actions */}

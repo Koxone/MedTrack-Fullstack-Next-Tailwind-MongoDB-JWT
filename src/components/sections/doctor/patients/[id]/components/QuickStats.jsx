@@ -17,8 +17,8 @@ export default function QuickStats({ patientRecord, specialty }) {
       <div className="bg-beehealth-body-main rounded-2xl border border-(--med-gray-border) p-6 shadow-sm transition hover:shadow-md">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--med-green)/10">
-              <FileText className="h-6 w-6 text-(--med-green)" />
+            <div className="bg-beehealth-blue-primary-solid flex h-12 w-12 items-center justify-center rounded-xl">
+              <FileText className="h-6 w-6 text-white" />
             </div>
             <div>
               <p className="text-3xl font-bold text-(--med-text-dark)">
@@ -36,8 +36,8 @@ export default function QuickStats({ patientRecord, specialty }) {
         <div className="bg-beehealth-body-main rounded-2xl border border-(--med-gray-border) p-6 shadow-sm transition hover:shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--med-blue-light)">
-                <Scale className="h-6 w-6 text-(--med-blue)" />
+              <div className="bg-beehealth-blue-primary-solid flex h-12 w-12 items-center justify-center rounded-xl">
+                <Scale className="h-6 w-6 text-white" />
               </div>
               <div>
                 <p className="text-3xl font-bold text-(--med-text-dark)">
@@ -46,7 +46,7 @@ export default function QuickStats({ patientRecord, specialty }) {
                 <p className="text-sm text-(--med-text-muted)">Peso Actual (kg)</p>
               </div>
             </div>
-            <Activity className="h-5 w-5 text-(--med-blue)" />
+            <Activity className="text-beehealth-blue-primary-solid h-5 w-5" />
           </div>
         </div>
       )}
@@ -64,7 +64,7 @@ export default function QuickStats({ patientRecord, specialty }) {
                 <p className="text-sm text-(--med-text-muted)">Adeudos</p>
               </div>
             </div>
-            <Activity className="h-5 w-5 text-(--med-blue)" />
+            <Activity className="text-beehealth-blue-primary-solid h-5 w-5" />
           </div>
         </div>
       )}
@@ -73,15 +73,15 @@ export default function QuickStats({ patientRecord, specialty }) {
       <div className="bg-beehealth-body-main rounded-2xl border border-(--med-gray-border) p-6 shadow-sm transition hover:shadow-md">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--med-purple)/10">
-              <Heart className="h-6 w-6 text-(--med-purple)" />
+            <div className="bg-beehealth-blue-primary-solid flex h-12 w-12 items-center justify-center rounded-xl">
+              <Heart className="h-6 w-6 text-white" />
             </div>
             <div>
               <p className="text-3xl font-bold text-(--med-text-dark)">{imc || 'Sin historial'}</p>
               <p className="text-sm text-(--med-text-muted)">IMC Actual</p>
             </div>
           </div>
-          <Activity className="h-5 w-5 text-(--med-purple)" />
+          <Activity className="text-beehealth-blue-primary-solid h-5 w-5" />
         </div>
       </div>
     </div>

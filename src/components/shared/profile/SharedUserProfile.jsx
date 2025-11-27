@@ -28,14 +28,18 @@ export default function SharedUserProfile({ role, currentUser }) {
     return (
       <div className="h-full space-y-6 overflow-y-auto">
         {/* Header gradient */}
-        <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-green-500 via-emerald-600 to-teal-600 p-8 shadow-xl">
+        <div className="bg-beehealth-blue-primary-solid relative overflow-hidden rounded-2xl p-8 shadow-xl">
           <div className="bg-beehealth-body-main/10 absolute -top-10 -right-10 h-40 w-40 rounded-full blur-3xl"></div>
           <div className="bg-beehealth-body-main/10 absolute -bottom-10 -left-10 h-40 w-40 rounded-full blur-3xl"></div>
 
           <div className="relative flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <div className="flex items-center gap-4">
               <div className="bg-beehealth-body-main/20 flex h-20 w-20 items-center justify-center rounded-2xl shadow-lg ring-4 ring-white/30 backdrop-blur-sm">
-                <User className="h-10 w-10 text-white" />
+                <img
+                  src={currentUser?.avatar}
+                  alt="Profile"
+                  className="h-full w-full rounded-2xl object-cover"
+                />
               </div>
               <div>
                 <h1 className="mb-1 text-3xl font-bold text-white md:text-4xl">
@@ -47,7 +51,7 @@ export default function SharedUserProfile({ role, currentUser }) {
 
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="group bg-beehealth-body-main flex items-center gap-2 rounded-xl px-6 py-3 font-semibold text-green-600 shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95"
+              className="group bg-beehealth-green-secondary-solid hover:bg-beehealth-green-secondary-solid-hover flex items-center gap-2 rounded-xl px-6 py-3 font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95"
             >
               {isEditing ? (
                 <>
@@ -71,7 +75,11 @@ export default function SharedUserProfile({ role, currentUser }) {
 
             <div className="relative flex flex-col items-center">
               <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-linear-to-br from-green-500 to-emerald-600 shadow-lg ring-4 ring-green-100 transition-transform duration-300 group-hover:scale-105">
-                <User className="h-16 w-16 text-white" />
+                <img
+                  src={currentUser?.avatar}
+                  alt="Profile"
+                  className="h-full w-full rounded-full object-cover"
+                />
               </div>
 
               <div className="mb-2 flex items-center gap-2">
@@ -82,8 +90,11 @@ export default function SharedUserProfile({ role, currentUser }) {
               </div>
 
               <div className="mb-4 flex items-center gap-2 rounded-full bg-green-50 px-4 py-1.5">
-                <Award className="h-4 w-4 text-green-600" />
-                <p className="text-sm font-medium text-green-700">Nutriólogo(a)</p>
+                <p className="text-sm font-medium text-green-700">
+                  {currentUser?.role === 'doctor' &&
+                    currentUser?.specialty === 'weight' &&
+                    'Control de Peso'}
+                </p>
               </div>
 
               <div className="flex w-full gap-2">

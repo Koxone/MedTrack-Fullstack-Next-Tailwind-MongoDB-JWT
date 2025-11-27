@@ -28,9 +28,14 @@ export default function SharedModalOpenWorkout({
   onClose,
 }) {
   const nextImage = () =>
-    setCurrentImageIndex((prev) => (prev === workout?.imagenes.length - 1 ? 0 : prev + 1));
+    setCurrentImageIndex((prev) =>
+      workout?.images?.length ? (prev === workout.images.length - 1 ? 0 : prev + 1) : 0
+    );
+
   const prevImage = () =>
-    setCurrentImageIndex((prev) => (prev === 0 ? workout?.imagenes.length - 1 : prev - 1));
+    setCurrentImageIndex((prev) =>
+      workout?.images?.length ? (prev === 0 ? workout.images.length - 1 : prev - 1) : 0
+    );
 
   // Convert video URL to embed format
   const getEmbedUrl = (url) => {
