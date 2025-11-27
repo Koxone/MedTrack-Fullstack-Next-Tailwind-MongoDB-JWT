@@ -3,7 +3,8 @@
 import { useMemo, useState, useCallback, memo } from 'react';
 import TabsHeader from './components/TabsHeader';
 import ActionButtons from './components/ActionButtons';
-import questions from '@/data/questions.json';
+// import questions from '@/data/questions.json';
+import questions from '@/data/questionsOld.json';
 import { useRouter } from 'next/navigation';
 
 const FieldRenderer = memo(function FieldRenderer({ q, value, onChange }) {
