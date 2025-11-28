@@ -11,15 +11,13 @@ import Number from './components/inputs/Number';
 import Date from './components/inputs/Date';
 import Select from './components/inputs/Select';
 import Radio from './components/inputs/Radio';
-import { useRouter } from 'next/navigation';
-import { createClinicalRecord } from './services/createClinicalRecord';
+import { useCreateClinicalRecord } from '@/hooks/clinicalRecords/useCreateClinicalRecord';
 
 export default function CreateClinicalRecord({ currentUser }) {
   // Local States
   const [formData, setFormData] = useState({});
   const [activeTab, setActiveTab] = useState('weight');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
 
   // Fetch all questions
   const { questions } = useGetAllQuestions();
@@ -40,28 +38,35 @@ export default function CreateClinicalRecord({ currentUser }) {
     });
   }, []);
 
+  // Custom Hook Create Clinical Record
+  const { submit, isSubmitting: loadingCreate } = useCreateClinicalRecord();
+
   // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setIsSubmitting(true);
+
     const answersArray = Object.entries(formData).map(([questionId, value]) => ({
       questionId,
       value,
     }));
-    try {
-      const { ok, clinicalRecord, error } = await createClinicalRecord({
-        specialty: activeTab,
-        answers: answersArray,
-      });
-      if (!ok) {
-        console.error('Error creating Clinical Record:', error);
-        return;
-      }
-      console.log('Clinical Record created:', clinicalRecord);
-      setFormData({});
-    } finally {
+
+    const result = await submit({
+      specialty: activeTab,
+      answers: answersArray,
+    });
+
+    if (!result.ok) {
+      console.error('Error creating Clinical Record:', result.error);
       setIsSubmitting(false);
+      return;
     }
+
+    console.log('Clinical Record created:', result.clinicalRecord);
+
+    setFormData({});
+    setIsSubmitting(false);
   };
 
   // Render helper
@@ -111,7 +116,7 @@ export default function CreateClinicalRecord({ currentUser }) {
 
             {/* Actions */}
             <div className="col-span-2 mt-4 flex justify-end">
-              <ActionButtons activeTab={activeTab} isSubmitting={isSubmitting} />
+              <ActionButtons activeTab={activeTab} isSubmitting={isSubmitting || loadingCreate} />
             </div>
           </form>
         </div>
