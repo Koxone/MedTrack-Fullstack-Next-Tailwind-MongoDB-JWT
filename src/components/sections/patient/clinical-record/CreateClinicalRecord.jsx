@@ -12,6 +12,7 @@ import Date from './components/inputs/Date';
 import Select from './components/inputs/Select';
 import Radio from './components/inputs/Radio';
 import { useRouter } from 'next/navigation';
+import { createClinicalRecord } from './services/createClinicalRecord';
 
 export default function CreateClinicalRecord({ currentUser }) {
   // Local States
@@ -44,36 +45,25 @@ export default function CreateClinicalRecord({ currentUser }) {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Convert formData to array of answers
     const answersArray = Object.entries(formData).map(([questionId, value]) => ({
       questionId,
       value,
     }));
 
-    const body = {
-      specialty: activeTab,
-      answers: answersArray,
-    };
-
     try {
-      const res = await fetch('/api/clinicalRecords', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+      const { ok, clinicalRecord, error } = await createClinicalRecord({
+        specialty: activeTab,
+        answers: answersArray,
       });
 
-      const data = await res.json();
-
-      if (!data.ok) {
-        console.error('Error creating Clinical Record:', data.error);
-        setIsSubmitting(false);
+      if (!ok) {
+        console.error('Error creating Clinical Record:', error);
         return;
       }
 
-      console.log('Clinical Record created:', data.clinicalRecord);
+      console.log('Clinical Record created:', clinicalRecord);
       setFormData({});
-    } catch (err) {
-      console.error(err);
+      
     } finally {
       setIsSubmitting(false);
     }
