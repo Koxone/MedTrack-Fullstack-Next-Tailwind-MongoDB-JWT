@@ -28,7 +28,7 @@ export default function VitalsSection({ isReadOnly, getAnswer, setAnswer }) {
             value={getAnswer(ID.bloodPressure)}
             onChange={(e) => setAnswer(ID.bloodPressure, e.target.value)}
             className="focus:bg-beehealth-body-main bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
-            placeholder="120/80"
+            placeholder="ej. 120/80"
           />
         </div>
 
@@ -42,7 +42,7 @@ export default function VitalsSection({ isReadOnly, getAnswer, setAnswer }) {
             value={getAnswer(ID.temperature)}
             onChange={(e) => setAnswer(ID.temperature, e.target.value)}
             className="focus:bg-beehealth-body-main bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
-            placeholder="36.7 °C"
+            placeholder="ej. 36.7 °C"
           />
         </div>
 
@@ -58,7 +58,7 @@ export default function VitalsSection({ isReadOnly, getAnswer, setAnswer }) {
             value={getAnswer(ID.heartRate)}
             onChange={(e) => setAnswer(ID.heartRate, e.target.value)}
             className="focus:bg-beehealth-body-main bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
-            placeholder="80"
+            placeholder="ej. 80/120"
           />
         </div>
       </div>

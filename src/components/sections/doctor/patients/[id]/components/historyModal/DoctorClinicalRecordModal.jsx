@@ -155,12 +155,10 @@ export default function DoctorClinicalRecordModal({
         <form onSubmit={handleSubmit} className="max-h-[calc(90vh-180px)] overflow-y-auto p-6">
           {activeTab === 'basico' && (
             <div className="space-y-6">
-              <BasicInfoSection
-                isReadOnly={isReadOnly}
-                getAnswer={getAnswer}
-                setAnswer={setAnswer}
-              />
+              <BasicInfoSection record={record} isReadOnly={isReadOnly} setAnswer={setAnswer} />
+
               <VitalsSection isReadOnly={isReadOnly} getAnswer={getAnswer} setAnswer={setAnswer} />
+              
               <DiagnosisSection
                 isReadOnly={isReadOnly}
                 getAnswer={getAnswer}

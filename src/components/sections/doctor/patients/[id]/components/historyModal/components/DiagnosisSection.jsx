@@ -28,7 +28,7 @@ export default function DiagnosisSection({ isReadOnly, getAnswer, setAnswer, ico
             value={getAnswer(ID.diagnosis)}
             onChange={(e) => setAnswer(ID.diagnosis, e.target.value)}
             className="focus:bg-beehealth-body-main bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
-            placeholder="Ingrese el diagnóstico..."
+            placeholder="Ingrese el diagnostico de esta consulta..."
           />
         </div>
 
@@ -42,7 +42,7 @@ export default function DiagnosisSection({ isReadOnly, getAnswer, setAnswer, ico
             value={getAnswer(ID.treatment)}
             onChange={(e) => setAnswer(ID.treatment, e.target.value)}
             className="focus:bg-beehealth-body-main bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
-            placeholder="Ingrese el tratamiento recomendado..."
+            placeholder="Ingrese el tratamiento asignado en esta consulta..."
           />
         </div>
 

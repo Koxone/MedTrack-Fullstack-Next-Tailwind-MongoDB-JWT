@@ -1,4 +1,3 @@
-// src/components/sections/doctor/patients/[id]/components/historyModal/components/BasicInfoSection.jsx
 'use client';
 
 import { CalendarIcon, Scale, Ruler } from 'lucide-react';
@@ -13,9 +12,21 @@ const ID = {
   imc: 127,
 };
 
-export default function BasicInfoSection({ isReadOnly, getAnswer, setAnswer }) {
-  // Compute IMC view-only from current values
-  const imcValue = useMemo(() => getAnswer(ID.imc), [getAnswer]);
+export default function BasicInfoSection({ isReadOnly, setAnswer, record }) {
+  // Compute IMC from record prop
+  function calculateBMI(record) {
+    const bmi =
+      Number(getValueByQuestionId(7, record)) /
+      Math.pow(Number(getValueByQuestionId(6, record)) / 100, 2);
+    return bmi.toFixed(1);
+  }
+
+  // Get Question and Answer from record prop
+  function getValueByQuestionId(questionId) {
+    if (!record?.answers) return null;
+    const answer = record.answers.find((a) => a.question?.questionId === questionId);
+    return answer ? answer.value : null;
+  }
 
   return (
     <div>
@@ -32,7 +43,7 @@ export default function BasicInfoSection({ isReadOnly, getAnswer, setAnswer }) {
             id={ID.fullName}
             name={`q-${ID.fullName}`}
             type="text"
-            value={getAnswer(ID.fullName)}
+            value={getValueByQuestionId(1)}
             onChange={(e) => setAnswer(ID.fullName, e.target.value)}
             disabled={isReadOnly}
             placeholder="Ingrese el nombre completo"
@@ -53,7 +64,7 @@ export default function BasicInfoSection({ isReadOnly, getAnswer, setAnswer }) {
               step="0.1"
               required
               disabled={isReadOnly}
-              value={getAnswer(ID.weight)}
+              value={getValueByQuestionId(7)}
               onChange={(e) => setAnswer(ID.weight, e.target.value)}
               className="focus:bg-beehealth-body-main bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 py-3 pr-4 pl-11 transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
               placeholder="75.5"
@@ -73,7 +84,7 @@ export default function BasicInfoSection({ isReadOnly, getAnswer, setAnswer }) {
               type="number"
               step="0.1"
               disabled={isReadOnly}
-              value={getAnswer(ID.size) || getAnswer(ID.height)}
+              value={getValueByQuestionId(8)}
               onChange={(e) => {
                 // Prefer size id if exists
                 setAnswer(ID.size, e.target.value);
@@ -91,7 +102,7 @@ export default function BasicInfoSection({ isReadOnly, getAnswer, setAnswer }) {
             id={ID.imc}
             type="text"
             readOnly
-            value={imcValue}
+            value={calculateBMI(record)}
             className="w-full rounded-xl border-2 border-gray-200 bg-gray-100 px-4 py-3"
             placeholder="Calculado automáticamente"
           />

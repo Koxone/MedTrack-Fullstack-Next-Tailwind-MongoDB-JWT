@@ -2,7 +2,6 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
 import PatientHeader from './components/patientHeader/PatientHeader';
 import QuickStats from './components/QuickStats';
 import WeightChart from './components/WeightChart';
@@ -11,10 +10,12 @@ import BackButton from './components/BackButton';
 import TabsNav from './components/TabsNav';
 import DoctorCreateAppointmentModal from './components/createAppointmentModal/DoctorCreateAppointmentModal';
 import DoctorClinicalRecordModal from './components/historyModal/DoctorClinicalRecordModal';
-import { useClinicalRecord } from './hooks/useClinicalRecord';
 import DoctorBudgets from './components/budgets/DoctorBudgets';
 import DoctorProducts from './components/products/DoctorProducts';
 import LoadingState from '@/components/shared/feedback/LoadingState';
+
+// Custom Hooks
+import { useClinicalRecord } from './hooks/useClinicalRecord';
 
 // Types
 import { IClinicalRecord, TabName } from '@/types';
