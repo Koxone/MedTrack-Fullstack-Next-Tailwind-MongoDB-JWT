@@ -67,7 +67,7 @@
     "text": "Peso actual (kg)",
     "isMetric": true,
     "specialties": {
-      "weight": ["short", "full"]
+      "weight": ["short", "full", "quick"]
     },
     "type": "number"
   },
@@ -75,7 +75,7 @@
     "text": "Talla (cm)",
     "isMetric": true,
     "specialties": {
-      "weight": ["short", "full"]
+      "weight": ["short", "full", "quick"]
     },
     "type": "number"
   },
@@ -175,9 +175,9 @@
     "text": "Alergias conocidas",
     "isMetric": false,
     "specialties": {
-      "stetic": ["short", "full"],
-      "dental": ["short", "full"],
-      "weight": ["short", "full"]
+      "stetic": ["short", "full", "quick"],
+      "dental": ["short", "full", "quick"],
+      "weight": ["short", "full", "quick"]
     },
     "type": "text"
   },
@@ -185,9 +185,9 @@
     "text": "Medicamentos actuales",
     "isMetric": false,
     "specialties": {
-      "stetic": ["short", "full"],
-      "dental": ["short", "full"],
-      "weight": ["short", "full"]
+      "stetic": ["short", "full", "quick"],
+      "dental": ["short", "full", "quick"],
+      "weight": ["short", "full", "quick"]
     },
     "type": "text"
   },
@@ -1301,7 +1301,7 @@
     "text": "IMC",
     "isMetric": false,
     "specialties": {
-      "dental": ["short"]
+      "dental": []
     },
     "type": "text"
   },
@@ -1349,9 +1349,9 @@
     "text": "Notas del Medico",
     "isMetric": false,
     "specialties": {
-      "dental": ["short"],
-      "weight": ["short"],
-      "stetic": ["short"]
+      "dental": ["short", "quick"],
+      "weight": ["short", "quick"],
+      "stetic": ["short", "quick"]
     },
     "type": "textarea"
   },
@@ -1471,8 +1471,8 @@
     "text": "Diagnóstico en esta consulta",
     "isMetric": false,
     "specialties": {
-      "dental": ["short"],
-      "stetic": ["short"],
+      "dental": ["short", "quick"],
+      "stetic": ["short", "quick"],
       "weight": ["short"]
     },
     "type": "textarea"
@@ -1481,8 +1481,8 @@
     "text": "Tratamiento en esta consulta",
     "isMetric": false,
     "specialties": {
-      "dental": ["short"],
-      "stetic": ["short"],
+      "dental": ["short", "quick"],
+      "stetic": ["short", "quick"],
       "weight": ["short"]
     },
     "type": "textarea"
