@@ -1,4 +1,14 @@
-import { User, Mail, Phone, CalendarIcon, Activity, Stethoscope } from 'lucide-react';
+import {
+  User,
+  Mail,
+  Phone,
+  CalendarIcon,
+  Activity,
+  Stethoscope,
+  Weight,
+  Dumbbell,
+  Apple,
+} from 'lucide-react';
 import CreateAppointmentButton from './components/CreateAppointmentButton';
 import RegisterVisitButton from './components/RegisterVisitButton';
 import moment from 'moment';
@@ -57,9 +67,17 @@ export default function PatientHeader({ patient, onClickNew, patientRecord }) {
               <span className="text-sm font-medium capitalize">Paciente de: {specialtyName}</span>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="grid grid-cols-2 items-center gap-4">
               <CreateAppointmentButton onClickNew={onClickNew} />
               <RegisterVisitButton />
+              <button className="bg-beehealth-green-secondary-dark hover:bg-beehealth-green-secondary-dark-hover relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-lg px-5 py-2.5 text-sm font-medium text-white shadow-md transition-all duration-300 active:scale-95 sm:w-auto">
+                <Apple className="h-5 w-5" />
+                Asignar Dieta
+              </button>
+              <button className="bg-beehealth-green-secondary-dark hover:bg-beehealth-green-secondary-dark-hover relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-lg px-5 py-2.5 text-sm font-medium text-white shadow-md transition-all duration-300 active:scale-95 sm:w-auto">
+                <Dumbbell className="h-5 w-5" />
+                Asignar Ejercicio
+              </button>
             </div>
           </div>
 

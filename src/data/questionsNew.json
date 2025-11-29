@@ -5,7 +5,7 @@
     "specialties": {
       "stetic": ["short", "full"],
       "dental": ["short", "full"],
-      "weight": ["short", "full"]
+      "weight": ["full"]
     },
     "type": "text"
   },
@@ -59,9 +59,9 @@
     "specialties": {
       "stetic": ["short", "full"],
       "dental": ["short", "full"],
-      "weight": ["short", "full"]
+      "weight": ["full"]
     },
-    "type": "number"
+    "type": "text"
   },
   "7": {
     "text": "Peso actual (kg)",
@@ -69,7 +69,7 @@
     "specialties": {
       "weight": ["short", "full", "quick"]
     },
-    "type": "number"
+    "type": "text"
   },
   "8": {
     "text": "Talla (cm)",
@@ -77,7 +77,7 @@
     "specialties": {
       "weight": ["short", "full", "quick"]
     },
-    "type": "number"
+    "type": "text"
   },
   "9": {
     "text": "Ocupación",
@@ -182,7 +182,7 @@
     "type": "text"
   },
   "19": {
-    "text": "Medicamentos actuales",
+    "text": "Medicamentos base",
     "isMetric": false,
     "specialties": {
       "stetic": ["short", "full", "quick"],
@@ -267,7 +267,8 @@
     "text": "Otras enfermedades",
     "isMetric": false,
     "specialties": {
-      "dental": ["full"]
+      "dental": ["full"],
+      "weight": ["full", "quick"]
     },
     "type": "text"
   },
@@ -487,7 +488,7 @@
       "dental": [],
       "weight": ["full"]
     },
-    "type": "number"
+    "type": "text"
   },
   "44": {
     "text": "Actividad física",
@@ -1085,7 +1086,7 @@
       "dental": ["short", "full"],
       "weight": ["full"]
     },
-    "type": "number"
+    "type": "text"
   },
   "98": {
     "text": "Tipo de alimentación (hábito)",
@@ -1105,7 +1106,7 @@
       "dental": ["short", "full"],
       "weight": ["full"]
     },
-    "type": "number"
+    "type": "text"
   },
   "100": {
     "text": "Intolerancias alimentarias",
@@ -1371,7 +1372,7 @@
     "isMetric": true,
     "specialties": {
       "dental": ["short"],
-      "weight": ["short"]
+      "weight": []
     },
     "type": "text"
   },
@@ -1388,7 +1389,7 @@
     "isMetric": false,
     "specialties": {
       "dental": ["short"],
-      "weight": ["short"]
+      "weight": []
     },
     "type": "number"
   },
@@ -1397,7 +1398,7 @@
     "isMetric": false,
     "specialties": {
       "dental": ["short"],
-      "weight": ["short"]
+      "weight": []
     },
     "type": "text"
   },
@@ -1423,7 +1424,7 @@
     "specialties": {
       "dental": []
     },
-    "type": "number"
+    "type": "text"
   },
   "130": {
     "text": "Médico responsable",
@@ -1582,12 +1583,12 @@
     "type": "textarea"
   },
   "149": {
-    "text": "Tratamiento en esta consulta",
+    "text": "Tratamiento actual",
     "isMetric": false,
     "specialties": {
       "dental": ["short", "quick"],
       "stetic": ["short", "quick"],
-      "weight": ["short"]
+      "weight": ["short", "quick"]
     },
     "type": "textarea"
   },
