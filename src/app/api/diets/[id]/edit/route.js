@@ -78,7 +78,19 @@ export async function PATCH(req, { params }) {
     if (Array.isArray(images)) diet.images = images;
 
     if (Array.isArray(patients)) {
-      diet.patients = patients.map((p) => ({ patient: p.patient }));
+      diet.patients = patients
+        .map((p) => {
+          if (typeof p === 'string') {
+            return { patient: p };
+          }
+
+          if (p.patient) {
+            return { patient: p.patient };
+          }
+
+          return null;
+        })
+        .filter(Boolean);
     }
 
     updateSection(diet.allowedFoods, allowedFoods);

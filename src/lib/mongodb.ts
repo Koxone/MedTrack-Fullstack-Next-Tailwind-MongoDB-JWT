@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import '@/models/ClinicalRecord';
+import '@/models/records/ClinicalRecord';
 import '@/models/Consult';
 import '@/models/User';
 import '@/models/Product';

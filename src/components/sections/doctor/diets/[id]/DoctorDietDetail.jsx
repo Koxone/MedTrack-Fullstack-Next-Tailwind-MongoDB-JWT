@@ -2,6 +2,10 @@
 
 import { AlertCircle } from 'lucide-react';
 import { useGetAllDiets } from '@/hooks/diets/useGetAllDiets';
+import { useEffect, useState } from 'react';
+import { useEditDiet } from '@/hooks/diets/useEditDiet';
+import { useSearchParams } from 'next/navigation';
+
 import AssignDiet from './components/AssignDiet';
 import PatientsAssignedViewer from './components/PatientsAssignedViewer';
 import AllowedFoods from './components/sections/allowed/AllowedFoods';
@@ -17,11 +21,8 @@ import Description from './components/sections/Description';
 import AssignedDate from './components/sections/AssignedDate';
 import DoctorName from './components/sections/DoctorName';
 import Category from './components/sections/Category';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import GoBackButton from '@/components/shared/diets/[id]/components/GoBackButton';
 import DietImage from './components/sections/DietImage';
-import { useEditDiet } from '../../../../../hooks/diets/useEditDiet';
 
 export default function DoctorDietDetail({ params, role, specialty }) {
   const { id } = params;

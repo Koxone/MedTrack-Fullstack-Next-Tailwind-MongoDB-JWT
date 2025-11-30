@@ -33,3 +33,9 @@ export function useAssignDiet() {
 
   return { patientToAssign, setPatientToAssign, isLoading, error, editPatients };
 }
+
+// Needs:
+// specialty
+// dietId
+// refetch
+// diet

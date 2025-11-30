@@ -1,14 +1,11 @@
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
-import ClinicalRecord from '@/models/ClinicalRecord';
+import { ClinicalRecord } from '@/models/records/ClinicalRecord';
 import mongoose from 'mongoose';
 import User from '@/models/User';
 import { Question } from '@/models/records/Question';
 import { Answer } from '@/models/records/Answer';
 
-// @route    GET /api/clinical-records/:id
-// @desc     Get all Clinical Records for a patient
-// @access   Private
 export async function GET(req, { params }) {
   try {
     await connectDB();
@@ -22,8 +19,11 @@ export async function GET(req, { params }) {
     const records = await ClinicalRecord.find({ patient: id })
       .sort({ createdAt: -1 })
       .populate('patient', 'fullName email phone avatar')
-      .populate('doctor', 'fullName email phone avatar')
-      // Correct populate for subdocument array
+
+      /* Populate diets */
+      .populate('diets', 'name')
+
+      /* Populate answers.question */
       .populate({
         path: 'answers.question',
         model: 'Question',
@@ -31,10 +31,9 @@ export async function GET(req, { params }) {
       })
       .lean();
 
-    // If no records found, return empty array
     return NextResponse.json({ data: records || [] });
   } catch (err) {
-    console.error('Error GET clinical-records/[id]:', err);
+    console.error('Error GET clinicalRecords/[id]:', err);
     return NextResponse.json({ error: 'Error fetching clinical records' }, { status: 500 });
   }
 }

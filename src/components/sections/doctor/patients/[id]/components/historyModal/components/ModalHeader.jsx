@@ -5,7 +5,7 @@ export default function ModalHeader({ title, subtitle, onClose, icons }) {
   const { X, FileText } = icons;
 
   return (
-    <div className="relative overflow-hidden bg-linear-to-r from-blue-500 to-cyan-500 px-6 py-6">
+    <div className="bg-beehealth-blue-primary-solid relative overflow-hidden px-6 py-6">
       {/* glow */}
       <div className="bg-beehealth-body-main/10 absolute -top-10 -right-10 h-32 w-32 rounded-full blur-2xl" />
       {/* bar */}

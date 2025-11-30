@@ -1,5 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import { IUser } from './User';
+import { IClinicalRecord } from './records/ClinicalRecord';
 
 export interface IWorkout extends Document {
   patients: {
@@ -8,6 +9,9 @@ export interface IWorkout extends Document {
     assignedAt: Date;
     finishedAt?: Date;
   }[];
+
+  clinicalRecord?: mongoose.Types.ObjectId | IClinicalRecord;
+
   name: string;
   type: string;
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
@@ -30,6 +34,9 @@ const WorkoutSchema: Schema<IWorkout> = new Schema(
         finishedAt: { type: Date },
       },
     ],
+
+    clinicalRecord: { type: Schema.Types.ObjectId, ref: 'ClinicalRecord' },
+
     name: { type: String, required: true },
     type: { type: String, required: true },
     difficulty: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced'], required: true },

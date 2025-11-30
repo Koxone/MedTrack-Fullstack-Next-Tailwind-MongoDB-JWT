@@ -36,6 +36,7 @@ export default function FullVersion({ specialty, isReadOnly = true, patientId })
         </span>
       </div>
 
+      {/* Main Content */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {filtered?.map((q) => {
           const answer = fullRecord.answers?.find((a) => a.question?._id === q._id);

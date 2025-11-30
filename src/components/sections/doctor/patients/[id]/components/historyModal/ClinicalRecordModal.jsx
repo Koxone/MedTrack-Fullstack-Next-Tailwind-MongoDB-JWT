@@ -4,31 +4,37 @@ import { useState, useEffect } from 'react';
 import ModalContainer from './components/ModalContainer';
 import ModalHeader from './components/ModalHeader';
 import TabsNav from './components/TabsNav';
-import FooterActions from './components/FooterActions';
-import { X, FileText } from 'lucide-react';
 import ShortVersion from './components/ShortVersion';
 import FullVersion from './components/FullVersion';
+import { X, FileText } from 'lucide-react';
 import { useModalClose } from '@/hooks/useModalClose';
 import { useCreateClinicalRecordDoctor } from '@/hooks/clinicalRecords/useCreateClinicalRecordDoctor';
 import { useGetAllQuestions } from '@/hooks/clinicalRecords/useGetAllQuestions';
+import { useAssignDiet } from '@/hooks/diets/useAssignDiet';
 
-export default function DoctorClinicalRecordModal({
+export default function ClinicalRecordModal({
   onClose,
   record,
   specialty,
   readOnly,
   patientId,
   mode = 'view',
+  fetchRecord,
 }) {
-  // Single source of truth
+  // Readonly state
   const [isReadOnly, setIsReadOnly] = useState(!!readOnly);
   const [activeTab, setActiveTab] = useState('basico');
 
-  // Close Modal Handler
+  // Diet state
+  const [dietSelected, setDietSelected] = useState(null);
+  const { editPatients } = useAssignDiet();
+
+  // Close handler
   const { handleOverlayClick } = useModalClose(onClose);
 
   const isCreate = mode === 'create';
 
+  // Form data
   const [formData, setFormData] = useState({
     1: '',
     6: '',
@@ -59,24 +65,42 @@ export default function DoctorClinicalRecordModal({
   const { questions } = useGetAllQuestions();
   const filtered = questions?.filter((q) => q.version === 'short' && q.specialty === specialty);
 
-  // Submit Handler
+  // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Collect answers
     const answers = Object.entries(formData).map(([questionId, value]) => {
-      const question = filtered?.find((q) => q.questionId === parseInt(questionId));
+      const question = filtered?.find((q) => q.questionId === parseInt(questionId, 10));
       return {
         questionId: question?._id,
         value,
       };
     });
+
+    // Assign diet to patient if selected
+    if (dietSelected) {
+      try {
+        await editPatients(dietSelected, [patientId]);
+      } catch (err) {
+        console.error('Error assigning diet:', err);
+        return;
+      }
+    }
+
+    // Submit clinical record including dietId
     const result = await submit({
       patientId,
       specialty,
       version: 'short',
       answers,
+      dietId: dietSelected || null,
+      workoutId: null,
     });
+
     if (result.ok) {
       onClose();
+      fetchRecord();
     }
   };
 
@@ -104,18 +128,23 @@ export default function DoctorClinicalRecordModal({
 
         <TabsNav activeTab={activeTab} setActiveTab={setActiveTab} />
 
+        {/* Main content */}
         <form onSubmit={handleSubmit} className="max-h-[calc(90vh-180px)] overflow-y-auto p-6">
-          {/* Short Version */}
           {activeTab === 'basico' && (
             <ShortVersion
               specialty={specialty}
               isReadOnly={isReadOnly}
               formData={formData}
               setFormData={setFormData}
+              activeTab={activeTab}
+              isCreate={isCreate}
+              isSubmitting={isSubmitting}
+              onClose={onClose}
+              dietSelected={dietSelected}
+              setDietSelected={setDietSelected}
             />
           )}
 
-          {/* Full Version */}
           {activeTab === 'completo' && (
             <FullVersion
               specialty={specialty}
@@ -123,14 +152,6 @@ export default function DoctorClinicalRecordModal({
               formData={formData}
               setFormData={setFormData}
               patientId={patientId}
-            />
-          )}
-
-          {!isReadOnly && activeTab === 'basico' && (
-            <FooterActions
-              onCancel={onClose}
-              submitLabel={isCreate ? 'Guardar nuevo registro' : 'Guardar cambios'}
-              isSubmitting={isSubmitting}
             />
           )}
         </form>

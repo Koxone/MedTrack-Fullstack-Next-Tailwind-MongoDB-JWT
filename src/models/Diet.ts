@@ -1,5 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import { IUser } from './User';
+import { IClinicalRecord } from './records/ClinicalRecord';
 
 export interface IDiet {
   patients: {
@@ -8,6 +9,7 @@ export interface IDiet {
     assignedAt: Date;
     finishedAt?: Date;
   }[];
+  clinicalRecord?: mongoose.Types.ObjectId | IClinicalRecord;
 
   description?: string;
   images?: string[];
@@ -55,6 +57,8 @@ const DietSchema = new Schema<IDiet>(
         finishedAt: { type: Date },
       },
     ],
+
+    clinicalRecord: { type: Schema.Types.ObjectId, ref: 'ClinicalRecord' },
 
     name: { type: String, trim: true, required: true },
     category: { type: String, trim: true },

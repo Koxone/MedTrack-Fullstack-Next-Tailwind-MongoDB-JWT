@@ -40,7 +40,7 @@ export function useGetAllClinicalRecords(filters: Filters = {}) {
 
     try {
       const query = buildQuery();
-      const url = query ? `/api/clinical-records?${query}` : `/api/clinical-records`;
+      const url = query ? `/api/clinicalRecords?${query}` : `/api/clinicalRecords`;
 
       const res = await fetch(url);
       const json = await res.json();

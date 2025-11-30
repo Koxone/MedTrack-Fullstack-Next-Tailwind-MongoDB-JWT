@@ -14,7 +14,7 @@ import LoadingState from '@/components/shared/feedback/LoadingState';
 
 // Modals
 import DoctorCreateAppointmentModal from './components/createAppointmentModal/DoctorCreateAppointmentModal';
-import DoctorClinicalRecordModal from './components/historyModal/DoctorClinicalRecordModal';
+import ClinicalRecordModal from './components/historyModal/ClinicalRecordModal';
 
 // Custom Hooks
 import { useGetPatientClinicalRecords } from '@/hooks/clinicalRecords/useGetPatientClinicalRecords';
@@ -30,7 +30,13 @@ export default function DoctorPatientDetail({ patient, specialty }) {
 
   // Patient Clinical Record
   const [selectedRecord, setSelectedRecord] = useState<IClinicalRecord | null>(null);
-  const { data: patientRecord, isLoading, error } = useGetPatientClinicalRecords(id);
+  const {
+    data: patientRecord,
+    isLoading,
+    error,
+    refetch: fetchRecord,
+  } = useGetPatientClinicalRecords(id);
+
   const currentPatientInfo = patientRecord?.[0];
 
   // History Modal
@@ -117,7 +123,8 @@ export default function DoctorPatientDetail({ patient, specialty }) {
       {specialty === 'weight' && <WeightChart patientRecord={patientRecord} />}
 
       {showHistoryModal && (
-        <DoctorClinicalRecordModal
+        <ClinicalRecordModal
+          fetchRecord={fetchRecord}
           onClose={() => setShowHistoryModal(false)}
           record={selectedRecord}
           readOnly={isReadOnly}

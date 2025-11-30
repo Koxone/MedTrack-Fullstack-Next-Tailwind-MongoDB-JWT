@@ -50,6 +50,38 @@ button {
   --color-beehealth-red-primary-dark: #b84f4f;
   --color-beehealth-red-primary-dark-hover: #a64646;
 
+  /* Yellow Primary */
+  --color-beehealth-yellow-primary-solid: #e6c15b;
+  --color-beehealth-yellow-primary-solid-hover: #d4ae4e;
+  --color-beehealth-yellow-primary-light: #f9edc7;
+  --color-beehealth-yellow-primary-light-hover: #f6e4b0;
+  --color-beehealth-yellow-primary-dark: #c9a043;
+  --color-beehealth-yellow-primary-dark-hover: #b8903c;
+
+  /* Yellow Secondary */
+  --color-beehealth-yellow-secondary-solid: #b88f2d;
+  --color-beehealth-yellow-secondary-solid-hover: #a88028;
+  --color-beehealth-yellow-secondary-light: #e8d49f;
+  --color-beehealth-yellow-secondary-light-hover: #dfc988;
+  --color-beehealth-yellow-secondary-dark: #8f6d21;
+  --color-beehealth-yellow-secondary-dark-hover: #7e601d;
+
+  /* Orange Primary */
+  --color-beehealth-orange-primary-solid: #e08a4a;
+  --color-beehealth-orange-primary-solid-hover: #cc7a41;
+  --color-beehealth-orange-primary-light: #f6d3b8;
+  --color-beehealth-orange-primary-light-hover: #f2c5a2;
+  --color-beehealth-orange-primary-dark: #c4743b;
+  --color-beehealth-orange-primary-dark-hover: #b16636;
+
+  /* Orange Secondary */
+  --color-beehealth-orange-secondary-solid: #b4632d;
+  --color-beehealth-orange-secondary-solid-hover: #a45827;
+  --color-beehealth-orange-secondary-light: #e1b694;
+  --color-beehealth-orange-secondary-light-hover: #d8a880;
+  --color-beehealth-orange-secondary-dark: #8c4c22;
+  --color-beehealth-orange-secondary-dark-hover: #7b421e;
+
   --color-asana-beige: #efe1d5;
   --color-asana-blue: #2563eb;
 

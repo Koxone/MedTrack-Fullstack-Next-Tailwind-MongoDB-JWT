@@ -5,6 +5,8 @@ interface SubmitParams {
   specialty: string;
   version: string;
   answers: Array<{ questionId: string; value: any }>;
+  dietId?: string | null;
+  workoutId?: string | null;
 }
 
 interface SubmitResponse {
@@ -14,12 +16,21 @@ interface SubmitResponse {
 }
 
 export function useCreateClinicalRecordDoctor() {
+  // State flags
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
-  const [record, setRecord] = useState(null);
+  const [error, setError] = useState<any>(null);
+  const [record, setRecord] = useState<any>(null);
 
+  // Submit handler
   const submit = useCallback(
-    async ({ patientId, specialty, version, answers }: SubmitParams): Promise<SubmitResponse> => {
+    async ({
+      patientId,
+      specialty,
+      version,
+      answers,
+      dietId = null,
+      workoutId = null,
+    }: SubmitParams): Promise<SubmitResponse> => {
       setIsSubmitting(true);
       setError(null);
       setRecord(null);
@@ -28,7 +39,14 @@ export function useCreateClinicalRecordDoctor() {
         const res = await fetch('/api/clinicalRecords', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ patientId, specialty, version, answers }),
+          body: JSON.stringify({
+            patientId,
+            specialty,
+            version,
+            answers,
+            dietId,
+            workoutId,
+          }),
         });
 
         if (!res.ok) {
@@ -56,4 +74,4 @@ export function useCreateClinicalRecordDoctor() {
 }
 
 // const { submit, isSubmitting, error, record } = useCreateClinicalRecordDoctor()
-// submit({ patientId, specialty, version, answers })
+// submit({ patientId, specialty, version, answers, dietId, workoutId })

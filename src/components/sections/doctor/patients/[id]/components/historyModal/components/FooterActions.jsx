@@ -14,7 +14,7 @@ export default function FooterActions({ onCancel, submitLabel, isSubmitting }) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="flex-1 rounded-xl bg-linear-to-r from-blue-500 to-blue-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-105 hover:shadow-xl active:scale-95 disabled:opacity-50"
+        className="bg-beehealth-blue-primary-solid flex-1 rounded-xl px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-105 hover:shadow-xl active:scale-95 disabled:opacity-50"
       >
         {isSubmitting ? 'Guardando...' : submitLabel}
       </button>

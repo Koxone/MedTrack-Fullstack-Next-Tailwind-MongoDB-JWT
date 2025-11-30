@@ -36,7 +36,7 @@ export default function ClientPatientsList({
   }, [search, patients]);
 
   return (
-    <div className="grid h-full max-h-[600px] grid-cols-1 gap-3 overflow-y-auto">
+    <div className="flex h-full flex-col gap-3 overflow-y-auto">
       <div className="bg-beehealth-body-main rounded-xl border border-gray-200 p-4 shadow-sm">
         <PatientsSearchBar onSearch={setSearch} searchValue={search} setSearchValue={setSearch} />
       </div>

@@ -16,7 +16,14 @@ export function useGetAllDiets() {
       if (!res.ok) throw new Error('Failed to fetch diets');
 
       const json = await res.json();
-      const data = dietsResponseSchema.parse(json);
+      const result = dietsResponseSchema.safeParse(json);
+
+      if (!result.success) {
+        console.error(result.error.format());
+        throw new Error('Invalid diet data');
+      }
+
+      const data = result.data;
 
       setDietsData(data.diets);
     } catch (err) {

@@ -5,6 +5,8 @@ import { Answer } from '@/models/records/Answer';
 import { ClinicalRecord } from '@/models/records/ClinicalRecord';
 import { getAuthUser } from '@/lib/auth/getAuthUser';
 import User from '@/models/User';
+import Workout from '@/models/Workout';
+import Diet from '@/models/Diet';
 
 // @route    POST /api/clinicalRecords
 // @desc     Create a new Clinical Record
@@ -14,7 +16,7 @@ export async function POST(req) {
     await connectDB();
 
     // Read body
-    const { patientId, specialty, version, answers } = await req.json();
+    const { patientId, dietId, workoutId, specialty, version, answers } = await req.json();
 
     let finalPatientId = patientId;
     let finalVersion = version;
@@ -75,12 +77,39 @@ export async function POST(req) {
       specialty,
       version: finalVersion,
       answers: answerDocs,
+      diets: dietId ? [dietId] : [],
     });
-
     await newRecord.save();
 
     // Update hasRecord to true for the patient
     await User.findByIdAndUpdate(finalPatientId, { hasRecord: true });
+
+    // Assign Workout if workoutId exists
+    if (workoutId && patientId) {
+      const workout = await Workout.findById(workoutId);
+
+      if (workout) {
+        const alreadyAssigned = workout.patients.some((p) => p.patient.toString() === patientId);
+
+        if (alreadyAssigned) {
+          return NextResponse.json(
+            {
+              ok: false,
+              message: 'El paciente ya está asignado a este ejercicio',
+            },
+            { status: 400 }
+          );
+        }
+
+        workout.patients.push({
+          patient: patientId,
+          isActive: true,
+          assignedAt: new Date(),
+        });
+
+        await workout.save();
+      }
+    }
 
     return NextResponse.json({
       ok: true,
