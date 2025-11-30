@@ -1,5 +1,6 @@
 import { Scale, Edit2, Eye } from 'lucide-react';
 import { useGetAllQuestions } from '@/hooks/clinicalRecords/useGetAllQuestions';
+import Link from 'next/link';
 
 function HistoryCard({ r, onEdit, specialty }) {
   function getValueByQuestionId(questionId) {
@@ -19,7 +20,6 @@ function HistoryCard({ r, onEdit, specialty }) {
 
   const { questions } = useGetAllQuestions();
   const filtered = questions?.filter((q) => q.version === 'quick' && q.specialty === specialty);
-
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:gap-4">
       {/* Date block */}
@@ -59,6 +59,17 @@ function HistoryCard({ r, onEdit, specialty }) {
             </div>
           );
         })}
+
+        <Link
+          href={r?.diets?.[0]?._id ? `/doctor/diets/${r.diets[0]._id}` : '#'}
+          className="bg-beehealth-blue-primary-solid border-beehealth-blue-primary-solid hover:bg-beehealth-blue-primary-solid-hover h-full cursor-pointer rounded-lg border p-2 transition-all hover:scale-105"
+        >
+          <div className="text-beehealth-green-primary-solid flex items-center gap-1.5 text-xs font-medium sm:gap-2">
+            <span className="truncate text-white underline">Dieta Asignada</span>
+          </div>
+
+          <p className="text-sm font-medium text-gray-900">{r?.diets?.[0]?.name || 'Ninguna'}</p>
+        </Link>
       </div>
 
       {/* Actions */}
