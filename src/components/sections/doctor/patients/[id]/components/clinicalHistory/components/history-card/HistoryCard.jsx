@@ -19,6 +19,7 @@ function HistoryCard({ r, onEdit, specialty, showDeleteModal, setShowDeleteModal
     const ans = answersArray.find((a) => a?.question?.questionId === questionId);
     return ans ? ans.value : null;
   }
+  console.log(r);
   const { questions } = useGetAllQuestions();
   const filtered = questions?.filter((q) => q.version === 'quick' && q.specialty === specialty);
 
@@ -80,6 +81,7 @@ function HistoryCard({ r, onEdit, specialty, showDeleteModal, setShowDeleteModal
           );
         })}
 
+        {/* Diet on this record */}
         <Link
           href={r?.diets?.[0]?._id ? `/doctor/diets/${r.diets[0]._id}` : '#'}
           className="bg-beehealth-blue-primary-solid border-beehealth-blue-primary-solid hover:bg-beehealth-blue-primary-solid-hover h-full cursor-pointer rounded-lg border p-2 transition-all hover:scale-105"
@@ -89,6 +91,18 @@ function HistoryCard({ r, onEdit, specialty, showDeleteModal, setShowDeleteModal
           </div>
 
           <p className="text-sm font-medium text-gray-900">{r?.diets?.[0]?.name || 'Ninguna'}</p>
+        </Link>
+
+        {/* Workout on this record */}
+        <Link
+          href={r?.workouts?.[0]?._id ? `/doctor/workouts/` : '#'}
+          className="bg-beehealth-blue-primary-solid border-beehealth-blue-primary-solid hover:bg-beehealth-blue-primary-solid-hover h-full cursor-pointer rounded-lg border p-2 transition-all hover:scale-105"
+        >
+          <div className="text-beehealth-green-primary-solid flex items-center gap-1.5 text-xs font-medium sm:gap-2">
+            <span className="truncate text-white underline">Entrenamiento Asignado</span>
+          </div>
+
+          <p className="text-sm font-medium text-gray-900">{r?.workouts?.[0]?.name || 'Ninguna'}</p>
         </Link>
       </div>
 
