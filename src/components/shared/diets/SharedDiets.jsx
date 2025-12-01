@@ -10,7 +10,6 @@ import PatientDietCard from '@/components/sections/patient/diets/components/Pati
 export default function SharedDiets({ role }) {
   // Fetch all diets
   const { dietsData, isLoading, error } = useGetAllDiets();
-  console.log(dietsData);
 
   // Loading
   if (isLoading) {
