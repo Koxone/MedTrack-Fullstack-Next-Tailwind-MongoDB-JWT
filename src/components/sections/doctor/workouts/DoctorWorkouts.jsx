@@ -135,19 +135,26 @@ export default function DoctorWorkouts({ role }) {
 
       {/* Workout Card */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {filteredWorkouts.map((workout) => (
-          <WorkoutCard
-            key={workout._id}
-            workout={workout}
-            setShowDeleteModal={setShowDeleteModal}
-            setWorkoutToDelete={setWorkoutToDelete}
-            handleEdit={handleEdit}
-            onOpen={() => {
-              setSelectedWorkout(workout);
-              setCurrentImageIndex(0);
-            }}
-          />
-        ))}
+        {filteredWorkouts && filteredWorkouts.length > 0 ? (
+          filteredWorkouts.map((workout) => (
+            <WorkoutCard
+              key={workout._id}
+              workout={workout}
+              setShowDeleteModal={setShowDeleteModal}
+              setWorkoutToDelete={setWorkoutToDelete}
+              handleEdit={handleEdit}
+              onOpen={() => {
+                setSelectedWorkout(workout);
+                setCurrentImageIndex(0);
+              }}
+            />
+          ))
+        ) : (
+          <div className="col-span-full flex flex-col items-center justify-center py-10 text-center">
+            <p className="text-lg font-semibold text-gray-700">No hay ejercicios registrados</p>
+            <p className="text-gray-500">Crea un ejercicio nuevo para comenzar</p>
+          </div>
+        )}
       </div>
 
       {/* Workout Modal */}
