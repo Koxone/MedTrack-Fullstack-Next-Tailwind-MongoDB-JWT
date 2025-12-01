@@ -10,7 +10,7 @@ function HomeHeader({ setShowMenu, showMenu }) {
     <header className="bg-beehealth-body-main/80 sticky top-0 z-50 border-b backdrop-blur-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <button onClick={() => router.push('/')} className="flex items-center gap-2">
-          <img src="/BeeHealth.png" alt="" className="max-w-10" />
+          <img src="/fish.png" alt="" className="max-w-10" />
           <span className="text-xl font-bold text-gray-900 md:text-2xl">BeeHealth</span>
         </button>
 

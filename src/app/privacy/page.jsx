@@ -11,7 +11,7 @@ export default function Privacy() {
       <header className="bg-beehealth-body-main/80 border-b backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <button onClick={() => router.push('/')} className="flex items-center gap-2">
-            <img src="/BeeHealth.png" alt="" className="max-w-10" />
+            <img src="/fish.png" alt="" className="max-w-10" />
             <span className="text-2xl font-bold text-gray-900">BeeHealth</span>
           </button>
         </div>
