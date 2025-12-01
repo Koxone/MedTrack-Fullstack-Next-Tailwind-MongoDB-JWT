@@ -49,6 +49,15 @@ function HistoryCard({ r, onEdit, specialty }) {
             }}
           />
         )}
+        
+        {/* Edit record date */}
+        {r?.version === 'full' && (
+          <EditRecordDateButton
+            onSelect={(formattedDate) => {
+              editClinicalRecord(r._id, { recordDate: formattedDate });
+            }}
+          />
+        )}
       </div>
 
       {/* Info cards */}
