@@ -3,11 +3,9 @@
 import { useEffect, useState } from 'react';
 import { ChevronDown, Check, X } from 'lucide-react';
 import { useGetAllDiets } from '@/hooks/diets/useGetAllDiets';
-import { useAssignDiet } from '@/hooks/diets/useAssignDiet';
 import { useParams } from 'next/navigation';
 
-export default function AssignDiet({ user, onSelectDiet }) {
-  const { editPatients } = useAssignDiet();
+export default function AssignDiet({ onSelectDiet }) {
   const { id: patientId } = useParams();
   const { dietsData, refetch: fetchDiets } = useGetAllDiets();
 

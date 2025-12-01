@@ -1,7 +1,7 @@
 'use client';
 
 import { IClinicalRecord, TabName } from '@/types';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import PatientHeader from './components/patientHeader/PatientHeader';
 import QuickStats from './components/QuickStats';
@@ -58,7 +58,6 @@ export default function DoctorPatientDetail({ patient, specialty }) {
   if (error || isLoading) {
     return <LoadingState />;
   }
-  console.log(selectedRecord);
   return (
     <div className="h-full space-y-6 overflow-y-auto">
       {/* Header */}

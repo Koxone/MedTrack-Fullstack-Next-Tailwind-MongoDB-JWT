@@ -15,6 +15,8 @@ export default function ShortVersion({
   isCreate,
   dietSelected,
   setDietSelected,
+  workoutSelected,
+  setWorkoutSelected,
 }) {
   // Fetch questions
   const { questions, loading } = useGetAllQuestions();
@@ -31,8 +33,10 @@ export default function ShortVersion({
       <div className="px">
         <AssignSection
           onSelectDiet={(dietId) => {
-            // Diet selection
             setDietSelected(dietId);
+          }}
+          onSelectWorkout={(workoutId) => {
+            setWorkoutSelected(workoutId);
           }}
         />
       </div>
