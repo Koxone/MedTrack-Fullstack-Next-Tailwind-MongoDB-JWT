@@ -8,24 +8,23 @@ import LoadingState from '@/components/shared/feedback/LoadingState';
 
 // Hooks
 import { useGetAllWorkouts } from '@/hooks/workouts/useGetAllWorkouts';
-import { workoutsMockData } from './components/workoutsMockData';
 import { useDeleteWorkout } from '@/hooks/workouts/useDeleteWorkout';
 
 // Modals
 import SharedModalOpenWorkout from '@/components/shared/workouts/SharedModalOpenWorkout';
-import ModalEditWorkout from './components/modals/ModalEditWorkout';
-import ModalDelete from './components/modals/ModalDelete';
+import ModalEditWorkout from './components/modals/edit/ModalEditWorkout';
+import ModalDelete from './components/modals/delete/ModalDelete';
 import ModalCreateWorkout from './components/modals/create/ModalCreateWorkout';
 
 export default function DoctorWorkouts({ role }) {
-  // Get Workouts from API
+  // Get Workouts from Custom Hook
   const { workoutData, isLoading, error, refetch: fetchWorkouts } = useGetAllWorkouts();
 
-  // Delete Workout Hook
+  // Delete Workout Custom Hook
   const { deleteWorkout } = useDeleteWorkout();
 
   // Local States
-  const [workouts, setWorkouts] = useState(workoutsMockData);
+  const [workouts, setWorkouts] = useState(workoutData);
   const [filterCategorie, setFilterCategorie] = useState('Todos');
   const [searchTerm, setSearchTerm] = useState('');
 
