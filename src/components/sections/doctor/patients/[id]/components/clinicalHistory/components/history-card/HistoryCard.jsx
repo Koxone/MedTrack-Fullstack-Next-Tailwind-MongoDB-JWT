@@ -1,10 +1,10 @@
-import { Scale, Edit2, Eye, Pencil } from 'lucide-react';
+import { Scale, Edit2, Eye, Pencil, Trash2 } from 'lucide-react';
 import { useGetAllQuestions } from '@/hooks/clinicalRecords/useGetAllQuestions';
 import Link from 'next/link';
 import EditRecordDateButton from './components/EditRecordDateButton';
 import { useEditClinicalRecord } from '@/hooks/clinicalRecords/useEditClinicalRecord';
 
-function HistoryCard({ r, onEdit, specialty }) {
+function HistoryCard({ r, onEdit, specialty, showDeleteModal, setShowDeleteModal, onDelete }) {
   function getValueByQuestionId(questionId) {
     if (!r?.answers) return null;
 
@@ -49,7 +49,7 @@ function HistoryCard({ r, onEdit, specialty }) {
             }}
           />
         )}
-        
+
         {/* Edit record date */}
         {r?.version === 'full' && (
           <EditRecordDateButton
@@ -101,12 +101,23 @@ function HistoryCard({ r, onEdit, specialty }) {
           <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
 
-        <button
-          onClick={() => onEdit(r, false)}
-          className="hover:bg-beehealth-green-secondary-dark-hover bg-beehealth-green-secondary-dark self-start rounded-lg p-2 text-white active:scale-95 sm:self-auto sm:p-2.5"
-        >
-          <Edit2 className="h-4 w-4 sm:h-5 sm:w-5" />
-        </button>
+        <div className="flex flex-col justify-between">
+          {/* Edit Record Button */}
+          <button
+            onClick={() => onEdit(r, false)}
+            className="hover:bg-beehealth-yellow-secondary-solid-hover bg-beehealth-yellow-secondary-solid self-start rounded-lg p-2 text-white active:scale-95 sm:self-auto sm:p-2.5"
+          >
+            <Edit2 className="h-4 w-4 sm:h-5 sm:w-5" />
+          </button>
+
+          {/* Delete Record Button */}
+          <button
+            onClick={() => onDelete(r)}
+            className="hover:bg-beehealth-red-primary-solid-hover bg-beehealth-red-primary-solid self-start rounded-lg p-2 text-white active:scale-95 sm:self-auto sm:p-2.5"
+          >
+            <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
+          </button>
+        </div>
       </div>
     </div>
   );
