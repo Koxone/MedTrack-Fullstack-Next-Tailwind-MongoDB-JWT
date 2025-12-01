@@ -1,15 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import ModalHeader from './components/ModalHeader';
-import TabsNav from './components/TabsNav';
-import ShortVersion from './components/ShortVersion';
-import FullVersion from './components/FullVersion';
 import { X, FileText } from 'lucide-react';
 import { useModalClose } from '@/hooks/useModalClose';
 import { useCreateClinicalRecordDoctor } from '@/hooks/clinicalRecords/useCreateClinicalRecordDoctor';
 import { useGetAllQuestions } from '@/hooks/clinicalRecords/useGetAllQuestions';
 import { useAssignDiet } from '@/hooks/diets/useAssignDiet';
+import ModalHeader from './components/ModalHeader';
+import TabsNav from './components/TabsNav';
+import ShortVersion from './components/ShortVersion';
+import FullVersion from './components/FullVersion';
 
 export default function ClinicalRecordModal({
   onClose,

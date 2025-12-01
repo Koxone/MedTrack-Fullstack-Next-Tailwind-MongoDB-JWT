@@ -1,5 +1,6 @@
 'use client';
 
+import { IClinicalRecord, TabName } from '@/types';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import PatientHeader from './components/patientHeader/PatientHeader';
@@ -13,19 +14,15 @@ import DoctorProducts from './components/products/DoctorProducts';
 import LoadingState from '@/components/shared/feedback/LoadingState';
 
 // Modals
-import DoctorCreateAppointmentModal from './components/createAppointmentModal/DoctorCreateAppointmentModal';
 import ClinicalRecordModal from './components/historyModal/ClinicalRecordModal';
+import DoctorCreateAppointmentModal from './components/createAppointmentModal/DoctorCreateAppointmentModal';
 
-// Custom Hooks
+// Fetch current patient clinical records
 import { useGetPatientClinicalRecords } from '@/hooks/clinicalRecords/useGetPatientClinicalRecords';
 
-// Types
-import { IClinicalRecord, TabName } from '@/types';
-
 export default function DoctorPatientDetail({ patient, specialty }) {
-  const params = useParams<{ id: string }>();
-
   // ID From URL Params
+  const params = useParams<{ id: string }>();
   const id = params.id as string;
 
   // Patient Clinical Record

@@ -19,7 +19,6 @@ function HistoryCard({ r, onEdit, specialty }) {
     const ans = answersArray.find((a) => a?.question?.questionId === questionId);
     return ans ? ans.value : null;
   }
-  console.log(r);
   const { questions } = useGetAllQuestions();
   const filtered = questions?.filter((q) => q.version === 'quick' && q.specialty === specialty);
 
