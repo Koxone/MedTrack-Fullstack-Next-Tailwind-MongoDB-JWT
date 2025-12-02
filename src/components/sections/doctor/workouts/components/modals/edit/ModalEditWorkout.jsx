@@ -249,7 +249,7 @@ export default function ModalEditWorkout({
       setShowSuccessModal(true);
       setTimeout(() => {
         setShowSuccessModal(false);
-      }, 500);
+      }, 1000);
     } catch (err) {
       console.error('Error updating workout:', err);
       setSubmitError(err.message || 'Error al actualizar el ejercicio');
