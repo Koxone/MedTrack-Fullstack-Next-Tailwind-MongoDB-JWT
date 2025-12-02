@@ -44,8 +44,6 @@ export default function LoginForm() {
         return;
       }
 
-      console.log('Login successful:', data);
-
       setUser(data.user);
       setToken(data.token);
 

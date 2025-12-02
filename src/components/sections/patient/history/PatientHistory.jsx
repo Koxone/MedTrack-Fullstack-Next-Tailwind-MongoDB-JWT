@@ -8,11 +8,10 @@ import Stats from '../history/components/Stats';
 import RecordsTable from '../history/components/RecordsTable';
 import RecordsMobileList from '../history/components/RecordsMobileList';
 import EmptyState from '../history/components/EmptyState';
-import AddRecordModal from '../history/components/AddRecordModal';
 import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
+import { useGetPatientClinicalRecords } from '@/hooks/clinicalRecords/get/useGetPatientClinicalRecords';
 
 /* Mock data */
-const mockUser = { id: 'user_12345' };
 const mockHistoryRaw = [
   {
     _id: 'rec_1',
@@ -37,40 +36,37 @@ const mockHistoryRaw = [
   },
 ];
 
-export default function PatientHistory({ role }) {
+export default function PatientHistory({ role, currentUser }) {
+  // Fetch clinical records for the current patient
+  const { data, isLoading, error, refetch } = useGetPatientClinicalRecords(currentUser?.id);
+
   /* Local state */
-  const [showModal, setShowModal] = useState(false);
   const [peso, setPeso] = useState('');
   const [notas, setNotas] = useState('');
 
   /* Replacements */
-  const currentUser = mockUser;
   const currentUserId = currentUser?.id;
 
-  /* Loading and error flags */
-  const isLoading = false;
-  const isError = false;
-  const error = null;
-
   /* Data mapping */
-  const historyData = mockHistoryRaw;
+  const historyData = data || [];
   const mappedHistory = historyData.map((r) => ({
-    id: r._id,
-    fecha: new Date(r.fechaRegistro).toISOString().split('T')[0],
-    peso: r.pesoActual,
-    imc: Number(r.indiceMasaCorporal).toFixed(1),
-    notas: r.motivoConsulta || 'Sin notas',
+    id: r?._id,
+    fecha: new Date(r?.recordDate).toISOString().split('T')[0],
+    peso: r?.answers.find((a) => a.question?.questionId === 7)?.value,
+    talla: r?.answers.find((a) => a.question?.questionId === 8)?.value,
+    imc: Number(r?.indiceMasaCorporal).toFixed(1),
+    notas: r?.motivoConsulta || 'Sin notas',
   }));
 
   /* Early returns */
   if (isLoading) return <p className="p-6 text-center text-gray-500">Cargando historial...</p>;
-  if (isError)
+  if (error)
     return <p className="p-6 text-center text-red-600">Error: {error?.message || 'Desconocido'}</p>;
   if (!historyData.length) return <EmptyState onAdd={() => setShowModal(true)} />;
 
   /* Render */
   return (
-    <div className="h-full overflow-x-hidden overflow-y-auto pb-8">
+    <div className="h-full overflow-y-auto pb-8">
       <SharedSectionHeader
         role={role}
         title="Historial Clínico"
@@ -78,31 +74,19 @@ export default function PatientHistory({ role }) {
         Icon="history"
       />
 
-      <div className="mx-auto max-w-7xl space-y-4">
-        <Stats type="weight" historyData={mappedHistory} />
-        <Stats type="size" historyData={mappedHistory} />
+      <div className="mx-auto flex max-w-7xl flex-col justify-center space-y-4">
+        <div className="flex w-full max-w-[calc(100vw-4rem)] flex-row justify-center overflow-x-auto">
+          <Stats type="weight" historyData={mappedHistory} />
+        </div>
+        <div className="flex w-full max-w-[calc(100vw-4rem)] flex-row justify-center overflow-x-auto">
+          <Stats type="size" historyData={mappedHistory} />
+        </div>
 
         <div className="bg-beehealth-body-main overflow-hidden rounded-2xl border-2 border-gray-200 shadow-lg transition-all duration-300 hover:shadow-xl">
           <RecordsTable historyData={mappedHistory} />
           <RecordsMobileList historyData={mappedHistory} />
         </div>
       </div>
-
-      {showModal && (
-        <AddRecordModal
-          peso={peso}
-          notas={notas}
-          setPeso={setPeso}
-          setNotas={setNotas}
-          onClose={() => setShowModal(false)}
-          onSave={() => {
-            /* Mock save */
-            setShowModal(false);
-            setPeso('');
-            setNotas('');
-          }}
-        />
-      )}
     </div>
   );
 }
