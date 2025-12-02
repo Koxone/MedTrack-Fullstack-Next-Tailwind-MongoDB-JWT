@@ -54,9 +54,9 @@ export default function EmployeeCreateAppointmentModal({
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4">
                   <div className="relative">
-                    <div className="absolute inset-0 animate-ping rounded-2xl bg-emerald-500 opacity-20" />
+                    <div className="bg-beehealth-blue-primary-solid absolute inset-0 animate-ping rounded-2xl opacity-20" />
                     <div
-                      className={`relative rounded-2xl bg-linear-to-br ${getColor()} p-3 shadow-lg`}
+                      className={`bg-beehealth-blue-primary-solid relative rounded-2xl p-3 shadow-lg`}
                     >
                       {editingCita ? (
                         <Edit2 className="h-7 w-7 text-white" />
@@ -70,7 +70,6 @@ export default function EmployeeCreateAppointmentModal({
                       {editingCita ? 'Editar Cita' : 'Agendar Nueva Cita'}
                     </h2>
                     <p className="mt-1 flex items-center gap-2 text-sm text-gray-600">
-                      <Sparkles className="h-4 w-4 text-emerald-500" />
                       {editingCita
                         ? 'Actualiza la información de la cita'
                         : 'Completa los campos para crear una nueva cita'}
@@ -93,7 +92,7 @@ export default function EmployeeCreateAppointmentModal({
               {/* Info básica */}
               <div className="group bg-beehealth-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="rounded-xl bg-linear-to-br from-emerald-500 to-teal-500 p-2.5">
+                  <div className="bg-beehealth-blue-primary-solid rounded-xl p-2.5">
                     <Info className="h-5 w-5 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900">Información Básica</h3>
@@ -103,7 +102,7 @@ export default function EmployeeCreateAppointmentModal({
                   {/* Fecha */}
                   <div className="space-y-2">
                     <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      <Calendar className="h-4 w-4 text-emerald-500" />
+                      <Calendar className="text-beehealth-blue-primary-solid h-4 w-4" />
                       Fecha
                     </label>
                     <input
@@ -111,14 +110,14 @@ export default function EmployeeCreateAppointmentModal({
                       required
                       value={citaForm.fecha}
                       onChange={(e) => setCitaForm({ ...citaForm, fecha: e.target.value })}
-                      className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-emerald-500 focus:shadow-md focus:shadow-emerald-500/20 focus:outline-none"
+                      className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 outline-none"
                     />
                   </div>
 
                   {/* Hora */}
                   <div className="space-y-2">
                     <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      <Clock className="h-4 w-4 text-teal-500" />
+                      <Clock className="text-beehealth-blue-primary-solid h-4 w-4" />
                       Hora
                     </label>
                     <input
@@ -126,21 +125,21 @@ export default function EmployeeCreateAppointmentModal({
                       required
                       value={citaForm.hora}
                       onChange={(e) => setCitaForm({ ...citaForm, hora: e.target.value })}
-                      className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-teal-500 focus:shadow-md focus:shadow-teal-500/20 focus:outline-none"
+                      className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 outline-none"
                     />
                   </div>
 
                   {/* Especialidad */}
                   <div className="space-y-2">
                     <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                      <Sparkles className="h-4 w-4 text-teal-500" />
+                      <Sparkles className="text-beehealth-blue-primary-solid h-4 w-4" />
                       Especialidad
                     </label>
                     <select
                       required
                       value={citaForm.specialty || ''}
                       onChange={(e) => setCitaForm({ ...citaForm, specialty: e.target.value })}
-                      className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-teal-500 focus:shadow-md focus:shadow-teal-500/20 focus:outline-none"
+                      className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 outline-none"
                     >
                       <option value="">-- Selecciona especialidad --</option>
                       <option value="weight">Control de peso</option>
@@ -154,7 +153,7 @@ export default function EmployeeCreateAppointmentModal({
               {/* Datos del paciente */}
               <div className="group bg-beehealth-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="rounded-xl bg-linear-to-br from-green-500 to-emerald-500 p-2.5">
+                  <div className="bg-beehealth-blue-primary-solid rounded-xl p-2.5">
                     <User className="h-5 w-5 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900">Datos del Paciente</h3>
@@ -162,14 +161,14 @@ export default function EmployeeCreateAppointmentModal({
 
                 <div className="space-y-2">
                   <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                    <User className="h-4 w-4 text-green-500" />
+                    <User className="text-beehealth-blue-primary-solid h-4 w-4" />
                     Selecciona un paciente
                   </label>
                   <select
                     required
                     value={citaForm.patientId || ''}
                     onChange={handleSelectPatient}
-                    className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-green-500 focus:shadow-md focus:shadow-green-500/20 focus:outline-none"
+                    className="bg-beehealth-body-main w-full rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 outline-none"
                   >
                     <option value="">-- Selecciona un paciente --</option>
                     {patients.map((p) => (
@@ -184,7 +183,7 @@ export default function EmployeeCreateAppointmentModal({
               {/* Motivo */}
               <div className="group bg-beehealth-body-main/80 rounded-2xl border border-gray-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="rounded-xl bg-linear-to-br from-yellow-500 to-orange-500 p-2.5">
+                  <div className="bg-beehealth-blue-primary-solid rounded-xl p-2.5">
                     <Sparkles className="h-5 w-5 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900">Motivo de la Consulta</h3>
@@ -195,7 +194,7 @@ export default function EmployeeCreateAppointmentModal({
                   value={citaForm.motivo}
                   onChange={(e) => setCitaForm({ ...citaForm, motivo: e.target.value })}
                   placeholder="Describe el motivo de la cita..."
-                  className="bg-beehealth-body-main w-full resize-none rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 focus:border-orange-500 focus:shadow-md focus:shadow-orange-500/20 focus:outline-none"
+                  className="bg-beehealth-body-main w-full resize-none rounded-xl border-2 border-gray-200 px-4 py-3.5 text-gray-900 shadow-sm transition-all duration-300 outline-none"
                   rows="4"
                 />
               </div>
@@ -211,7 +210,7 @@ export default function EmployeeCreateAppointmentModal({
                 </button>
                 <button
                   type="submit"
-                  className="group flex-1 rounded-xl bg-linear-to-r from-emerald-600 to-teal-600 px-6 py-3.5 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/50 active:scale-95"
+                  className="group bg-beehealth-blue-primary-solid hover:shadow-beehealth-blue-primary-solid/50 flex-1 rounded-xl px-6 py-3.5 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95"
                 >
                   {editingCita ? (
                     <span className="flex items-center justify-center gap-2">

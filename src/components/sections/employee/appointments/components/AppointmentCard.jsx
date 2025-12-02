@@ -23,7 +23,7 @@ export default function AppointmentCard({ index, cita, getEstadoBadge }) {
             className={`relative flex h-14 w-14 shrink-0 items-center justify-center rounded-xl font-bold text-white shadow-lg transition-all duration-300 ${
               cita.estado === 'Cancelada'
                 ? 'bg-linear-to-br from-gray-300 to-gray-400'
-                : 'bg-linear-to-br from-emerald-500 to-teal-600 group-hover:scale-110 group-hover:shadow-xl'
+                : 'bg-beehealth-blue-primary-solid group-hover:scale-110 group-hover:shadow-xl'
             }`}
           >
             {cita.avatar}
