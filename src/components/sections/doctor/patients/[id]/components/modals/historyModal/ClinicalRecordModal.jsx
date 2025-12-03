@@ -23,6 +23,7 @@ export default function ClinicalRecordModal({
   patientId,
   mode = 'view',
   fetchRecord,
+  setShowSuccessModal,
 }) {
   // Readonly state
   const [isReadOnly, setIsReadOnly] = useState(!!readOnly);
@@ -119,6 +120,8 @@ export default function ClinicalRecordModal({
     if (result.ok) {
       onClose();
       fetchRecord();
+      setShowSuccessModal(true);
+      setTimeout(() => setShowSuccessModal(false), 1000);
     }
   };
 
