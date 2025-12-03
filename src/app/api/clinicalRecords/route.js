@@ -3,10 +3,13 @@ import { connectDB } from '@/lib/mongodb';
 import { Question } from '@/models/records/Question';
 import { Answer } from '@/models/records/Answer';
 import { ClinicalRecord } from '@/models/records/ClinicalRecord';
-import { getAuthUser } from '@/lib/auth/getAuthUser';
+import { WeightLog } from '@/models/records/WeightLog';
 import User from '@/models/User';
 import Workout from '@/models/Workout';
 import Diet from '@/models/Diet';
+
+// Custom Hooks
+import { getAuthUser } from '@/lib/auth/getAuthUser';
 
 // @route    POST /api/clinicalRecords
 // @desc     Create a new Clinical Record
@@ -87,7 +90,7 @@ export async function POST(req) {
     // Update hasRecord to true for the patient
     await User.findByIdAndUpdate(finalPatientId, { hasRecord: true });
 
-    // Assign Workout if workoutId exists
+    /* ================= Workout Section ================= */
     if (workoutId && patientId) {
       const workout = await Workout.findById(workoutId);
 
@@ -112,6 +115,49 @@ export async function POST(req) {
 
         await workout.save();
       }
+    }
+
+    /* ================= WeightLog Section ================= */
+    const logs = await WeightLog.find({ patient: finalPatientId }).sort({ createdAt: 1 });
+
+    if (logs.length === 0) {
+      const weight =
+        answers.find((a) => a.questionId === '692a02539ba6da2362d98aad')?.value || null;
+
+      const newWeightLog = new WeightLog({
+        patient: finalPatientId,
+        clinicalRecord: newRecord._id,
+        originalWeight: weight,
+        currentWeight: weight,
+        differenceFromPrevious: 0,
+        differenceFromOriginal: 0,
+      });
+
+      await newWeightLog.save();
+      return NextResponse.json({
+        ok: true,
+        clinicalRecord: newRecord,
+      });
+    } else {
+      const firstLog = logs[0];
+      const previousLog = logs[logs.length - 1];
+
+      const currentWeight =
+        answers.find((a) => a.questionId === '692a02539ba6da2362d98aac')?.value || null;
+
+      const differenceFromPrevious = currentWeight - previousLog.currentWeight;
+      const differenceFromOriginal = currentWeight - firstLog.originalWeight;
+
+      const newWeightLog = new WeightLog({
+        patient: finalPatientId,
+        clinicalRecord: newRecord._id,
+        originalWeight: firstLog.originalWeight,
+        currentWeight: currentWeight,
+        differenceFromPrevious: differenceFromPrevious,
+        differenceFromOriginal: differenceFromOriginal,
+      });
+
+      await newWeightLog.save();
     }
 
     return NextResponse.json({

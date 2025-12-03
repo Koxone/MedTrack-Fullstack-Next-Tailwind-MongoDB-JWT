@@ -15,9 +15,9 @@ import DoctorProducts from './components/products/DoctorProducts';
 // Feedback Components
 import ClinicalRecordModal from './components/modals/historyModal/ClinicalRecordModal';
 import DeleteRecordModal from './components/modals/delete-record-modal/DeleteRecordModal';
-import DoctorCreateAppointmentModal from './components/modals/createAppointmentModal/DoctorCreateAppointmentModal';
 import LoadingState from '@/components/shared/feedback/LoadingState';
 import SuccessModal from '@/components/shared/feedback/SuccessModal';
+import DoctorCreateAppointmentModal from './components/modals/createAppointmentModal/DoctorCreateAppointmentModal';
 
 // Fetch current patient clinical records
 import { useGetPatientClinicalRecords } from '@/hooks/clinicalRecords/get/useGetPatientClinicalRecords';
