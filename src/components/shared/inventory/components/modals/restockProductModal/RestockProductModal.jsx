@@ -6,7 +6,13 @@ import { getGradient } from './utils/helpers';
 import { restockProduct } from './services/restockProduct';
 import { useModalClose } from '@/hooks/useModalClose';
 
-export default function RestockProductModal({ activeTab, onClose, filteredItems, onRestock }) {
+export default function RestockProductModal({
+  activeTab,
+  onClose,
+  filteredItems,
+  onRestock,
+  successRefresh,
+}) {
   // Local states
   const [selectedProduct, setSelectedProduct] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -32,8 +38,6 @@ export default function RestockProductModal({ activeTab, onClose, filteredItems,
       });
 
       if (response.success) {
-        alert('Producto reabastecido con éxito.');
-
         if (response.inventory) {
           onRestock?.(response.inventory);
         }
@@ -41,6 +45,7 @@ export default function RestockProductModal({ activeTab, onClose, filteredItems,
         setSelectedProduct('');
         setQuantity('');
         setReason('');
+        successRefresh();
         onClose();
       } else {
         alert(`Error: ${response.error}`);

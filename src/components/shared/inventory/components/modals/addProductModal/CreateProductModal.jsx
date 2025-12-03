@@ -9,7 +9,7 @@ import { getGradient, getIcon } from './utils/helpers';
 import { useEffect } from 'react';
 import { useModalClose } from '@/hooks/useModalClose';
 
-export default function CreateProductModal({ activeTab, onClose }) {
+export default function CreateProductModal({ activeTab, onClose, successRefresh }) {
   const { handleOverlayClick } = useModalClose(onClose);
 
   // Create Product Backend Handler
@@ -26,8 +26,8 @@ export default function CreateProductModal({ activeTab, onClose }) {
 
     const response = await createProduct(payload);
     if (response.success) {
-      console.log('Producto agregado:', response.data);
       onClose();
+      successRefresh();
     } else {
       console.error(response.error);
     }

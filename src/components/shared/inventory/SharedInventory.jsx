@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { Loader2 } from 'lucide-react';
+
 import TabsBar from './components/TabsBar';
 import SearchAddBar from './components/SearchAddBar';
 import StatsBar from './components/StatsBar';
@@ -18,6 +20,7 @@ import RecetasGrid from './components/PrescriptionsTable';
 // Custom Hooks
 import { useGetFullInventory } from '@/hooks/inventory/useGetFullInventory';
 import { toggleProductStatus } from './components/modals/toggleProductModal/services/toggleProductStatus';
+import { fetchProductHistory } from './components/modals/transactionHistoryModal/services/fetchProductHistory';
 
 // Feedback Components
 import RestockProductModal from './components/modals/restockProductModal/RestockProductModal';
@@ -26,12 +29,11 @@ import EditProductModal from './components/modals/editProductModal/EditProductMo
 import DeleteProductModal from './components/modals/deleteProductModal/DeleteProductModal';
 import ToggleProductModal from './components/modals/toggleProductModal/ToggleProductModal';
 import TransactionHistoryModal from './components/modals/transactionHistoryModal/TransactionHistoryModal';
-import { fetchProductHistory } from './components/modals/transactionHistoryModal/services/fetchProductHistory';
-import { Loader2 } from 'lucide-react';
+import SuccessModal from '../feedback/SuccessModal';
 
 export default function SharedInventory({ role, showButton = true }) {
   // Fetch Full Inventory Items
-  const { inventory, loading, setInventory, error } = useGetFullInventory();
+  const { inventory, loading, setInventory, error, refetch } = useGetFullInventory();
 
   // States
   const [activeTab, setActiveTab] = useState('medicamentos');
@@ -47,6 +49,15 @@ export default function SharedInventory({ role, showButton = true }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedProductHistory, setSelectedProductHistory] = useState(null);
   const [historyData, setHistoryData] = useState([]);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const successRefresh = () => {
+    refetch();
+    setShowSuccessModal(true);
+    setTimeout(() => {
+      setShowSuccessModal(false);
+    }, 1500);
+  };
 
   // Create Product Modal Handler
   const openAddModal = () => {
@@ -105,6 +116,7 @@ export default function SharedInventory({ role, showButton = true }) {
             : i
         )
       );
+      successRefresh();
     } catch (err) {
       console.error('Error toggling item:', err);
     } finally {
@@ -153,6 +165,14 @@ export default function SharedInventory({ role, showButton = true }) {
 
   return (
     <div className="h-full space-y-6 overflow-x-hidden overflow-y-auto">
+      {/* Success Modal */}
+      <SuccessModal
+        title="Inventario actualizado con éxito"
+        message="La información fue guardada correctamente."
+        showSuccessModal={showSuccessModal}
+        setShowSuccessModal={setShowSuccessModal}
+      />
+
       {/* Header */}
       <SharedSectionHeader
         role={role}
@@ -217,6 +237,7 @@ export default function SharedInventory({ role, showButton = true }) {
         <CreateProductModal
           activeTab={activeTab}
           onClose={() => setShowModal(false)}
+          successRefresh={successRefresh}
           onSubmit={(payload) => {
             setInventory((prev) => [...prev, payload]);
             setShowModal(false);
@@ -227,6 +248,7 @@ export default function SharedInventory({ role, showButton = true }) {
       {/* Edit Product Modal */}
       {showModal && editingItem && (
         <EditProductModal
+          successRefresh={successRefresh}
           activeTab={activeTab}
           item={editingItem}
           onClose={() => {
@@ -254,6 +276,7 @@ export default function SharedInventory({ role, showButton = true }) {
       {showRestockModal && (
         <RestockProductModal
           activeTab={activeTab}
+          successRefresh={successRefresh}
           onClose={() => setShowRestockModal(false)}
           filteredItems={filteredItems}
           onRestock={(updatedItem) => {

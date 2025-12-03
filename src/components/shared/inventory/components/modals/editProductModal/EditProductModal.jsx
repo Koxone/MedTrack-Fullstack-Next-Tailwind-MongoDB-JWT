@@ -14,7 +14,7 @@ import { editProductStock } from './services/editStock';
 import { editProductQuantity } from './services/editQuantity';
 import { editProduct } from './services/editProduct';
 
-export default function EditProductModal({ activeTab, item, onClose, onSubmit }) {
+export default function EditProductModal({ activeTab, item, onClose, onSubmit, successRefresh }) {
   const { handleOverlayClick } = useModalClose(onClose);
 
   async function handleEditSubmit(formData) {
@@ -82,8 +82,8 @@ export default function EditProductModal({ activeTab, item, onClose, onSubmit })
       }
 
       if (response.success) {
-        alert('Producto actualizado correctamente.');
         onSubmit?.(response.inventory || item);
+        successRefresh();
         onClose();
       } else {
         alert(`Error: ${response.error}`);

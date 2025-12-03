@@ -3,7 +3,6 @@ import useAuthStore from '@/zustand/useAuthStore';
 import { useState, useEffect, useMemo } from 'react';
 import { AuthUser } from '@/zustand/useAuthStore';
 
-/* --- Types --- */
 interface Product {
   _id: string;
   name: string;
@@ -28,74 +27,71 @@ interface InventoryItem {
   updatedAt: string;
 }
 
-/* --- Hook: useInventory --- */
-/* Fetches and manages inventory data from /api/inventory */
 export function useGetFullInventory() {
-  // Local states
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const { user } = useAuthStore();
 
-  // Fetch data
+  async function fetchInventory() {
+    try {
+      setLoading(true);
+      const res = await fetch('/api/inventory', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!res.ok) {
+        throw new Error('Error fetching inventory data');
+      }
+
+      const data: InventoryItem[] = await res.json();
+
+      const filtered =
+        user?.role === 'employee' || !user?.specialty
+          ? data
+          : data.filter(
+              (item) => item?.product?.specialty && item?.product?.specialty === user?.specialty
+            );
+
+      setInventory(filtered);
+    } catch (err: any) {
+      console.error('Inventory fetch error:', err);
+      setError(err.message || 'Error desconocido');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     if (!user) return;
-
-    async function fetchInventory() {
-      try {
-        setLoading(true);
-        const res = await fetch('/api/inventory', {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        });
-
-        if (!res.ok) {
-          throw new Error('Error fetching inventory data');
-        }
-
-        const data: InventoryItem[] = await res.json();
-
-        // Filter inventory based on user role and specialty
-        const filteredInventory =
-          user?.role === 'employee' || !user?.specialty
-            ? data
-            : data.filter(
-                (item) => item?.product?.specialty && item?.product?.specialty === user?.specialty
-              );
-
-        setInventory(filteredInventory);
-      } catch (err: any) {
-        console.error('Inventory fetch error:', err);
-        setError(err.message || 'Error desconocido');
-      } finally {
-        setLoading(false);
-        console.log('Fetch inventory request completed');
-      }
-    }
-
     fetchInventory();
   }, [user]);
 
-  // --- Inventory Alerts logic ---
   const criticalItems = useMemo(
     () => inventory.filter((i) => i.quantity < i.minStock),
     [inventory]
   );
+
   const lowItems = useMemo(() => inventory.filter((i) => i.quantity === i.minStock), [inventory]);
+
   const totalAlerts = useMemo(
     () => criticalItems.length + lowItems.length,
     [criticalItems, lowItems]
   );
 
-  // Return state and handlers
   return {
     inventory,
     loading,
     error,
     setInventory,
+
     criticalItems,
     lowItems,
     totalAlerts,
+
+    // Manual refetch
+    refetch: fetchInventory,
   };
 }
