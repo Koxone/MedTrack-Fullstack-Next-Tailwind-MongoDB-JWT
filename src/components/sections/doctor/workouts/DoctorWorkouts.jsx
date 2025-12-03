@@ -180,7 +180,11 @@ export default function DoctorWorkouts({ role }) {
 
       {/* Create modal */}
       {showCreateWorkoutModal && (
-        <ModalCreateWorkout setShowCreateModal={setShowCreateWorkoutModal} />
+        <ModalCreateWorkout
+          setShowCreateModal={setShowCreateWorkoutModal}
+          fetchWorkouts={fetchWorkouts}
+          setShowSuccessModal={setShowSuccessModal}
+        />
       )}
     </div>
   );

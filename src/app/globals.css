@@ -4,6 +4,17 @@ button {
   cursor: pointer;
 }
 
+/* Remove arrows */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 @theme {
   --color-asana-green: #8b9c94;
 
