@@ -100,7 +100,6 @@ export default function ClinicalRecordModal({
     if (workoutSelected) {
       try {
         await editWorkout(workoutSelected, [patientId]);
-        console.log('Koxone:', workoutSelected, patientId);
       } catch (err) {
         console.error('Error assigning workout:', err);
         return;
