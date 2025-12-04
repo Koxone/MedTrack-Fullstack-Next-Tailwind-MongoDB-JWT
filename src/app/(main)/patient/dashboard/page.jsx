@@ -13,7 +13,7 @@ export default async function DoctorDashboardPage() {
     redirect('/patient/clinical-record');
   }
   return (
-       <div className="h-screen overflow-hidden pb-40">
+    <div className="h-screen overflow-hidden">
       <PatientDashboard currentUser={currentUser} />
     </div>
   );

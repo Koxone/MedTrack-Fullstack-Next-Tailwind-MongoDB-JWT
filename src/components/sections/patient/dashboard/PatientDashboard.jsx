@@ -6,6 +6,7 @@ import PatientEvolutionChart from './components/PatientEvolutionChart';
 import PatientMotivationalBanner from './components/PatientMotivationalBanner';
 import PatientStatsGrid from './components/PatientStatsGrid';
 import { useGetAllClinicalRecords } from '@/hooks/clinicalRecords/get/useGetAllClinicalRecords';
+import GlobalWeightLogs from '@/components/shared/dashboard/weight-logs/GlobalWeightLogs';
 
 export default function PatientDashboard({ currentUser }) {
   // Fetch clinical records for the patient
@@ -30,7 +31,11 @@ export default function PatientDashboard({ currentUser }) {
           unit="kg"
           stroke="#3b82f6"
         />
-        <PatientMotivationalBanner />
+
+        <div className="grid grid-cols-2 gap-4">
+          <GlobalWeightLogs />
+          <PatientMotivationalBanner />
+        </div>
       </div>
     </DashboardLayout>
   );
