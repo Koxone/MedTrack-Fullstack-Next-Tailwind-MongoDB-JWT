@@ -3,7 +3,7 @@ import React from 'react';
 
 function LoadingState() {
   return (
-    <div className="flex min-h-[400px] items-center justify-center">
+    <div className="flex h-screen items-center justify-center">
       <div className="text-center">
         <Loader2 className="mx-auto mb-4 h-16 w-16 animate-spin text-blue-600" />
         <p className="text-lg font-medium text-gray-600">Cargando información...</p>

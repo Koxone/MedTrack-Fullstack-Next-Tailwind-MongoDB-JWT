@@ -10,7 +10,7 @@ export default async function DoctorDashboardPage() {
   const specialty = currentUser?.specialty;
 
   return (
-    <div className="h-screen overflow-hidden pb-40">
+    <div className="h-screen overflow-hidden">
       <DoctorDashboard currentUser={currentUser} role={role} specialty={specialty} />
     </div>
   );
