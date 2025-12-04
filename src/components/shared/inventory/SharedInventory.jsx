@@ -30,6 +30,7 @@ import DeleteProductModal from './components/modals/deleteProductModal/DeletePro
 import ToggleProductModal from './components/modals/toggleProductModal/ToggleProductModal';
 import TransactionHistoryModal from './components/modals/transactionHistoryModal/TransactionHistoryModal';
 import SuccessModal from '../feedback/SuccessModal';
+import LoadingState from '../feedback/LoadingState';
 
 export default function SharedInventory({ role, showButton = true }) {
   // Fetch Full Inventory Items
@@ -149,22 +150,11 @@ export default function SharedInventory({ role, showButton = true }) {
 
   // Loading State
   if (loading) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        {error ? (
-          <p className="text-lg font-medium text-red-600">Error al cargar los datos del paciente</p>
-        ) : (
-          <div className="text-center">
-            <Loader2 className="mx-auto mb-4 h-16 w-16 animate-spin text-blue-600" />
-            <p className="text-lg font-medium text-gray-600">Cargando información...</p>
-          </div>
-        )}
-      </div>
-    );
+    return <LoadingState />;
   }
 
   return (
-    <div className="h-full space-y-6 overflow-x-hidden overflow-y-auto">
+    <div className="h-full space-y-6 overflow-x-hidden overflow-y-auto pb-40">
       {/* Success Modal */}
       <SuccessModal
         title="Inventario actualizado con éxito"
