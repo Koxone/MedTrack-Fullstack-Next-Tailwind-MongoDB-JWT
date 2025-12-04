@@ -11,6 +11,7 @@ import GlobalWeightLogs from '@/components/shared/dashboard/weight-logs/GlobalWe
 export default function PatientDashboard({ currentUser }) {
   // Fetch clinical records for the patient
   const { data } = useGetAllClinicalRecords({ patient: currentUser?.id });
+
   return (
     <DashboardLayout>
       {/* Header */}

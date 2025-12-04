@@ -9,66 +9,70 @@ import {
   Tooltip,
   Line,
 } from 'recharts';
-import useGetAnswer from '@/hooks/useGetAnswer';
 import { Loader2 } from 'lucide-react';
+import { useGetAllWeightLogs } from '@/hooks/clinicalRecords/get/useGetAllWeightLogs';
+import LoadingState from '@/components/shared/feedback/LoadingState';
 
-/* chart */
-export default function PatientEvolutionChart({
-  title,
-  legendLabel,
-  legendColor,
-  data,
-  loading,
-  keyAnswer,
-  unit,
-  stroke,
-}) {
-  if (loading) {
+export default function PatientEvolutionChart({ title, legendLabel, legendColor, unit, stroke }) {
+  // Weight Logs Hook
+  const {
+    weightLogs,
+    loading: weightLogsLoading,
+    error: weightLogsError,
+    refetch: refetchWeightLogs,
+  } = useGetAllWeightLogs();
+
+  // Loading state
+  if (weightLogsLoading) {
+    return <LoadingState />;
+  }
+
+  // No logs case
+  if (!weightLogs || weightLogs.length === 0) {
     return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        {isError ? (
-          <p className="text-lg font-medium text-red-600">Error al cargar los datos del paciente</p>
-        ) : (
-          <div className="text-center">
-            <Loader2 className="mx-auto mb-4 h-16 w-16 animate-spin text-blue-600" />
-            <p className="text-lg font-medium text-gray-600">Cargando información...</p>
-          </div>
-        )}
+      <div className="bg-beehealth-body-main h-[400px] rounded-xl border border-gray-200 p-4 shadow-sm md:p-6">
+        <p className="text-gray-500">No hay datos de peso para mostrar.</p>
       </div>
     );
   }
 
-  const sortedData = [...data].sort(
+  // Ordenar por fecha
+  const sorted = [...weightLogs].sort(
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   );
 
-  const chartData = sortedData.map((record) => {
-    const getAnswer = useGetAnswer(record);
+  const chartData = sorted.map((log, index) => {
+    const value = index === 0 ? log.originalWeight : log.currentWeight;
+
     return {
-      mes: new Date(record.createdAt).toLocaleDateString('es-MX', {
+      mes: new Date(log.createdAt).toLocaleDateString('es-MX', {
         month: 'short',
         day: 'numeric',
       }),
-      valor: Number(getAnswer(keyAnswer)),
+      valor: Number(value),
     };
   });
 
   return (
     <div className="bg-beehealth-body-main h-[400px] rounded-xl border border-gray-200 p-4 shadow-sm md:p-6">
+      {/* Header */}
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-900 md:text-xl">{title}</h2>
+
         <div className="flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1">
           <div className="h-3 w-3 rounded-full" style={{ backgroundColor: legendColor }} />
           <span className="text-sm font-medium text-gray-700">{legendLabel}</span>
         </div>
       </div>
 
+      {/* Chart */}
       <div className="h-[300px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
             <XAxis dataKey="mes" stroke="#6b7280" style={{ fontSize: '12px' }} />
             <YAxis stroke="#6b7280" style={{ fontSize: '12px' }} domain={['auto', 'auto']} />
+
             <Tooltip
               contentStyle={{
                 backgroundColor: 'white',
@@ -78,6 +82,7 @@ export default function PatientEvolutionChart({
               }}
               formatter={(value) => [`${value} ${unit}`, legendLabel]}
             />
+
             <Line
               type="monotone"
               dataKey="valor"

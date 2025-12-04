@@ -11,6 +11,52 @@ import Diet from '@/models/Diet';
 // Custom Hooks
 import { getAuthUser } from '@/lib/auth/getAuthUser';
 
+// @route    GET /api/clinicalRecords
+// @desc     Get all Clinical Records with optional filters
+// @access   Private
+export async function GET(req) {
+  try {
+    await connectDB();
+
+    // Build filters from query string
+    const { searchParams } = new URL(req.url);
+
+    const filters = {};
+    const patient = searchParams.get('patient');
+    const doctor = searchParams.get('doctor');
+    const specialty = searchParams.get('specialty');
+    const version = searchParams.get('version');
+
+    if (patient) filters.patient = patient;
+    if (doctor) filters.doctor = doctor;
+    if (specialty) filters.specialty = specialty;
+    if (version) filters.version = version;
+
+    // Query clinical records
+    const records = await ClinicalRecord.find(filters)
+      .sort({ createdAt: -1 })
+      .populate('patient', 'fullName email phone avatar')
+      .populate({
+        path: 'answers.question',
+        model: 'Question',
+        select: 'questionId text specialty version type options isMetric',
+      })
+      .lean();
+
+    return NextResponse.json({ success: true, data: records }, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching clinical records:', error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: error.message,
+      },
+      { status: 500 }
+    );
+  }
+}
+
 // @route    POST /api/clinicalRecords
 // @desc     Create a new Clinical Record
 // @access   Private

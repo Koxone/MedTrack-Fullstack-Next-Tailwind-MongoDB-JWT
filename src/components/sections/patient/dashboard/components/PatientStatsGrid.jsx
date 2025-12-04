@@ -1,12 +1,21 @@
 'use client';
 
-import { Activity, Weight, TrendingDown, Ruler } from 'lucide-react';
+import { Activity, Weight, TrendingDown, Ruler, Clock } from 'lucide-react';
 import PatientStatsCard from './PatientStatsCard';
 import { useGetAllClinicalRecords } from '@/hooks/clinicalRecords/get/useGetAllClinicalRecords';
 import useGetAnswer from '@/hooks/useGetAnswer';
+import { useGetAllWeightLogs } from '@/hooks/clinicalRecords/get/useGetAllWeightLogs';
 
 export default function PatientStatsGrid({ role, currentUser }) {
   const { data } = useGetAllClinicalRecords({ patient: currentUser?.id });
+
+  // Weight Logs Hook
+  const {
+    weightLogs,
+    loading: weightLogsLoading,
+    error: weightLogsError,
+    refetch: refetchWeightLogs,
+  } = useGetAllWeightLogs();
 
   // Helpers
   const getAnswerLatest = useGetAnswer(data[0]);
@@ -29,7 +38,7 @@ export default function PatientStatsGrid({ role, currentUser }) {
       {[
         {
           Icon: Weight,
-          mainData: `${pesoActual} kg`,
+          mainData: `${weightLogs[0]?.currentWeight} kg`,
           extraData: `${pctPeso}%`,
           title: 'Peso Actual',
           variant: 'primary',
@@ -43,15 +52,15 @@ export default function PatientStatsGrid({ role, currentUser }) {
         },
         {
           Icon: TrendingDown,
-          mainData: `${diffPeso} kg`,
+          mainData: `${weightLogs[0]?.currentWeight - weightLogs[0]?.originalWeight} kg`,
           extraData: `${pctPeso}%`,
           title: 'Progreso',
           variant: 'purple',
         },
         {
-          Icon: Activity,
-          mainData: `${getAnswerLatest(127)}`,
-          title: 'IMC Actual',
+          Icon: Clock,
+          mainData: `06 dias`,
+          title: 'Tiempo para tu siguiente consulta',
           variant: 'success',
         },
       ].map((card, index) => (
