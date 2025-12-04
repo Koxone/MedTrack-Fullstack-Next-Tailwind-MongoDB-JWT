@@ -32,7 +32,7 @@ export default function Stats({ historyData = [], type = 'weight' }) {
     );
 
   return (
-    <div className="grid grid-cols-1 gap-4 px-2 md:grid-cols-4">
+    <>
       {/* Initial */}
       <div className="bg-beehealth-body-main rounded-2xl border-2 border-gray-200 p-4 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-lg">
         <div className="mb-2 flex items-center justify-between">
@@ -88,6 +88,6 @@ export default function Stats({ historyData = [], type = 'weight' }) {
           <p className="text-2xl font-bold text-gray-600">{stats.porcentaje}%</p>
         </div>
       </div>
-    </div>
+    </>
   );
 }

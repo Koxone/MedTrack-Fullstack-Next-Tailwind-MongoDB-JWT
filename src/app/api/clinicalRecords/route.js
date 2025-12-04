@@ -3,10 +3,59 @@ import { connectDB } from '@/lib/mongodb';
 import { Question } from '@/models/records/Question';
 import { Answer } from '@/models/records/Answer';
 import { ClinicalRecord } from '@/models/records/ClinicalRecord';
-import { getAuthUser } from '@/lib/auth/getAuthUser';
+import { WeightLog } from '@/models/records/WeightLog';
 import User from '@/models/User';
 import Workout from '@/models/Workout';
 import Diet from '@/models/Diet';
+
+// Custom Hooks
+import { getAuthUser } from '@/lib/auth/getAuthUser';
+
+// @route    GET /api/clinicalRecords
+// @desc     Get all Clinical Records with optional filters
+// @access   Private
+export async function GET(req) {
+  try {
+    await connectDB();
+
+    // Build filters from query string
+    const { searchParams } = new URL(req.url);
+
+    const filters = {};
+    const patient = searchParams.get('patient');
+    const doctor = searchParams.get('doctor');
+    const specialty = searchParams.get('specialty');
+    const version = searchParams.get('version');
+
+    if (patient) filters.patient = patient;
+    if (doctor) filters.doctor = doctor;
+    if (specialty) filters.specialty = specialty;
+    if (version) filters.version = version;
+
+    // Query clinical records
+    const records = await ClinicalRecord.find(filters)
+      .sort({ createdAt: -1 })
+      .populate('patient', 'fullName email phone avatar')
+      .populate({
+        path: 'answers.question',
+        model: 'Question',
+        select: 'questionId text specialty version type options isMetric',
+      })
+      .lean();
+
+    return NextResponse.json({ success: true, data: records }, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching clinical records:', error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: error.message,
+      },
+      { status: 500 }
+    );
+  }
+}
 
 // @route    POST /api/clinicalRecords
 // @desc     Create a new Clinical Record
@@ -87,7 +136,7 @@ export async function POST(req) {
     // Update hasRecord to true for the patient
     await User.findByIdAndUpdate(finalPatientId, { hasRecord: true });
 
-    // Assign Workout if workoutId exists
+    /* ================= Workout Section ================= */
     if (workoutId && patientId) {
       const workout = await Workout.findById(workoutId);
 
@@ -113,6 +162,133 @@ export async function POST(req) {
         await workout.save();
       }
     }
+
+    /* ================= WeightLog Section ================= */
+    //#region
+    const logs = await WeightLog.find({ patient: finalPatientId }).sort({ createdAt: 1 });
+
+    // Identify FULL or SHORT Weight answer
+    const isFullWeight = answers.some((a) => a.questionId === '692a02539ba6da2362d98aad');
+    const isShortWeight = answers.some((a) => a.questionId === '692a02539ba6da2362d98aac');
+
+    // Identify FULL or SHORT Size answer
+    const isFullSize = answers.some((a) => a.questionId === '692a02539ba6da2362d98aaf');
+    const isShortSize = answers.some((a) => a.questionId === '692a02539ba6da2362d98aae');
+
+    // Current weight from this consultation
+    const currentWeight =
+      answers.find(
+        (a) =>
+          a.questionId === '692a02539ba6da2362d98aad' || a.questionId === '692a02539ba6da2362d98aac'
+      )?.value || null;
+
+    // Current size from this consultation
+    const currentSize =
+      answers.find(
+        (a) =>
+          a.questionId === '692a02539ba6da2362d98aaf' || a.questionId === '692a02539ba6da2362d98aae'
+      )?.value || null;
+
+    // First time weight log
+    if (logs.length === 0) {
+      let originalWeight = currentWeight;
+      let originalSize = currentSize;
+
+      // If this record is SHORT, get original weight from FIRST clinicalRecord
+      if (isShortWeight) {
+        const firstRecord = await ClinicalRecord.findOne({ patient: finalPatientId }).sort({
+          createdAt: 1,
+        });
+
+        if (firstRecord) {
+          const firstWeightAnswer = firstRecord.answers.find(
+            (ans) =>
+              ans.question.toString() === '692a02539ba6da2362d98aad' || // FULL ID
+              ans.question.toString() === '692a02539ba6da2362d98aac' // SHORT ID
+          );
+
+          if (firstWeightAnswer) {
+            originalWeight = firstWeightAnswer.value;
+          }
+        }
+      }
+
+      // If this record is SHORT, get original size from FIRST clinicalRecord
+      if (isShortSize) {
+        const firstRecord = await ClinicalRecord.findOne({ patient: finalPatientId }).sort({
+          createdAt: 1,
+        });
+
+        if (firstRecord) {
+          const firstSizeAnswer = firstRecord.answers.find(
+            (ans) =>
+              ans.question.toString() === '692a02539ba6da2362d98aaf' || // FULL Size ID
+              ans.question.toString() === '692a02539ba6da2362d98aae' // SHORT Size ID
+          );
+
+          if (firstSizeAnswer) {
+            originalSize = firstSizeAnswer.value;
+          }
+        }
+      }
+
+      const newWeightLog = new WeightLog({
+        patient: finalPatientId,
+        clinicalRecord: newRecord._id,
+        originalWeight: originalWeight,
+        currentWeight: currentWeight,
+        differenceFromPrevious: 0,
+        differenceFromOriginal: 0,
+
+        originalSize: originalSize,
+        currentSize: currentSize,
+        differenceSizeFromPrevious: 0,
+        differenceSizeFromOriginal: 0,
+      });
+
+      await newWeightLog.save();
+
+      return NextResponse.json({
+        ok: true,
+        clinicalRecord: newRecord,
+      });
+    } else {
+      const firstLog = logs[0];
+      const previousLog = logs[logs.length - 1];
+
+      const currentWeight =
+        answers.find((a) => a.questionId === '692a02539ba6da2362d98aac')?.value || null;
+
+      const currentSize =
+        answers.find(
+          (a) =>
+            a.questionId === '692a02539ba6da2362d98aaf' ||
+            a.questionId === '692a02539ba6da2362d98aae'
+        )?.value || null;
+
+      const differenceSizeFromPrevious = currentSize - previousLog.currentSize;
+      const differenceSizeFromOriginal = currentSize - firstLog.originalSize;
+
+      const differenceFromPrevious = currentWeight - previousLog.currentWeight;
+      const differenceFromOriginal = currentWeight - firstLog.originalWeight;
+
+      const newWeightLog = new WeightLog({
+        patient: finalPatientId,
+        clinicalRecord: newRecord._id,
+        originalWeight: firstLog.originalWeight,
+        currentWeight: currentWeight,
+        differenceFromPrevious: differenceFromPrevious,
+        differenceFromOriginal: differenceFromOriginal,
+
+        originalSize: firstLog.originalSize,
+        currentSize: currentSize,
+        differenceSizeFromPrevious: differenceSizeFromPrevious,
+        differenceSizeFromOriginal: differenceSizeFromOriginal,
+      });
+
+      await newWeightLog.save();
+    }
+    //#endregion
 
     return NextResponse.json({
       ok: true,

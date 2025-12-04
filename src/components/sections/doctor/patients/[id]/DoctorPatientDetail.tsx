@@ -15,14 +15,12 @@ import DoctorProducts from './components/products/DoctorProducts';
 // Feedback Components
 import ClinicalRecordModal from './components/modals/historyModal/ClinicalRecordModal';
 import DeleteRecordModal from './components/modals/delete-record-modal/DeleteRecordModal';
-import DoctorCreateAppointmentModal from './components/modals/createAppointmentModal/DoctorCreateAppointmentModal';
 import LoadingState from '@/components/shared/feedback/LoadingState';
 import SuccessModal from '@/components/shared/feedback/SuccessModal';
+import DoctorCreateAppointmentModal from './components/modals/createAppointmentModal/DoctorCreateAppointmentModal';
 
-// Fetch current patient clinical records
+// Custom Hooks
 import { useGetPatientClinicalRecords } from '@/hooks/clinicalRecords/get/useGetPatientClinicalRecords';
-
-// Delete clinical record custom hook
 import { useDeleteClinicalRecord } from '@/hooks/clinicalRecords/delete/useDeleteClinicalRecord';
 
 export default function DoctorPatientDetail({ patient, specialty }) {

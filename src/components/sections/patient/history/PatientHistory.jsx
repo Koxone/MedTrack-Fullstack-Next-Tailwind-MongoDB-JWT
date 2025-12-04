@@ -66,7 +66,7 @@ export default function PatientHistory({ role, currentUser }) {
 
   /* Render */
   return (
-    <div className="h-full overflow-y-auto pb-8">
+    <div className="w-full h-full overflow-y-auto space-y-6 pb-40">
       <SharedSectionHeader
         role={role}
         title="Historial Clínico"
@@ -74,14 +74,21 @@ export default function PatientHistory({ role, currentUser }) {
         Icon="history"
       />
 
-      <div className="mx-auto flex max-w-7xl flex-col justify-center space-y-4">
-        <div className="flex w-full max-w-[calc(100vw-4rem)] flex-row justify-center overflow-x-auto">
+      <div className="space-y-6">
+        {/* Stats Grid - Responsive */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+          <div className="col-span-1 md:col-span-2 lg:col-span-2 xl:col-span-4">
+            <h3 className="mb-3 text-lg font-semibold text-gray-800">Resumen de Peso</h3>
+          </div>
           <Stats type="weight" historyData={mappedHistory} />
-        </div>
-        <div className="flex w-full max-w-[calc(100vw-4rem)] flex-row justify-center overflow-x-auto">
+          
+          <div className="col-span-1 mt-4 md:col-span-2 lg:col-span-2 xl:col-span-4">
+             <h3 className="mb-3 text-lg font-semibold text-gray-800">Resumen de Talla</h3>
+          </div>
           <Stats type="size" historyData={mappedHistory} />
         </div>
 
+        {/* Table Container */}
         <div className="bg-beehealth-body-main overflow-hidden rounded-2xl border-2 border-gray-200 shadow-lg transition-all duration-300 hover:shadow-xl">
           <RecordsTable historyData={mappedHistory} />
           <RecordsMobileList historyData={mappedHistory} />

@@ -33,7 +33,7 @@ export default function PatientWorkouts({ role, currentUser }) {
   });
 
   return (
-    <div className="h-full space-y-4 overflow-y-auto md:space-y-6">
+    <div className="h-full w-full px-4 space-y-4 overflow-y-auto md:space-y-6">
       <SharedSectionHeader
         role={role}
         Icon="workouts"

@@ -99,7 +99,7 @@ export default async function MainRootLayout({ children }) {
           <Header type={type} />
           <main className="grid grid-cols-1 md:grid-cols-[auto_1fr]">
             <Sidebar currentUser={currentUser} role={role} specialty={specialty} />
-            <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-center overflow-y-auto pb-10 md:block md:p-6">
+            <div className="mx-auto flex min-h-screen w-full max-w-7xl p-6 flex-col items-center justify-center overflow-y-auto pb-10 md:block ">
               {children}
             </div>
           </main>
