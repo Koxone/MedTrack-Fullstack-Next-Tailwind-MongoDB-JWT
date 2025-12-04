@@ -4,37 +4,39 @@ import { useRouter } from 'next/navigation';
 import { Heart, Activity, Calendar, Apple, TrendingDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import HomeHeader from './components/HomeHeader';
+import { useGetAllWeightLogs } from '@/hooks/clinicalRecords/get/useGetAllWeightLogs';
 
 export default function Home() {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
-  const [totalWeightLoss, setTotalWeightLoss] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // Fetch total weight loss from API
-  useEffect(() => {
-    const fetchWeightLoss = async () => {
-      try {
-        const res = await fetch('/api/stats/total-weight-loss', {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        });
+  const {
+    weightLogs,
+    loading: weightLogsLoading,
+    error: weightLogsError,
+    refetch: refetchWeightLogs,
+  } = useGetAllWeightLogs();
 
-        const data = await res.json();
-        if (res.ok) {
-          setTotalWeightLoss(data.totalWeightLoss || 0);
-        }
-      } catch (error) {
-        console.error('Error fetching weight loss:', error);
-      } finally {
-        setLoading(false);
+  /* Compute total loss */
+  const totalLoss = Object.values(
+    weightLogs.reduce((acc, log) => {
+      const id = log.patient._id;
+      if (!acc[id] || new Date(log.createdAt) > new Date(acc[id].createdAt)) {
+        acc[id] = log;
       }
-    };
+      return acc;
+    }, {})
+  ).reduce((sum, log) => sum + (log.differenceFromOriginal || 0), 0);
 
-    fetchWeightLoss();
-  }, []);
+  /* Manage loading */
+  useEffect(() => {
+    if (!weightLogsLoading) {
+      setLoading(false);
+    }
+  }, [weightLogsLoading]);
 
-  // Animated counter component
+  /* Animated counter */
   const AnimatedCounter = ({ value, duration = 2000 }) => {
     const [displayValue, setDisplayValue] = useState(0);
 
@@ -63,7 +65,6 @@ export default function Home() {
 
   return (
     <div className="bg-beehealth-body-main">
-      {/* Header */}
       <HomeHeader setShowMenu={setShowMenu} showMenu={showMenu} />
 
       {/* Hero Section */}
@@ -96,7 +97,6 @@ export default function Home() {
           {/* Weight Loss Counter Card */}
           <div className="animate-in fade-in slide-in-from-right-4 rounded-2xl bg-linear-to-br from-blue-100 to-green-100 p-8 shadow-xl duration-700 md:p-12">
             <div className="bg-beehealth-body-main rounded-xl p-6 shadow-lg md:p-8">
-              {/* Icon with animation */}
               <div className="mb-4 flex justify-center">
                 <div className="relative">
                   <div className="absolute inset-0 animate-pulse rounded-full bg-green-200 blur-lg"></div>
@@ -106,12 +106,11 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Main Counter */}
               <div className="mb-4">
                 <div className="text-center">
                   <div className="inline-block">
                     <span className="text-5xl font-bold text-green-600 md:text-6xl">
-                      {loading ? '...' : <AnimatedCounter value={totalWeightLoss} />}
+                      {loading ? '...' : <AnimatedCounter value={totalLoss} />}
                     </span>
                     <span className="ml-2 text-2xl font-semibold text-gray-700 md:text-3xl">
                       kg
@@ -120,17 +119,14 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Subtitle */}
               <h3 className="text-center text-lg font-semibold text-gray-900 md:text-xl">
                 Kilos perdidos por nuestros pacientes
               </h3>
 
-              {/* Subtitle description */}
               <p className="mt-3 text-center text-sm text-gray-600 md:text-base">
                 Únete a nuestra comunidad y comienza tu transformación hoy
               </p>
 
-              {/* Success indicator */}
               <div className="mt-6 flex items-center justify-center gap-2">
                 <div className="h-2 w-2 animate-pulse rounded-full bg-green-500"></div>
                 <span className="text-xs font-medium text-green-700 md:text-sm">
@@ -149,7 +145,6 @@ export default function Home() {
         </h2>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
-          {/* Weight Control */}
           <div className="bg-beehealth-body-main rounded-xl p-6 shadow-sm transition hover:shadow-md">
             <div className="mb-4 flex items-center justify-center rounded-full bg-blue-100 p-3">
               <Activity className="h-8 w-8 text-blue-600" />
@@ -160,7 +155,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Clinical History */}
           <div className="bg-beehealth-body-main rounded-xl p-6 shadow-sm transition hover:shadow-md">
             <div className="mb-4 flex items-center justify-center rounded-full bg-red-100 p-3">
               <Heart className="h-8 w-8 text-red-600" />
@@ -171,7 +165,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Medical Appointments */}
           <div className="bg-beehealth-body-main rounded-xl p-6 shadow-sm transition hover:shadow-md">
             <div className="mb-4 flex items-center justify-center rounded-full bg-green-100 p-3">
               <Calendar className="h-8 w-8 text-green-600" />
@@ -182,7 +175,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Diet Plans */}
           <div className="bg-beehealth-body-main rounded-xl p-6 shadow-sm transition hover:shadow-md">
             <div className="mb-4 flex items-center justify-center rounded-full bg-yellow-100 p-3">
               <Apple className="h-8 w-8 text-yellow-600" />
