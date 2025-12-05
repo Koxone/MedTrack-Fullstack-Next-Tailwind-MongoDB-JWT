@@ -66,4 +66,4 @@ export function useGetPatientWeightLogs(id?: string) {
 //   loading: weightLogsLoading,
 //   error: weightLogsError,
 //   refetch: refetchWeightLogs,
-// } = useGetAllWeightLogs();
+// } = useGetPatientWeightLogs(patient._id);

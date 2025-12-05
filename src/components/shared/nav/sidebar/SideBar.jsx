@@ -8,6 +8,7 @@ import {
   dentalSidebarItems,
 } from './components/SideBarData';
 import { usePathname, useRouter } from 'next/navigation';
+import NextAppointmentCard from '@/components/sections/patient/feedback/NextAppointmentCard';
 
 export default function Sidebar({ role, currentUser, specialty }) {
   // Custom Hooks
@@ -30,7 +31,7 @@ export default function Sidebar({ role, currentUser, specialty }) {
     <>
       {/* Desktop sidebar */}
       <aside className="hidden min-h-screen w-72 flex-col border-r-2 border-gray-200 shadow-xl md:flex">
-        <nav className="flex-1 space-y-1 p-4">
+        <nav className="flex h-full flex-col space-y-1 overflow-y-auto p-4">
           {/* Buttons */}
           {sidebarOptions.map((item, index) => {
             const Icon = item.icon;
@@ -84,6 +85,11 @@ export default function Sidebar({ role, currentUser, specialty }) {
               </button>
             );
           })}
+
+          {/* Next Appointment */}
+          <div className="mt-10 pt-4">
+            <NextAppointmentCard appointment={currentUser?.nextAppointment} />
+          </div>
         </nav>
       </aside>
 

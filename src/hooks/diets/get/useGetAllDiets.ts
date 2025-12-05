@@ -28,3 +28,6 @@ export function useGetAllDiets() {
     refetch,
   };
 }
+
+// Usage Example:
+// const { dietsData, isLoading: dietsLoading, error: dietsError, refetch: refetchDiets } = useGetAllDiets();

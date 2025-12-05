@@ -22,3 +22,6 @@ export function useGetAllWorkouts() {
     refetch,
   };
 }
+
+// Usage Example:
+// const { workoutData, isLoading: workoutsLoading, error: workoutsError, refetch: refetchWorkouts } = useGetAllWorkouts();

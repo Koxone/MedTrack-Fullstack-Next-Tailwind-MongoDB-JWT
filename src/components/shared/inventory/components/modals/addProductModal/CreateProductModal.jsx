@@ -4,6 +4,8 @@ import { X } from 'lucide-react';
 import MedicationForm from '../shared/MedicationForm';
 import PrescriptionForm from '../shared/PrescriptionForm';
 import SupplyForm from '../shared/SupplyForm';
+
+// Custom Hooks and Services
 import { createProduct } from './services/createProduct';
 import { getGradient, getIcon } from './utils/helpers';
 import { useEffect } from 'react';

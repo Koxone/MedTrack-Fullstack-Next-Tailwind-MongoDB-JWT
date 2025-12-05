@@ -19,6 +19,7 @@ import DeleteRecordModal from './components/modals/delete-record-modal/DeleteRec
 import LoadingState from '@/components/shared/feedback/LoadingState';
 import SuccessModal from '@/components/shared/feedback/SuccessModal';
 import DoctorCreateAppointmentModal from './components/modals/createAppointmentModal/DoctorCreateAppointmentModal';
+import CreateGoalModal from './components/modals/create-goal-modal/CreateGoalModal';
 
 // Custom Hooks
 import { useGetPatientClinicalRecords } from '@/hooks/clinicalRecords/get/useGetPatientClinicalRecords';
@@ -54,6 +55,9 @@ export default function DoctorPatientDetail({ patient, specialty }) {
 
   // Create Appointment Modal
   const [showCreateAppointmentModal, setShowCreateAppointmentModal] = useState<boolean>(false);
+
+  // Create Goal Modal
+  const [showCreateGoalModal, setShowCreateGoalModal] = useState<boolean>(false);
 
   // Dental Tabs Nav
   const [activeTab, setActiveTab] = useState<TabName>('Historial');
@@ -102,6 +106,7 @@ export default function DoctorPatientDetail({ patient, specialty }) {
             setSelectedRecord(record);
             setShowDeleteModal(true);
           }}
+          setShowCreateGoalModal={setShowCreateGoalModal}
         />
       )}
 
@@ -135,6 +140,7 @@ export default function DoctorPatientDetail({ patient, specialty }) {
             setSelectedRecord(record);
             setShowDeleteModal(true);
           }}
+          setShowCreateGoalModal={setShowCreateGoalModal}
         />
       )}
 
@@ -183,6 +189,11 @@ export default function DoctorPatientDetail({ patient, specialty }) {
           setShowSuccessModal={setShowSuccessModal}
           showSuccessModal={showSuccessModal}
         />
+      )}
+
+      {/* Create Goal Modal */}
+      {showCreateGoalModal && (
+        <CreateGoalModal patient={patient} onClose={() => setShowCreateGoalModal(false)} />
       )}
     </div>
   );

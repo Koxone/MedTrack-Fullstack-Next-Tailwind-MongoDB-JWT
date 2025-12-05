@@ -1,6 +1,7 @@
 import { Plus, ClipboardList } from 'lucide-react';
 import AddHistoryButton from './components/AddHistoryButton';
 import HistoryCard from './components/history-card/HistoryCard';
+import GoalButton from './components/GoalButton';
 
 /* Clinical history */
 export default function ClinicalHistory({
@@ -11,6 +12,7 @@ export default function ClinicalHistory({
   specialty,
   showDeleteModal,
   setShowDeleteModal,
+  setShowCreateGoalModal,
 }) {
   return (
     <div className="bg-beehealth-body-main rounded-2xl border border-(--med-gray-border) p-4 shadow-sm sm:p-6">
@@ -30,8 +32,13 @@ export default function ClinicalHistory({
           </div>
         </div>
 
-        {/* Add History Button */}
-        <AddHistoryButton onAdd={onAdd} />
+        <div className="flex items-center gap-4">
+          {/* Add History Button */}
+          <AddHistoryButton onAdd={onAdd} />
+
+          {/* Patient Goals Button */}
+          <GoalButton onClick={() => setShowCreateGoalModal(true)} />
+        </div>
       </div>
 
       {/* Records */}
