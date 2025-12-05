@@ -1,7 +1,17 @@
-// Create event (service account, fixed)
 import { google } from 'googleapis';
 import { getGoogleOAuthClient } from '@/lib/google/googleClient';
+import { connectDB } from '@/lib/mongodb';
+import { NextResponse } from 'next/server';
+import Inventory from '@/models/Inventory';
+import Product from '@/models/Product';
+import Transaction from '@/models/Transaction';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import Appointment from '@/models/Appointment';
 
+// @route    POST /api/google/calendar/create
+// @desc     Create a calendar event
+// @access   Private
 export async function POST(req) {
   try {
     /* Parse body */
@@ -47,6 +57,22 @@ Especialidad: ${specialty || ''}
     const response = await calendar.events.insert({
       calendarId,
       resource: event,
+    });
+
+    await connectDB();
+
+    /* Create appointment document */
+    await Appointment.create({
+      patient: patientId,
+      name: patientName,
+      specialty,
+      date,
+      time,
+      reason,
+      phone,
+      email,
+      googleEventId: response.data.id,
+      googleCalendarId: calendarId,
     });
 
     /* Ok */

@@ -159,7 +159,7 @@ export default function NewAppointment() {
   };
 
   return (
-    <div className="h-full overflow-x-hidden overflow-y-auto pb-8">
+    <div className="h-full overflow-x-hidden overflow-y-auto pb-40">
       <HeaderBar onBack={() => router.back()} />
       <div className="mx-auto max-w-4xl">
         <ProgressSteps
