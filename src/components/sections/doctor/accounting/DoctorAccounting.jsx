@@ -2,16 +2,20 @@
 
 import { useState } from 'react';
 
+import { Loader2 } from 'lucide-react';
 import MetricsGrid from './components/MetricsGrid';
 import WeeklyIncomeChart from './components/WeeklyIncomeChart';
 import DistributionCard from './components/DistributionCard';
-import MedsSoldTable from '../../../shared/medsSold/MedsSoldTable';
+import MedsSoldTable from '@/components/shared/medsSold/MedsSoldTable';
 import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
 import TodayConsultsList from '@/components/shared/todayConsults/TodayConsultsList';
+
+// Feedback Components
+import LoadingState from '@/components/shared/feedback/LoadingState';
+
+// Custom Hooks
 import { useGetAllConsults } from '@/hooks/consults/useGetAllConsults';
 import { getConsultTotals } from '../../employee/consultations/utils/getConsultTotals';
-import { Loader2 } from 'lucide-react';
-import LoadingState from '@/components/shared/feedback/LoadingState';
 
 export default function DoctorAccounting({ role, specialty }) {
   // Get consults data

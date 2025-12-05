@@ -4,7 +4,7 @@ import DashboardLayout from '@/components/shared/layouts/DashboardLayout';
 import HeaderWelcome from '@/components/shared/dashboard/header/HeaderWelcome';
 import PatientEvolutionChart from './components/PatientEvolutionChart';
 import PatientMotivationalBanner from './components/PatientMotivationalBanner';
-import PatientStatsGrid from './components/PatientStatsGrid';
+import PatientStatsGrid from './components/stats-grid/PatientStatsGrid';
 import { useGetAllClinicalRecords } from '@/hooks/clinicalRecords/get/useGetAllClinicalRecords';
 import GlobalWeightLogs from '@/components/shared/dashboard/weight-logs/GlobalWeightLogs';
 

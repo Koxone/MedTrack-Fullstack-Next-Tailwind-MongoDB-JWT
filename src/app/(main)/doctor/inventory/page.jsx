@@ -7,6 +7,7 @@ export default async function DoctorInventoryPage() {
   // Get current User info
   const currentUser = await getCurrentUser();
   const role = currentUser?.role;
+  
   return (
     <div className="h-screen overflow-hidden">
       <SharedInventory role={role} showButton={false} />

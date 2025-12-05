@@ -1,15 +1,15 @@
 'use client';
 
-/* State */
 import { useState } from 'react';
-
-/* UI */
 import Stats from '../history/components/Stats';
 import RecordsTable from '../history/components/RecordsTable';
 import RecordsMobileList from '../history/components/RecordsMobileList';
 import EmptyState from '../history/components/EmptyState';
 import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
+
+// Custom Hooks
 import { useGetPatientClinicalRecords } from '@/hooks/clinicalRecords/get/useGetPatientClinicalRecords';
+import { useGetPatientWeightLogs } from '@/hooks/clinicalRecords/get/useGetPatientWeightLogs';
 
 /* Mock data */
 const mockHistoryRaw = [
@@ -40,6 +40,14 @@ export default function PatientHistory({ role, currentUser }) {
   // Fetch clinical records for the current patient
   const { data, isLoading, error, refetch } = useGetPatientClinicalRecords(currentUser?.id);
 
+  // Patient Weight Logs Hook
+  const {
+    weightLogs: patientWeightLogs,
+    loading: patientWeightLogsLoading,
+    error: patientWeightLogsError,
+    refetch: refetchPatientWeightLogs,
+  } = useGetPatientWeightLogs(currentUser?.id);
+
   /* Local state */
   const [peso, setPeso] = useState('');
   const [notas, setNotas] = useState('');
@@ -66,7 +74,7 @@ export default function PatientHistory({ role, currentUser }) {
 
   /* Render */
   return (
-    <div className="w-full h-full overflow-y-auto space-y-6 pb-40">
+    <div className="h-full w-full space-y-6 overflow-y-auto pb-40">
       <SharedSectionHeader
         role={role}
         title="Historial Clínico"
@@ -76,22 +84,22 @@ export default function PatientHistory({ role, currentUser }) {
 
       <div className="space-y-6">
         {/* Stats Grid - Responsive */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-1">
           <div className="col-span-1 md:col-span-2 lg:col-span-2 xl:col-span-4">
-            <h3 className="mb-3 text-lg font-semibold text-gray-800">Resumen de Peso</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Resumen de Peso</h3>
           </div>
-          <Stats type="weight" historyData={mappedHistory} />
-          
+          <Stats type="weight" historyData={mappedHistory} patientWeightLogs={patientWeightLogs} />
+
           <div className="col-span-1 mt-4 md:col-span-2 lg:col-span-2 xl:col-span-4">
-             <h3 className="mb-3 text-lg font-semibold text-gray-800">Resumen de Talla</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Resumen de Talla</h3>
           </div>
-          <Stats type="size" historyData={mappedHistory} />
+          <Stats type="size" historyData={mappedHistory} patientWeightLogs={patientWeightLogs} />
         </div>
 
         {/* Table Container */}
         <div className="bg-beehealth-body-main overflow-hidden rounded-2xl border-2 border-gray-200 shadow-lg transition-all duration-300 hover:shadow-xl">
-          <RecordsTable historyData={mappedHistory} />
-          <RecordsMobileList historyData={mappedHistory} />
+          <RecordsTable historyData={mappedHistory} patientWeightLogs={patientWeightLogs} />
+          {/* <RecordsMobileList historyData={mappedHistory} /> */}
         </div>
       </div>
     </div>
