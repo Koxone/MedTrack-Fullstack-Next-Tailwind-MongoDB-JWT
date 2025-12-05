@@ -1,7 +1,7 @@
 'use client';
 
 import { Weight, TrendingDown, Ruler, Clock } from 'lucide-react';
-import PatientStatsCard from './PatientStatsCard';
+import PatientStatsCard from '../PatientStatsCard';
 
 // Custom Hooks
 import { useGetAllWeightLogs } from '@/hooks/clinicalRecords/get/useGetAllWeightLogs';
@@ -67,11 +67,11 @@ export default function PatientStatsGrid({ role, currentUser }) {
         },
         {
           Icon: Clock,
-          mainData: `${lastVisitCount} dias`,
+          mainData: `${lastVisitCount || 0} ${lastVisitCount === 1 ? 'día' : 'días'}`,
           title: 'Tiempo desde tu ultima consulta',
           variant: 'danger',
           count: true,
-          href: "/patient/new-appointment",
+          href: '/patient/new-appointment',
         },
       ].map((card, index) => (
         <PatientStatsCard
