@@ -7,11 +7,12 @@ import WorkoutCard from './components/WorkoutCard';
 import { useGetAllWorkouts } from '@/hooks/workouts/get/useGetAllWorkouts';
 import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
 import SharedModalOpenWorkout from '../../../shared/workouts/SharedModalOpenWorkout';
+import EmptyState from '@/components/shared/feedback/EmptyState';
 
 export default function PatientWorkouts({ role, currentUser }) {
   // Get Workouts from API
   const { workoutData, isLoading, error, refetch: fetchWorkouts } = useGetAllWorkouts();
-  
+
   // Local States
   const [filterCategorie, setFilterCategorie] = useState('Todos');
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,7 +34,7 @@ export default function PatientWorkouts({ role, currentUser }) {
   });
 
   return (
-    <div className="h-full w-full px-4 space-y-4 overflow-y-auto md:space-y-6">
+    <div className="h-full w-full space-y-4 overflow-y-auto px-4 md:space-y-6">
       <SharedSectionHeader
         role={role}
         Icon="workouts"
@@ -75,17 +76,29 @@ export default function PatientWorkouts({ role, currentUser }) {
       </div>
 
       {/* Workout Card */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {filteredWorkouts.map((workout) => (
-          <WorkoutCard
-            key={workout._id}
-            workout={workout}
-            onOpen={() => {
-              setSelectedWorkout(workout);
-              setCurrentImageIndex(0);
-            }}
+      <div
+        className={`grid grid-cols-1 gap-4 md:grid-cols-2 ${filteredWorkouts.length === 0 ? 'lg:grid-cols-1' : 'lg:grid-cols-3'}`}
+      >
+        {filteredWorkouts.length > 0 ? (
+          filteredWorkouts.map((workout) => (
+            <WorkoutCard
+              key={workout._id}
+              workout={workout}
+              onOpen={() => {
+                setSelectedWorkout(workout);
+                setCurrentImageIndex(0);
+              }}
+            />
+          ))
+        ) : (
+          <EmptyState
+            title="No tienes ejercicios asignados"
+            subtitle="Tu médico añadirá tus planes cuando estén listos"
+            button="Contactar Médico"
+            href="/patient/new-appointment"
+            showButton={false}
           />
-        ))}
+        )}
       </div>
 
       {/* Workout Modal */}

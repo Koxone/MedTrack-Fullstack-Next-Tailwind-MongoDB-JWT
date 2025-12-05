@@ -4,6 +4,7 @@ import { useGetAllDiets } from '@/hooks/diets/get/useGetAllDiets';
 import { Loader2 } from 'lucide-react';
 import PatientDietCard from '@/components/sections/patient/diets/components/PatientDietCard';
 import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
+import EmptyState from '@/components/shared/feedback/EmptyState';
 
 export default function PatientDiets({ role, currentUser }) {
   // Fetch diets
@@ -40,17 +41,20 @@ export default function PatientDiets({ role, currentUser }) {
       />
 
       {/* Content block */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div
+        className={`grid gap-6 md:grid-cols-2 ${filteredDiets.length === 0 ? 'lg:grid-cols-1' : 'lg:grid-cols-3'}`}
+      >
         {filteredDiets && filteredDiets.length > 0 ? (
           filteredDiets.map((diet) => <PatientDietCard diet={diet} key={diet._id} />)
         ) : (
           // Empty state block
-          <div className="col-span-full flex flex-col items-center justify-center py-10 text-center">
-            <p className="text-lg font-semibold text-gray-700">
-              Todavía no tienes dietas asignadas
-            </p>
-            <p className="text-gray-500">Tu médico añadirá tus planes cuando estén listos</p>
-          </div>
+          <EmptyState
+            title="No tienes dietas asignadas"
+            subtitle="Tu médico añadirá tus planes cuando estén listos"
+            button="Contactar Médico"
+            href="/patient/new-appointment"
+            showButton={false}
+          />
         )}
       </div>
     </div>
