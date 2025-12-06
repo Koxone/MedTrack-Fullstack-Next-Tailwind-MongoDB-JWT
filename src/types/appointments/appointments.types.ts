@@ -1,5 +1,6 @@
 import { CurrentUserData } from '../user/user.types';
 
+// Parsed Description
 export interface ParsedDescription {
   paciente?: string;
   motivo?: string;
@@ -11,6 +12,7 @@ export interface ParsedDescription {
   patientId?: string;
 }
 
+// Calendar Event
 export interface CalendarEvent {
   id: string;
   description?: string;
@@ -22,6 +24,7 @@ export interface CalendarEvent {
   attendees?: { email?: string }[];
 }
 
+// Normalized Appointment
 export interface NormalizedAppointment {
   id: string;
   specialty: CurrentUserData['specialty'];
@@ -64,6 +67,7 @@ export interface UseCreateAppointmentResult {
   reset: () => void;
 }
 
+// Appointment Item from API
 export interface AppointmentItem {
   _id: string;
   patient: {
