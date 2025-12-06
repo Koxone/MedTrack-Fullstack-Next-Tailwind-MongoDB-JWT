@@ -1,8 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
-import { Loader2 } from 'lucide-react';
 import MetricsGrid from './components/MetricsGrid';
 import WeeklyIncomeChart from './components/WeeklyIncomeChart';
 import DistributionCard from './components/DistributionCard';
@@ -19,7 +16,7 @@ import { getConsultTotals } from '../../employee/consultations/utils/getConsultT
 
 export default function DoctorAccounting({ role, specialty }) {
   // Get consults data
-  const { consults, isLoading, isError } = useGetAllConsults({ speciality: specialty });
+  const { consults, isLoading, error } = useGetAllConsults({ speciality: specialty });
 
   // Calculate totals
   const totals = getConsultTotals(consults);

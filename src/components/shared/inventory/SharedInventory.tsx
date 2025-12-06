@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Loader2 } from 'lucide-react';
 
 import TabsBar from './components/TabsBar';
 import SearchAddBar from './components/SearchAddBar';
@@ -10,7 +9,7 @@ import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader
 import SharedInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/SharedInventoryAlerts';
 
 // Helpers
-import { getStockStatus, getCaducidadStatus } from './utils/helpers';
+import { getStockStatus } from './utils/helpers';
 
 // Tables
 import MedsTable from './components/MedsTable';
@@ -34,7 +33,13 @@ import LoadingState from '../feedback/LoadingState';
 
 export default function SharedInventory({ role, showButton = true }) {
   // Fetch Full Inventory Items
-  const { inventory, loading, setInventory, error, refetch } = useGetFullInventory();
+  const {
+    inventory,
+    isLoading: isLoadingGetFullInventory,
+    setInventory,
+    error,
+    refetch,
+  } = useGetFullInventory();
 
   // States
   const [activeTab, setActiveTab] = useState('medicamentos');
@@ -149,7 +154,7 @@ export default function SharedInventory({ role, showButton = true }) {
   }, [filteredInventory, searchTerm]);
 
   // Loading State
-  if (loading) {
+  if (isLoadingGetFullInventory) {
     return <LoadingState />;
   }
 
@@ -191,7 +196,6 @@ export default function SharedInventory({ role, showButton = true }) {
           <MedsTable
             rows={filteredItems}
             getStockStatus={getStockStatus}
-            getCaducidadStatus={getCaducidadStatus}
             onEdit={openEditModal}
             onDelete={requestToggle}
             onHistory={openHistoryModal}
@@ -228,10 +232,6 @@ export default function SharedInventory({ role, showButton = true }) {
           activeTab={activeTab}
           onClose={() => setShowModal(false)}
           successRefresh={successRefresh}
-          onSubmit={(payload) => {
-            setInventory((prev) => [...prev, payload]);
-            setShowModal(false);
-          }}
         />
       )}
 

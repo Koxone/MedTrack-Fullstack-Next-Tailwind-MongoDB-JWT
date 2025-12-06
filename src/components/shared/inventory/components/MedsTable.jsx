@@ -26,7 +26,7 @@ export default function MedsTable({ rows, getStockStatus, onEdit, onDelete, onHi
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-beehealth-body-main/50 border-b border-gray-200">
+              <tr className="bg-beehealth-green-primary-light border-b border-gray-200">
                 <th className="px-4 py-4 text-left text-xs font-semibold tracking-wider text-gray-600 uppercase">
                   Medicamento
                 </th>
