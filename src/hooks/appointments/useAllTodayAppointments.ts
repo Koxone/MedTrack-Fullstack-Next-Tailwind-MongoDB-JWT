@@ -1,43 +1,14 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { CurrentUserData } from '../../types/user/user.types';
 
-interface ParsedDescription {
-  paciente?: string;
-  motivo?: string;
-  telefono?: string;
-  email?: string;
-  fecha?: string;
-  hora?: string;
-  especialidad?: string;
-  patientId?: string;
-}
-
-interface CalendarEvent {
-  id: string;
-  description?: string;
-  summary?: string;
-  start?: {
-    dateTime?: string;
-    date?: string;
-  };
-  attendees?: { email?: string }[];
-}
-
-interface NormalizedAppointment {
-  id: string;
-  specialty: CurrentUserData['specialty'];
-  tipo: string;
-  hora: string;
-  paciente: string;
-  telefono: string;
-  email: string;
-  motivo: string;
-  startISO: string | null;
-  _dateKey: string;
-  patientId: string;
-}
+// Types
+import {
+  ParsedDescription,
+  CalendarEvent,
+  NormalizedAppointment,
+} from '@/types/appointments/appointments.types';
+import { CurrentUserData } from '@/types/user/user.types';
 
 // Helpers
 function parseDescription(desc?: string): ParsedDescription {

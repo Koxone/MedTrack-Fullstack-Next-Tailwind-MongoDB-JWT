@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import useAuthStore from '@/zustand/useAuthStore';
+
+// Types
 import { CurrentUserData } from '@/types/user/user.types';
 import {
   ParsedDescription,
