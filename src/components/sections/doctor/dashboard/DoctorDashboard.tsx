@@ -12,7 +12,7 @@ import LoadingState from '@/components/shared/feedback/LoadingState';
 // Custom Hooks
 import { useTodayAppointmentsBySpecialty } from '@/hooks/appointments/useTodayAppointmentsBySpecialty';
 import { useGetFullInventory } from '@/hooks/inventory/useGetFullInventory';
-import { getConsultTotals } from '../../employee/consultations/utils/getConsultTotals';
+import { getConsultTotals } from '@/components/sections/employee/consultations/utils/getConsultTotals';
 import { useGetAllConsults } from '@/hooks/consults/useGetAllConsults';
 
 // Types
