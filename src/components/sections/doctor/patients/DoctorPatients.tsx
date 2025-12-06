@@ -1,9 +1,9 @@
 import SharedSectionHeader from '@/components/shared/headers/SharedSectionHeader';
 import DoctorPatientsList from './components/DoctorPatientsList';
-import { UserData } from '@/lib/auth/getCurrentUser';
+import { CurrentUserData } from '@/types/user/user.types';
 
 interface DoctorPatientsProps {
-  currentUser: UserData | null;
+  currentUser: CurrentUserData | null;
   role?: 'doctor' | 'patient' | 'employee' | 'admin';
 }
 

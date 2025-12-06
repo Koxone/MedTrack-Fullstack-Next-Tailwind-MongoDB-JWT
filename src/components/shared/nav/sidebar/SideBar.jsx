@@ -86,10 +86,11 @@ export default function Sidebar({ role, currentUser, specialty }) {
             );
           })}
 
-          {/* Next Appointment */}
-          <div className="mt-10 pt-4">
-            <NextAppointmentCard appointment={currentUser?.nextAppointment} />
-          </div>
+          {role === 'patient' && (
+            <div className="mt-10 pt-4">
+              <NextAppointmentCard appointment={currentUser?.nextAppointment} />
+            </div>
+          )}
         </nav>
       </aside>
 

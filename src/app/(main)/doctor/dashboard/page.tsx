@@ -6,12 +6,10 @@ export const runtime = 'nodejs';
 export default async function DoctorDashboardPage() {
   // Get current User info
   const currentUser = await getCurrentUser();
-  const role = currentUser?.role;
-  const specialty = currentUser?.specialty;
 
   return (
     <div className="h-screen overflow-hidden">
-      <DoctorDashboard currentUser={currentUser} role={role} specialty={specialty} />
+      <DoctorDashboard currentUser={currentUser} />
     </div>
   );
 }

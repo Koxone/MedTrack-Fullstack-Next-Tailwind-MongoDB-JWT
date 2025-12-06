@@ -1,6 +1,4 @@
-// Calcula totales de varias propiedades numéricas
 export function getConsultTotals(consults = []) {
-  /* Sum Fields */
   const totals = consults.reduce(
     (acc, c) => {
       acc.consultPrice += Number(c.consultPrice) || 0;

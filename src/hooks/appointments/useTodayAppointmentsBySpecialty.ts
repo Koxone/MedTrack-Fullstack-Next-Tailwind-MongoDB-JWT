@@ -2,43 +2,14 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import useAuthStore from '@/zustand/useAuthStore';
-import { AuthUser } from '@/zustand/useAuthStore';
 
-interface ParsedDescription {
-  paciente?: string;
-  motivo?: string;
-  telefono?: string;
-  email?: string;
-  fecha?: string;
-  hora?: string;
-  especialidad?: string;
-  patientId?: string;
-}
-
-interface CalendarEvent {
-  id: string;
-  description?: string;
-  summary?: string;
-  start?: {
-    dateTime?: string;
-    date?: string;
-  };
-  attendees?: { email?: string }[];
-}
-
-interface NormalizedAppointment {
-  id: string;
-  specialty: AuthUser['specialty'];
-  tipo: string;
-  hora: string;
-  paciente: string;
-  telefono: string;
-  email: string;
-  motivo: string;
-  startISO: string | null;
-  _dateKey: string;
-  patientId: string;
-}
+// Types
+import { CurrentUserData } from '@/types/user/user.types';
+import {
+  ParsedDescription,
+  CalendarEvent,
+  NormalizedAppointment,
+} from '@/types/appointments/appointments.types';
 
 /* --- Helpers --- */
 function parseDescription(desc: string): ParsedDescription {
@@ -86,7 +57,7 @@ function dateKey(dateISO?: string | null): string {
 /* --- Normalizador --- */
 function normalizeEvents(
   items: CalendarEvent[],
-  specialty: AuthUser['specialty']
+  specialty: CurrentUserData['specialty']
 ): NormalizedAppointment[] {
   return (items || []).map((ev: CalendarEvent) => {
     const fields = parseDescription(ev.description || '');
@@ -117,14 +88,14 @@ function normalizeEvents(
 /* --- Hook principal --- */
 export function useTodayAppointmentsBySpecialty(): {
   appointments: NormalizedAppointment[];
-  loading: boolean;
+  isLoading: boolean;
   error: string | null;
   refetch: () => Promise<void>;
 } {
   const { user } = useAuthStore();
 
   const [appointments, setAppointments] = useState<NormalizedAppointment[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchTodayAppointments = useCallback(async () => {
@@ -161,8 +132,8 @@ export function useTodayAppointmentsBySpecialty(): {
     fetchTodayAppointments();
   }, [fetchTodayAppointments]);
 
-  return { appointments, loading, error, refetch: fetchTodayAppointments };
+  return { appointments, isLoading, error, refetch: fetchTodayAppointments };
 }
 
 // // Google Calendar Custom Hooks
-// const { appointments, loading, error } = useTodayAppointmentsBySpecialty();
+// const { appointments, isLoading, error } = useTodayAppointmentsBySpecialty();

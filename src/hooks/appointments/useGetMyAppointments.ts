@@ -2,25 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppointmentItem {
-  _id: string;
-  patient: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-  };
-  specialty: string;
-  date: string;
-  time: string;
-  reason: string;
-  phone: string;
-  email: string;
-  googleEventId: string;
-  googleCalendarId: string;
-  createdAt: string;
-  updatedAt: string;
-}
+// Types
+import { AppointmentItem } from '@/types/appointments/appointments.types';
 
 export function useGetMyAppointments(id?: string) {
   // Fetch function

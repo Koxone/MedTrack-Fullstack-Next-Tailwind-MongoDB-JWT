@@ -2,7 +2,7 @@
 
 import DashboardLayout from '@/components/shared/layouts/DashboardLayout';
 import HeaderWelcome from '@/components/shared/dashboard/header/HeaderWelcome';
-import AppointmentsToday from '@/components/shared/dashboard/appointmentsToday/AppointmentsToday';
+import AppointmentsToday from '@/components/shared/appointments/AppointmentsToday';
 import SharedInventoryAlerts from '@/components/shared/dashboard/InventoryAlerts/SharedInventoryAlerts';
 import { useAllTodayAppointments } from '@/hooks/appointments/useAllTodayAppointments';
 import { useGetFullInventory } from '@/hooks/inventory/useGetFullInventory';

@@ -2,33 +2,12 @@
 
 import { useCallback, useState } from 'react';
 
-// Params
-interface CreateAppointmentParams {
-  patientId?: string;
-  patientName: string;
-  date: string;
-  time: string;
-  phone?: string;
-  email?: string;
-  reason: string;
-  specialty: string;
-}
-
-// Response
-interface AppointmentResponse {
-  success: boolean;
-  data?: any;
-  message?: string;
-}
-
-// Hook return
-interface UseCreateAppointmentResult {
-  createAppointment: (params: CreateAppointmentParams) => Promise<AppointmentResponse>;
-  loading: boolean;
-  error: string | null;
-  data: any | null;
-  reset: () => void;
-}
+// Types
+import {
+  AppointmentResponse,
+  UseCreateAppointmentResult,
+  CreateAppointmentParams,
+} from '@/types/appointments/appointments.types';
 
 export function useCreateAppointment(): UseCreateAppointmentResult {
   const [loading, setLoading] = useState<boolean>(false);
